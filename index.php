@@ -8,16 +8,24 @@ require __DIR__ . '/vendor/autoload.php';
 
 $app = AppFactory::create();
 
-$app->redirect("/{any}", "/");
-$app->get('/', function (Request $request, Response $response, $args) {
-    $response->getBody()->write("Hello world!");
-    return $response;
-});
-
 $app->get('/api/1/test', function (Request $request, Response $response, $args) {
     $service = new GetWeaponService();
 
     $response->getBody()->write($service->getWeapon());
+    return $response;
+});
+
+$app->get('/{routes:.+}', function ($request, $response, $args) {
+    $index_page = __DIR__ . '/public/index.html';
+    $response->getBody()->write(file_get_contents($index_page));
+
+    return $response;
+});
+
+$app->get('/', function (Request $request, Response $response, $args) {
+    $index_page = __DIR__ . '/public/index.html';
+    $response->getBody()->write(file_get_contents($index_page));
+
     return $response;
 });
 

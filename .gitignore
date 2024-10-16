@@ -1,2 +1,8 @@
 /vendor/
 
+/public/fonts/
+/public/images/
+/public/bundle.js
+/public/bundle.js.LICENSE.txt
+/public/favicon.ico
+/favicon.ico
