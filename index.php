@@ -10,9 +10,11 @@ $app = AppFactory::create();
 
 $app->get('/api/1/test', function (Request $request, Response $response, $args) {
     $service = new GetWeaponService();
-
     $response->getBody()->write($service->getWeapon());
-    return $response;
+
+    $new_response = $response->withHeader("Content-type", "application/json");
+
+    return $new_response;
 });
 
 $app->get('/{routes:.+}', function ($request, $response, $args) {
