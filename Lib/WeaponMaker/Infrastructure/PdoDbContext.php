@@ -32,8 +32,9 @@ abstract class PdoDbContext
     protected function fetchAll(string $table): array
     {
         $stmt = $this->pdo->query("SELECT * FROM $table");
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return array_map([$this, 'convertArrays'], $results);
     }
 
     protected function fetchById(string $table, int $id): ?array
@@ -48,7 +49,7 @@ abstract class PdoDbContext
             return null;
         }
 
-        return $result;
+        return $this->convertArrays($result);
     }
 
     protected function save($table, array $data): bool | string
@@ -84,5 +85,25 @@ abstract class PdoDbContext
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
         return $stmt->execute();
+    }
+
+    private function parsePostgresArray(string $postgresArray): array
+    {
+        $trimmed = trim($postgresArray, '{}');
+        if (empty($trimmed)) {
+            return [];
+        }
+
+        return explode(',', $trimmed);
+    }
+
+    private function convertArrays($data)
+    {
+        foreach ($data as $key => $value) {
+            if (is_string($value) && preg_match('/^{.*}$/', $value)) {
+                $data[$key] = $this->parsePostgresArray($value);
+            }
+        }
+        return $data;
     }
 }

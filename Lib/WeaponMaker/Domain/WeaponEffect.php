@@ -1,5 +1,8 @@
 <?php
-class WeaponEffect implements JsonSerializable
+
+namespace Lib\WeaponMaker\Domain;
+
+class WeaponEffect implements \JsonSerializable
 {
     private int $id;
     private string $name;
@@ -16,6 +19,17 @@ class WeaponEffect implements JsonSerializable
         $this->description = $description;
         $this->rarities = $rarities;
         $this->tags = $tags;
+    }
+
+    public static function fromArray(array $weapon_effect): self
+    {
+        return new self(
+            $weapon_effect["id"],
+            $weapon_effect["name"],
+            $weapon_effect["description"],
+            $weapon_effect["rarities"],
+            $weapon_effect["tags"],
+        );
     }
 
     public function jsonSerialize(): array
