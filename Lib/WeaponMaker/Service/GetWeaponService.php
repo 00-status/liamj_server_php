@@ -1,28 +1,15 @@
 <?php
 
 namespace Lib\WeaponMaker\Service;
+use Lib\WeaponMaker\Infrastructure\WeaponEffectDbContext;
 use PDO;
 
 class GetWeaponService
 {
-    public function getWeapon(): string
+    public function getWeapons(): array
     {
-        $dsn = file_get_contents( __DIR__ . "/../../../secrets/db_connection_string.txt");
+        $db = new WeaponEffectDbContext();
 
-        try {
-            // Create a new PDO instance
-            $pdo = new PDO($dsn);
-
-            // Set error mode to exception
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            $query = $pdo->query("select * from weapon_effects;");
-
-            $query->execute();
-
-            return json_encode($query->fetchAll());
-        } catch (\PDOException $e) {
-            return 'Connection failed: ' . $e->getMessage();
-        }
+        return $db->fetchWeaponEffects();;
     }
 }
