@@ -22,18 +22,19 @@ $app->get('/api/1/weapon_effects', function (Request $request, Response $respons
 });
 
 $app->get('/api/1/generate_weapon', function (Request $request, Response $response, $args) {
-    
+    $params = $request->getQueryParams();
+    $rarity = $params['rarity'];
+
     // TODO: Consider a DI to handle dependencies for us.
     $db = new WeaponEffectDbContext();
     $gemini_client = new GoogleGeminiApiClient();
     $service = new GenerateWeaponService($db, $gemini_client);
 
-    $result = $service->generateWeapon("Very Rare");
+    $result = $service->generateWeapon($rarity);
 
     $response->getBody()->write(json_encode($result));
 
     $new_response = $response->withHeader("Content-type", "application/json");
-
     return $new_response;
 });
 
