@@ -1,4 +1,7 @@
 <?php
+
+namespace Lib\WeaponMaker\Service;
+
 use Lib\WeaponMaker\Domain\BaseWeapon;
 use Lib\WeaponMaker\Domain\ExtraDamage;
 use Lib\WeaponMaker\Domain\Weapon;
@@ -33,7 +36,7 @@ class GenerateWeaponService
         $refined_list = [];
 
         for ($i = 0; $i < 2; $i++) {
-            $random_index = rand(0, count($tag_list));
+            $random_index = rand(0, count($tag_list) - 1);
             $refined_list[] = $tag_list[$random_index];
         }
 
@@ -63,10 +66,10 @@ class GenerateWeaponService
 
     private function pickExtraDamage(string $rarity): ExtraDamage
     {
-        $filtered_extra_damages = array_filter(
+        $filtered_extra_damages = array_values(array_filter(
             $this->base_weapon_context->getExtraDamages(),
             fn($extra_damage) => in_array($rarity, $extra_damage->getRarityLevels())
-        );
+        ));
 
         $random_index = rand(0, count($filtered_extra_damages) - 1);
         return $filtered_extra_damages[$random_index];
@@ -75,10 +78,10 @@ class GenerateWeaponService
     private function pickWeaponEffect(string $rarity): WeaponEffect
     {
         $weapon_effects = $this->weapon_effect_db_context->fetchWeaponEffects();
-        $filtered_weapon_effects = array_filter(
+        $filtered_weapon_effects = array_values(array_filter(
             $weapon_effects,
             fn($weapon_effect) => in_array($rarity, $weapon_effect->getRarities())
-        );
+        ));
 
         $random_index = rand(0, count($filtered_weapon_effects) - 1);
         return $filtered_weapon_effects[$random_index];

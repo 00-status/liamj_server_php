@@ -87,14 +87,20 @@ abstract class PdoDbContext
         return $stmt->execute();
     }
 
-    private function parsePostgresArray(string $postgresArray): array
+    private function parsePostgresArray(string $postgres_array): array
     {
-        $trimmed = trim($postgresArray, '{}');
+        $trimmed = trim($postgres_array, '{}');
+
         if (empty($trimmed)) {
             return [];
         }
 
-        return explode(',', $trimmed);
+        // TODO: Use snake_case values in the DB instead of Normal Case values.
+        // The Normal Case values come with quotes that we have to trim out.
+        $words = explode(',', $trimmed);
+        return array_map(function ($word) {
+            return trim($word, '""');
+        }, $words);
     }
 
     private function convertArrays($data)

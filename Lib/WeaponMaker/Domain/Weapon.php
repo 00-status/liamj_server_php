@@ -2,7 +2,7 @@
 
 namespace Lib\WeaponMaker\Domain;
 
-class Weapon
+class Weapon implements \JsonSerializable
 {
     private int $id;
     private string $default_name;
@@ -37,6 +37,22 @@ class Weapon
         $this->weapon_effect = $weapon_effect;
         $this->effective_range = $effective_range;
         $this->ineffective_range = $ineffective_range;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'default_name' => $this->default_name,
+            'name' => $this->name,
+            'rarity' => $this->rarity,
+            'properties' => $this->properties,
+            'base_damage' => $this->base_damage,
+            'extra_damage' => $this->extra_damage,
+            'weapon_effect' => $this->weapon_effect,
+            'effective_range' => $this->effective_range,
+            'ineffective_range' => $this->ineffective_range,
+        ];
     }
 
     public function getId(): int

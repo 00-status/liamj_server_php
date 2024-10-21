@@ -1,4 +1,7 @@
 <?php
+use Lib\WeaponMaker\Infrastructure\GoogleGeminiApiClient;
+use Lib\WeaponMaker\Infrastructure\WeaponEffectDbContext;
+use Lib\WeaponMaker\Service\GenerateWeaponService;
 use Lib\WeaponMaker\Service\GetWeaponService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -19,7 +22,15 @@ $app->get('/api/1/weapon_effects', function (Request $request, Response $respons
 });
 
 $app->get('/api/1/generate_weapon', function (Request $request, Response $response, $args) {
-    $response->getBody()->write("Generate weapon");
+    
+    // TODO: Consider a DI to handle dependencies for us.
+    $db = new WeaponEffectDbContext();
+    $gemini_client = new GoogleGeminiApiClient();
+    $service = new GenerateWeaponService($db, $gemini_client);
+
+    $result = $service->generateWeapon("Very Rare");
+
+    $response->getBody()->write(json_encode($result));
 
     $new_response = $response->withHeader("Content-type", "application/json");
 

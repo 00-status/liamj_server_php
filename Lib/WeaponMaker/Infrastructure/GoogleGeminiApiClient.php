@@ -13,7 +13,7 @@ class GoogleGeminiApiClient
 
     public function __construct()
     {
-        $file_path = __DIR__ . "../../../secrets/gak.txt";
+        $file_path = __DIR__ . "/../../../secrets/GAK.txt";
 
         if (!file_exists($file_path)) {
             throw new RuntimeException("Cannot find GAK!");
@@ -46,7 +46,6 @@ class GoogleGeminiApiClient
             return $this->extractWeaponName($parsed_json_response);
 
         } catch (GuzzleException $e) {
-            // Handle Guzzle exception
             return null;
         }
     }
