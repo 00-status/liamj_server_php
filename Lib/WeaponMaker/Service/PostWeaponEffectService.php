@@ -6,10 +6,15 @@ use Lib\WeaponMaker\Infrastructure\WeaponEffectDbContext;
 
 class PostWeaponEffectService
 {
-    private WeaponEffectDbContext $db;
+    public function __construct(
+        private WeaponEffectDbContext $db,
+    ) {
+    }
 
-    public function saveWeaponEffect(): WeaponEffect
+    public function saveWeaponEffect(WeaponEffect $weapon_effect): bool
     {
-        // Call the insert DB method
+        $was_inserted = $this->db->insertWeaponEffect($weapon_effect);
+
+        return $was_inserted;
     }
 }

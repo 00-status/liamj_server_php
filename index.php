@@ -1,10 +1,11 @@
 <?php
-use Lib\WeaponMaker\Domain\Weapon;
+
 use Lib\WeaponMaker\Domain\WeaponEffect;
 use Lib\WeaponMaker\Infrastructure\GoogleGeminiApiClient;
 use Lib\WeaponMaker\Infrastructure\WeaponEffectDbContext;
 use Lib\WeaponMaker\Service\GenerateWeaponService;
 use Lib\WeaponMaker\Service\GetWeaponService;
+use Lib\WeaponMaker\Service\PostWeaponEffectService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
@@ -18,28 +19,29 @@ $app->get('/api/1/weapon_effects', function (Request $request, Response $respons
     $weapon_list = (new GetWeaponService())->getWeapons();
 
     $response->getBody()->write(json_encode($weapon_list));
-    $new_response = $response->withHeader("Content-type", "application/json");
 
-    return $new_response;
+    $response = $response->withHeader("Content-Type", "application/json");
+    return $response;
 });
 
-// $app->post('/api/1/weapon_effects', function (Request $request, Response $response, $args) {
-//     // Get Request Body
-//     // Instantiate Weapon object.
-//     // Pass Weapon Object to save service.
+$app->post('/api/1/weapon_effects', function (Request $request, Response $response, $args) {
+    $body_raw = $request->getBody()->getContents();
+    $weapon_effect_array = json_decode($body_raw, true);
+    $weapon_effect = WeaponEffect::fromArray($weapon_effect_array);
 
-//     $weapon_effect_raw = $request->getParsedBody();
-//     $weapon_effect = WeaponEffect::fromArray($weapon_effect_raw);
+    $db = new WeaponEffectDbContext();
+    $service = new PostWeaponEffectService($db);
 
-//     $response->getBody()->write(json_encode($weapon_list));
-//     $new_response = $response->withHeader("Content-type", "application/json");
+    $result = $service->saveWeaponEffect($weapon_effect);
+    $response->getBody()->write(json_encode($result));
 
-//     return $new_response;
-// });
+    $response = $response->withHeader("Content-Type", "application/json");
+    return $response;
+});
 
 $app->get('/api/1/generate_weapon', function (Request $request, Response $response, $args) {
     $params = $request->getQueryParams();
-    $rarity = $params['rarity'];
+    $rarity = $params['rarity'] ?? "Rare";
 
     // TODO: Consider a DI to handle dependencies for us.
     $db = new WeaponEffectDbContext();
@@ -47,11 +49,10 @@ $app->get('/api/1/generate_weapon', function (Request $request, Response $respon
     $service = new GenerateWeaponService($db, $gemini_client);
 
     $result = $service->generateWeapon($rarity);
-
     $response->getBody()->write(json_encode($result));
 
-    $new_response = $response->withHeader("Content-type", "application/json");
-    return $new_response;
+    $response = $response->withHeader("Content-Type", "application/json");
+    return $response;
 });
 
 $app->get('/api/1/test', function (Request $request, Response $response, $args) {

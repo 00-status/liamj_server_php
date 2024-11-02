@@ -24,7 +24,7 @@ class WeaponEffect implements \JsonSerializable
     public static function fromArray(array $weapon_effect): self
     {
         return new self(
-            $weapon_effect["id"],
+            $weapon_effect["id"] ?? 0,
             $weapon_effect["name"],
             $weapon_effect["description"],
             $weapon_effect["rarities"],
@@ -45,11 +45,14 @@ class WeaponEffect implements \JsonSerializable
 
     public function toDb(): array
     {
+        $rarities = "{" . implode(",", $this->getRarities()) . "}";
+        $tags = "{" . implode(",", $this->getTags()) . "}";
+
         return [
             "name" => $this->getName(),
             "description" => $this->getDescription(),
-            "rarities" => $this->getRarities(),
-            "tags" => $this->getTags(),
+            "rarities" => $rarities,
+            "tags" => $tags,
         ];
     }
 
