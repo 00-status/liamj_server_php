@@ -1,7 +1,7 @@
 <?php
 namespace Lib\WeaponMaker\Domain;
 
-class WeaponDamage
+class WeaponDamage implements \JsonSerializable
 {
     private int $dice_count;
     private int $dice_type;
@@ -16,6 +16,16 @@ class WeaponDamage
         $this->dice_type = $dice_type;
         $this->damage_type = $damage_type;
     }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'diceCount' => $this->dice_count,
+            'diceType' => $this->dice_type,
+            'damageType' => $this->damage_type
+        ];
+    }
+
 
     public function getDiceCount(): int
     {

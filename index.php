@@ -1,4 +1,6 @@
 <?php
+use Lib\WeaponMaker\Domain\Weapon;
+use Lib\WeaponMaker\Domain\WeaponEffect;
 use Lib\WeaponMaker\Infrastructure\GoogleGeminiApiClient;
 use Lib\WeaponMaker\Infrastructure\WeaponEffectDbContext;
 use Lib\WeaponMaker\Service\GenerateWeaponService;
@@ -20,6 +22,20 @@ $app->get('/api/1/weapon_effects', function (Request $request, Response $respons
 
     return $new_response;
 });
+
+// $app->post('/api/1/weapon_effects', function (Request $request, Response $response, $args) {
+//     // Get Request Body
+//     // Instantiate Weapon object.
+//     // Pass Weapon Object to save service.
+
+//     $weapon_effect_raw = $request->getParsedBody();
+//     $weapon_effect = WeaponEffect::fromArray($weapon_effect_raw);
+
+//     $response->getBody()->write(json_encode($weapon_list));
+//     $new_response = $response->withHeader("Content-type", "application/json");
+
+//     return $new_response;
+// });
 
 $app->get('/api/1/generate_weapon', function (Request $request, Response $response, $args) {
     $params = $request->getQueryParams();

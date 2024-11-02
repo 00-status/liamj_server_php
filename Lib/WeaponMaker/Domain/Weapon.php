@@ -43,15 +43,15 @@ class Weapon implements \JsonSerializable
     {
         return [
             'id' => $this->id,
-            'default_name' => $this->default_name,
+            'defaultName' => $this->default_name,
             'name' => $this->name,
             'rarity' => $this->rarity,
             'properties' => $this->properties,
-            'base_damage' => $this->base_damage,
-            'extra_damage' => $this->extra_damage,
-            'weapon_effect' => $this->weapon_effect,
-            'effective_range' => $this->effective_range,
-            'ineffective_range' => $this->ineffective_range,
+            'baseDamage' => $this->base_damage,
+            'extraDamage' => $this->extra_damage,
+            'weaponEffect' => $this->weapon_effect,
+            'effectiveRange' => $this->effective_range,
+            'ineffectiveRange' => $this->ineffective_range,
         ];
     }
 

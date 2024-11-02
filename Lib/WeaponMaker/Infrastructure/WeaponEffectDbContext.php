@@ -18,4 +18,11 @@ class WeaponEffectDbContext extends PdoDbContext
 
         return $weapon_effects;
     }
+
+    public function insertWeaponEffect(): bool
+    {
+        // Convert to array
+        // Strip out ID.
+        // Return the result.
+    }
 }
