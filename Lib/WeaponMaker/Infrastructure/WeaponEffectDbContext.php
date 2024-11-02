@@ -19,10 +19,10 @@ class WeaponEffectDbContext extends PdoDbContext
         return $weapon_effects;
     }
 
-    public function insertWeaponEffect(): bool
+    public function insertWeaponEffect(WeaponEffect $weapon_effect): bool
     {
-        // Convert to array
-        // Strip out ID.
-        // Return the result.
+        $result = $this->save(self::WEAPON_EFFECTS, $weapon_effect->toDb());
+
+        return (bool) $result;
     }
 }

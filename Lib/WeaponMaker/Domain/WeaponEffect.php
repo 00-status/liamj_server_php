@@ -39,7 +39,17 @@ class WeaponEffect implements \JsonSerializable
             "name" => $this->getName(),
             "description" => $this->getDescription(),
             "rarities" => $this->getRarities(),
-            "tags" => $this->getTags()
+            "tags" => $this->getTags(),
+        ];
+    }
+
+    public function toDb(): array
+    {
+        return [
+            "name" => $this->getName(),
+            "description" => $this->getDescription(),
+            "rarities" => $this->getRarities(),
+            "tags" => $this->getTags(),
         ];
     }
 
