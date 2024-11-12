@@ -25,4 +25,11 @@ class WeaponEffectDbContext extends PdoDbContext
 
         return (bool) $result;
     }
+
+    public function updateWeaponEffect(WeaponEffect $weapon_effect): bool
+    {
+        $result = $this->update(self::WEAPON_EFFECTS, $weapon_effect->toDb(), $weapon_effect->getId());
+
+        return $result;
+    }
 }
