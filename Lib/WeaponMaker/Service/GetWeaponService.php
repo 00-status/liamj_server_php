@@ -10,6 +10,6 @@ class GetWeaponService
     {
         $db = new WeaponEffectDbContext();
 
-        return $db->fetchWeaponEffects();;
+        return $db->fetchWeaponEffects();
     }
 }

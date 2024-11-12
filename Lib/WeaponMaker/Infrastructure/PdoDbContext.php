@@ -31,7 +31,7 @@ abstract class PdoDbContext
 
     protected function fetchAll(string $table): array
     {
-        $stmt = $this->pdo->query("SELECT * FROM $table");
+        $stmt = $this->pdo->query("SELECT * FROM $table ORDER BY id ASC");
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return array_map([$this, 'convertArrays'], $results);
