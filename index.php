@@ -80,14 +80,6 @@ $app->get('/api/1/generate_weapon', function (Request $request, Response $respon
     return $response;
 });
 
-$app->get('/api/1/test', function (Request $request, Response $response, $args) {
-    $response->getBody()->write(phpinfo());
-
-    // $new_response = $response->withHeader("Content-type", "application/json");
-
-    return $response;
-});
-
 // Site Routes
 $app->get('/{routes:.+}', function ($request, $response, $args) {
     $index_page = __DIR__ . '/public/index.html';
