@@ -16,7 +16,7 @@ class GoogleGeminiApiClient
         $gak = $_ENV["GAK"];
 
         if (empty($gak)) {
-            throw new RuntimeException("Cannot find GAK!");
+            throw new RuntimeException("Cannot find GAK!", 500);
         }
 
         $this->gak = $gak;

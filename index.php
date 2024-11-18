@@ -13,7 +13,30 @@ use Slim\Factory\AppFactory;
 
 require __DIR__ . '/vendor/autoload.php';
 
+$is_dev_env = $_ENV["SERVER_ENVIRONMENT"] === "dev";
+
 $app = AppFactory::create();
+
+$customErrorHandler = function (
+    Request $request,
+    Throwable $exception,
+    bool $display_error_details,
+    bool $log_errors,
+    bool $log_error_details
+) use ($app) {
+        $response = $app
+            ->getResponseFactory()
+            ->createResponse();
+
+        $response
+            ->getBody()
+            ->write(json_encode(['error' => $exception->getMessage()]));
+        
+        return $response->withStatus($exception->getCode());
+};
+
+$error_middleware = $app->addErrorMiddleware($is_dev_env, false, false);
+$error_middleware->setDefaultErrorHandler($customErrorHandler);
 
 // API Routes
 $app->get('/api/1/weapon_effects', function (Request $request, Response $response, $args) {

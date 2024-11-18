@@ -15,13 +15,13 @@ abstract class PdoDbContext
         $connection_string = $_ENV["DB_CON"];
 
         if (empty($connection_string)) {
-            throw new Exception("Invalid connection string!");
+            throw new \RuntimeException("Invalid connection string!", 500);
         }
 
         try {
             $this->pdo = new PDO($connection_string);
         } catch (PDOException $exception) {
-            die($exception->getMessage());
+            throw new \RuntimeException($exception->getMessage(), 500);
         }
 
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
