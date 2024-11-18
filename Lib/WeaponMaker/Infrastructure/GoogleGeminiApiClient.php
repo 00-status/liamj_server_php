@@ -13,13 +13,13 @@ class GoogleGeminiApiClient
 
     public function __construct()
     {
-        $file_path = __DIR__ . "/../../../secrets/GAK.txt";
+        $gak = $_ENV["GAK"];
 
-        if (!file_exists($file_path)) {
+        if (empty($gak)) {
             throw new RuntimeException("Cannot find GAK!");
         }
 
-        $this->gak = file_get_contents($file_path);
+        $this->gak = $gak;
     }
 
     public function generateWeaponName(string $weapon_type, array $weapon_tags): ?string

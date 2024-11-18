@@ -12,16 +12,14 @@ abstract class PdoDbContext
 
     public function __construct()
     {
-        $connection_string = __DIR__ . "/../../../secrets/db_connection_string.txt";
+        $connection_string = $_ENV["DB_CON"];
 
-        if (!file_exists($connection_string)) {
+        if (empty($connection_string)) {
             throw new Exception("Invalid connection string!");
         }
 
-        $dsn = file_get_contents( $connection_string);
-
         try {
-            $this->pdo = new PDO($dsn);
+            $this->pdo = new PDO($connection_string);
         } catch (PDOException $exception) {
             die($exception->getMessage());
         }
