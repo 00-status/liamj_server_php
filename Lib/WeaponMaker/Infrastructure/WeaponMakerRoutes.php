@@ -13,55 +13,54 @@ use Slim\Routing\RouteCollectorProxy;
 
 class WeaponMakerRoutes
 {
-    public static function WeaponMakerRoutes(RouteCollectorProxy $app): void
+    public static function WeaponMakerRoutes(RouteCollectorProxy $app, bool $is_dev_env): void
     {
         $app->get('weapon_effects', function (Request $request, Response $response, $args) {
             $weapon_list = (new GetWeaponService())->getWeapons();
         
             $response->getBody()->write(json_encode($weapon_list));
-        
-            $response = $response->withHeader("Content-Type", "application/json");
+
             return $response;
         });
         
-        $app->post('weapon_effects', function (Request $request, Response $response, $args) {
-            $body_raw = $request->getBody()->getContents();
-            $weapon_effect_array = json_decode($body_raw, true);
-            $weapon_effect = WeaponEffect::fromArray($weapon_effect_array);
-        
-            $db = new WeaponEffectDbContext();
-            $service = new PostWeaponEffectService($db);
-        
-            $result = $service->saveWeaponEffect($weapon_effect);
-            $response->getBody()->write(json_encode($result));
-        
-            $response = $response->withHeader("Content-Type", "application/json");
-            return $response;
-        });
-        
-        $app->put('weapon_effects/{id}', function (Request $request, Response $response, $args) {    
-            if (empty($args["id"])) {
-                $response = $response->withStatus(400, "Must supply ID!");
-                return $response;
-            }
-        
-            $id = (int) (!empty($args["id"]) ? $args["id"] : 0);
+        if ($is_dev_env) {
+            $app->post('weapon_effects', function (Request $request, Response $response, $args) {
+                $body_raw = $request->getBody()->getContents();
+                $weapon_effect_array = json_decode($body_raw, true);
+                $weapon_effect = WeaponEffect::fromArray($weapon_effect_array);
             
-            $body_raw = $request->getBody()->getContents();
-            $weapon_effect_array = json_decode($body_raw, true);
-            $weapon_effect_array["id"] = $id;
-        
-            $weapon_effect = WeaponEffect::fromArray($weapon_effect_array);
-        
-            $db = new WeaponEffectDbContext();
-            $service = new PutWeaponEffectService($db);
-        
-            $result = $service->updateWeaponEffect($weapon_effect);
-            $response->getBody()->write(json_encode($result));
-        
-            $response = $response->withHeader("Content-Type", "application/json");
-            return $response;
-        });
+                $db = new WeaponEffectDbContext();
+                $service = new PostWeaponEffectService($db);
+            
+                $result = $service->saveWeaponEffect($weapon_effect);
+                $response->getBody()->write(json_encode($result));
+
+                return $response;
+            });
+            
+            $app->put('weapon_effects/{id}', function (Request $request, Response $response, $args) {    
+                if (empty($args["id"])) {
+                    $response = $response->withStatus(400, "Must supply ID!");
+                    return $response;
+                }
+            
+                $id = (int) (!empty($args["id"]) ? $args["id"] : 0);
+                
+                $body_raw = $request->getBody()->getContents();
+                $weapon_effect_array = json_decode($body_raw, true);
+                $weapon_effect_array["id"] = $id;
+            
+                $weapon_effect = WeaponEffect::fromArray($weapon_effect_array);
+            
+                $db = new WeaponEffectDbContext();
+                $service = new PutWeaponEffectService($db);
+            
+                $result = $service->updateWeaponEffect($weapon_effect);
+                $response->getBody()->write(json_encode($result));
+
+                return $response;
+            });
+        }
         
         $app->get('generate_weapon', function (Request $request, Response $response, $args) {
             $params = $request->getQueryParams();
@@ -74,8 +73,7 @@ class WeaponMakerRoutes
         
             $result = $service->generateWeapon($rarity);
             $response->getBody()->write(json_encode($result));
-        
-            $response = $response->withHeader("Content-Type", "application/json");
+
             return $response;
         });
     }

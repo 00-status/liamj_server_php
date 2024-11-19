@@ -1,6 +1,7 @@
 <?php
 
 use Lib\API\ErrorMiddlewareInjector;
+use Lib\API\JsonMiddleware;
 use Lib\WeaponMaker\Infrastructure\WeaponMakerRoutes;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -15,9 +16,9 @@ $app = AppFactory::create();
 
 ErrorMiddlewareInjector::injectErrorMiddleware($app);
 
-$app->group("/api/1/", function (RouteCollectorProxy $group) {
-    WeaponMakerRoutes::WeaponMakerRoutes($group);
-});
+$app->group("/api/1/", function (RouteCollectorProxy $group) use ($is_dev_env) {
+    WeaponMakerRoutes::WeaponMakerRoutes($group, $is_dev_env);
+})->add(new JsonMiddleware());
 
 $app->any("/api/1/{routes:.+}", function ($request, $response, $args) {
     $response
