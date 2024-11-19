@@ -19,6 +19,15 @@ $app->group("/api/1/", function (RouteCollectorProxy $group) {
     WeaponMakerRoutes::WeaponMakerRoutes($group);
 });
 
+$app->any("/api/1/{routes:.+}", function ($request, $response, $args) {
+    $response
+        ->getBody()
+        ->write(json_encode(['error' => 'Route not found!']));
+
+    $response = $response->withHeader("Content-Type", "application/json");
+    return $response->withStatus(404);
+});
+
 // Site Routes
 $app->get('/{routes:.+}', function ($request, $response, $args) {
     $index_page = __DIR__ . '/public/index.html';
