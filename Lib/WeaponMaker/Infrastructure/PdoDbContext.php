@@ -2,7 +2,6 @@
 
 namespace Lib\WeaponMaker\Infrastructure;
 
-use Exception;
 use PDO;
 use PDOException;
 
