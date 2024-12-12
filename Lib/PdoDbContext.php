@@ -1,6 +1,6 @@
 <?php
 
-namespace Lib\WeaponMaker\Infrastructure;
+namespace Lib;
 
 use PDO;
 use PDOException;
