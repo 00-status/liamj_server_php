@@ -13,7 +13,9 @@ class CreateServerService
 
     public function createServer(Server $server): bool
     {
-        $created_server = $this->db->createServer($server->toDb());
+        $created_server_id = $this->db->insertServer($server);
+
+        $this->db->fetchServer($created_server_id);
 
         return empty($created_server) ? false : true;
     }

@@ -2,6 +2,7 @@
 
 namespace Lib\API;
 
+use Lib\Terminal\Infrastructure\TerminalContainerBuilder;
 use Psr\Container\ContainerInterface;
 use DI\ContainerBuilder;
 use Lib\WeaponMaker\Infrastructure\BaseWeaponContext;
@@ -18,6 +19,9 @@ class ContainerBuilderWrapper
     public static function getContainer(): ContainerInterface
     {
         $container_builder = new ContainerBuilder();
+
+        TerminalContainerBuilder::addDependencies($container_builder);
+
         $container_builder->addDefinitions([
             WeaponEffectDbContext::class => autowire(),
             BaseWeaponContext::class => autowire(),

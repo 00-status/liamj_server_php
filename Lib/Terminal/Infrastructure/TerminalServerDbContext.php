@@ -2,11 +2,24 @@
 
 namespace Lib\Terminal\Infrastructure;
 
+use DomainException;
 use Lib\PdoDbContext;
+use Lib\Terminal\Domain\Server;
 
 class TerminalServerDbContext extends PdoDbContext
 {
     private const TERMINAL_SERVER = 'terminal_servers';
+
+    public function insertServer(Server $server): int
+    {
+        $inserted_id = $this->save(self::TERMINAL_SERVER, $server->toDb());
+
+        if (empty($inserted_id)) {
+            throw new DomainException("Unable to insert ID!", 500);
+        }
+
+        return (int) $inserted_id;
+    }
 
     // Create, Read, Update, Delete
 
