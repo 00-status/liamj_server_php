@@ -4,11 +4,9 @@ namespace Lib\Terminal\Infrastructure;
 
 use Lib\PdoDbContext;
 
-class TerminalDbContext extends PdoDbContext
+class TerminalServerDbContext extends PdoDbContext
 {
     private const TERMINAL_SERVER = 'terminal_servers';
-    private const TERMINAL_DIRECTORIES = 'terminal_directories';
-    private const TERMINAL_FILES = 'terminal_files';
 
     // Create, Read, Update, Delete
 
