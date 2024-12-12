@@ -8,7 +8,7 @@ use Lib\Terminal\Domain\Server;
 
 class TerminalServerDbContext extends PdoDbContext
 {
-    private const TERMINAL_SERVER = 'terminal_servers';
+    private const string TERMINAL_SERVER = 'terminal_servers';
 
     public function insertServer(Server $server): int
     {
@@ -21,24 +21,10 @@ class TerminalServerDbContext extends PdoDbContext
         return (int) $inserted_id;
     }
 
-    // Create, Read, Update, Delete
+    public function fetchServer(int $server_id): Server
+    {
+        $server_array = $this->fetchById(self::TERMINAL_SERVER, $server_id);
 
-    // Create Directory
-    //      If terminal_server exists
-    //          create new directory
-
-    // Create File
-    //      If terminal_directory exists.
-    //          create new file
-
-    // Read Server
-    //      select server by ID.
-    //      Select all directories for that server.
-    //      Gather up all directory IDs.
-    //      Select all files by directory IDs.
-    //      Key the files by directory ID.
-    //      For each directory
-    //          attach each file "bucket" to their associated directory.
-    // TODO: Create a separate file context
-
+        return Server::fromArray($server_array);
+    }
 }

@@ -11,12 +11,16 @@ class CreateServerService
         private TerminalServerDbContext $db,
     ) {}
 
-    public function createServer(Server $server): bool
+    public function createServer(Server $server): Server
     {
         $created_server_id = $this->db->insertServer($server);
 
-        $this->db->fetchServer($created_server_id);
+        $server = $this->db->fetchServer($created_server_id);
 
-        return empty($created_server) ? false : true;
+        if (empty($server)) {
+            throw new \DomainException("Server was created, but could not be fetched.", 500);
+        }
+
+        return $server;
     }
 }

@@ -11,6 +11,15 @@ class Server implements \JsonSerializable
         private array $directories
     ) {}
 
+    public static function fromArray($server_array): self
+    {
+        return new self(
+            $server_array['id'],
+            $server_array['name'],
+            $server_array['directories'],
+        );
+    }
+
     public function jsonSerialize(): array
     {
         return [
@@ -23,7 +32,6 @@ class Server implements \JsonSerializable
     public function toDb(): array
     {
         return [
-            "id" => $this->id,
             "name" => $this->name,
         ];
     }
