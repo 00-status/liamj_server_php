@@ -33,4 +33,9 @@ class TerminalServerDbContext extends PdoDbContext
         $result = $this->update(self::TERMINAL_SERVER, $server->toDb(), $server->getId());
         return (bool) $result;
     }
+
+    public function deleteServer(int $id): bool
+    {
+        return $this->deleteServer($id);
+    }
 }

@@ -84,6 +84,14 @@ abstract class PdoDbContext
         return $stmt->execute();
     }
 
+    private function delete(string $table, int $id): bool
+    {
+        $sql = "DELETE FROM $table WHERE id = $id";
+        $statement = $this->pdo->prepare($sql);
+        
+        return $statement->execute();
+    }
+
     private function parsePostgresArray(string $postgres_array): array
     {
         $trimmed = trim($postgres_array, '{}');
