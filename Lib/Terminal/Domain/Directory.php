@@ -20,6 +20,19 @@ class Directory implements \JsonSerializable
         private array $files,
     ) {}
 
+    public static function fromArray(array $directory): self
+    {
+        return new self(
+            $directory["id"],
+            $directory["server_id"],
+            $directory["name"],
+            $directory["date_created"],
+            $directory["parent_directory"],
+            $directory["sub_directories"],
+            [],
+        );
+    }
+
     public function jsonSerialize(): array
     {
         return [
@@ -38,7 +51,6 @@ class Directory implements \JsonSerializable
         $sub_directories = "{" . implode(",", $this->sub_directories) . "}";
 
         return [
-            "id" => $this->id,
             "server_id" => $this->server_id,
             "name" => $this->name,
             "date_created" => $this->$this->date_created->format(\DateTime::ATOM),

@@ -16,7 +16,7 @@ class Server implements \JsonSerializable
         return new self(
             $server_array['id'],
             $server_array['name'],
-            $server_array['directories'],
+            [],
         );
     }
 

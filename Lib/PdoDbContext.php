@@ -7,7 +7,7 @@ use PDOException;
 
 abstract class PdoDbContext
 {
-    private PDO $pdo;
+    protected PDO $pdo;
 
     public function __construct()
     {
@@ -30,6 +30,21 @@ abstract class PdoDbContext
     {
         $stmt = $this->pdo->query("SELECT * FROM $table ORDER BY id ASC");
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return array_map([$this, 'convertArrays'], $results);
+    }
+
+    /**
+     * @param string $table
+     * @param int[] $ids
+     * @return array
+     */
+    protected function fetchAllByIds(string $table, array $ids): array
+    {
+        $ids_string = implode(",", $ids);
+        $statement = $this->pdo->query("SELECT * FROM $table WHERE id in ($ids_string)");
+        
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         return array_map([$this, 'convertArrays'], $results);
     }
