@@ -1,6 +1,6 @@
 <?php
 
-namespace Lib\Terminal\Service;
+namespace Lib\Terminal\Service\Server;
 
 use Lib\Terminal\Domain\Server;
 use Lib\Terminal\Infrastructure\TerminalServerDbContext;

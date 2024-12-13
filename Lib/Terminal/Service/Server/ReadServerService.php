@@ -1,6 +1,6 @@
 <?php
 
-namespace Lib\Terminal\Service;
+namespace Lib\Terminal\Service\Server;
 
 use DI\NotFoundException;
 use Lib\Terminal\Domain\Server;
