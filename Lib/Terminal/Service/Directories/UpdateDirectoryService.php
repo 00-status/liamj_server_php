@@ -3,7 +3,7 @@
 namespace Lib\Terminal\Service\Directories;
 
 use Lib\Terminal\Domain\Directory;
-use Lib\Terminal\Infrastructure\TerminalDirectoriesDbContext;
+use Lib\Terminal\Infrastructure\Contexts\TerminalDirectoriesDbContext;
 
 class UpdateDirectoryService
 {

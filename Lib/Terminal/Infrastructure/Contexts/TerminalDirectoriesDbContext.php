@@ -1,6 +1,6 @@
 <?php
 
-namespace Lib\Terminal\Infrastructure;
+namespace Lib\Terminal\Infrastructure\Contexts;
 
 use DomainException;
 use Lib\PdoDbContext;

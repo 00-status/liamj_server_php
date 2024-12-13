@@ -2,7 +2,7 @@
 
 namespace Lib\Terminal\Service\Directories;
 
-use Lib\Terminal\Infrastructure\TerminalDirectoriesDbContext;
+use Lib\Terminal\Infrastructure\Contexts\TerminalDirectoriesDbContext;
 use \Lib\Terminal\Domain\Directory;
 
 class ReadDirectoriesService

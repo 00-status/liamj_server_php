@@ -2,7 +2,7 @@
 
 namespace Lib\Terminal\Service\Server;
 
-use Lib\Terminal\Infrastructure\TerminalServerDbContext;
+use Lib\Terminal\Infrastructure\Contexts\TerminalServerDbContext;
 
 class DeleteServerService
 {
