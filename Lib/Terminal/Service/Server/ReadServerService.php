@@ -12,14 +12,11 @@ class ReadServerService
         private TerminalServerDbContext $db,
     ) {}
 
-    public function readServerService(int $server_id): Server
+    /**
+     * @return Server[]
+     */
+    public function readServers(): array
     {
-        $server = $this->db->fetchServer($server_id);
-
-        if (empty($server)) {
-            throw new NotFoundException("Cannot find terminal server!", 404);
-        }
-
-        return $server;
+        return $this->db->fetchServers();
     }
 }

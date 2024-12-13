@@ -21,11 +21,14 @@ class TerminalServerDbContext extends PdoDbContext
         return (int) $inserted_id;
     }
 
-    public function fetchServer(int $server_id): Server
+    /**
+     * @return Server[]
+     */
+    public function fetchServers(): array
     {
-        $server_array = $this->fetchById(self::TERMINAL_SERVER, $server_id);
+        $server_array = $this->fetchAll(self::TERMINAL_SERVER);
 
-        return Server::fromArray($server_array);
+        return array_map([Server::class, "fromArray"], $server_array);
     }
 
     public function updateServer(Server $server): bool
