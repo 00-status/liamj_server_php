@@ -16,12 +16,12 @@ class CreateDirectoryService
     {
         $new_directory_id = $this->db->insertDirectory($directory);
 
-        $directories = $this->db->fetchDirectories([$new_directory_id]);
+        $directory = $this->db->fetchDirectory($new_directory_id);
 
-        if (empty($directories)) {
+        if (empty($directory)) {
             throw new DomainException("Directory was created, but could not be fetched", 500);
         }
 
-        return $directories[0];
+        return $directory;
     }
 }

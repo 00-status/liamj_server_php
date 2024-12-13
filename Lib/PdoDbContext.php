@@ -36,13 +36,14 @@ abstract class PdoDbContext
 
     /**
      * @param string $table
-     * @param int[] $ids
+     * @param string $column_name
+     * @param int[]|string[] $ids
      * @return array
      */
-    protected function fetchAllByIds(string $table, array $ids): array
+    protected function fetchAllByIds(string $table, string $column_name, array $ids): array
     {
         $ids_string = implode(",", $ids);
-        $statement = $this->pdo->query("SELECT * FROM $table WHERE id in ($ids_string)");
+        $statement = $this->pdo->query("SELECT * FROM $table WHERE $column_name in ($ids_string)");
         
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 

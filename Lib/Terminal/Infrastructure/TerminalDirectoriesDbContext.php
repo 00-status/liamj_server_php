@@ -21,13 +21,20 @@ class TerminalDirectoriesDbContext extends PdoDbContext
         return (int) $inserted_id;
     }
 
+    public function fetchDirectory(int $directory_id): ?Directory
+    {
+        $directory_array = $this->fetchById(self::TABLE_NAME, $directory_id);
+
+        return Directory::fromArray($directory_array);
+    }
+
     /**
      * @param int[] $directory_ids
      * @return Directory[]
      */
-    public function fetchDirectories(array $directory_ids): array
+    public function fetchDirectories(int $server_id): array
     {
-        $results = $this->fetchAllByIds(self::TABLE_NAME, $directory_ids);
+        $results = $this->fetchAllByIds(self::TABLE_NAME, "server_id", [$server_id]);
 
         return array_map([Directory::class, "fromArray"], $results);
     }
