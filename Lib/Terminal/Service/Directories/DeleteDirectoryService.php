@@ -13,5 +13,7 @@ class DeleteDirectoryService
     public function deleteDirectory(int $directory_id): bool
     {
         return $this->db->deleteDirectory($directory_id);
+
+        // TODO: Delete associated files.
     }
 }

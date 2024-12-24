@@ -2,11 +2,21 @@
 
 namespace Lib\Terminal\Infrastructure\Contexts;
 
-class TerminalFilesDbContext
+use Lib\PdoDbContext;
+use Lib\Terminal\Domain\File;
+
+class TerminalFilesDbContext extends PdoDbContext
 {
-    private const TERMINAL_FILES = 'terminal_files';
+    private const TABLE_NAME = 'terminal_files';
 
-    // Create Files
+    /**
+     * @param int $directory_id
+     * @return File[]
+     */
+    public function fetchFiles(int $directory_id): array
+    {
+        $files = $this->fetchAllByIds(self::TABLE_NAME, "directory_id", [$directory_id]);
 
-    // READ Files
+        return array_map([File::class, "fromArray"], $files);
+    }
 }

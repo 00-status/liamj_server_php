@@ -31,6 +31,11 @@ class TerminalServerDbContext extends PdoDbContext
         return array_map([Server::class, "fromArray"], $server_array);
     }
 
+    public function fetchServer(int $server_id): ?Server
+    {
+        return $this->fetchById(self::TERMINAL_SERVER, $server_id);
+    }
+
     public function updateServer(Server $server): bool
     {
         $result = $this->update(self::TERMINAL_SERVER, $server->toDb(), $server->getId());
