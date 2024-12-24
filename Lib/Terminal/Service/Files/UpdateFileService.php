@@ -5,14 +5,14 @@ namespace Lib\Terminal\Service\Files;
 use Lib\Terminal\Domain\File;
 use Lib\Terminal\Infrastructure\Contexts\TerminalFilesDbContext;
 
-class CreateFilesService
+class UpdateFileService
 {
     public function __construct(
         private TerminalFilesDbContext $db,
     ) {}
 
-    public function createFile(File $file): void
+    public function updateFile(File $file): void
     {
-        $this->db->createFile($file);
+        $this->db->updateFile($file);
     }
 }

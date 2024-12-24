@@ -4,7 +4,7 @@ namespace Lib\Terminal\Service\Files;
 
 use Lib\Terminal\Infrastructure\Contexts\TerminalFilesDbContext;
 
-class DeleteFilesService
+class DeleteFileService
 {
     public function __construct(
         private TerminalFilesDbContext $db,
