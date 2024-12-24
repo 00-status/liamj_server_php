@@ -15,6 +15,20 @@ class File implements \JsonSerializable
         private \DateTimeImmutable $date_modified,
     ) {}
 
+    public static function fromArray(array $file_array): self
+    {
+        return new self(
+            $file_array["id"],
+            $file_array["directory_id"],
+            $file_array["name"],
+            $file_array["contents"],
+            $file_array["encryption_code"],
+            $file_array["creator_user_name"],
+            new \DateTimeImmutable($file_array["date_created"]),
+            new \DateTimeImmutable($file_array["date_modified"])
+        );
+    }
+
     public function jsonSerialize(): array
     {
         return [

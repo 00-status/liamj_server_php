@@ -2,7 +2,10 @@
 
 namespace Lib\Terminal\Infrastructure;
 
+use Lib\Terminal\Domain\Directory;
+use Lib\Terminal\Domain\File;
 use Lib\Terminal\Domain\Server;
+use Lib\Terminal\Service\Directories\CreateDirectoryService;
 use Lib\Terminal\Service\Directories\ReadDirectoriesService;
 use Lib\Terminal\Service\Server\CreateServerService;
 use Lib\Terminal\Service\Server\ReadServerService;
@@ -46,6 +49,26 @@ class TerminalRoutes
                 $response->getBody()->write(json_encode($created_server));
                 $response = $response->withStatus(201);
 
+                return $response;
+            });
+
+            $app->post('terminal_directory', function (Request $request, Response $response, $args) use ($container) {
+                $directory_array = json_decode($request->getBody()->getContents(), true);
+                $directory = Directory::fromArray($directory_array);
+
+                $container->get(CreateDirectoryService::class)->createServer($directory);
+            
+                $response = $response->withStatus(204);
+                return $response;
+            });
+
+            $app->post('terminal_file', function (Request $request, Response $response, $args) use ($container) {
+                $file_array = json_decode($request->getBody()->getContents(), true);
+                $file = File::fromArray($file_array);
+                
+                $container->get(CreateServerService::class)->createServer($file);
+            
+                $response = $response->withStatus(204);
                 return $response;
             });
         }

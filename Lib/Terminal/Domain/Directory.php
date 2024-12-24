@@ -26,7 +26,7 @@ class Directory implements \JsonSerializable
             $directory["id"],
             $directory["server_id"],
             $directory["name"],
-            $directory["date_created"],
+            new \DateTimeImmutable($directory["date_created"]),
             $directory["parent_directory"],
             $directory["sub_directories"],
             [],
