@@ -25,4 +25,9 @@ class TerminalFilesDbContext extends PdoDbContext
 
         return array_map([File::class, "fromArray"], $files);
     }
+
+    public function updateFiles(File $file): bool
+    {
+        return $this->update(self::TABLE_NAME, $file->toDb(), $file->getId());
+    }
 }
