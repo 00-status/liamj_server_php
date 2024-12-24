@@ -32,7 +32,6 @@ class File implements \JsonSerializable
     public function toDb(): array
     {
         return [
-            "id" => $this->id,
             "directory_id" => $this->directory_id,
             "name" => $this->name,
             "contents" => $this->contents,

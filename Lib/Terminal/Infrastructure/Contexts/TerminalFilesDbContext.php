@@ -9,6 +9,12 @@ class TerminalFilesDbContext extends PdoDbContext
 {
     private const TABLE_NAME = 'terminal_files';
 
+    public function createFile(File $file): bool
+    {
+        $result = $this->save(self::TABLE_NAME, $file->toDb());
+        return (bool) $result;
+    }
+
     /**
      * @param int $directory_id
      * @return File[]

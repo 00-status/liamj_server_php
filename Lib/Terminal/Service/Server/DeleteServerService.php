@@ -10,7 +10,7 @@ class DeleteServerService
         private TerminalServerDbContext $db,
     ) {}
 
-    public function deleteServer(int $server_id)
+    public function deleteServer(int $server_id): void
     {
         // TODO: Delete from the directories and files tables before deleting the server.
 
