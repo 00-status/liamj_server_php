@@ -100,7 +100,7 @@ abstract class PdoDbContext
         return $stmt->execute();
     }
 
-    private function delete(string $table, int $id): bool
+    protected function delete(string $table, int $id): bool
     {
         $sql = "DELETE FROM $table WHERE id = $id";
         $statement = $this->pdo->prepare($sql);

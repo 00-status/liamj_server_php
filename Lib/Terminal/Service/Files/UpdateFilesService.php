@@ -13,6 +13,6 @@ class UpdateFilesService
 
     public function updateFile(File $file): void
     {
-        $this->db->updateFiles($file);
+        $this->db->updateFile($file);
     }
 }

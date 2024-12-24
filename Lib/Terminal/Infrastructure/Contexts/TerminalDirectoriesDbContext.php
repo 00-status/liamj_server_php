@@ -47,6 +47,6 @@ class TerminalDirectoriesDbContext extends PdoDbContext
 
     public function deleteDirectory(int $id): bool
     {
-        return $this->deleteDirectory($id);
+        return $this->delete(self::TABLE_NAME, $id);
     }
 }
