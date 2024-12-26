@@ -19,7 +19,7 @@ class TerminalRoutes
 {
     public static function addRoutes(RouteCollectorProxy $app, ContainerInterface $container, bool $is_dev_env): void
     {
-        $app->get('terminal_server', function (Request $request, Response $response, $args) use ($container) {
+        $app->get('terminal_servers', function (Request $request, Response $response, $args) use ($container) {
             $server_list = $container->get(ReadServerService::class)->readServers();
         
             $response->getBody()->write(json_encode($server_list));
@@ -40,7 +40,7 @@ class TerminalRoutes
         });
 
         if ($is_dev_env) {
-            $app->post('terminal_server', function (Request $request, Response $response, $args) use ($container) {
+            $app->post('terminal_servers', function (Request $request, Response $response, $args) use ($container) {
                 $server_array = json_decode($request->getBody()->getContents(), true);
                 $server = Server::fromArray($server_array);
                 
@@ -52,7 +52,7 @@ class TerminalRoutes
                 return $response;
             });
 
-            $app->post('terminal_directory', function (Request $request, Response $response, $args) use ($container) {
+            $app->post('terminal_directories', function (Request $request, Response $response, $args) use ($container) {
                 $directory_array = json_decode($request->getBody()->getContents(), true);
                 $directory = Directory::fromArray($directory_array);
 
@@ -62,7 +62,7 @@ class TerminalRoutes
                 return $response;
             });
 
-            $app->post('terminal_file', function (Request $request, Response $response, $args) use ($container) {
+            $app->post('terminal_files', function (Request $request, Response $response, $args) use ($container) {
                 $file_array = json_decode($request->getBody()->getContents(), true);
                 $file = File::fromArray($file_array);
                 
