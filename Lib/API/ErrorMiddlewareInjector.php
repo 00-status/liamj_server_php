@@ -17,15 +17,15 @@ class ErrorMiddlewareInjector
             bool $log_errors,
             bool $log_error_details
         ) use ($app): Response {
-                $response = $app
-                    ->getResponseFactory()
-                    ->createResponse();
-        
-                $response
-                    ->getBody()
-                    ->write(json_encode(['error' => $exception->getMessage()]));
-                
-                return $response->withStatus($exception->getCode());
+            $response = $app
+                ->getResponseFactory()
+                ->createResponse();
+
+            $response
+                ->getBody()
+                ->write(json_encode(['error' => $exception->getMessage()]));
+            
+            return $response->withStatus($exception->getCode() === 0 ? 500 : $exception->getCode());
         };
         
         $error_middleware = $app->addErrorMiddleware(true, false, false);

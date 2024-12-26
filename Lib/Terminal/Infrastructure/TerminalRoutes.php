@@ -43,9 +43,9 @@ class TerminalRoutes
             $app->post('terminal_servers', function (Request $request, Response $response, $args) use ($container) {
                 $server_array = json_decode($request->getBody()->getContents(), true);
                 $server = Server::fromArray($server_array);
-                
+
                 $created_server = $container->get(CreateServerService::class)->createServer($server);
-            
+
                 $response->getBody()->write(json_encode($created_server));
                 $response = $response->withStatus(201);
 

@@ -33,7 +33,13 @@ class TerminalServerDbContext extends PdoDbContext
 
     public function fetchServer(int $server_id): ?Server
     {
-        return $this->fetchById(self::TABLE_NAME, $server_id);
+        $server = $this->fetchById(self::TABLE_NAME, $server_id);
+
+        if (!$server) {
+            return null;
+        }
+
+        return Server::fromArray($server);
     }
 
     public function updateServer(Server $server): bool
