@@ -8,6 +8,7 @@ use Lib\Terminal\Domain\Server;
 use Lib\Terminal\Service\Directories\CreateDirectoryService;
 use Lib\Terminal\Service\Directories\ReadDirectoriesService;
 use Lib\Terminal\Service\Server\CreateServerService;
+use Lib\Terminal\Service\Server\DeleteServerService;
 use Lib\Terminal\Service\Server\ReadServerService;
 use Psr\Container\ContainerInterface;
 use Slim\Exception\HttpBadRequestException;
@@ -45,6 +46,22 @@ class TerminalRoutes
                 $server = Server::fromArray($server_array);
 
                 $created_server = $container->get(CreateServerService::class)->createServer($server);
+
+                $response->getBody()->write(json_encode($created_server));
+                $response = $response->withStatus(201);
+
+                return $response;
+            });
+
+            $app->delete('terminal_servers/{id}', function (Request $request, Response $response, $args) use ($container) {
+                $id = $args["id"];
+
+                if (empty($id)) {
+                    $response = $response->withStatus(400, "Must supply server ID!");
+                    return $response;
+                }
+
+                $created_server = $container->get(DeleteServerService::class)->deleteServer($id);
 
                 $response->getBody()->write(json_encode($created_server));
                 $response = $response->withStatus(201);
