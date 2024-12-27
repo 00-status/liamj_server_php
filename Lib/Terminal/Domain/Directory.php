@@ -37,11 +37,11 @@ class Directory implements \JsonSerializable
     {
         return [
             "id" => $this->id,
-            "server_id" => $this->server_id,
+            "serverId" => $this->server_id,
             "name" => $this->name,
-            "date_created" => $this->date_created->format(\DateTime::ATOM),
-            "parent_directory" => $this->parent_directory,
-            "sub_directories" => $this->sub_directories,
+            "dateCreated" => $this->date_created->format(\DateTime::ATOM),
+            "parentDirectory" => $this->parent_directory,
+            "subDirectories" => $this->sub_directories,
             "files" => $this->files,
         ];
     }
@@ -88,5 +88,12 @@ class Directory implements \JsonSerializable
     public function getSubDirectories(): array
     {
         return $this->sub_directories;
+    }
+
+    public function setFiles(array $files): self
+    {
+        $clone = clone $this;
+        $clone->files = $files;
+        return $clone;
     }
 }

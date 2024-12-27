@@ -33,13 +33,13 @@ class File implements \JsonSerializable
     {
         return [
             "id" => $this->id,
-            "directory_id" => $this->directory_id,
+            "directoryId" => $this->directory_id,
             "name" => $this->name,
             "contents" => $this->contents,
-            "encryption_code" => $this->encryption_code,
-            "creator_user_name" => $this->creator_user_name,
-            "date_created" => $this->date_created->format(\DateTime::ATOM),
-            "date_modified" => $this->date_modified->format(\DateTime::ATOM),
+            "encryptionCode" => $this->encryption_code,
+            "creatorUserName" => $this->creator_user_name,
+            "dateCreated" => $this->date_created->format(\DateTime::ATOM),
+            "dateModified" => $this->date_modified->format(\DateTime::ATOM),
         ];
     }
 
