@@ -53,7 +53,7 @@ class Directory implements \JsonSerializable
         return [
             "server_id" => $this->server_id,
             "name" => $this->name,
-            "date_created" => $this->$this->date_created->format(\DateTime::ATOM),
+            "date_created" => $this->date_created->format(\DateTime::ATOM),
             "parent_directory" => $this->parent_directory,
             "sub_directories" => $sub_directories,
         ];
