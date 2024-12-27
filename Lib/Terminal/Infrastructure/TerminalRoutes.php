@@ -28,7 +28,7 @@ class TerminalRoutes
         });
 
         $app->get('terminal_directories', function (Request $request, Response $response, $args) use ($container) {
-            $server_id = $args["server_id"];
+            $server_id = $request->getQueryParams()["server_id"] ?? null;
 
             if (empty($server_id)) {
                 throw new HttpBadRequestException($request,"Must supply a server ID!");
@@ -73,7 +73,7 @@ class TerminalRoutes
                 $directory_array = json_decode($request->getBody()->getContents(), true);
                 $directory = Directory::fromArray($directory_array);
 
-                $container->get(CreateDirectoryService::class)->createServer($directory);
+                $container->get(CreateDirectoryService::class)->createDirectory($directory);
             
                 $response = $response->withStatus(204);
                 return $response;
