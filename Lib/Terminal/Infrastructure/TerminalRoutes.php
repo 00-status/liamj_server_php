@@ -6,6 +6,7 @@ use Lib\Terminal\Domain\Directory;
 use Lib\Terminal\Domain\File;
 use Lib\Terminal\Domain\Server;
 use Lib\Terminal\Service\Directories\CreateDirectoryService;
+use Lib\Terminal\Service\Directories\DeleteDirectoryService;
 use Lib\Terminal\Service\Directories\ReadDirectoriesService;
 use Lib\Terminal\Service\Server\CreateServerService;
 use Lib\Terminal\Service\Server\DeleteServerService;
@@ -76,6 +77,22 @@ class TerminalRoutes
                 $container->get(CreateDirectoryService::class)->createDirectory($directory);
             
                 $response = $response->withStatus(204);
+                return $response;
+            });
+
+            $app->delete('terminal_directories/{id}', function (Request $request, Response $response, $args) use ($container) {
+                $id = $args["id"];
+
+                if (empty($id)) {
+                    $response = $response->withStatus(400, "Must supply directory ID!");
+                    return $response;
+                }
+
+                $created_server = $container->get(DeleteDirectoryService::class)->deleteDirectory($id);
+
+                $response->getBody()->write(json_encode($created_server));
+                $response = $response->withStatus(201);
+
                 return $response;
             });
 
