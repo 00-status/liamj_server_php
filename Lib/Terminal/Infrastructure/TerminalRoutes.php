@@ -9,6 +9,8 @@ use Lib\Terminal\Service\Directories\CreateDirectoryService;
 use Lib\Terminal\Service\Directories\DeleteDirectoryService;
 use Lib\Terminal\Service\Directories\ReadDirectoriesService;
 use Lib\Terminal\Service\Directories\UpdateDirectoryService;
+use Lib\Terminal\Service\Files\CreateFileService;
+use Lib\Terminal\Service\Files\ReadFilesService;
 use Lib\Terminal\Service\Server\CreateServerService;
 use Lib\Terminal\Service\Server\DeleteServerService;
 use Lib\Terminal\Service\Server\ReadServerService;
@@ -39,6 +41,19 @@ class TerminalRoutes
             $server_list = $container->get(ReadDirectoriesService::class)->readDirectories((int) $server_id);
         
             $response->getBody()->write(json_encode($server_list));
+            return $response;
+        });
+
+        $app->get('terminal_files', function (Request $request, Response $response, $args) use ($container) {
+            $directory_id = $request->getQueryParams()["directory_id"] ?? null;
+
+            if (empty($directory_id)) {
+                throw new HttpBadRequestException($request,"Must supply a directory ID!");
+            }
+
+            $file_list = $container->get(ReadFilesService::class)->readFiles((int) $directory_id);
+        
+            $response->getBody()->write(json_encode($file_list));
             return $response;
         });
 
@@ -112,7 +127,7 @@ class TerminalRoutes
                 $file_array = json_decode($request->getBody()->getContents(), true);
                 $file = File::fromArray($file_array);
                 
-                $container->get(CreateServerService::class)->createServer($file);
+                $container->get(CreateFileService::class)->createFile($file);
             
                 $response = $response->withStatus(204);
                 return $response;
