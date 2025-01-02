@@ -13,6 +13,12 @@ class UpdateDirectoryService
 
     public function updateDirectory(Directory $directory): bool
     {
+        $directory_to_update = $this->db->fetchDirectory($directory->getId());
+
+        if (empty($directory_to_update)) {
+            throw new \Exception("Directory to update does not exist!", 404);
+        }
+
         return $this->db->updateDirectory($directory);
     }
 }
