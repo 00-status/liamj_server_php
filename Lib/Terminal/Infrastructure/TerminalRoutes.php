@@ -10,7 +10,9 @@ use Lib\Terminal\Service\Directories\DeleteDirectoryService;
 use Lib\Terminal\Service\Directories\ReadDirectoriesService;
 use Lib\Terminal\Service\Directories\UpdateDirectoryService;
 use Lib\Terminal\Service\Files\CreateFileService;
+use Lib\Terminal\Service\Files\DeleteFileService;
 use Lib\Terminal\Service\Files\ReadFilesService;
+use Lib\Terminal\Service\Files\UpdateFileService;
 use Lib\Terminal\Service\Server\CreateServerService;
 use Lib\Terminal\Service\Server\DeleteServerService;
 use Lib\Terminal\Service\Server\ReadServerService;
@@ -128,6 +130,31 @@ class TerminalRoutes
                 $file = File::fromArray($file_array);
                 
                 $container->get(CreateFileService::class)->createFile($file);
+            
+                $response = $response->withStatus(204);
+                return $response;
+            });
+
+            $app->put('terminal_files', function (Request $request, Response $response, $args) use ($container) {
+                $file_array = json_decode($request->getBody()->getContents(), true);
+                $file = Directory::fromArray($file_array);
+
+                $success = $container->get(UpdateFileService::class)->updateFile($file);
+
+                return $success
+                    ? $response->withStatus(204)
+                    : $response->withStatus(500);
+            });
+
+            $app->delete('terminal_files/{id}', function (Request $request, Response $response, $args) use ($container) {
+                $id = $args["id"];
+
+                if (empty($id)) {
+                    $response = $response->withStatus(400, "Must supply file ID!");
+                    return $response;
+                }
+                
+                $container->get(DeleteFileService::class)->deleteFile($id);
             
                 $response = $response->withStatus(204);
                 return $response;
