@@ -8,6 +8,7 @@ use Lib\Terminal\Domain\Server;
 use Lib\Terminal\Service\Directories\CreateDirectoryService;
 use Lib\Terminal\Service\Directories\DeleteDirectoryService;
 use Lib\Terminal\Service\Directories\ReadDirectoriesService;
+use Lib\Terminal\Service\Directories\UpdateDirectoryService;
 use Lib\Terminal\Service\Server\CreateServerService;
 use Lib\Terminal\Service\Server\DeleteServerService;
 use Lib\Terminal\Service\Server\ReadServerService;
@@ -78,6 +79,17 @@ class TerminalRoutes
             
                 $response = $response->withStatus(204);
                 return $response;
+            });
+
+            $app->put('terminal_directories', function (Request $request, Response $response, $args) use ($container) {
+                $directory_array = json_decode($request->getBody()->getContents(), true);
+                $directory = Directory::fromArray($directory_array);
+
+                $success = $container->get(UpdateDirectoryService::class)->updateDirectory($directory);
+
+                return $success
+                    ? $response->withStatus(204)
+                    : $response->withStatus(500);
             });
 
             $app->delete('terminal_directories/{id}', function (Request $request, Response $response, $args) use ($container) {
