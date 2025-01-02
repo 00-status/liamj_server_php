@@ -28,7 +28,7 @@ class Directory implements \JsonSerializable
             $directory["name"],
             new \DateTimeImmutable($directory["date_created"]),
             $directory["parent_directory"],
-            $directory["sub_directories"],
+            [],
             [],
         );
     }
@@ -48,14 +48,11 @@ class Directory implements \JsonSerializable
 
     public function toDb(): array
     {
-        $sub_directories = "{" . implode(",", $this->sub_directories) . "}";
-
         return [
             "server_id" => $this->server_id,
             "name" => $this->name,
             "date_created" => $this->date_created->format(\DateTime::ATOM),
             "parent_directory" => $this->parent_directory,
-            "sub_directories" => $sub_directories,
         ];
     }
 
@@ -90,10 +87,17 @@ class Directory implements \JsonSerializable
         return $this->sub_directories;
     }
 
-    public function setFiles(array $files): self
+    /**
+     * @param int[] $sub_directories
+     * @return int[]
+     */
+    public function setSubDirectories(array $sub_directories): void
     {
-        $clone = clone $this;
-        $clone->files = $files;
-        return $clone;
+        $this->sub_directories = $sub_directories;
+    }
+
+    public function setFiles(array $files): void
+    {
+        $this->files = $files;
     }
 }
