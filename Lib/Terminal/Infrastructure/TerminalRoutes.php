@@ -137,7 +137,7 @@ class TerminalRoutes
 
             $app->put('terminal_files', function (Request $request, Response $response, $args) use ($container) {
                 $file_array = json_decode($request->getBody()->getContents(), true);
-                $file = Directory::fromArray($file_array);
+                $file = File::fromArray($file_array);
 
                 $success = $container->get(UpdateFileService::class)->updateFile($file);
 
