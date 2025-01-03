@@ -1,13 +1,13 @@
 <?php
 
-namespace Lib\WeaponMaker\Infrastructure;
+namespace Lib;
 
 use PDO;
 use PDOException;
 
 abstract class PdoDbContext
 {
-    private PDO $pdo;
+    protected PDO $pdo;
 
     public function __construct()
     {
@@ -30,6 +30,22 @@ abstract class PdoDbContext
     {
         $stmt = $this->pdo->query("SELECT * FROM $table ORDER BY id ASC");
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return array_map([$this, 'convertArrays'], $results);
+    }
+
+    /**
+     * @param string $table
+     * @param string $column_name
+     * @param int[]|string[] $ids
+     * @return array
+     */
+    protected function fetchAllByIds(string $table, string $column_name, array $ids): array
+    {
+        $ids_string = implode(",", $ids);
+        $statement = $this->pdo->query("SELECT * FROM $table WHERE $column_name in ($ids_string)");
+        
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         return array_map([$this, 'convertArrays'], $results);
     }
@@ -82,6 +98,14 @@ abstract class PdoDbContext
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
         return $stmt->execute();
+    }
+
+    protected function delete(string $table, int $id): bool
+    {
+        $sql = "DELETE FROM $table WHERE id = $id";
+        $statement = $this->pdo->prepare($sql);
+        
+        return $statement->execute();
     }
 
     private function parsePostgresArray(string $postgres_array): array

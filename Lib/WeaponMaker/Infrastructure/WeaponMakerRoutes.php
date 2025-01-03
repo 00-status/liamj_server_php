@@ -40,16 +40,16 @@ class WeaponMakerRoutes
             });
             
             $app->put('weapon_effects/{id}', function (Request $request, Response $response, $args) use ($container) {    
-                if (empty($args["id"])) {
+                $id = $args["id"];
+
+                if (empty($id)) {
                     $response = $response->withStatus(400, "Must supply ID!");
                     return $response;
                 }
-            
-                $id = (int) (!empty($args["id"]) ? $args["id"] : 0);
                 
                 $body_raw = $request->getBody()->getContents();
                 $weapon_effect_array = json_decode($body_raw, true);
-                $weapon_effect_array["id"] = $id;
+                $weapon_effect_array["id"] = (int) $id;
             
                 $weapon_effect = WeaponEffect::fromArray($weapon_effect_array);
             

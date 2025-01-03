@@ -1,6 +1,7 @@
 <?php
 
 namespace Lib\WeaponMaker\Infrastructure;
+use Lib\PdoDbContext;
 use Lib\WeaponMaker\Domain\WeaponEffect;
 
 class WeaponEffectDbContext extends PdoDbContext
