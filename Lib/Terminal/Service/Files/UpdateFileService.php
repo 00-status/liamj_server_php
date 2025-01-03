@@ -11,8 +11,8 @@ class UpdateFileService
         private TerminalFilesDbContext $db,
     ) {}
 
-    public function updateFile(File $file): void
+    public function updateFile(File $file): bool
     {
-        $this->db->updateFile($file);
+        return $this->db->updateFile($file);
     }
 }
