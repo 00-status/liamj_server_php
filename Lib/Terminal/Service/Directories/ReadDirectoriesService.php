@@ -46,6 +46,14 @@ class ReadDirectoriesService
             $directory->setFiles($files);
         }
 
+        usort($directories, function (Directory $a, Directory $b): int {
+            if ($a->getParentDirectory() === null) {
+                return -1;
+            }
+
+            return strcmp($a->getName(), $b->getName());
+        });
+
         return $directories;
     }
 }
