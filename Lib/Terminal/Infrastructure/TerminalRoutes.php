@@ -34,8 +34,8 @@ class TerminalRoutes
         $app->get('terminal_files', self::getFiles($container));
 
         if ($is_dev_env) {
-            $app->post('terminal_servers', self::getServers($container));
-            $app->delete('terminal_servers/{id}', self::getServers($container));
+            $app->post('terminal_servers', self::postServers($container));
+            $app->delete('terminal_servers/{id}', self::deleteServers($container));
     
             $app->post('terminal_directories', self::postDirectories($container));
             $app->put('terminal_directories', self::putDirectories($container));

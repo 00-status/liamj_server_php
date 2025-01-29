@@ -23,7 +23,7 @@ $app = AppFactory::create();
 ErrorMiddlewareInjector::injectErrorMiddleware($app);
 
 $app->group("/api/1/", function (RouteCollectorProxy $group) use ($is_dev_env) {
-    WeaponMakerRoutes::WeaponMakerRoutes($group, $this->get(ContainerInterface::class), $is_dev_env);
+    WeaponMakerRoutes::addRoutes($group, $this->get(ContainerInterface::class), $is_dev_env);
     TerminalRoutes::addRoutes($group, $this->get(ContainerInterface::class), $is_dev_env);
 })->add(new JsonMiddleware());
 

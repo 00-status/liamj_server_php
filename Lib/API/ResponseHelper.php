@@ -2,13 +2,16 @@
 
 namespace Lib\API;
 
-use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
+use Slim\Psr7\Response;
 
 class ResponseHelper
 {
-    public static function writeResponse(Response $response, \JsonSerializable|null $data, int $status): ResponseInterface
-    {
+    public static function writeResponse(
+        Response $response,
+        \JsonSerializable|null|array $data,
+        int $status
+    ): ResponseInterface {
         if (!empty($data)) {
             $response->getBody()->write(json_encode($data));
         }
