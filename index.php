@@ -13,7 +13,7 @@ use Slim\Routing\RouteCollectorProxy;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$is_dev_env = $_ENV["SERVER_ENVIRONMENT"] === "dev";
+$is_dev_env = getenv('SERVER_ENVIRONMENT') === 'dev';
 
 $container = ContainerBuilderWrapper::getContainer();
 AppFactory::setContainer($container);

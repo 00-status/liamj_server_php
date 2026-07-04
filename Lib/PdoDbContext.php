@@ -11,7 +11,7 @@ abstract class PdoDbContext
 
     public function __construct()
     {
-        $connection_string = $_ENV["DB_CON"];
+        $connection_string = getenv("DB_CON");
 
         if (empty($connection_string)) {
             throw new \RuntimeException("Invalid connection string!", 500);

@@ -13,7 +13,7 @@ class GoogleGeminiApiClient
 
     public function __construct()
     {
-        $gak = $_ENV["GAK"];
+        $gak = getenv("GAK");
 
         if (empty($gak)) {
             throw new RuntimeException("Cannot find GAK!", 500);

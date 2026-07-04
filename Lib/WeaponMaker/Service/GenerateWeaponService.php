@@ -32,7 +32,7 @@ class GenerateWeaponService
         $extra_damage = $this->pickExtraDamage($rarity);
         $random_weapon_effect = $this->pickWeaponEffect($rarity);
 
-        $tag_list = array_merge($extra_damage->getTags(), $random_weapon_effect->getTags());
+        $tag_list = array_merge($extra_damage->getTags(), $random_weapon_effect->tags);
         $refined_list = [];
 
         for ($i = 0; $i < 2; $i++) {
@@ -80,7 +80,7 @@ class GenerateWeaponService
         $weapon_effects = $this->weapon_effect_db_context->fetchWeaponEffects();
         $filtered_weapon_effects = array_values(array_filter(
             $weapon_effects,
-            fn($weapon_effect) => in_array($rarity, $weapon_effect->getRarities())
+            fn($weapon_effect) => in_array($rarity, $weapon_effect->rarities)
         ));
 
         $random_index = rand(0, count($filtered_weapon_effects) - 1);
