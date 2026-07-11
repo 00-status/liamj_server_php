@@ -4,6 +4,7 @@ namespace Lib\Kingdom\Domain;
 
 class RegionTemplate {
     public private(set) int $id;
-    /** @var Tile[] */
-    public private(set) array $tiles;
+    public private(set) int $name;
+    /** @var TileTemplate[] */
+    public private(set) array $tile_templates;
 }
