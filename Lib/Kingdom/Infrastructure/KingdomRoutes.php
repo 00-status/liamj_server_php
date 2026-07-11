@@ -1,0 +1,191 @@
+<?php
+
+namespace Lib\Kingdom\Infrastructure;
+
+use Lib\API\ResponseHelper;
+use Lib\Kingdom\Domain\Kingdom;
+use Lib\Kingdom\Domain\Region;
+use Lib\Kingdom\Domain\RegionTemplate;
+use Lib\Kingdom\Domain\TileTemplate;
+use Lib\Kingdom\Service\Kingdom\ReadKingdomsService;
+use Lib\Kingdom\Service\Kingdom\DeleteKingdomService;
+use Lib\Kingdom\Service\Region\ReadRegionsService;
+use Lib\Kingdom\Service\Region\CreateRegionService;
+use Lib\Kingdom\Service\Region\UpdateRegionService;
+use Lib\Kingdom\Service\Region\DeleteRegionService;
+use Lib\Kingdom\Service\RegionTemplate\ReadRegionTemplatesService;
+use Lib\Kingdom\Service\RegionTemplate\CreateRegionTemplateService;
+use Lib\Kingdom\Service\RegionTemplate\UpdateRegionTemplateService;
+use Lib\Kingdom\Service\RegionTemplate\DeleteRegionTemplateService;
+
+use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseInterface;
+use Slim\Exception\HttpBadRequestException;
+use Slim\Routing\RouteCollectorProxy;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+
+class KingdomRoutes
+{
+    public static function addRoutes(RouteCollectorProxy $app, ContainerInterface $container, bool $is_dev_env): void
+    {
+        // Kingdom Routes
+        $app->get('kingdoms', self::getKingdoms($container));
+        $app->delete('kingdoms/{id}', self::deleteKingdom($container));
+
+        // Region Routes
+        $app->get('regions', self::getRegions($container));
+        $app->post('regions', self::postRegion($container));
+        $app->put('regions/{id}', self::putRegion($container));
+        $app->delete('regions/{id}', self::deleteRegion($container));
+
+        // RegionTemplate Routes
+        $app->get('region_templates', self::getRegionTemplates($container));
+        $app->post('region_templates', self::postRegionTemplate($container));
+        $app->put('region_templates/{id}', self::putRegionTemplate($container));
+        $app->delete('region_templates/{id}', self::deleteRegionTemplate($container));
+    }
+
+    private static function getKingdoms(ContainerInterface $container): callable
+    {
+        return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
+            $kingdoms = $container->get(ReadKingdomsService::class)->readKingdoms();
+            return ResponseHelper::writeResponse($response, $kingdoms, 200);
+        };
+    }
+
+    private static function deleteKingdom(ContainerInterface $container): callable
+    {
+        return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
+            $id = $args["id"] ?? null;
+            if (empty($id)) {
+                throw new HttpBadRequestException($request, "Must supply Kingdom ID!");
+            }
+
+            $success = $container->get(DeleteKingdomService::class)->deleteKingdom((int) $id);
+            return ResponseHelper::writeResponse($response, null, $success ? 204 : 500);
+        };
+    }
+
+    private static function getRegions(ContainerInterface $container): callable
+    {
+        return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
+            $kingdom_id = $request->getQueryParams()["kingdom_id"] ?? null;
+            if (empty($kingdom_id)) {
+                throw new HttpBadRequestException($request, "Must supply a Kingdom ID!");
+            }
+
+            $regions = $container->get(ReadRegionsService::class)->readRegions((int) $kingdom_id);
+            return ResponseHelper::writeResponse($response, $regions, 200);
+        };
+    }
+
+    private static function postRegion(ContainerInterface $container): callable
+    {
+        return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
+            $body_raw = $request->getBody()->getContents();
+            $data = json_decode($body_raw, true);
+
+            $region = Region::fromArray($data);
+            $created_region = $container->get(CreateRegionService::class)->createRegion($region);
+
+            return ResponseHelper::writeResponse($response, $created_region, 201);
+        };
+    }
+
+    private static function putRegion(ContainerInterface $container): callable
+    {
+        return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
+            $id = $args["id"] ?? null;
+            if (empty($id)) {
+                throw new HttpBadRequestException($request, "Must supply Region ID!");
+            }
+
+            $body_raw = $request->getBody()->getContents();
+            $data = json_decode($body_raw, true);
+            $data["id"] = (int) $id;
+
+            $region = Region::fromArray($data);
+            $success = $container->get(UpdateRegionService::class)->updateRegion($region);
+
+            return ResponseHelper::writeResponse($response, null, $success ? 204 : 500);
+        };
+    }
+
+    private static function deleteRegion(ContainerInterface $container): callable
+    {
+        return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
+            $id = $args["id"] ?? null;
+            if (empty($id)) {
+                throw new HttpBadRequestException($request, "Must supply Region ID!");
+            }
+
+            $success = $container->get(DeleteRegionService::class)->deleteRegion((int) $id);
+            return ResponseHelper::writeResponse($response, null, $success ? 204 : 500);
+        };
+    }
+
+    private static function getRegionTemplates(ContainerInterface $container): callable
+    {
+        return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
+            $templates = $container->get(ReadRegionTemplatesService::class)->readRegionTemplates();
+            return ResponseHelper::writeResponse($response, $templates, 200);
+        };
+    }
+
+    private static function postRegionTemplate(ContainerInterface $container): callable
+    {
+        return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
+            $body_raw = $request->getBody()->getContents();
+            $data = json_decode($body_raw, true);
+
+            $tile_templates_data = $data['tile_templates'] ?? [];
+            $tile_templates = array_map(function (array $tile_data) {
+                return TileTemplate::fromArray($tile_data);
+            }, $tile_templates_data);
+
+            $template = RegionTemplate::fromArray($data, $tile_templates);
+            $created_template = $container->get(CreateRegionTemplateService::class)->createRegionTemplate($template);
+
+            return ResponseHelper::writeResponse($response, $created_template, 201);
+        };
+    }
+
+    private static function putRegionTemplate(ContainerInterface $container): callable
+    {
+        return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
+            $id = $args["id"] ?? null;
+            if (empty($id)) {
+                throw new HttpBadRequestException($request, "Must supply Region Template ID!");
+            }
+
+            $body_raw = $request->getBody()->getContents();
+            $data = json_decode($body_raw, true);
+            $data["id"] = (int) $id;
+
+            $tile_templates_data = $data['tile_templates'] ?? [];
+            $tile_templates = array_map(function (array $tile_data) use ($id) {
+                $tile_data['region_template_id'] = (int) $id;
+                return TileTemplate::fromArray($tile_data);
+            }, $tile_templates_data);
+
+            $template = RegionTemplate::fromArray($data, $tile_templates);
+            $success = $container->get(UpdateRegionTemplateService::class)->updateRegionTemplate($template);
+
+            return ResponseHelper::writeResponse($response, null, $success ? 204 : 500);
+        };
+    }
+
+    private static function deleteRegionTemplate(ContainerInterface $container): callable
+    {
+        return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
+            $id = $args["id"] ?? null;
+            if (empty($id)) {
+                throw new HttpBadRequestException($request, "Must supply Region Template ID!");
+            }
+
+            $success = $container->get(DeleteRegionTemplateService::class)->deleteRegionTemplate((int) $id);
+            return ResponseHelper::writeResponse($response, null, $success ? 204 : 500);
+        };
+    }
+}

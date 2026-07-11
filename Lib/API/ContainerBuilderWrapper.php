@@ -3,6 +3,7 @@
 namespace Lib\API;
 
 use Lib\Terminal\Infrastructure\TerminalContainerBuilder;
+use Lib\Kingdom\Infrastructure\KingdomContainerBuilder;
 use Psr\Container\ContainerInterface;
 use DI\ContainerBuilder;
 use Lib\WeaponMaker\Infrastructure\BaseWeaponContext;
@@ -21,6 +22,7 @@ class ContainerBuilderWrapper
         $container_builder = new ContainerBuilder();
 
         TerminalContainerBuilder::addDependencies($container_builder);
+        KingdomContainerBuilder::addDependencies($container_builder);
 
         $container_builder->addDefinitions([
             WeaponEffectDbContext::class => autowire(),

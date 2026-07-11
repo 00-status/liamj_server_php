@@ -3,8 +3,30 @@
 namespace Lib\Kingdom\Domain;
 
 class RegionTemplate {
-    public private(set) int $id;
-    public private(set) int $name;
-    /** @var TileTemplate[] */
-    public private(set) array $tile_templates;
+    function __construct(
+        public private(set) int $id,
+        public private(set) string $name,
+        /** @var TileTemplate[] */
+        public private(set) array $tile_templates = [],
+    ) {}
+
+    /**
+     * @param array $data
+     * @param TileTemplate[] $tile_templates
+     */
+    public static function fromArray(array $data, array $tile_templates = []): self
+    {
+        return new self(
+            id: (int) ($data['id'] ?? 0),
+            name: (string) $data['name'],
+            tile_templates: $tile_templates,
+        );
+    }
+
+    public function toDb(): array
+    {
+        return [
+            "name" => $this->name,
+        ];
+    }
 }

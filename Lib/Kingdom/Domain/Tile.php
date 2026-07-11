@@ -10,4 +10,25 @@ class Tile {
         public private(set) int $y,
         public private(set) TileType $type,
     ) {}
+
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            id: (int) ($data['id'] ?? 0),
+            region_id: (int) $data['region_id'],
+            x: (int) $data['x'],
+            y: (int) $data['y'],
+            type: $data['type'] instanceof TileType ? $data['type'] : TileType::from($data['type']),
+        );
+    }
+
+    public function toDb(): array
+    {
+        return [
+            "region_id" => $this->region_id,
+            "x" => $this->x,
+            "y" => $this->y,
+            "type" => $this->type->value,
+        ];
+    }
 }
