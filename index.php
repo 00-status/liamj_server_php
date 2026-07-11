@@ -5,6 +5,7 @@ use Lib\API\ErrorMiddlewareInjector;
 use Lib\API\JsonMiddleware;
 use Lib\Terminal\Infrastructure\TerminalRoutes;
 use Lib\WeaponMaker\Infrastructure\WeaponMakerRoutes;
+use Lib\Kingdom\Infrastructure\KingdomRoutes;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -25,6 +26,7 @@ ErrorMiddlewareInjector::injectErrorMiddleware($app);
 $app->group("/api/1/", function (RouteCollectorProxy $group) use ($is_dev_env) {
     WeaponMakerRoutes::addRoutes($group, $this->get(ContainerInterface::class), $is_dev_env);
     TerminalRoutes::addRoutes($group, $this->get(ContainerInterface::class), $is_dev_env);
+    KingdomRoutes::addRoutes($group, $this->get(ContainerInterface::class), $is_dev_env);
 })->add(new JsonMiddleware());
 
 $app->any("/api/1/{routes:.+}", function ($request, $response, $args) {
