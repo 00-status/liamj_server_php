@@ -1,6 +1,6 @@
 <?php
 
-namespace Lib\Kingdom\Domain;
+namespace Lib\Kingdom\Domain\Entity;
 
 enum TileType: string {
     case prairie = "Prairie";

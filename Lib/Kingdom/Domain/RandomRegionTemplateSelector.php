@@ -2,6 +2,8 @@
 
 namespace Lib\Kingdom\Domain;
 
+use Lib\Kingdom\Domain\Entity\RegionTemplate;
+
 class RandomRegionTemplateSelector implements RegionTemplateSelectorInterface
 {
     /**

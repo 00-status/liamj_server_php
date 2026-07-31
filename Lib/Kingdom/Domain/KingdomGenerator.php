@@ -2,6 +2,12 @@
 
 namespace Lib\Kingdom\Domain;
 
+use Lib\Kingdom\Domain\Entity\Kingdom;
+use Lib\Kingdom\Domain\Entity\KingdomGenerationConfig;
+use Lib\Kingdom\Domain\Entity\Region;
+use Lib\Kingdom\Domain\Entity\RegionTemplate;
+use Lib\Kingdom\Domain\Entity\Tile;
+
 class KingdomGenerator
 {
     public function __construct(

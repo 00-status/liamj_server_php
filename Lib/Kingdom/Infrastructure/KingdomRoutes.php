@@ -3,11 +3,11 @@
 namespace Lib\Kingdom\Infrastructure;
 
 use Lib\API\ResponseHelper;
-use Lib\Kingdom\Domain\Kingdom;
-use Lib\Kingdom\Domain\Region;
-use Lib\Kingdom\Domain\RegionTemplate;
-use Lib\Kingdom\Domain\TileTemplate;
-use Lib\Kingdom\Domain\KingdomGenerationConfig;
+use Lib\Kingdom\Domain\Entity\Kingdom;
+use Lib\Kingdom\Domain\Entity\Region;
+use Lib\Kingdom\Domain\Entity\RegionTemplate;
+use Lib\Kingdom\Domain\Entity\TileTemplate;
+use Lib\Kingdom\Domain\Entity\KingdomGenerationConfig;
 use Lib\Kingdom\Service\Kingdom\ReadKingdomsService;
 use Lib\Kingdom\Service\Kingdom\GenerateKingdomService;
 use Lib\Kingdom\Service\Kingdom\DeleteKingdomService;

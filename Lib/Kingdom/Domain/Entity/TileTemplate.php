@@ -1,6 +1,6 @@
 <?php
 
-namespace Lib\Kingdom\Domain;
+namespace Lib\Kingdom\Domain\Entity;
 
 class TileTemplate {
     function __construct(

@@ -2,8 +2,8 @@
 
 namespace Lib\Kingdom\Service\RegionTemplate;
 
-use Lib\Kingdom\Domain\RegionTemplate;
-use Lib\Kingdom\Domain\TileTemplate;
+use Lib\Kingdom\Domain\Entity\RegionTemplate;
+use Lib\Kingdom\Domain\Entity\TileTemplate;
 use Lib\Kingdom\Infrastructure\Contexts\RegionTemplateDbContext;
 use Lib\Kingdom\Infrastructure\Contexts\TileTemplateDbContext;
 

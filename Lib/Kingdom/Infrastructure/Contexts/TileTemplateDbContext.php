@@ -3,7 +3,7 @@
 namespace Lib\Kingdom\Infrastructure\Contexts;
 
 use Lib\PdoDbContext;
-use Lib\Kingdom\Domain\TileTemplate;
+use Lib\Kingdom\Domain\Entity\TileTemplate;
 
 class TileTemplateDbContext extends PdoDbContext
 {

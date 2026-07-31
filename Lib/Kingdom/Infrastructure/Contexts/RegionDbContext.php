@@ -4,7 +4,7 @@ namespace Lib\Kingdom\Infrastructure\Contexts;
 
 use DomainException;
 use Lib\PdoDbContext;
-use Lib\Kingdom\Domain\Region;
+use Lib\Kingdom\Domain\Entity\Region;
 
 class RegionDbContext extends PdoDbContext
 {

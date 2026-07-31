@@ -2,9 +2,9 @@
 
 namespace Lib\Kingdom\Service\Kingdom;
 
-use Lib\Kingdom\Domain\Kingdom;
-use Lib\Kingdom\Domain\Region;
-use Lib\Kingdom\Domain\RegionTemplate;
+use Lib\Kingdom\Domain\Entity\Kingdom;
+use Lib\Kingdom\Domain\Entity\Region;
+use Lib\Kingdom\Domain\Entity\RegionTemplate;
 use Lib\Kingdom\Infrastructure\Contexts\KingdomDbContext;
 use Lib\Kingdom\Infrastructure\Contexts\RegionDbContext;
 use Lib\Kingdom\Infrastructure\Contexts\TileDbContext;

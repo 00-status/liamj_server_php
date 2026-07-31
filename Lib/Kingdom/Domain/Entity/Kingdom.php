@@ -1,6 +1,6 @@
 <?php
 
-namespace Lib\Kingdom\Domain;
+namespace Lib\Kingdom\Domain\Entity;
 
 class Kingdom {
     function __construct(
