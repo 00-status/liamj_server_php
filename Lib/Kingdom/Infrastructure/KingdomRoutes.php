@@ -7,8 +7,11 @@ use Lib\Kingdom\Domain\Kingdom;
 use Lib\Kingdom\Domain\Region;
 use Lib\Kingdom\Domain\RegionTemplate;
 use Lib\Kingdom\Domain\TileTemplate;
+use Lib\Kingdom\Domain\KingdomGenerationConfig;
 use Lib\Kingdom\Service\Kingdom\ReadKingdomsService;
+use Lib\Kingdom\Service\Kingdom\GenerateKingdomService;
 use Lib\Kingdom\Service\Kingdom\DeleteKingdomService;
+
 use Lib\Kingdom\Service\Region\ReadRegionsService;
 use Lib\Kingdom\Service\Region\CreateRegionService;
 use Lib\Kingdom\Service\Region\UpdateRegionService;
@@ -31,6 +34,7 @@ class KingdomRoutes
     {
         // Kingdom Routes
         $app->get('kingdoms', self::getKingdoms($container));
+        $app->post('kingdoms/generate', self::postGenerateKingdom($container));
         $app->delete('kingdoms/{id}', self::deleteKingdom($container));
 
         // Region Routes
@@ -51,6 +55,27 @@ class KingdomRoutes
         return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
             $kingdoms = $container->get(ReadKingdomsService::class)->readKingdoms();
             return ResponseHelper::writeResponse($response, $kingdoms, 200);
+        };
+    }
+
+    private static function postGenerateKingdom(ContainerInterface $container): callable
+    {
+        return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
+            $body_raw = $request->getBody()->getContents();
+            $data = json_decode($body_raw, true) ?? [];
+
+            $config = new KingdomGenerationConfig(
+                name: (string) ($data['name'] ?? 'New Kingdom'),
+                width: (int) ($data['width'] ?? 50),
+                height: (int) ($data['height'] ?? 50),
+                step: (int) ($data['step'] ?? 10),
+                jitter: (int) ($data['jitter'] ?? 2),
+                seed: isset($data['seed']) ? (int) $data['seed'] : null,
+            );
+
+            $kingdom = $container->get(GenerateKingdomService::class)->generateKingdom($config);
+
+            return ResponseHelper::writeResponse($response, $kingdom, 201);
         };
     }
 

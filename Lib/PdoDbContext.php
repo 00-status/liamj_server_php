@@ -26,6 +26,11 @@ abstract class PdoDbContext
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
+    public function getPdo(): PDO
+    {
+        return $this->pdo;
+    }
+
     protected function fetchAll(string $table): array
     {
         $stmt = $this->pdo->query("SELECT * FROM $table ORDER BY id ASC");

@@ -9,7 +9,11 @@ use Lib\Kingdom\Infrastructure\Contexts\TileDbContext;
 use Lib\Kingdom\Infrastructure\Contexts\RegionTemplateDbContext;
 use Lib\Kingdom\Infrastructure\Contexts\TileTemplateDbContext;
 
+use Lib\Kingdom\Domain\KingdomGenerator;
+use Lib\Kingdom\Domain\RandomRegionTemplateSelector;
+use Lib\Kingdom\Domain\RegionTemplateSelectorInterface;
 use Lib\Kingdom\Service\Kingdom\ReadKingdomsService;
+use Lib\Kingdom\Service\Kingdom\GenerateKingdomService;
 use Lib\Kingdom\Service\Kingdom\DeleteKingdomService;
 
 use Lib\Kingdom\Service\Region\ReadRegionsService;
@@ -36,8 +40,14 @@ class KingdomContainerBuilder
             RegionTemplateDbContext::class => autowire(),
             TileTemplateDbContext::class => autowire(),
 
+            // Kingdom Generator Domain & Strategy
+            RegionTemplateSelectorInterface::class => autowire(RandomRegionTemplateSelector::class),
+            RandomRegionTemplateSelector::class => autowire(),
+            KingdomGenerator::class => autowire(),
+
             // Kingdom Services
             ReadKingdomsService::class => autowire(),
+            GenerateKingdomService::class => autowire(),
             DeleteKingdomService::class => autowire(),
 
             // Region Services
