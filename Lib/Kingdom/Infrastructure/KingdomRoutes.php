@@ -33,6 +33,7 @@ class KingdomRoutes
     {
         // Kingdom Routes
         $app->get('kingdoms', self::getKingdoms($container));
+        $app->get('kingdoms/{id}', self::getKingdom($container));
         $app->post('kingdoms/generate', self::postGenerateKingdom($container));
         $app->delete('kingdoms/{id}', self::deleteKingdom($container));
 
@@ -54,6 +55,18 @@ class KingdomRoutes
         return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
             $kingdoms = $container->get(ReadKingdomsService::class)->readKingdoms();
             return ResponseHelper::writeResponse($response, $kingdoms, 200);
+        };
+    }
+
+
+    private static function getKingdom(ContainerInterface $container): callable
+    {
+        return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
+            $id = $args["id"] ?? null;
+
+            $kingdom = $container->get(ReadKingdomsService::class)->readKingdom($id);
+
+            return ResponseHelper::writeResponse($response, $kingdom, 200);
         };
     }
 

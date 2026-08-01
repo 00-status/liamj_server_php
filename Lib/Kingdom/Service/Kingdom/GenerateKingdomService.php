@@ -80,6 +80,7 @@ class GenerateKingdomService
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();
             }
+
             throw $exception;
         }
     }
