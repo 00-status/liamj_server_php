@@ -3,7 +3,6 @@
 namespace Lib\Kingdom\Infrastructure;
 
 use Lib\API\ResponseHelper;
-use Lib\Kingdom\Domain\Entity\Kingdom;
 use Lib\Kingdom\Domain\Entity\Region;
 use Lib\Kingdom\Domain\Entity\RegionTemplate;
 use Lib\Kingdom\Domain\Entity\TileTemplate;

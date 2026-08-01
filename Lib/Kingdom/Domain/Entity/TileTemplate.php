@@ -15,7 +15,7 @@ class TileTemplate {
     {
         return new self(
             id: (int) ($data['id'] ?? 0),
-            region_template_id: (int) $data['region_template_id'],
+            region_template_id: array_key_exists('region_template_id', $data) ? (int) $data['region_template_id'] : 0,
             x: (int) $data['x'],
             y: (int) $data['y'],
             type: $data['type'] instanceof TileType ? $data['type'] : TileType::from($data['type']),

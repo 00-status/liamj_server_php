@@ -9,7 +9,7 @@ class ResponseHelper
 {
     public static function writeResponse(
         Response $response,
-        \JsonSerializable|null|array $data,
+        object|null|array $data,
         int $status
     ): ResponseInterface {
         if (!empty($data)) {
