@@ -12,6 +12,7 @@ use Lib\Kingdom\Infrastructure\Contexts\TileTemplateDbContext;
 use Lib\Kingdom\Domain\KingdomGenerator;
 use Lib\Kingdom\Domain\RandomRegionTemplateSelector;
 use Lib\Kingdom\Domain\RegionTemplateSelectorInterface;
+use Lib\Kingdom\Service\Kingdom\ReadKingdomService;
 use Lib\Kingdom\Service\Kingdom\ReadKingdomsService;
 use Lib\Kingdom\Service\Kingdom\GenerateKingdomService;
 use Lib\Kingdom\Service\Kingdom\DeleteKingdomService;
@@ -47,6 +48,7 @@ class KingdomContainerBuilder
 
             // Kingdom Services
             ReadKingdomsService::class => autowire(),
+            ReadKingdomService::class => autowire(),
             GenerateKingdomService::class => autowire(),
             DeleteKingdomService::class => autowire(),
 

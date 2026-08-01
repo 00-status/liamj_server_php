@@ -7,6 +7,7 @@ use Lib\Kingdom\Domain\Entity\Region;
 use Lib\Kingdom\Domain\Entity\RegionTemplate;
 use Lib\Kingdom\Domain\Entity\TileTemplate;
 use Lib\Kingdom\Domain\Entity\KingdomGenerationConfig;
+use Lib\Kingdom\Service\Kingdom\ReadKingdomService;
 use Lib\Kingdom\Service\Kingdom\ReadKingdomsService;
 use Lib\Kingdom\Service\Kingdom\GenerateKingdomService;
 use Lib\Kingdom\Service\Kingdom\DeleteKingdomService;
@@ -64,7 +65,7 @@ class KingdomRoutes
         return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
             $id = $args["id"] ?? null;
 
-            $kingdom = $container->get(ReadKingdomsService::class)->readKingdom($id);
+            $kingdom = $container->get(ReadKingdomService::class)->readKingdom($id);
 
             return ResponseHelper::writeResponse($response, $kingdom, 200);
         };

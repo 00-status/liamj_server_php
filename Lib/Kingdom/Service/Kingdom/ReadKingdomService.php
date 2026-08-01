@@ -21,7 +21,7 @@ class ReadKingdomService
         private TileTemplateDbContext $tile_template_db,
     ) {}
 
-    public function readKingdoms(int $id): Kingdom
+    public function readKingdom(int $id): Kingdom
     {
         $kingdom = $this->kingdom_db->fetchKingdom($id);
         $regions = $this->region_db->fetchRegions($kingdom->id);
@@ -56,6 +56,6 @@ class ReadKingdomService
             'id' => $kingdom->id,
             'name' => $kingdom->name,
         ], $assembled_regions);
-        return $$assembled_kingdom;
+        return $assembled_kingdom;
     }
 }
