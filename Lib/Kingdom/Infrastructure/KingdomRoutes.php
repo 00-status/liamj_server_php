@@ -34,21 +34,24 @@ class KingdomRoutes
     {
         // Kingdom Routes
         $app->get('kingdoms', self::getKingdoms($container));
-        $app->get('kingdoms/{id}', self::getKingdom($container));
-        $app->post('kingdoms/generate', self::postGenerateKingdom($container));
-        $app->delete('kingdoms/{id}', self::deleteKingdom($container));
 
-        // Region Routes
         $app->get('regions', self::getRegions($container));
-        $app->post('regions', self::postRegion($container));
-        $app->put('regions/{id}', self::putRegion($container));
-        $app->delete('regions/{id}', self::deleteRegion($container));
-
-        // RegionTemplate Routes
         $app->get('region_templates', self::getRegionTemplates($container));
-        $app->post('region_templates', self::postRegionTemplate($container));
-        $app->put('region_templates/{id}', self::putRegionTemplate($container));
-        $app->delete('region_templates/{id}', self::deleteRegionTemplate($container));
+
+        // Dev only routes
+        if ($is_dev_env) {
+            $app->get('kingdoms/{id}', self::getKingdom($container));
+            $app->post('kingdoms/generate', self::postGenerateKingdom($container));
+            $app->delete('kingdoms/{id}', self::deleteKingdom($container));
+
+            $app->post('regions', self::postRegion($container));
+            $app->put('regions/{id}', self::putRegion($container));
+            $app->delete('regions/{id}', self::deleteRegion($container));
+
+            $app->post('region_templates', self::postRegionTemplate($container));
+            $app->put('region_templates/{id}', self::putRegionTemplate($container));
+            $app->delete('region_templates/{id}', self::deleteRegionTemplate($container));
+        }
     }
 
     private static function getKingdoms(ContainerInterface $container): callable
