@@ -12,7 +12,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 use Slim\Routing\RouteCollectorProxy;
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 $is_dev_env = getenv('SERVER_ENVIRONMENT') === 'dev';
 
@@ -40,13 +40,13 @@ $app->any("/api/1/{routes:.+}", function ($request, $response, $args) {
 
 // Site Routes
 $app->get('/{routes:.+}', function ($request, $response, $args) {
-    $index_page = __DIR__ . '/public/index.html';
+    $index_page = __DIR__ . '/build/index.html';
     $response->getBody()->write(file_get_contents($index_page));
 
     return $response;
 });
 $app->get('/', function (Request $request, Response $response, $args) {
-    $index_page = __DIR__ . '/public/index.html';
+    $index_page = __DIR__ . '/build/index.html';
     $response->getBody()->write(file_get_contents($index_page));
 
     return $response;
