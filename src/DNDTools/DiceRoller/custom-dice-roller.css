@@ -1,0 +1,18 @@
+.custom-dice-roller {
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-dice-roller__form {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    justify-content: center;
+    gap: 8px;
+}
+
+@media only screen and (max-width: 600px) {
+    .custom-dice-roller__input {
+        width: 35%;
+    }
+}

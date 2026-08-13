@@ -1,0 +1,26 @@
+.cart-item {
+    display: flex;
+    flex-direction: column;
+    
+    height: 120px;
+    width: 225px;
+    padding: 12px;
+    
+    background-color: #3b3b40;
+    border-radius: 8px;
+    box-shadow: 1px 1px 12px #1f2028;
+}
+
+.cart-item__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+    .cart-item {
+        height: 100px;
+        width: 90%;
+    }
+}

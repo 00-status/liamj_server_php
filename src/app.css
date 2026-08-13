@@ -1,0 +1,93 @@
+@font-face {
+    /* Header Font */
+    font-family: 'Spectral-Regular';
+    src: url('https://liamj.b-cdn.net/assets/fonts/titles/Spectral-Regular.ttf') format('truetype');
+}
+@font-face {
+    /* Body Font */
+    font-family: 'Source Sans 3';
+    src: url('https://liamj.b-cdn.net/assets/fonts/body/SourceSans3-VariableFont_wght.ttf')
+        format('truetype');
+}
+
+/* Base styles */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+
+    background-color: #2a2b30;
+    background-image: url('https://liamj.b-cdn.net/assets/images/egg-shell.png');
+    color: #fcfeff;
+    font-size: 16px;
+    font-family: 'Source Sans 3', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html {
+    box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+input,
+textarea,
+button,
+select,
+option {
+    font-size: 17px;
+    font-family: 'Source Sans 3', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+input,
+textarea {
+    background-color: #3b3b40;
+    color: #fcfeff;
+    border: 1px solid #444449;
+}
+
+/* Header styling */
+h1,
+h2,
+h3,
+h4 {
+    font-family: 'Merriweather', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 8px 0;
+}
+
+/* Button and forms Styling */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type='number'] {
+    -moz-appearance: textfield; /* Firefox */
+    appearance: textfield;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.divider {
+    width: 90%;
+    border: none;
+    border-top: 1px solid #89898b;
+}
+
+.dropdown {
+    min-width: 150px;
+}

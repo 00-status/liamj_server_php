@@ -1,0 +1,14 @@
+.pill {
+    min-width: 100px;
+    border-radius: 28px;
+
+    padding: 8px 16px;
+
+    font-weight: 700;
+    background-color: #417c33;
+    text-align: center;
+}
+
+.pill:hover {
+    background-color: #388b24;
+}

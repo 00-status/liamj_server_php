@@ -1,0 +1,17 @@
+.description-card {
+    display: flex;
+    flex-direction: column;
+
+    margin: 12px;
+    padding: 20px;
+
+    border-radius: 10px;
+    box-shadow: 1px 1px 4px #1f2028;
+
+    background-color: #404147;
+}
+
+.description-card p {
+    margin: 0;
+    margin-bottom: 8px;
+}

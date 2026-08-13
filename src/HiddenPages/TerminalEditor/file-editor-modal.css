@@ -1,0 +1,21 @@
+.file-editor-modal {
+    display: flex;
+    flex-direction: column;
+    height: 350px;
+    gap: 20px;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none; /* FireFox */
+}
+.file-editor-modal::-webkit-scrollbar {
+    display: none;
+}
+
+.file-editor-modal__text-area {
+    width: 100%;
+    height: 200px;
+    resize: vertical;
+
+    box-shadow: 1px 1px 4px #1f2028;
+}

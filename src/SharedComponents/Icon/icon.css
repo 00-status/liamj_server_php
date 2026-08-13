@@ -1,0 +1,17 @@
+.icon {
+    width: 24px;
+    height: 24px;
+    margin: 0 4px;
+}
+
+.icon-light {
+    fill: #FCFEFF;
+}
+
+.icon-dark {
+    fill: #2a2b30;
+}
+
+.icon-green {
+    fill: #67e016;
+}

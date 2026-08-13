@@ -1,0 +1,33 @@
+.inventory-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    min-height: 75px;
+    width: 150px;
+    padding: 0 4px;
+
+    background-color: #a02e2f;
+    border-radius: 8px;
+    box-shadow: 1px 1px 4px #1f2028;
+}
+.inventory-item:hover {
+    background-image: linear-gradient(to right, #CC1818, #a02e2f);
+}
+
+.inventory-item__icon {
+    cursor: grab;
+    touch-action: none;
+}
+
+.inventory-item__body {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+@media only screen and (max-width: 600px) {
+    .inventory-item {
+        min-width: 150px;
+    }
+}

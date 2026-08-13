@@ -1,0 +1,84 @@
+.region-template-editor-canvas {
+    flex: 2 2 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px;
+
+    background: #1a1a1a;
+    border-radius: 8px;
+    border: 1px solid #333;
+    overflow: auto;
+}
+
+.region-template-editor-canvas__title {
+    width: 100%;
+    margin: 0 0 12px 0;
+    padding-bottom: 8px;
+
+    text-align: center;
+    font-size: 1.25rem;
+    color: #fff;
+    border-bottom: 1px solid #333;
+}
+
+.region-template-editor-canvas__scroll {
+    max-width: 100%;
+    max-height: 700px;
+    overflow: auto;
+    padding: 10px;
+}
+
+.region-template-editor-canvas__grid {
+    display: grid;
+    gap: 2px;
+    background: #2c2c2c;
+    padding: 2px;
+    border-radius: 4px;
+    user-select: none;
+}
+
+.region-template-editor-canvas__cell {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    transition: background-color 0.05s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.region-template-editor-canvas__cell:hover {
+    filter: brightness(1.2);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Specific Terrain Classes inside the Canvas cells */
+.tile--empty {
+    background-color: #151515;
+    border: 1px dashed #333;
+}
+
+.tile--prairie {
+    background-color: #e2d06d;
+}
+
+.tile--woodland,
+.tile--forest {
+    background-color: #2d5a27;
+}
+
+.tile--mountain {
+    background-color: #707a8a;
+}
+
+.tile--hills {
+    background-color: #9a7b56;
+}
+
+.tile--wetland,
+.tile--swamp {
+    background-color: #3b7a57;
+}
+
+.tile--water {
+    background-color: #2e5c9a;
+}

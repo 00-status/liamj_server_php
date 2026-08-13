@@ -1,0 +1,17 @@
+.image-button {
+    display: flex;
+
+    height: 24px;
+    width: 24px;
+}
+
+.image-button__image {
+    height: 24px;
+    width: 24px;
+    transition: all .1s ease-in-out;
+}
+.image-button__image:hover {
+    background-color: #f2f4f5;
+
+    transform: scale(1.10);
+}

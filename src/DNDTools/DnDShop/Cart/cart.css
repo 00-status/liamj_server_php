@@ -1,0 +1,23 @@
+.cart {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+    gap: 16px;
+
+    flex-grow: 1;
+
+    height: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+
+.inventory::-webkit-scrollbar {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .cart {
+        height: 150px;
+        justify-items: center;
+    }
+}

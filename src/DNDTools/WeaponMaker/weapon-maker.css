@@ -1,0 +1,47 @@
+.weapon-maker {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 100%;
+    min-height: 600px;
+
+    gap: 12px;
+}
+
+.weapon-maker__filters {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+.weapon-maker__dropdown {
+    width: 20%;
+    margin-bottom: 20px;
+}
+
+.weapon-maker__button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 300px;
+    align-self: center;
+}
+
+.weapon-maker__card {
+    opacity: 1;
+    transform: translateY(0);
+    animation: fading-in 0.25s ease-in;
+}
+
+@keyframes fading-in {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .weapon-maker__dropdown {
+        width: 100%;
+    }
+}

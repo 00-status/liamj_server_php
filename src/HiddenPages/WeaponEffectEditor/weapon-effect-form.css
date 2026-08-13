@@ -1,0 +1,34 @@
+.weapon-effect-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+
+    width: 100%;
+}
+
+.weapon-effect-form__description {
+    display: flex;
+    flex-direction: column;
+}
+
+.weapon-effect-form__text-area {
+    resize: vertical;
+}
+
+.weapon-effect-form__dropdown {
+    margin-bottom: 20px;
+}
+
+.weapon-effect-form__tag-form {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.weapon-effect-form__tag-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}

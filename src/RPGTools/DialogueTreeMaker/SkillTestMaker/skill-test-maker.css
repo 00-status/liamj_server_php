@@ -1,0 +1,40 @@
+.skill-test-maker__title {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.skill-test-maker__form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    margin-bottom: 20px;
+}
+
+.skill-test-maker__outcome-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.skill-test-maker__outcome-item-child {
+    flex: 1 1;
+}
+
+.skill-test-maker__outcome-item-child--controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 8px;
+
+    flex: 1 1;
+}
+
+@media only screen and (max-width: 600px) {
+    .skill-test-maker__title {
+        justify-content: center;
+    }
+}

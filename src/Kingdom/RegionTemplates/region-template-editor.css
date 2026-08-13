@@ -1,0 +1,185 @@
+.region-template-editor {
+    padding: 20px;
+    font-family: inherit;
+    color: #e0e0e0;
+}
+
+.region-template-editor__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.region-template-editor__container {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+
+.region-template-editor__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px;
+
+    flex: 1 1 300px;
+
+    background: #1e1e1e;
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+.region-template-editor__canvas-section {
+    flex: 2 2 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px;
+
+    background: #1a1a1a;
+    border-radius: 8px;
+    border: 1px solid #333;
+    overflow: auto;
+}
+
+.region-template-editor__canvas-scroll {
+    max-width: 100%;
+    max-height: 700px;
+    overflow: auto;
+    padding: 10px;
+}
+
+.region-template-editor__sidebar-title {
+    width: 100%;
+    margin: 0 0 12px 0;
+    padding-bottom: 8px;
+
+    text-align: center;
+    font-size: 1.25rem;
+    color: #fff;
+    border-bottom: 1px solid #333;
+}
+
+.region-template-editor__dimensions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.region-template-editor__dim-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #252525;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #333;
+}
+
+.region-template-editor__dim-value {
+    font-weight: bold;
+    min-width: 20px;
+    text-align: center;
+}
+
+.region-template-editor__palette {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.region-template-editor__palette-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    background: #252525;
+    border: 1px solid #333;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}
+
+.region-template-editor__palette-item:hover {
+    background: #2a2a2a;
+    border-color: #555;
+}
+
+.region-template-editor__palette-item--active {
+    background: #333;
+    border-color: #fcfeff;
+}
+
+.region-template-editor__tile-preview {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.region-template-editor__palette-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.region-template-editor__grid {
+    display: grid;
+    gap: 2px;
+    background: #2c2c2c;
+    padding: 2px;
+    border-radius: 4px;
+    user-select: none;
+}
+
+.region-template-editor__cell {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    transition: background-color 0.05s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.region-template-editor__cell:hover {
+    filter: brightness(1.2);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Specific Terrain Classes inside the Editor and general canvas */
+.tile--empty {
+    background-color: #151515;
+    border: 1px dashed #333;
+}
+
+.tile--prairie {
+    background-color: #e2d06d;
+}
+
+.tile--woodland,
+.tile--forest {
+    background-color: #2d5a27;
+}
+
+.tile--mountain {
+    background-color: #707a8a;
+}
+
+.tile--hills {
+    background-color: #9a7b56;
+}
+
+.tile--wetland,
+.tile--swamp {
+    background-color: #3b7a57;
+}
+
+.tile--water {
+    background-color: #2e5c9a;
+}
+
+.region-template-editor__actions {
+    display: flex;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 20px;
+}

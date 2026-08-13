@@ -1,0 +1,54 @@
+
+.dialogue-tree-maker {
+    width: 100%;
+    margin-bottom: 100px;
+}
+
+.dialogue-tree-maker__title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+
+    margin-bottom: 24px;
+    gap: 20px;
+}
+
+.dialogue-tree-maker__form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    margin-bottom: 24px;
+}
+
+.dialogue-tree-maker__top--characters {
+    flex: 1;
+}
+
+.dialogue-tree-maker--content {
+    display: flex;
+    flex-direction: column;
+
+    gap: 28px;
+}
+
+.dialogue-tree-maker__dialogue-tree-title {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    gap: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+    .dialogue-tree-maker__title {
+        justify-content: center;
+    }
+
+    .dialogue-tree-maker__dialogue-tree-title {
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+}

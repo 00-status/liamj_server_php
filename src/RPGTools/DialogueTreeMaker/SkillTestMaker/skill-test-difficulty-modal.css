@@ -1,0 +1,15 @@
+.skill-test-difficulty-modal-outcome__form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    margin: 20px 0;
+}
+
+.skill-test-difficulty-modal__condition-outcome {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}

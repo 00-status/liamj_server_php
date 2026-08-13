@@ -1,0 +1,86 @@
+[data-theme="default-card"] {
+    --card-gradient-color: radial-gradient(circle at top right, #1f2028, #3b3b40);
+    --card-gradient-image: url("https://liamj.b-cdn.net/assets/images/soft-wallpaper.png");
+}
+
+[data-theme="red-card"] {
+    --card-gradient-color: radial-gradient(circle at top right, #a02e2f, #CC1818);
+    --card-gradient-image: url("https://liamj.b-cdn.net/assets/images/french-stucco.png");
+}
+
+[data-theme="blue-card"] {
+    --card-gradient-color: radial-gradient(circle at top right, #708694, #4a87ac);
+    --card-gradient-image: url("https://liamj.b-cdn.net/assets/images/french-stucco.png");
+}
+
+[data-theme="green-card"] {
+    --card-gradient-color: radial-gradient(circle at top right, #2f3f1c, #475F29);
+    --card-gradient-image: url("https://transparenttextures.com/patterns/black-orchid.png");
+}
+
+.skill-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+
+    min-width: 150px;
+
+    background-color: #3b3b40;
+    border-radius: 8px;
+    box-shadow: 1px 1px 16px #1f2028;
+}
+
+.skill-card__gradient {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    height: 150px;
+    width: 100%;
+
+    border-radius: 8px 8px 0 0;
+
+    background-image: var(--card-gradient-image), var(--card-gradient-color);
+}
+
+.skill-card__title {
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.skill-card__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@media only screen and (max-width: 1280px) {
+    .skill-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .skill-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .skill-card {
+        width: 90%;
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+    .skill-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .skill-card {
+        width: 90%;
+    }
+}

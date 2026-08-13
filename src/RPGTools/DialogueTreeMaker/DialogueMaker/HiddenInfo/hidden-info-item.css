@@ -1,0 +1,23 @@
+
+.hidden-info-item {
+    display: flex;
+    flex-direction: row;
+
+    gap: 12px;
+}
+
+.hidden-info-item__segment {
+    display: flex;
+    flex-direction: row;
+
+    flex: 1 1;
+}
+
+.hidden-info-item__segment--actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+
+    gap: 8px;
+    flex: 1 1;
+}

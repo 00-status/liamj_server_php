@@ -1,0 +1,70 @@
+/* Colour Palette:
+Background Page Colour: #f7e8d5
+Background Page Organizer Colour: #fcf6ee
+Background Page Organizer Colour 2: #fcf8f8
+Green Primary: #83b482
+Green Highlighted: #a4c3a5
+Blue Primary: #7ea2ba
+Blue Highlighted: #b8c4ce
+Red Primary: #c44536
+Red Highlighted: #cf5c4f
+Brown Primary: #432818
+Brown Highlighted: #693e26
+Black Primary: #272d2d
+Black Highlighted: #394141
+Grey: #bfbebe
+*/
+
+.stone-tower-page {
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+    width: 100%;
+    padding-bottom: 20px;
+
+    color: #272d2d;
+    background-color: #f7e8d5;
+}
+
+.stone-tower-page__header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    padding-bottom: 20px;
+
+    background-color: #fcf8f8;
+    border-bottom: 1px dashed #84894a;
+    text-align: center;
+}
+
+.stone-tower-page__title {
+    font-size: 80px;
+    font-weight: 700;
+}
+
+.stone-tower-page__stats {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    width: 800px;
+    margin: 28px auto;
+    padding: 12px;
+
+    background-color: #fcf6ee;
+    border-radius: 4px;
+    border: 1px dashed #83b482;
+    box-shadow: 4px 4px 12px #39414185;
+}
+
+@media only screen and (max-width: 600px) {
+    .stone-tower-page__stats {
+        width: 90%;
+
+        flex-wrap: wrap;
+    }
+}

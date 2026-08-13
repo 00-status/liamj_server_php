@@ -1,0 +1,106 @@
+/* Page styling */
+.page {
+    display: flex;
+    flex-direction: column;
+}
+
+.page__nav-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    gap: 4px;
+    padding: 16px;
+
+    background-color: #fcfeff;
+    color: #2a2b30;
+}
+
+.page__nav-button {
+    display: flex;
+
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}
+.page__nav-button:hover {
+    transform: scale(1.1);
+}
+
+.page__nav-icons {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+    margin: 8px 0 8px 12px;
+}
+
+.page-title-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+
+    background-color: #fcfeff;
+    color: #2a2b30;
+}
+.page-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    text-align: center;
+    margin: 20px 0;
+
+    font-size: 96px;
+    font-family: 'Spectral-Regular';
+    color: #cc1818;
+}
+
+.page-content-container {
+    display: flex;
+    align-self: center;
+
+    width: 50%;
+}
+
+.footer {
+    align-self: center;
+    width: 45%;
+    margin-bottom: 48px;
+
+    color: #89898b;
+    font-size: 12px;
+    text-align: center;
+}
+
+@media only screen and (min-width: 2080px) {
+    .page-content-container {
+        width: 40%;
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+    .page-content-container {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    h1,
+    h2 {
+        text-align: center;
+    }
+
+    .page-title {
+        font-size: 55px;
+    }
+
+    .page-content-container {
+        width: 90%;
+    }
+
+    .footer {
+        width: 90%;
+    }
+}

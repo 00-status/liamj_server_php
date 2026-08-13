@@ -3,27 +3,23 @@
 namespace Lib;
 
 use PDO;
-use PDOException;
 
 abstract class PdoDbContext
 {
     protected PDO $pdo;
 
-    public function __construct()
+    public function __construct(PDO $pdo)
     {
-        $connection_string = getenv("DB_CON");
-
-        if (empty($connection_string)) {
-            throw new \RuntimeException("Invalid connection string!", 500);
+        if (!$pdo) {
+            throw new \RuntimeException("DB connection not found!", 500);
         }
 
-        try {
-            $this->pdo = new PDO($connection_string);
-        } catch (PDOException $exception) {
-            throw new \RuntimeException($exception->getMessage(), 500);
-        }
+        $this->pdo = $pdo;
+    }
 
-        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    public function getPdo(): PDO
+    {
+        return $this->pdo;
     }
 
     protected function fetchAll(string $table): array

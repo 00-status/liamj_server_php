@@ -1,0 +1,12 @@
+.story-catalogue {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+    .story-catalogue {
+        width: 100%;
+        margin: 0;
+    }
+}

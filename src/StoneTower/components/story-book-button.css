@@ -1,0 +1,22 @@
+.story-book-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-width: 50px;
+    height: 40px;
+    border-radius: 4px;
+    transition: all 0.1s ease-in-out;
+
+    background-color: #83b482;
+    color: #fcfeff;
+
+    border: none;
+    border-radius: 4px;
+}
+
+.story-book-button:hover {
+    transform: scale(1.02);
+}

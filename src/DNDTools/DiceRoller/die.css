@@ -1,0 +1,22 @@
+
+.die--icon {
+    width: 70%;
+    height: 70%;
+    fill: #FCFEFF;
+}
+
+.die {
+    width: 100%;
+    height: 100%;
+
+    font-size: 24px;
+    background-color: #a02e2f;
+    color: #FCFEFF;
+    border: none;
+    transition: all .1s ease-in-out;
+}
+.die:hover {
+    background-color: #CC1818;
+    transform: scale(1.05);
+    box-shadow: 1px 1px 4px #1f2028;
+}

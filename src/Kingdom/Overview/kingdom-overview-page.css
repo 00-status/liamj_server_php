@@ -1,0 +1,23 @@
+.kingdom-overview-page {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.kingdom-overview-page__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.kingdom-overview-page__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: fit-content;
+    height: fit-content;
+
+    align-self: center;
+
+    text-align: center;
+    gap: 4px;
+}
