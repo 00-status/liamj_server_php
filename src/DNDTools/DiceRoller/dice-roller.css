@@ -1,0 +1,83 @@
+.dice-roller {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    gap: 20px;
+}
+
+.dice-roller--result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 200px;
+    min-height: 100px;
+    background-color: #3b3b40;
+    padding: 16px;
+    margin: 8px 0;
+
+    border-radius: 4px;
+    box-shadow: 1px 1px 4px #1f2028;
+}
+
+.dice-roller__result--value {
+    opacity: 1;
+    transform: translateY(0);
+    animation: dice-roller-fade-in 0.25s ease-in;
+}
+@keyframes dice-roller-fade-in {
+    0% {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+}
+
+.dice-roller--log-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
+}
+
+.dice-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+
+    column-gap: 10px;
+    row-gap: 20px;
+}
+
+.dice-roller--log {
+    min-height: 200px;
+
+    resize: none;
+    overflow: scroll;
+    scrollbar-width: none; /* FireFox */
+
+    background-color: #3b3b40;
+    color: #fcfeff;
+    line-height: 24px;
+    border-radius: 4px;
+    box-shadow: 1px 1px 4px #1f2028;
+
+    padding: 4px 4px;
+    margin: 8px 0;
+}
+.dice-roller--log::-webkit-scrollbar {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .dice-roller--results-container {
+        width: 100%;
+    }
+
+    .dice-roller--log {
+        height: 100px;
+    }
+
+    .dice-container {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}

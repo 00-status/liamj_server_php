@@ -1,0 +1,19 @@
+.history-item {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+    margin-bottom: 8px;
+}
+.history-item--centered {
+    margin-left: 24px;
+}
+
+.history-item__character {
+    font-weight: 700;
+    text-shadow: 1px 1px 4px black;
+}
+
+.history-item__text {
+    white-space: pre-wrap;
+}

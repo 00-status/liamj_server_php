@@ -1,0 +1,39 @@
+.weapon-effect-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    width: 100%;
+}
+
+.weapon-effect-list__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.weapon-effect-list__item {
+    padding: 4px 8px;
+}
+.weapon-effect-list__item:hover {
+    color: #2a2b30;
+    background-color: #f2f4f5;
+}
+
+.weapon-effect-list__list {
+    flex: 1;
+    max-height: 500px;
+
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.weapon-effect-list__list::-webkit-scrollbar {
+    display: none;
+}
+
+.weapon-effect-list__form {
+    flex: 2;
+}

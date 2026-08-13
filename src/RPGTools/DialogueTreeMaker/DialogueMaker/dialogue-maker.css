@@ -1,0 +1,74 @@
+.dialogue-maker {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
+}
+
+.dialogue-maker__title {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+    gap: 20px;
+}
+
+.dialogue-maker__form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+    gap: 20px;
+}
+
+.dialogue-maker__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.dialogue-maker__description {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.dialogue-maker__description--hidden-info {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.dialogue-maker__text-area-container {
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px;
+
+    border-radius: 8px;
+    box-shadow: 1px 1px 4px #1f2028;
+
+    background-color: #313137;
+}
+
+.dialogue-maker__text-area {
+    height: 140px;
+    resize: vertical;
+
+    padding: 4px 4px;
+    box-shadow: 1px 1px 4px #1f2028;
+}
+
+.dialogue-maker__widgets {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    justify-content: space-between;
+}
+
+.dialogue-maker__widgets--choices {
+    flex: 1;
+}

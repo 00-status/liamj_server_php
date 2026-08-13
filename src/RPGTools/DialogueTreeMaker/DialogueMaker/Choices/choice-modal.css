@@ -1,0 +1,38 @@
+.choice-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.choice-modal__inline-form {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.choice-modal__condition-outcome-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 8px;
+}
+
+.choice-modal__condition-outcome-form-button {
+    align-self: end;
+}
+
+.choice-modal__condition-outcome {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.choice-modal__condition-outcome-header {
+    font-weight: 700;
+}
+
+.choice-modal__condition-outcome-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: end;
+}

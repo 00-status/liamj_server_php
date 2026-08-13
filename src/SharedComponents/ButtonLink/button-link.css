@@ -1,0 +1,30 @@
+
+.button-link {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+
+    min-width: 50px;
+    height: 40px;
+    border-radius: 4px;
+    transition: all .1s ease-in-out;
+
+    background-color: #708694;
+    color: #FCFEFF;
+    border: none;
+}
+
+.button-link:hover {
+    background-color: #4a87ac;
+    transform: scale(1.05);
+    box-shadow: 1px 1px 4px #1f2028;
+}
+
+@media only screen and (max-width: 600px) {
+    .button-link {
+        width: 100%;
+    }
+}

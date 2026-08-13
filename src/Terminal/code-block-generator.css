@@ -1,0 +1,18 @@
+.code-block-generator {
+    width: 50%;
+    white-space: pre;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.character-span {
+    position: relative;
+    opacity: 0;
+    animation: move-text 0.75s forwards;
+}
+
+@keyframes move-text {
+    0% { bottom: -0.2em; opacity: 1; }
+    50% { bottom: -0.1em; }
+    100% { bottom: 0; opacity: 1; }
+}

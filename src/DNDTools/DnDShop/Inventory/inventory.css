@@ -1,0 +1,42 @@
+.inventory {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.inventory__search {
+    width: 100%;
+}
+
+.inventory__list {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    width: 100%;
+    gap: 8px;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none; /* FireFox */
+}
+
+.inventory__list::-webkit-scrollbar {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .inventory {
+        width: 90%;
+        margin-top: 20px;
+    }
+
+    .inventory__list {
+        flex-direction: row;
+
+        overflow-y: hidden;
+        overflow-x: scroll;
+
+        height: 90px;
+    }
+}

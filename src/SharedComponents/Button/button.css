@@ -1,0 +1,101 @@
+[data-theme="default-button"] {
+    --button-color-main: #708694;
+    --button-color-hover: #4a87ac;
+    --button-color-shadow: 1px 1px 12px #4a87acB0;
+}
+
+[data-theme="delete-button"] {
+    --button-color-main: #a02e2f;
+    --button-color-hover: #CC1818;
+    --button-color-shadow: 1px 1px 12px #CC1818B0;
+}
+
+[data-theme="subtle-button"] {
+    --button-color-main: transparent;
+    --button-color-hover: transparent;
+    --button-color-shadow: 1px 1px 4px #1f2028;
+}
+
+[data-theme="disabled-button"] {
+    --button-color-main: #7e7d7e;
+    --button-color-hover: #7e7d7e;
+    --button-color-shadow: 1px 1px 4px #1f2028;
+}
+
+button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-width: 50px;
+    height: 40px;
+    border-radius: 4px;
+    transition: all .1s ease-in-out;
+
+    color: #FCFEFF;
+    border: none;
+}
+button:hover {
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.disabled-button:hover {
+    transform: none;
+}
+
+.disabled-button:active {
+    transform: none;
+    box-shadow: none;
+}
+
+.custom-button {
+    background-color: var(--button-color-main);
+}
+.custom-button:hover {
+    background-color: var(--button-color-hover);
+    box-shadow: 1px 1px 4px #1f2028;
+}
+
+.button-sheen {
+    position: relative;
+    overflow: hidden;
+}
+.button-sheen:hover {
+    font-style: italic;
+    box-shadow: var(--button-color-shadow);
+    border: 1px solid #1f1f1fcc;
+}
+.button-sheen:before {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: -100%;
+
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(
+        120deg,
+        transparent,
+        #ededed40,
+        transparent
+    );
+    transition: all 650ms;
+}
+.button-sheen:hover:before {
+    left: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+    button {
+        width: 100%;
+    }
+}

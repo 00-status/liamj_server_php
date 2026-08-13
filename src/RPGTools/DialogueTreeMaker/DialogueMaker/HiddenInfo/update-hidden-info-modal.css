@@ -1,0 +1,26 @@
+.add-hidden-info-modal {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.add-hidden-info-modal__form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    gap: 8px;
+}
+
+.add-hidden-info-modal__description {
+    height: 230px;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+
+.choices-list__container::-webkit-scrollbar {
+    display: none;
+}

@@ -1,0 +1,7 @@
+.weapon-effect-tag {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: end;
+    gap: 20px;
+}

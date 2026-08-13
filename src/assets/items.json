@@ -1,0 +1,1190 @@
+[
+   {
+       "name": "Abacus",
+       "cost": 2,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Acid (vial)",
+       "cost": 25,
+       "currency": "gold",
+       "weight": 1
+   },
+   {
+       "name": "Alchemist’s fire (flask)",
+       "cost": 50,
+       "currency": "gold",
+       "weight": 1
+   },
+   {
+       "name": "Alchemist’s supplies",
+       "cost": 50,
+       "currency": "gold",
+       "weight": 8
+   },
+   {
+       "name": "Amulet",
+       "cost": 5,
+       "currency": "gold",
+       "weight": 1
+   },
+   {
+       "name": "Animal Feed (per day)",
+       "cost": 5,
+       "currency": "copper",
+       "weight": 10
+   },
+   {
+       "name": "Antitoxin (vial)",
+       "cost": 50,
+       "currency": "gold",
+       "weight": null
+   },
+   {
+       "name": "Arrows (20)",
+       "cost": 1,
+       "currency": "gold",
+       "weight": 1
+   },
+   {
+       "name": "Backpack",
+       "cost": 2,
+       "currency": "gold",
+       "weight": 5
+   },
+   {
+       "name": "Bagpipes",
+       "cost": 30,
+       "currency": "gold",
+       "weight": 6
+   },
+   {
+       "name": "1000 Ball Bearings",
+       "cost": 1,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Barrel",
+       "cost": 2,
+       "currency": "gold",
+       "weight": 70
+   },
+   {
+       "name": "Basic Poison (vial)",
+       "cost": 100,
+       "currency": "gold",
+       "weight": null
+   },
+   {
+       "name": "Basket",
+       "cost": 4,
+       "currency": "silver",
+       "weight": 2
+   },
+   {
+       "name": "Battleaxe",
+       "cost": 10,
+       "currency": "gold",
+       "weight": 4
+   },
+   {
+       "name": "Bedroll",
+       "cost": 1,
+       "currency": "gold",
+       "weight": 7
+   },
+   {
+       "name": "Bell",
+       "cost": 1,
+       "currency": "gold",
+       "weight": null
+   },
+   {
+       "name": "Bit and bridle",
+       "cost": 2,
+       "currency": "gold",
+       "weight": 1
+   },
+   {
+       "name": "Blanket",
+       "cost": 5,
+       "currency": "silver",
+       "weight": 3
+   },
+   {
+       "name": "Block and tackle",
+       "cost": 1,
+       "currency": "gold",
+       "weight": 5
+   },
+   {
+       "name": "Blowgun",
+       "cost": 10,
+       "currency": "gold",
+       "weight": 1
+   },
+   {
+       "name": "Blowgun needles (50)",
+       "cost": 1,
+       "currency": "gold",
+       "weight": 1
+   },
+   {
+       "name": "Book",
+       "cost": 25,
+       "currency": "gold",
+       "weight": 5
+   },
+   {
+       "name": "Brewer’s supplies",
+       "cost": 20,
+       "currency": "gold",
+       "weight": 9
+   },
+   {
+       "name": "Bucket",
+       "cost": 5,
+       "currency": "copper",
+       "weight": 2
+   },
+   {
+       "name": "Bullseye Lantern",
+       "cost": 10,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Calligrapher's supplies",
+       "cost": 10,
+       "currency": "gold",
+       "weight": 5
+   },
+   {
+       "name": "Caltrops (bag of 20)",
+       "cost": 1,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Camel",
+       "cost": 50,
+       "currency": "gold",
+       "weight": 480
+   },
+   {
+       "name": "Candle",
+       "cost": 1,
+       "currency": "copper",
+       "weight": null
+   },
+   {
+       "name": "Carpenter’s tools",
+       "cost": 8,
+       "currency": "gold",
+       "weight": 6
+   },
+   {
+       "name": "Carriage",
+       "cost": 100,
+       "currency": "gold",
+       "weight": 600
+   },
+   {
+       "name": "Cart",
+       "cost": 15,
+       "currency": "gold",
+       "weight": 200
+   },
+   {
+       "name": "Cartographer’s tools",
+       "cost": 15,
+       "currency": "gold.",
+       "weight": 6
+   },
+   {
+       "name": "Chain (10 feet)",
+       "cost": 5,
+       "currency": "gold",
+       "weight": 10
+   },
+   {
+       "name": "Chalk (1 piece)",
+       "cost": 1,
+       "currency": "copper",
+       "weight": null
+   },
+   {
+       "name": "Chariot",
+       "cost": 250,
+       "currency": "gold",
+       "weight": 100
+   },
+   {
+       "name": "Chest",
+       "cost": 5,
+       "currency": "gold",
+       "weight": 25
+   },
+   {
+       "name": "climber’s Kit",
+       "cost": 25,
+       "currency": "gold",
+       "weight": 12
+   },
+   {
+       "name": "Club",
+       "cost": 1,
+       "currency": "silver",
+       "weight": 2
+   },
+   {
+       "name": "Cobbler’s tools",
+       "cost": 5,
+       "currency": "gold",
+       "weight": 5
+   },
+   {
+       "name": "Common Clothes",
+       "cost": 5,
+       "currency": "silver",
+       "weight": 3
+   },
+   {
+       "name": "Component pouch",
+       "cost": 25,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Cook’s utensils",
+       "cost": 1,
+       "currency": "gold",
+       "weight": 8
+   },
+   {
+       "name": "Costume Clothes",
+       "cost": 5,
+       "currency": "gold",
+       "weight": 4
+   },
+   {
+       "name": "Crossbow Bolt Case",
+       "cost": 1,
+       "currency": "gold",
+       "weight": 1
+   },
+   {
+       "name": "Crossbow bolts (20)",
+       "cost": 1,
+       "currency": "gold",
+       "weight": 1.5
+   },
+   {
+       "name": "Crossbow, Hand",
+       "cost": 75,
+       "currency": "gold",
+       "weight": 3
+   },
+   {
+       "name": "Crossbow, Heavy",
+       "cost": 50,
+       "currency": "gold",
+       "weight": 18
+   },
+   {
+       "name": "Crossbow, Light",
+       "cost": 25,
+       "currency": "gold",
+       "weight": 5
+   },
+   {
+       "name": "Crowbar",
+       "cost": 2,
+       "currency": "gold",
+       "weight": 5
+   },
+   {
+       "name": "Crystal",
+       "cost": 10,
+       "currency": "gold",
+       "weight": 1
+   },
+   {
+       "name": "Dagger",
+       "cost": 2,
+       "currency": "gold",
+       "weight": 1
+   },
+   {
+       "name": "Dart",
+       "cost": 5,
+       "currency": "copper",
+       "weight": 0.25
+   },
+   {
+       "name": "Dice set",
+       "cost": 1,
+       "currency": "silver",
+       "weight": null
+   },
+   {
+       "name": "disguise Kit",
+       "cost": 25,
+       "currency": "gold",
+       "weight": 3
+   },
+   {
+       "name": "Donkey or mule",
+       "cost": 8,
+       "currency": "gold",
+       "weight": 420
+   },
+   {
+       "name": "Draft Horse",
+       "cost": 50,
+       "currency": "gold",
+       "weight": 540
+   },
+   {
+       "name": "Drum",
+       "cost": 6,
+       "currency": "gold",
+       "weight": 3
+   },
+   {
+       "name": "Dulcimer",
+       "cost": 25,
+       "currency": "gold",
+       "weight": 10
+   },
+   {
+       "name": "Elephant",
+       "cost": 200,
+       "currency": "gold",
+       "weight": 1320
+   },
+   {
+       "name": "Emblem",
+       "cost": 5,
+       "currency": "gold",
+       "weight": null
+   },
+   {
+       "name": "Exotic Saddle",
+       "cost": 60,
+       "currency": "gold",
+       "weight": 40
+   },
+   {
+       "name": "Fine Clothes",
+       "cost": 15,
+       "currency": "gold",
+       "weight": 6
+   },
+   {
+       "name": "Fishing tackle",
+       "cost": 1,
+       "currency": "gold",
+       "weight": 4
+   },
+   {
+       "name": "Flail",
+       "cost": 10,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Flask or tankard",
+       "cost": 2,
+       "currency": "copper",
+       "weight": 1
+   },
+   {
+       "name": "Flute",
+       "cost": 2,
+       "currency": "gold",
+       "weight": 1
+   },
+   {
+       "name": "forgery Kit",
+       "cost": 15,
+       "currency": "gold",
+       "weight": 5
+   },
+   {
+       "name": "Galley",
+       "cost": 30000,
+       "currency": "gold",
+       "weight": null
+   },
+   {
+       "name": "Glaive",
+       "cost": 20,
+       "currency": "gold",
+       "weight": 6
+   },
+   {
+       "name": "Glass Bottle",
+       "cost": 2,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Glassblower’s tools",
+       "cost": 30,
+       "currency": "gold",
+       "weight": 5
+   },
+   {
+       "name": "Grappling hook",
+       "cost": 2,
+       "currency": "gold",
+       "weight": 4
+   },
+   {
+       "name": "Greataxe",
+       "cost": 30,
+       "currency": "gold",
+       "weight": 7
+   },
+   {
+       "name": "Greatclub",
+       "cost": 2,
+       "currency": "silver",
+       "weight": 10
+   },
+   {
+       "name": "Greatsword",
+       "cost": 50,
+       "currency": "gold",
+       "weight": 6
+   },
+   {
+       "name": "Halberd",
+       "cost": 20,
+       "currency": "gold",
+       "weight": 6
+   },
+   {
+       "name": "Hammer",
+       "cost": 1,
+       "currency": "gold",
+       "weight": 3
+   },
+   {
+       "name": "Handaxe",
+       "cost": 5,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "healer’s Kit",
+       "cost": 5,
+       "currency": "gold",
+       "weight": 3
+   },
+   {
+       "name": "Hempen Rope (50 feet)",
+       "cost": 1,
+       "currency": "gold",
+       "weight": 10
+   },
+   {
+       "name": "herbalism Kit",
+       "cost": 5,
+       "currency": "gold",
+       "weight": 3
+   },
+   {
+       "name": "Holy water (flask)",
+       "cost": 25,
+       "currency": "gold",
+       "weight": 1
+   },
+   {
+       "name": "Hooded Lantern",
+       "cost": 5,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Horn",
+       "cost": 3,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Hourglass",
+       "cost": 25,
+       "currency": "gold",
+       "weight": 1
+   },
+   {
+       "name": "Hunting trap",
+       "cost": 5,
+       "currency": "gold",
+       "weight": 25
+   },
+   {
+       "name": "Ink (1 ounce bottle)",
+       "cost": 10,
+       "currency": "gold",
+       "weight": null
+   },
+   {
+       "name": "Ink pen",
+       "cost": 2,
+       "currency": "copper",
+       "weight": null
+   },
+   {
+       "name": "Iron Pot",
+       "cost": 2,
+       "currency": "gold",
+       "weight": 10
+   },
+   {
+       "name": "Iron Spikes (10)",
+       "cost": 1,
+       "currency": "gold",
+       "weight": 5
+   },
+   {
+       "name": "Javelin",
+       "cost": 5,
+       "currency": "silver",
+       "weight": 2
+   },
+   {
+       "name": "Jeweler’s tools",
+       "cost": 25,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Jug or pitcher",
+       "cost": 2,
+       "currency": "copper",
+       "weight": 4
+   },
+   {
+       "name": "Keelboat",
+       "cost": 3000,
+       "currency": "gold",
+       "weight": null
+   },
+   {
+       "name": "Ladder (10-foot)",
+       "cost": 1,
+       "currency": "silver",
+       "weight": 25
+   },
+   {
+       "name": "Lamp",
+       "cost": 5,
+       "currency": "silver",
+       "weight": 1
+   },
+   {
+       "name": "Lance",
+       "cost": 10,
+       "currency": "gold",
+       "weight": 6
+   },
+   {
+       "name": "Leatherworker’s tools",
+       "cost": 5,
+       "currency": "gold",
+       "weight": 5
+   },
+   {
+       "name": "Light Hammer",
+       "cost": 2,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Lock",
+       "cost": 10,
+       "currency": "gold",
+       "weight": 1
+   },
+   {
+       "name": "Longbow",
+       "cost": 50,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Longship",
+       "cost": 10000,
+       "currency": "gold",
+       "weight": null
+   },
+   {
+       "name": "Longsword",
+       "cost": 15,
+       "currency": "gold",
+       "weight": 3
+   },
+   {
+       "name": "Lute",
+       "cost": 35,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Lyre",
+       "cost": 30,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Mace",
+       "cost": 5,
+       "currency": "gold",
+       "weight": 4
+   },
+   {
+       "name": "Magnifying glass",
+       "cost": 100,
+       "currency": "gold",
+       "weight": null
+   },
+   {
+       "name": "Manacles",
+       "cost": 2,
+       "currency": "gold",
+       "weight": 6
+   },
+   {
+       "name": "Map Case",
+       "cost": 1,
+       "currency": "gold",
+       "weight": 1
+   },
+   {
+       "name": "Mason’s tools",
+       "cost": 10,
+       "currency": "gold",
+       "weight": 8
+   },
+   {
+       "name": "Mastiff",
+       "cost": 25,
+       "currency": "gold",
+       "weight": 195
+   },
+   {
+       "name": "Maul",
+       "cost": 10,
+       "currency": "gold",
+       "weight": 10
+   },
+   {
+       "name": "Merchant’s Scale",
+       "cost": 5,
+       "currency": "gold",
+       "weight": 3
+   },
+   {
+       "name": "mess Kit",
+       "cost": 2,
+       "currency": "silver",
+       "weight": 1
+   },
+   {
+       "name": "Military Saddle",
+       "cost": 20,
+       "currency": "gold",
+       "weight": 30
+   },
+   {
+       "name": "Miner’s Pick",
+       "cost": 2,
+       "currency": "gold",
+       "weight": 10
+   },
+   {
+       "name": "Morningstar",
+       "cost": 15,
+       "currency": "gold",
+       "weight": 4
+   },
+   {
+       "name": "Navigator’s tools",
+       "cost": 25,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Net",
+       "cost": 1,
+       "currency": "gold",
+       "weight": 3
+   },
+   {
+       "name": "Oil (flask)",
+       "cost": 1,
+       "currency": "silver",
+       "weight": 1
+   },
+   {
+       "name": "Orb",
+       "cost": 20,
+       "currency": "gold",
+       "weight": 3
+   },
+   {
+       "name": "Pack Saddle",
+       "cost": 5,
+       "currency": "gold",
+       "weight": 15
+   },
+   {
+       "name": "Painter’s supplies",
+       "cost": 10,
+       "currency": "gold",
+       "weight": 5
+   },
+   {
+       "name": "Pan flute",
+       "cost": 12,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Paper (one sheet)",
+       "cost": 2,
+       "currency": "silver",
+       "weight": null
+   },
+   {
+       "name": "Parchment (one sheet)",
+       "cost": 1,
+       "currency": "silver",
+       "weight": null
+   },
+   {
+       "name": "Perfume (vial)",
+       "cost": 5,
+       "currency": "gold",
+       "weight": null
+   },
+   {
+       "name": "Pike",
+       "cost": 5,
+       "currency": "gold",
+       "weight": 18
+   },
+   {
+       "name": "Piton",
+       "cost": 5,
+       "currency": "copper",
+       "weight": 0.25
+   },
+   {
+       "name": "Playing card set",
+       "cost": 5,
+       "currency": "silver",
+       "weight": null
+   },
+   {
+       "name": "poisoner’s Kit",
+       "cost": 50,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Pole (10-foot)",
+       "cost": 5,
+       "currency": "copper",
+       "weight": 7
+   },
+   {
+       "name": "Pony",
+       "cost": 30,
+       "currency": "gold",
+       "weight": 225
+   },
+   {
+       "name": "Portable Ram",
+       "cost": 4,
+       "currency": "gold",
+       "weight": 35
+   },
+   {
+       "name": "Potion of healing",
+       "cost": 50,
+       "currency": "gold",
+       "weight": 0.5
+   },
+   {
+       "name": "Potter’s tools",
+       "cost": 10,
+       "currency": "gold",
+       "weight": 3
+   },
+   {
+       "name": "Pouch",
+       "cost": 5,
+       "currency": "silver",
+       "weight": 1
+   },
+   {
+       "name": "Quarterstaff",
+       "cost": 2,
+       "currency": "silver",
+       "weight": 4
+   },
+   {
+       "name": "Quiver",
+       "cost": 1,
+       "currency": "gold",
+       "weight": 1
+   },
+   {
+       "name": "Rapier",
+       "cost": 25,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Rations (1 day)",
+       "cost": 5,
+       "currency": "silver",
+       "weight": 2
+   },
+   {
+       "name": "Reliquary",
+       "cost": 5,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Riding Horse",
+       "cost": 75,
+       "currency": "gold",
+       "weight": 480
+   },
+   {
+       "name": "Riding Saddle",
+       "cost": 10,
+       "currency": "gold",
+       "weight": 25
+   },
+   {
+       "name": "Robes",
+       "cost": 1,
+       "currency": "gold",
+       "weight": 4
+   },
+   {
+       "name": "Rod",
+       "cost": 10,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Rowboat",
+       "cost": 50,
+       "currency": "gold",
+       "weight": null
+   },
+   {
+       "name": "Sack",
+       "cost": 1,
+       "currency": "copper",
+       "weight": 0.5
+   },
+   {
+       "name": "Saddlebags",
+       "cost": 4,
+       "currency": "gold",
+       "weight": 8
+   },
+   {
+       "name": "Sailing ship",
+       "cost": 10000,
+       "currency": "gold",
+       "weight": null
+   },
+   {
+       "name": "Scimitar",
+       "cost": 25,
+       "currency": "gold",
+       "weight": 3
+   },
+   {
+       "name": "Scroll Case",
+       "cost": 1,
+       "currency": "gold",
+       "weight": 1
+   },
+   {
+       "name": "Sealing wax",
+       "cost": 5,
+       "currency": "silver",
+       "weight": null
+   },
+   {
+       "name": "Shawm",
+       "cost": 2,
+       "currency": "gold",
+       "weight": 1
+   },
+   {
+       "name": "Shortbow",
+       "cost": 25,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Shortsword",
+       "cost": 10,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Shovel",
+       "cost": 2,
+       "currency": "gold",
+       "weight": 5
+   },
+   {
+       "name": "Sickle",
+       "cost": 1,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Signal whistle",
+       "cost": 5,
+       "currency": "copper",
+       "weight": null
+   },
+   {
+       "name": "Signet ring",
+       "cost": 5,
+       "currency": "gold",
+       "weight": null
+   },
+   {
+       "name": "Silk Rope (50 feet)",
+       "cost": 10,
+       "currency": "gold",
+       "weight": 5
+   },
+   {
+       "name": "Sled",
+       "cost": 20,
+       "currency": "gold",
+       "weight": 300
+   },
+   {
+       "name": "Sledgehammer",
+       "cost": 2,
+       "currency": "gold",
+       "weight": 10
+   },
+   {
+       "name": "Sling",
+       "cost": 1,
+       "currency": "silver",
+       "weight": 0
+   },
+   {
+       "name": "Sling bullets (20)",
+       "cost": 4,
+       "currency": "copper",
+       "weight": 1.5
+   },
+   {
+       "name": "Smith’s tools",
+       "cost": 20,
+       "currency": "gold",
+       "weight": 8
+   },
+   {
+       "name": "Soap",
+       "cost": 2,
+       "currency": "copper",
+       "weight": null
+   },
+   {
+       "name": "Spear",
+       "cost": 1,
+       "currency": "gold",
+       "weight": 3
+   },
+   {
+       "name": "Spellbook",
+       "cost": 50,
+       "currency": "gold",
+       "weight": 3
+   },
+   {
+       "name": "Sprig of mistletoe",
+       "cost": 1,
+       "currency": "gold",
+       "weight": null
+   },
+   {
+       "name": "Spyglass",
+       "cost": 1000,
+       "currency": "gold",
+       "weight": 1
+   },
+   {
+       "name": "Stabling (per day)",
+       "cost": 5,
+       "currency": "silver",
+       "weight": null
+   },
+   {
+       "name": "Staff",
+       "cost": 5,
+       "currency": "gold",
+       "weight": 4
+   },
+   {
+       "name": "Steel Mirror",
+       "cost": 5,
+       "currency": "gold",
+       "weight": 0.5
+   },
+   {
+       "name": "Thieves’ tools",
+       "cost": 25,
+       "currency": "gold",
+       "weight": 1
+   },
+   {
+       "name": "Tinderbox",
+       "cost": 5,
+       "currency": "silver",
+       "weight": 1
+   },
+   {
+       "name": "Tinker’s tools",
+       "cost": 50,
+       "currency": "gold",
+       "weight": 10
+   },
+   {
+       "name": "Torch",
+       "cost": 1,
+       "currency": "copper",
+       "weight": 1
+   },
+   {
+       "name": "Totem",
+       "cost": 1,
+       "currency": "gold",
+       "weight": null
+   },
+   {
+       "name": "Traveler’s Clothes",
+       "cost": 2,
+       "currency": "gold",
+       "weight": 4
+   },
+   {
+       "name": "Trident",
+       "cost": 5,
+       "currency": "gold",
+       "weight": 4
+   },
+   {
+       "name": "Two-person Tent",
+       "cost": 2,
+       "currency": "gold",
+       "weight": 20
+   },
+   {
+       "name": "Vial",
+       "cost": 1,
+       "currency": "gold",
+       "weight": null
+   },
+   {
+       "name": "Viol",
+       "cost": 30,
+       "currency": "gold",
+       "weight": 1
+   },
+   {
+       "name": "Wagon",
+       "cost": 35,
+       "currency": "gold",
+       "weight": 400
+   },
+   {
+       "name": "Wand",
+       "cost": 10,
+       "currency": "gold",
+       "weight": 1
+   },
+   {
+       "name": "Warhammer",
+       "cost": 15,
+       "currency": "gold",
+       "weight": 2
+   },
+   {
+       "name": "Warhorse",
+       "cost": 400,
+       "currency": "gold",
+       "weight": 540
+   },
+   {
+       "name": "Warship",
+       "cost": 25000,
+       "currency": "gold",
+       "weight": null
+   },
+   {
+       "name": "Waterskin",
+       "cost": 2,
+       "currency": "silver",
+       "weight": 5
+   },
+   {
+       "name": "Weaver’s tools",
+       "cost": 1,
+       "currency": "gold",
+       "weight": 5
+   },
+   {
+       "name": "Whetstone",
+       "cost": 1,
+       "currency": "copper",
+       "weight": 1
+   },
+   {
+       "name": "Whip",
+       "cost": 2,
+       "currency": "gold",
+       "weight": 3
+   },
+   {
+       "name": "Woodcarver’s tools",
+       "cost": 1,
+       "currency": "gold",
+       "weight": 5
+   },
+   {
+       "name": "Wooden staff",
+       "cost": 5,
+       "currency": "gold",
+       "weight": 4
+   },
+   {
+       "name": "Yew wand",
+       "cost": 10,
+       "currency": "gold",
+       "weight": 1
+   }
+]

@@ -1,0 +1,16 @@
+.health-bar {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    height: 20px;
+}
+
+.health-bar__marker {
+    min-height: 20px;
+    width: 20px;
+    background-color: #7ea2ba;
+}
+
+.health-bar__marker--disabled {
+    background-color: #bfbebe;
+}

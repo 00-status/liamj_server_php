@@ -1,0 +1,20 @@
+.dropdown {
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown__select {
+    height: 100%;
+    padding: 4px 4px;
+
+    background-color: #3b3b40;
+    color: #FCFEFF;
+    border: 1px solid #444449;
+    box-shadow: 1px 1px 4px #1f2028;
+}
+
+@media only screen and (max-width: 600px) {
+    .dropdown {
+        width: 100%;
+    }
+}

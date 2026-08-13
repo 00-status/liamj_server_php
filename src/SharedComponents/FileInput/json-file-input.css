@@ -1,0 +1,33 @@
+.file-input__input {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    padding: 0px;
+    box-shadow: 1px 1px 4px #1f2028;
+}
+
+.file-input__input::file-selector-button {
+    min-width: 50px;
+    height: 40px;
+
+    background-color: #708694;
+    color: #FCFEFF;
+    border: none;
+
+}
+
+.file-input__input::file-selector-button:hover {
+    box-shadow: 1px 1px 4px #1f2028;
+    background-color: #4a87ac;
+}
+
+@media only screen and (max-width: 600px) {
+    .file-input {
+        width: 100%;
+    }
+
+    .file-input__input {
+        width: 100%;
+    }
+}

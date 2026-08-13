@@ -1,0 +1,22 @@
+.color-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.color-input__input {
+    height: 100%;
+
+    padding: 4px 4px;
+    box-shadow: 1px 1px 4px #1f2028;
+}   
+
+@media only screen and (max-width: 600px) {
+    .color-input {
+        width: 100%;
+    }
+
+    .color-input__input {
+        height: 40px;
+        width: 100%;
+    }   
+}
