@@ -7,6 +7,7 @@ use Lib\Kingdom\Domain\Entity\KingdomGenerationConfig;
 use Lib\Kingdom\Domain\Entity\Region;
 use Lib\Kingdom\Domain\Entity\RegionTemplate;
 use Lib\Kingdom\Domain\Entity\Tile;
+use Lib\Kingdom\Domain\Entity\TileType;
 
 class KingdomGenerator
 {
@@ -34,43 +35,13 @@ class KingdomGenerator
         $step = $config->step;
         $jitter = $config->jitter;
 
-        // In-memory grid: [y][x] => ['region_index' => int, 'type' => TileType]
-        $grid = array_fill(0, $grid_height, array_fill(0, $grid_width, null));
-
-        $stamped_regions = []; // region_index => ['name' => string, 'template' => RegionTemplate, 'origin_x' => int, 'origin_y' => int]
-        $region_counter = 1;
-
         // Phase 1: Jittered Stamping
-        for ($y = (int) ($step / 2); $y < $grid_height; $y += $step) {
-            for ($x = (int) ($step / 2); $x < $grid_width; $x += $step) {
-                $origin_x = max(0, min($grid_width - 1, $x + random_int(-$jitter, $jitter)));
-                $origin_y = max(0, min($grid_height - 1, $y + random_int(-$jitter, $jitter)));
-
-                $template = $this->template_selector->selectTemplate($templates, $origin_x, $origin_y);
-                $region_index = $region_counter++;
-
-                $stamped_regions[$region_index] = [
-                    'name' => $template->name . " " . $region_index,
-                    'template' => $template,
-                    'origin_x' => $origin_x,
-                    'origin_y' => $origin_y,
-                ];
-
-                foreach ($template->tile_templates as $tile_template) {
-                    $target_x = $origin_x + $tile_template->x;
-                    $target_y = $origin_y + $tile_template->y;
-
-                    if ($target_x >= 0 && $target_x < $grid_width && $target_y >= 0 && $target_y < $grid_height) {
-                        if ($grid[$target_y][$target_x] === null) {
-                            $grid[$target_y][$target_x] = [
-                                'region_index' => $region_index,
-                                'type' => $tile_template->type,
-                            ];
-                        }
-                    }
-                }
-            }
+        $stamped_regions = $this->stampRegions($grid_width, $grid_height, $jitter, $step, $templates);
+        if (empty($stamped_regions)) {
+            throw new \DomainException("Cannot generate Kingdom with current configurations: No regions could be stamped.", 400);
         }
+
+        $grid = $this->createInitialGrid($grid_width, $grid_height, $stamped_regions);
 
         // Phase 2: Multi-Source BFS Remnant Growth
         $queue = new \SplQueue();
@@ -83,7 +54,15 @@ class KingdomGenerator
         }
 
         $cardinal_directions = [[0, -1], [1, 0], [0, 1], [-1, 0]];
+        $loop_counter = 0;
+        $max_iterations = $grid_width * $grid_height * 2;
+
         while (!$queue->isEmpty()) {
+            if ($loop_counter >= $max_iterations) {
+                throw new \RuntimeException("KingdomGenerator: BFS exceeded safety limit of {$max_iterations} iterations.", 500);
+            }
+            $loop_counter++;
+
             [$current_x, $current_y] = $queue->dequeue();
             $current_cell = $grid[$current_y][$current_x];
 
@@ -100,6 +79,15 @@ class KingdomGenerator
                         ];
                         $queue->enqueue([$neighbor_x, $neighbor_y]);
                     }
+                }
+            }
+        }
+
+        // Post-BFS Validation: Ensure no remaining null cells
+        for ($y = 0; $y < $grid_height; $y++) {
+            for ($x = 0; $x < $grid_width; $x++) {
+                if ($grid[$y][$x] === null) {
+                    throw new \DomainException("KingdomGenerator: Unfilled coordinate found at ({$x}, {$y}) after Phase 2.", 500);
                 }
             }
         }
@@ -137,6 +125,81 @@ class KingdomGenerator
         return Kingdom::fromArray([
             'id' => 0,
             'name' => $config->name,
+            'grid_width' => $grid_width,
+            'grid_height' => $grid_height,
         ], $domain_regions);
+    }
+
+    /**
+    * Go through and generate the Regions needed for the Kingdom.
+    * 
+    * Returns an array of the stamped Regions.
+    * 
+    * @param int $grid_width
+    * @param int $grid_height
+    * @param int $jitter
+    * @param int $step
+    * @param RegionTemplate[] $templates
+    * @return array<int, array{name: string, template: RegionTemplate, origin_x: int, origin_y: int}>
+    */
+    private function stampRegions(int $grid_width, int $grid_height, int $jitter, int $step, array $templates): array
+    {
+        $region_counter = 1;
+        $stamped_regions = [];
+
+        for ($y = (int) ($step / 2); $y < $grid_height; $y += $step) {
+            for ($x = (int) ($step / 2); $x < $grid_width; $x += $step) {
+                $origin_x = max(0, min($grid_width - 1, $x + random_int(-$jitter, $jitter)));
+                $origin_y = max(0, min($grid_height - 1, $y + random_int(-$jitter, $jitter)));
+
+                $template = $this->template_selector->selectTemplate($templates, $origin_x, $origin_y);
+                $region_index = $region_counter++;
+
+                $stamped_regions[$region_index] = [
+                    'name' => $template->name . " " . $region_index,
+                    'template' => $template,
+                    'origin_x' => $origin_x,
+                    'origin_y' => $origin_y,
+                ];
+            }
+        }
+
+        return $stamped_regions;
+    }
+
+    /**
+    * Creates the initial grid of tiles, writing each region's tiles into it.
+    * 
+    * @param int $grid_width
+    * @param int $grid_height
+    * @param array<int, array{name: string, template: RegionTemplate, origin_x: int, origin_y: int}> $stamped_regions
+    * @return array<int, array<int, array{region_index: int, type: TileType}|null>>
+    */
+    private function createInitialGrid(int $grid_width, int $grid_height, array $stamped_regions): array
+    {
+        // In-memory grid: [y][x] => ['region_index' => int, 'type' => TileType]
+        $grid = array_fill(0, $grid_height, array_fill(0, $grid_width, null));
+
+        foreach ($stamped_regions as $index => $stamped_region) {
+            $template = $stamped_region["template"];
+            $origin_x = $stamped_region["origin_x"];
+            $origin_y = $stamped_region["origin_y"];
+
+            foreach ($template->tile_templates as $tile_template) {
+                $target_x = $origin_x + $tile_template->x;
+                $target_y = $origin_y + $tile_template->y;
+
+                if ($target_x >= 0 && $target_x < $grid_width && $target_y >= 0 && $target_y < $grid_height) {
+                    if ($grid[$target_y][$target_x] === null) {
+                        $grid[$target_y][$target_x] = [
+                            'region_index' => $index,
+                            'type' => $tile_template->type,
+                        ];
+                    }
+                }
+            }
+        }
+
+        return $grid;
     }
 }

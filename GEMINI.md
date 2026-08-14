@@ -15,6 +15,7 @@
 - This project uses PHP 8.5 but contains code from previous PHP versions. Feel free to modernize code that is relevant to your current task.
 - Generally, match the existing programming style.
 - Maintain strict typing.
+- Prefer immutability patterns over mutable ones when writing code, except where there would be a notable performance drawback. For example, an Entity's properties should never be changed once initialized.
 
 ## JavaScript / React Instructions
 
