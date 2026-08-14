@@ -7,6 +7,7 @@ use Lib\Kingdom\Domain\Entity\KingdomGenerationConfig;
 use Lib\Kingdom\Domain\Entity\Region;
 use Lib\Kingdom\Domain\Entity\RegionTemplate;
 use Lib\Kingdom\Domain\Entity\Tile;
+use Lib\Kingdom\Domain\Entity\TileType;
 
 class KingdomGenerator
 {
@@ -39,7 +40,7 @@ class KingdomGenerator
         if (empty($stamped_regions)) {
             throw new \DomainException("Cannot generate Kingdom with current configurations: No regions could be stamped.", 400);
         }
-        
+
         $grid = $this->createInitialGrid($grid_width, $grid_height, $stamped_regions);
 
         // Phase 2: Multi-Source BFS Remnant Growth
@@ -129,20 +130,18 @@ class KingdomGenerator
         ], $domain_regions);
     }
 
-
     /**
-     * Go through and generate the Regions needed for the Kingdom.
-     * 
-     * Returns an array of the stamped Regions in the following format:
-     *      region_index => ['name' => string, 'template' => RegionTemplate, 'origin_x' => int, 'origin_y' => int]
-     * 
-     * @param int $grid_width
-     * @param int $grid_height
-     * @param int $jitter
-     * @param int $step
-     * @param RegionTemplate[] $templates
-     * @return array{name: string, origin_x: int, origin_y: int, template: RegionTemplate[]}
-     */
+    * Go through and generate the Regions needed for the Kingdom.
+    * 
+    * Returns an array of the stamped Regions.
+    * 
+    * @param int $grid_width
+    * @param int $grid_height
+    * @param int $jitter
+    * @param int $step
+    * @param RegionTemplate[] $templates
+    * @return array<int, array{name: string, template: RegionTemplate, origin_x: int, origin_y: int}>
+    */
     private function stampRegions(int $grid_width, int $grid_height, int $jitter, int $step, array $templates): array
     {
         $region_counter = 1;
@@ -169,13 +168,13 @@ class KingdomGenerator
     }
 
     /**
-     * Creates the initial grid of tiles, writing each region's tiles into it.
-     * 
-     * @param int $grid_width
-     * @param int $grid_height
-     * @param array $stamped_regions
-     * @return void
-     */
+    * Creates the initial grid of tiles, writing each region's tiles into it.
+    * 
+    * @param int $grid_width
+    * @param int $grid_height
+    * @param array<int, array{name: string, template: RegionTemplate, origin_x: int, origin_y: int}> $stamped_regions
+    * @return array<int, array<int, array{region_index: int, type: TileType}|null>>
+    */
     private function createInitialGrid(int $grid_width, int $grid_height, array $stamped_regions): array
     {
         // In-memory grid: [y][x] => ['region_index' => int, 'type' => TileType]
