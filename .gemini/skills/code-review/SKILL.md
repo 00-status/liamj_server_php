@@ -28,7 +28,7 @@ Evaluate the diff against the following standards:
 
 ## 3. Output Format
 
-Structure your review as follows:
+Issues are ranked as High (🤬), Medium (😡), or Low (😠). You can list as many issues as you want, but try not to nitpick. Structure your review as follows:
 
 ### 🎯 Executive Summary
 
@@ -52,7 +52,16 @@ Briefly summarize the feature/change and overall branch quality (1–3 sentences
     // Refactored code snippet here
     ```
 
-### Issue C (Low Severity 😠)
+### Issue C (Medium Severity 😡)
+
+- **[File / Line Range]:** Issue description.
+- **Why:** Potential bug, security risk, or architectural violation.
+- **Suggested Fix:**
+    ```TypeScript
+    // Refactored code snippet here
+    ```
+
+### Issue D (Low Severity 😠)
 
 - **[File / Line Range]:** Issue description.
 - **Why:** Potential bug, security risk, or architectural violation.
