@@ -36,6 +36,10 @@ class KingdomGenerator
 
         // Phase 1: Jittered Stamping
         $stamped_regions = $this->stampRegions($grid_width, $grid_height, $jitter, $step, $templates);
+        if (empty($stamped_regions)) {
+            throw new \DomainException("Cannot generate Kingdom with current configurations: No regions could be stamped.", 400);
+        }
+        
         $grid = $this->createInitialGrid($grid_width, $grid_height, $stamped_regions);
 
         // Phase 2: Multi-Source BFS Remnant Growth
@@ -49,7 +53,15 @@ class KingdomGenerator
         }
 
         $cardinal_directions = [[0, -1], [1, 0], [0, 1], [-1, 0]];
+        $loop_counter = 0;
+        $max_iterations = $grid_width * $grid_height * 2;
+
         while (!$queue->isEmpty()) {
+            if ($loop_counter >= $max_iterations) {
+                throw new \RuntimeException("KingdomGenerator: BFS exceeded safety limit of {$max_iterations} iterations.", 500);
+            }
+            $loop_counter++;
+
             [$current_x, $current_y] = $queue->dequeue();
             $current_cell = $grid[$current_y][$current_x];
 
@@ -66,6 +78,15 @@ class KingdomGenerator
                         ];
                         $queue->enqueue([$neighbor_x, $neighbor_y]);
                     }
+                }
+            }
+        }
+
+        // Post-BFS Validation: Ensure no remaining null cells
+        for ($y = 0; $y < $grid_height; $y++) {
+            for ($x = 0; $x < $grid_width; $x++) {
+                if ($grid[$y][$x] === null) {
+                    throw new \DomainException("KingdomGenerator: Unfilled coordinate found at ({$x}, {$y}) after Phase 2.", 500);
                 }
             }
         }
@@ -103,6 +124,8 @@ class KingdomGenerator
         return Kingdom::fromArray([
             'id' => 0,
             'name' => $config->name,
+            'grid_width' => $grid_width,
+            'grid_height' => $grid_height,
         ], $domain_regions);
     }
 
@@ -146,7 +169,7 @@ class KingdomGenerator
     }
 
     /**
-     * Creates the initial grid, writing each region's tiles into it.
+     * Creates the initial grid of tiles, writing each region's tiles into it.
      * 
      * @param int $grid_width
      * @param int $grid_height
