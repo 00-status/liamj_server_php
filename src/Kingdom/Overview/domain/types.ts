@@ -1,27 +1,25 @@
-import { Building } from './buildings';
-
-export type GameContext = {
-    selectedTile: Tile | null;
-    resources: { [key: string]: number };
-    constructedBuildings: Array<Building>;
-};
-export type Kingdom = { name: string; terrain: Terrain };
-export type Terrain = { rowSize: number; columnSize: number; tiles: Array<Tile> };
-export type Tile = {
-    id: string;
+export interface Tile {
+    id: number;
+    region_id: number;
     x: number;
     y: number;
     type: string;
-    traits: Array<string>;
-};
+}
 
-export type Criteria = {
-    currentTileType: string | null;
-    surroundingTileTypeCount: { type: string; threshold: number } | null;
-    percentChance: number;
-};
+export interface Region {
+    id: number;
+    kingdom_id: number;
+    region_template_id: number | null;
+    name: string;
+    origin_x: number;
+    origin_y: number;
+    tiles: Tile[];
+}
 
-export type Trait = {
-    criteria: Criteria;
-    traitName: string;
-};
+export interface Kingdom {
+    id: number;
+    name: string;
+    grid_width: number;
+    grid_height: number;
+    regions: Region[];
+}

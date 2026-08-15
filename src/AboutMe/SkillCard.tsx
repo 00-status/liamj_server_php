@@ -2,8 +2,8 @@ import { ReactElement } from 'react';
 
 import './skill-card.css';
 export enum SkillLevel {
-    'working',
-    'expert',
+    working,
+    expert,
 }
 
 type Props = {
