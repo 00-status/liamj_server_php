@@ -25,5 +25,7 @@
     - It is okay to put `/hooks/` or `/components/` or `/domain/` at the root of a Domain if its SubDomains need to share certain logic or types.
 - Always type functions and objects as strictly as is reasonable. Never use the `any` type outside of mapping an API.
 - Generally, avoid having large React components. Favour smaller, more testable, components that can be composed together by a parent.
-- Some JavaScript code is tested and some isn't. It is always good to write tests for helper utils or pure helper functions. For components, testing the main page component is usually sufficient.
+- Generally, aim to have one React component per .tsx file.
+- Currently, some JavaScript code is tested and some isn't. It is always good to write tests for helper utils or pure helper functions. For components, testing the main page component is usually sufficient.
 - APIs should always be contacted through a React Hook.
+- Never use inline styles unless a 3rd party framework demands it. Instead, if a React component needs a stylesheet, then create a matching .css file that has the same name. For example, a hypothetical `ProfileAvatar.tsx` file may have an associated `profile-avatar.css` file. Use a Block Element Modifier pattern when creating css.

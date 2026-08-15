@@ -34,13 +34,13 @@ class KingdomRoutes
     {
         // Kingdom Routes
         $app->get('kingdoms', self::getKingdoms($container));
+        $app->get('kingdoms/{id}', self::getKingdom($container));
 
         $app->get('regions', self::getRegions($container));
         $app->get('region_templates', self::getRegionTemplates($container));
 
         // Dev only routes
         if ($is_dev_env) {
-            $app->get('kingdoms/{id}', self::getKingdom($container));
             $app->post('kingdoms/generate', self::postGenerateKingdom($container));
             $app->delete('kingdoms/{id}', self::deleteKingdom($container));
 
