@@ -1,13 +1,15 @@
 import { useEffect, useMemo, useRef, useState, MouseEvent, TouchEvent } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
+
 import { Page } from '../../SharedComponents/Page/Page';
 import { Loader } from '../../SharedComponents/Loader/Loader';
-import { Card } from '../../SharedComponents/Card/Card';
+
 import { useKingdom } from './hooks/useKingdom';
 import { TILE_COLORS } from './domain/colors';
 import { Region, Tile } from './domain/types';
 import { calculateRegionTileCounts } from './domain/util';
 import './kingdom-overview-page.css';
+import { KingdomRegionOverlay } from './components/KingdomRegionOverlay';
 
 const TILE_SIZE = 32;
 const GROW_FACTOR = 4; // pixels to grow hovered tiles
@@ -375,70 +377,11 @@ export const KingdomOverviewPage = () => {
                     />
 
                     {selectedRegion && regionStats && (
-                        <div className="kingdom-overview-page__card-overlay">
-                            <Card
-                                title={selectedRegion.name}
-                                button={
-                                    <button
-                                        className="kingdom-overview-page__close-btn"
-                                        onClick={() => setSelectedRegion(null)}
-                                        aria-label="Close"
-                                    >
-                                        &times;
-                                    </button>
-                                }
-                            >
-                                <div className="kingdom-overview-page__card-content">
-                                    <div className="kingdom-overview-page__stats-summary">
-                                        <div className="kingdom-overview-page__stat">
-                                            <span className="kingdom-overview-page__stat-label">
-                                                Total Tiles:
-                                            </span>
-                                            <span className="kingdom-overview-page__stat-value">
-                                                {selectedRegion.tiles.length}
-                                            </span>
-                                        </div>
-                                        <div className="kingdom-overview-page__stat">
-                                            <span className="kingdom-overview-page__stat-label">
-                                                Origin Coordinate:
-                                            </span>
-                                            <span className="kingdom-overview-page__stat-value">
-                                                ({selectedRegion.origin_x},{' '}
-                                                {selectedRegion.origin_y})
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    <h3 className="kingdom-overview-page__breakdown-title">
-                                        Tile Composition
-                                    </h3>
-                                    <div className="kingdom-overview-page__breakdown-grid">
-                                        {Object.entries(regionStats).map(([type, count]) => (
-                                            <div
-                                                key={type}
-                                                className="kingdom-overview-page__breakdown-item"
-                                            >
-                                                <div className="kingdom-overview-page__breakdown-header">
-                                                    <span
-                                                        className="kingdom-overview-page__color-dot"
-                                                        style={{
-                                                            backgroundColor:
-                                                                TILE_COLORS[type] || '#444',
-                                                        }}
-                                                    />
-                                                    <span className="kingdom-overview-page__breakdown-label">
-                                                        {type}
-                                                    </span>
-                                                </div>
-                                                <span className="kingdom-overview-page__breakdown-value">
-                                                    {count}
-                                                </span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </Card>
-                        </div>
+                        <KingdomRegionOverlay
+                            selectedRegion={selectedRegion}
+                            regionStats={regionStats}
+                            setSelectedRegion={setSelectedRegion}
+                        />
                     )}
                 </div>
             </div>
