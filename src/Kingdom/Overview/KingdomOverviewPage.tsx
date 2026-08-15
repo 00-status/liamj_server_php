@@ -82,36 +82,41 @@ export const KingdomOverviewPage = () => {
         const canvas = canvasRef.current;
         if (!canvas || !kingdom) return;
 
-        const ctx = canvas.getContext('2d');
-        if (!ctx) return;
-
-        const rect = canvas.getBoundingClientRect();
-        const dpr = window.devicePixelRatio || 1;
-
-        // Sync canvas internal resolution with display size and device pixel ratio
-        if (canvas.width !== rect.width * dpr || canvas.height !== rect.height * dpr) {
-            canvas.width = rect.width * dpr;
-            canvas.height = rect.height * dpr;
+        const canvasContext = canvas.getContext('2d');
+        if (!canvasContext) {
+            return;
         }
 
-        ctx.resetTransform();
-        ctx.scale(dpr, dpr);
+        const rect = canvas.getBoundingClientRect();
+        const devicePixelRatio = window.devicePixelRatio || 1;
+
+        // Sync canvas internal resolution with display size and device pixel ratio
+        if (
+            canvas.width !== rect.width * devicePixelRatio ||
+            canvas.height !== rect.height * devicePixelRatio
+        ) {
+            canvas.width = rect.width * devicePixelRatio;
+            canvas.height = rect.height * devicePixelRatio;
+        }
+
+        canvasContext.resetTransform();
+        canvasContext.scale(devicePixelRatio, devicePixelRatio);
 
         const width = rect.width;
         const height = rect.height;
 
         // Clear canvas
-        ctx.fillStyle = '#222326';
-        ctx.fillRect(0, 0, width, height);
+        canvasContext.fillStyle = '#222326';
+        canvasContext.fillRect(0, 0, width, height);
 
         const { offsetX, offsetY } = cameraRef.current;
 
         // Draw grid boundaries (subtle border around the entire map)
         const mapWidth = kingdom.grid_width * TILE_SIZE;
         const mapHeight = kingdom.grid_height * TILE_SIZE;
-        ctx.strokeStyle = '#333538';
-        ctx.lineWidth = 2;
-        ctx.strokeRect(offsetX, offsetY, mapWidth, mapHeight);
+        canvasContext.strokeStyle = '#333538';
+        canvasContext.lineWidth = 2;
+        canvasContext.strokeRect(offsetX, offsetY, mapWidth, mapHeight);
 
         // Calculate frustum culling boundaries (only draw visible tiles)
         const minX = Math.max(0, Math.floor(-offsetX / TILE_SIZE));
@@ -135,12 +140,12 @@ export const KingdomOverviewPage = () => {
                 const tileX = offsetX + x * TILE_SIZE;
                 const tileY = offsetY + y * TILE_SIZE;
 
-                ctx.fillStyle = TILE_COLORS[item.tile.type] || '#444';
-                ctx.fillRect(tileX, tileY, TILE_SIZE, TILE_SIZE);
+                canvasContext.fillStyle = TILE_COLORS[item.tile.type] || '#444';
+                canvasContext.fillRect(tileX, tileY, TILE_SIZE, TILE_SIZE);
 
-                ctx.strokeStyle = 'rgba(0, 0, 0, 0.15)';
-                ctx.lineWidth = 1;
-                ctx.strokeRect(tileX, tileY, TILE_SIZE, TILE_SIZE);
+                canvasContext.strokeStyle = 'rgba(0, 0, 0, 0.15)';
+                canvasContext.lineWidth = 1;
+                canvasContext.strokeRect(tileX, tileY, TILE_SIZE, TILE_SIZE);
             }
         }
 
@@ -152,19 +157,20 @@ export const KingdomOverviewPage = () => {
                 const tileX = offsetX + tile.x * TILE_SIZE;
                 const tileY = offsetY + tile.y * TILE_SIZE;
 
+                // TODO: This culls all tiles beyond a certain x/y range. Not Sure why. Fix that.
                 // Frustum cull hovered tiles too, to be completely safe
-                if (
-                    tileX + TILE_SIZE + GROW_FACTOR < offsetX ||
-                    tileX - GROW_FACTOR > offsetX + width ||
-                    tileY + TILE_SIZE + GROW_FACTOR < offsetY ||
-                    tileY - GROW_FACTOR > offsetY + height
-                ) {
-                    return;
-                }
+                // if (
+                //     tileX + TILE_SIZE + GROW_FACTOR < offsetX ||
+                //     tileX - GROW_FACTOR > offsetX + width ||
+                //     tileY + TILE_SIZE + GROW_FACTOR < offsetY ||
+                //     tileY - GROW_FACTOR > offsetY + height
+                // ) {
+                //     return;
+                // }
 
                 // Draw drop shadow manually (high performance, highly compatible across platforms)
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
-                ctx.fillRect(
+                canvasContext.fillStyle = 'rgba(0, 0, 0, 0.4)';
+                canvasContext.fillRect(
                     tileX - GROW_FACTOR / 2 + 2,
                     tileY - GROW_FACTOR / 2 + 4,
                     TILE_SIZE + GROW_FACTOR,
@@ -172,18 +178,8 @@ export const KingdomOverviewPage = () => {
                 );
 
                 // Draw the actual grown tile
-                ctx.fillStyle = TILE_COLORS[tile.type] || '#444';
-                ctx.fillRect(
-                    tileX - GROW_FACTOR / 2,
-                    tileY - GROW_FACTOR / 2,
-                    TILE_SIZE + GROW_FACTOR,
-                    TILE_SIZE + GROW_FACTOR,
-                );
-
-                // Draw highlighted white stroke border
-                ctx.strokeStyle = '#ffffff';
-                ctx.lineWidth = 1.5;
-                ctx.strokeRect(
+                canvasContext.fillStyle = TILE_COLORS[tile.type] || '#444';
+                canvasContext.fillRect(
                     tileX - GROW_FACTOR / 2,
                     tileY - GROW_FACTOR / 2,
                     TILE_SIZE + GROW_FACTOR,
