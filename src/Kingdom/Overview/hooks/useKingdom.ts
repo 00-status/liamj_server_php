@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
+
 import { Kingdom } from '../domain/types';
 
 export const useKingdom = (id: number | null) => {

@@ -55,6 +55,8 @@ class ReadKingdomService
         $assembled_kingdom = Kingdom::fromArray([
             'id' => $kingdom->id,
             'name' => $kingdom->name,
+            'grid_width' => $kingdom->grid_width,
+            'grid_height' => $kingdom->grid_height,
         ], $assembled_regions);
         return $assembled_kingdom;
     }

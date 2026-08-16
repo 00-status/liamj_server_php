@@ -103,7 +103,7 @@
         gap: 10px;
     }
 
-    .kingdom-overview-page__header .subtle-button {
+    .kingdom-overview-page__header {
         align-self: stretch;
         text-align: center;
     }
