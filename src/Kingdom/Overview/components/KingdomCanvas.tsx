@@ -4,6 +4,7 @@ import {
     RefObject,
     SetStateAction,
     TouchEvent,
+    useCallback,
     useEffect,
     useMemo,
     useRef,
@@ -75,9 +76,11 @@ export const KingdomCanvas = ({ kingdom, containerRef, setSelectedRegion }: Prop
     }, [kingdom]);
 
     // Trigger canvas redraw on dependency updates (like selected/hover changes)
-    const draw = () => {
+    const draw = useCallback(() => {
         const canvas = canvasRef.current;
-        if (!canvas || !kingdom) return;
+        if (!canvas || !kingdom) {
+            return;
+        }
 
         const canvasContext = canvas.getContext('2d');
         if (!canvasContext) {
@@ -154,18 +157,17 @@ export const KingdomCanvas = ({ kingdom, containerRef, setSelectedRegion }: Prop
                 const tileX = offsetX + tile.x * TILE_SIZE;
                 const tileY = offsetY + tile.y * TILE_SIZE;
 
-                // TODO: This culls all tiles beyond a certain x/y range. Not Sure why. Fix that.
-                // Frustum cull hovered tiles too, to be completely safe
-                // if (
-                //     tileX + TILE_SIZE + GROW_FACTOR < offsetX ||
-                //     tileX - GROW_FACTOR > offsetX + width ||
-                //     tileY + TILE_SIZE + GROW_FACTOR < offsetY ||
-                //     tileY - GROW_FACTOR > offsetY + height
-                // ) {
-                //     return;
-                // }
+                // Culling bounds check in purely screen-space coordinates
+                if (
+                    tileX + TILE_SIZE + GROW_FACTOR < 0 || // Off the left edge of the canvas
+                    tileX - GROW_FACTOR > width || // Off the right edge of the canvas
+                    tileY + TILE_SIZE + GROW_FACTOR < 0 || // Off the top edge of the canvas
+                    tileY - GROW_FACTOR > height // Off the bottom edge of the canvas
+                ) {
+                    return;
+                }
 
-                // Draw drop shadow manually (high performance, highly compatible across platforms)
+                // Draw drop shadow
                 canvasContext.fillStyle = 'rgba(0, 0, 0, 0.4)';
                 canvasContext.fillRect(
                     tileX - GROW_FACTOR / 2 + 2,
@@ -184,7 +186,7 @@ export const KingdomCanvas = ({ kingdom, containerRef, setSelectedRegion }: Prop
                 );
             });
         }
-    };
+    }, [canvasRef, kingdom]);
 
     // Redraw on window resize
     useEffect(() => {
