@@ -186,7 +186,7 @@ export const KingdomCanvas = ({ kingdom, containerRef, setSelectedRegion }: Prop
                 );
             });
         }
-    }, [canvasRef, kingdom]);
+    }, [canvasRef, kingdom, tilesMap, regionsMap]);
 
     // Redraw on window resize
     useEffect(() => {
@@ -195,14 +195,14 @@ export const KingdomCanvas = ({ kingdom, containerRef, setSelectedRegion }: Prop
         };
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, [kingdom, tilesMap, regionsMap]);
+    }, [draw]);
 
     // Setup rendering trigger
     useEffect(() => {
         if (kingdom) {
             draw();
         }
-    }, [kingdom, tilesMap, regionsMap]);
+    }, [draw]);
 
     // Handle interactions
     const getMouseCoords = (e: MouseEvent<HTMLCanvasElement> | TouchEvent<HTMLCanvasElement>) => {

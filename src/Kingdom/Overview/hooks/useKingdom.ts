@@ -7,10 +7,10 @@ export const useKingdom = (id: number | null) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
-    const fetchKingdom = useCallback((kingdomId: number) => {
+    const fetchKingdom = useCallback((kingdomId: number, abortSignal?: AbortSignal) => {
         setIsLoading(true);
         setError(null);
-        fetch(`/api/1/kingdoms/${kingdomId}`)
+        fetch(`/api/1/kingdoms/${kingdomId}`, { signal: abortSignal })
             .then((res) => {
                 if (!res.ok) {
                     throw new Error(`Failed to fetch Kingdom (Status: ${res.status})`);
@@ -32,11 +32,16 @@ export const useKingdom = (id: number | null) => {
     }, []);
 
     useEffect(() => {
+        const controller = new AbortController();
         if (id !== null && !isNaN(id)) {
-            fetchKingdom(id);
+            fetchKingdom(id, controller.signal);
         } else {
             setKingdom(null);
         }
+
+        return () => {
+            controller.abort();
+        };
     }, [id, fetchKingdom]);
 
     return { kingdom, isLoading, error, refetch: () => id && fetchKingdom(id) };
