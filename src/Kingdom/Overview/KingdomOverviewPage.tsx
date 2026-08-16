@@ -1,110 +1,100 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 
 import './kingdom-overview-page.css';
 import { Page } from '../../SharedComponents/Page/Page';
+import { Loader } from '../../SharedComponents/Loader/Loader';
+import { Button, ButtonTheme } from '../../SharedComponents/Button/Button';
 
-import { Tile } from './Tile';
-import { generateWeightedTerrain } from './util';
-import { TileDetails } from './TileDetails';
-import { GameContext, Kingdom, Tile as TileType } from './domain/types';
-import { addTerrainFeatures } from './domain/addTerrainFeatures';
-import { Building } from './domain/buildings';
+import { useKingdom } from './hooks/useKingdom';
+import { Region } from './domain/types';
+import { calculateRegionTileCounts } from './domain/util';
+import { KingdomRegionOverlay } from './components/KingdomRegionOverlay';
+import { KingdomCanvas } from './components/KingdomCanvas';
 
-const terrain = generateWeightedTerrain(30, 30);
-const terrainWithFeatures = addTerrainFeatures(terrain);
-// const centerTerrain = extractCenterGrid(terrainWithFeatures, 3);
+export const KingdomOverviewPage = () => {
+    const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
+    const kingdomIdStr = searchParams.get('id');
+    const kingdomId = kingdomIdStr ? parseInt(kingdomIdStr, 10) : null;
 
-const kingdom: Kingdom = {
-    name: 'Camelot',
-    terrain: terrainWithFeatures,
-};
+    const { kingdom, isLoading, error } = useKingdom(kingdomId);
 
-const KingdomOverviewPage = () => {
-    const [gameContext, setGameContext] = useState<GameContext>({
-        selectedTile: null,
-        resources: {},
-        constructedBuildings: [],
-    });
+    const containerRef = useRef<HTMLDivElement | null>(null);
 
-    const [orderedTiles, setOrderedTiles] = useState<Array<TileType>>([]);
-    const [currentTile, setCurrentTile] = useState<TileType | null>(null);
+    const [selectedRegion, setSelectedRegion] = useState<Region | null>(null);
 
-    const [activeTileKey, setActiveTileKey] = useState<string | null>(null);
-
-    useMemo(() => {
-        const tilesByCoords = kingdom.terrain.tiles.reduce(
-            (carry, tile) => {
-                const key = `${tile.x}-${tile.y}`;
-                carry[key] = tile;
-
-                return carry;
-            },
-            {} as { [key: string]: TileType },
-        );
-
-        const orderedTiles = [];
-        for (let y = 0; y < kingdom.terrain.columnSize; y++) {
-            for (let x = 0; x < kingdom.terrain.rowSize; x++) {
-                const tile = tilesByCoords[`${x}-${y}`];
-                if (tile) {
-                    orderedTiles.push(tile);
-                }
-            }
+    // Calculate totals of selected region
+    const regionStats = useMemo(() => {
+        if (!selectedRegion) {
+            return null;
         }
 
-        setOrderedTiles(orderedTiles);
-    }, [kingdom]);
+        return calculateRegionTileCounts(selectedRegion.tiles);
+    }, [selectedRegion]);
 
-    const onSelectTile = (tile: TileType, tileKey: string) => {
-        setCurrentTile({ ...tile });
-        setActiveTileKey(tileKey);
-        setGameContext((state) => {
-            return { ...state, selectedTile: tile };
-        });
+    const handleBackToLobby = () => {
+        navigate('/unlisted/kingdom_lobby');
     };
 
-    const styles = { gridTemplateColumns: Array(kingdom.terrain.columnSize).fill('1fr').join(' ') };
+    if (isLoading) {
+        return (
+            <Page title="Kingdom Overview" routes={[]}>
+                <div className="kingdom-overview-page kingdom-overview-page--loading">
+                    <Loader />
+                    <p>Loading interactive map...</p>
+                </div>
+            </Page>
+        );
+    }
+
+    if (error || !kingdomId) {
+        return (
+            <Page title="Kingdom Overview" routes={[]}>
+                <div className="kingdom-overview-page kingdom-overview-page--error">
+                    <div className="kingdom-overview-page__error-card">
+                        <h2>Error Loading Kingdom</h2>
+                        <p>{error || 'No valid Kingdom ID was specified.'}</p>
+                        <Button onClick={handleBackToLobby}>Return to Lobby</Button>
+                    </div>
+                </div>
+            </Page>
+        );
+    }
 
     return (
-        <Page title="Kingdom" routes={[]}>
+        <Page title={kingdom ? `Kingdom: ${kingdom.name}` : 'Kingdom'} routes={[]}>
             <div className="kingdom-overview-page">
-                <h1>Overview</h1>
-                <div className="kingdom-overview-page__content">
-                    <div className="kingdom-overview-page__grid" style={styles}>
-                        {orderedTiles.map((tile) => {
-                            const tileKey = tile.x + '-' + tile.y;
-                            return (
-                                <Tile
-                                    key={tileKey}
-                                    type={tile.type}
-                                    onClick={() => {
-                                        onSelectTile(tile, tileKey);
-                                    }}
-                                    isActive={activeTileKey === tileKey}
-                                />
-                            );
-                        })}
+                <div className="kingdom-overview-page__header">
+                    <div className="kingdom-overview-page__header-left">
+                        <h1>{kingdom?.name}</h1>
+                        <span className="kingdom-overview-page__id">ID: {kingdom?.id}</span>
                     </div>
-                    <div className="kingdom-overview-page__tile-details">
-                        {currentTile && (
-                            <TileDetails
-                                tile={currentTile}
-                                buildings={gameContext.constructedBuildings.filter(
-                                    (building) => building.assignedTile === currentTile.id,
-                                )}
-                                setBuildings={(newBuilding: Building) => {
-                                    setGameContext((state) => ({
-                                        ...state,
-                                        constructedBuildings: [
-                                            ...state.constructedBuildings,
-                                            newBuilding,
-                                        ],
-                                    }));
-                                }}
-                                gameContext={gameContext}
-                            />
-                        )}
-                    </div>
+                    <Button onClick={handleBackToLobby} buttonTheme={ButtonTheme.Subtle}>
+                        Back to Lobby
+                    </Button>
+                </div>
+
+                <div className="kingdom-overview-page__instructions">
+                    <p>
+                        🖱️ Click and drag to pan the map. Hover to see region boundaries. Click a
+                        region to inspect details.
+                    </p>
+                </div>
+
+                <div className="kingdom-overview-page__canvas-container" ref={containerRef}>
+                    <KingdomCanvas
+                        kingdom={kingdom}
+                        containerRef={containerRef}
+                        setSelectedRegion={setSelectedRegion}
+                    />
+                    {selectedRegion && regionStats && (
+                        <KingdomRegionOverlay
+                            selectedRegion={selectedRegion}
+                            regionStats={regionStats}
+                            setSelectedRegion={setSelectedRegion}
+                        />
+                    )}
                 </div>
             </div>
         </Page>

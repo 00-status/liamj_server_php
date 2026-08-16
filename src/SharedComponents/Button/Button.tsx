@@ -8,6 +8,7 @@ type Props = {
     children: ReactNode;
     onClick?: () => void;
     disabled?: boolean;
+    ariaLabel?: string;
 };
 
 export enum ButtonTheme {
@@ -17,13 +18,19 @@ export enum ButtonTheme {
 }
 
 export const Button = (props: Props) => {
-    const { buttonTheme, hasSheen, children, onClick, disabled } = props;
+    const { buttonTheme, hasSheen, children, onClick, disabled, ariaLabel } = props;
 
     const theme = getTheme(disabled, buttonTheme);
     const classes = getClasses(disabled, hasSheen);
 
     return (
-        <button data-theme={theme} className={classes} disabled={disabled} onClick={onClick}>
+        <button
+            data-theme={theme}
+            className={classes}
+            disabled={disabled}
+            onClick={onClick}
+            aria-label={ariaLabel}
+        >
             {children}
         </button>
     );

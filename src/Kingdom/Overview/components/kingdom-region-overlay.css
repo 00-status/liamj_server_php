@@ -1,0 +1,140 @@
+.kingdom-region-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
+    z-index: 10;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    pointer-events: auto;
+    animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes slideUp {
+    from {
+        transform: translate(-50%, 100%);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+}
+
+.kingdom-region-overlay__close-btn {
+    background: none;
+    border: none;
+    color: #fcfeff;
+    font-size: 1.8rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 4px;
+    margin-left: auto;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+.kingdom-region-overlay__close-btn:hover {
+    opacity: 1;
+}
+
+.kingdom-region-overlay__card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 10px;
+}
+
+.kingdom-region-overlay__stats-summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    background-color: #1a1b1d;
+    padding: 12px 15px;
+    border-radius: 6px;
+    border: 1px solid #2d2f33;
+}
+
+.kingdom-region-overlay__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.kingdom-region-overlay__stat-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #8a8d91;
+}
+
+.kingdom-region-overlay__stat-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #e5a93c;
+}
+
+.kingdom-region-overlay__breakdown-title {
+    font-size: 1rem;
+    margin: 4px 0 0 0;
+    color: #fcfeff;
+    border-bottom: 1px solid #333538;
+    padding-bottom: 6px;
+}
+
+.kingdom-region-overlay__breakdown-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.kingdom-region-overlay__breakdown-item {
+    background-color: #222326;
+    border: 1px solid #333538;
+    border-radius: 6px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.kingdom-region-overlay__breakdown-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    justify-content: center;
+}
+
+.kingdom-region-overlay__color-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.kingdom-region-overlay__breakdown-label {
+    font-size: 0.85rem;
+    color: #b0b3b8;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.kingdom-region-overlay__breakdown-value {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fcfeff;
+}
+
+@media (max-width: 768px) {
+    .kingdom-region-overlay__card-overlay {
+        width: 95%;
+        bottom: 10px;
+    }
+
+    .kingdom-region-overlay__breakdown-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

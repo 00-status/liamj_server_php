@@ -74,6 +74,8 @@ class GenerateKingdomService
             return Kingdom::fromArray([
                 'id' => $kingdom_id,
                 'name' => $generated_kingdom->name,
+                'grid_width' => $generated_kingdom->grid_width,
+                'grid_height' => $generated_kingdom->grid_height,
             ], $saved_regions);
 
         } catch (\Throwable $exception) {

@@ -147,8 +147,8 @@ class KingdomGenerator
         $region_counter = 1;
         $stamped_regions = [];
 
-        for ($y = (int) ($step / 2); $y < $grid_height; $y += $step) {
-            for ($x = (int) ($step / 2); $x < $grid_width; $x += $step) {
+        for ($y = 0; $y < $grid_height; $y += $step) {
+            for ($x = 0; $x < $grid_width; $x += $step) {
                 $origin_x = max(0, min($grid_width - 1, $x + random_int(-$jitter, $jitter)));
                 $origin_y = max(0, min($grid_height - 1, $y + random_int(-$jitter, $jitter)));
 
