@@ -32,7 +32,14 @@ class KingdomRoutes
 {
     public static function addRoutes(RouteCollectorProxy $app, ContainerInterface $container, bool $is_dev_env): void
     {
-        // Kingdom Routes
+        $app->post('lobby', self::postLobby($container));
+        $app->get('lobby', self::getLobby($container));
+
+        $app->post('kingdom_player', self::postKingdomPlayer($container));
+        $app->get('kingdom_player', self::getKingdomPlayer($container));
+
+        $app->post('lobby/authz', self::postLobbyAuthz($container)); // Authenticates with websocket server.
+
         $app->get('kingdoms', self::getKingdoms($container));
         $app->get('kingdoms/{id}', self::getKingdom($container));
 
@@ -52,6 +59,76 @@ class KingdomRoutes
             $app->put('region_templates/{id}', self::putRegionTemplate($container));
             $app->delete('region_templates/{id}', self::deleteRegionTemplate($container));
         }
+    }
+
+    private static function postLobby(ContainerInterface $container): callable
+    {
+        return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
+            // Call the CreateKingdomLobbyService
+            //      If we are at maximum lobby capacity (2)
+            //          Throw a new Forbidden error
+            //      If there are expired lobbies
+            //          Delete them.
+            //      Create a new lobby.
+            //      Return the new Lobby.
+            return ResponseHelper::writeResponse($response, null, 200);
+        };
+    }
+
+    private static function getLobby(ContainerInterface $container): callable
+    {
+        return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
+            // Get the lobby_code from the request.
+            // Call the ReadLobbyService
+            //      If the lobby_code matches an exisitng lobby.
+            //          Return the Lobby
+            //      Else
+            //      throw a NotFound error.
+            return ResponseHelper::writeResponse($response, null, 200);
+        };
+    }
+
+    private static function postKingdomPlayer(ContainerInterface $container): callable
+    {
+        return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
+            // Get the lobby_code and player_name from the request.
+            // Call the CreateKingdomPlayerService
+            //      If the Lobby is full OR the requested patron name is already taken.
+            //          Throw a Conflict 409 error.
+            //      Else
+            //          Create a new KingdomPlayer for that Lobby.
+            //          Return the newly created KingdomPlayer
+            return ResponseHelper::writeResponse($response, null, 200);
+        };
+    }
+
+    private static function getKingdomPlayer(ContainerInterface $container): callable
+    {
+        return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
+            // Get the authorization_token from the request
+            // Call the ReadKingdomPlayerService
+            //      If the provided authz_token matches an existing player.
+            //          return that KingdomPlayer.
+            return ResponseHelper::writeResponse($response, null, 200);
+        };
+    }
+
+    private static function postLobbyAuthz(ContainerInterface $container): callable
+    {
+        return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
+            // Pull the channel_name, socket_id, lobby_code, and authorization_token from the request.
+            // Call the AuthorizeKingdomPlayerService
+            //      If the authz_token matches a player belonging to that lobby.
+            //          return true.
+            //      else
+            //          return false.
+            // If result is false
+            //      respond with 403 HTTP status.
+            // else
+            //      authorize with private lobby using the socket_id and channel_name given in the request.
+            //      respond with 200 HTTP status and provide authorization token in response body.
+            return ResponseHelper::writeResponse($response, null, 200);
+        };
     }
 
     private static function getKingdoms(ContainerInterface $container): callable
