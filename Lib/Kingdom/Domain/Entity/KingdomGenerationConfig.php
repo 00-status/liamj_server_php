@@ -12,12 +12,12 @@ readonly class KingdomGenerationConfig
         public int $jitter = 2,
         public ?int $seed = null,
     ) {
-        if ($this->width < 5 || $this->width > 200) {
-            throw new \InvalidArgumentException("Kingdom width must be between 5 and 200.");
+        if ($this->width < 30 || $this->width > 200) {
+            throw new \InvalidArgumentException("Kingdom width must be between 30 and 200.");
         }
 
-        if ($this->height < 5 || $this->height > 200) {
-            throw new \InvalidArgumentException("Kingdom height must be between 5 and 200.");
+        if ($this->height < 30 || $this->height > 200) {
+            throw new \InvalidArgumentException("Kingdom height must be between 30 and 200.");
         }
 
         if ($this->step <= 0 || $this->step > 100) {

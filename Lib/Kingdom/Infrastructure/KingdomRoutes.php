@@ -21,6 +21,13 @@ use Lib\Kingdom\Service\RegionTemplate\CreateRegionTemplateService;
 use Lib\Kingdom\Service\RegionTemplate\UpdateRegionTemplateService;
 use Lib\Kingdom\Service\RegionTemplate\DeleteRegionTemplateService;
 
+use Lib\Kingdom\Service\Lobby\CreateLobbyService;
+use Lib\Kingdom\Service\Lobby\ReadLobbyService;
+use Lib\Kingdom\Service\Lobby\CreateKingdomPlayerService;
+use Lib\Kingdom\Service\Lobby\ReadKingdomPlayerService;
+use Lib\Kingdom\Service\Lobby\AuthorizeKingdomPlayerService;
+use Lib\Kingdom\Infrastructure\Contexts\LobbyDbContext;
+
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Exception\HttpBadRequestException;
@@ -42,13 +49,13 @@ class KingdomRoutes
 
         $app->get('kingdoms', self::getKingdoms($container));
         $app->get('kingdoms/{id}', self::getKingdom($container));
+        $app->post('kingdoms/generate', self::postGenerateKingdom($container));
 
         $app->get('regions', self::getRegions($container));
         $app->get('region_templates', self::getRegionTemplates($container));
 
         // Dev only routes
         if ($is_dev_env) {
-            $app->post('kingdoms/generate', self::postGenerateKingdom($container));
             $app->delete('kingdoms/{id}', self::deleteKingdom($container));
 
             $app->post('regions', self::postRegion($container));
@@ -64,70 +71,86 @@ class KingdomRoutes
     private static function postLobby(ContainerInterface $container): callable
     {
         return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
-            // Call the CreateKingdomLobbyService
-            //      If we are at maximum lobby capacity (2)
-            //          Throw a new Forbidden error
-            //      If there are expired lobbies
-            //          Delete them.
-            //      Create a new lobby.
-            //      Return the new Lobby.
-            return ResponseHelper::writeResponse($response, null, 200);
+            $lobby = $container->get(CreateLobbyService::class)->createLobby();
+            return ResponseHelper::writeResponse($response, $lobby, 201);
         };
     }
 
     private static function getLobby(ContainerInterface $container): callable
     {
         return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
-            // Get the lobby_code from the request.
-            // Call the ReadLobbyService
-            //      If the lobby_code matches an exisitng lobby.
-            //          Return the Lobby
-            //      Else
-            //      throw a NotFound error.
-            return ResponseHelper::writeResponse($response, null, 200);
+            $lobby_code = $request->getQueryParams()['lobby_code'] ?? null;
+            if (empty($lobby_code)) {
+                throw new HttpBadRequestException($request, "Must supply a lobby_code!");
+            }
+
+            $lobby = $container->get(ReadLobbyService::class)->readLobbyByCode((int) $lobby_code);
+            return ResponseHelper::writeResponse($response, $lobby, 200);
         };
     }
 
     private static function postKingdomPlayer(ContainerInterface $container): callable
     {
         return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
-            // Get the lobby_code and player_name from the request.
-            // Call the CreateKingdomPlayerService
-            //      If the Lobby is full OR the requested patron name is already taken.
-            //          Throw a Conflict 409 error.
-            //      Else
-            //          Create a new KingdomPlayer for that Lobby.
-            //          Return the newly created KingdomPlayer
-            return ResponseHelper::writeResponse($response, null, 200);
+            $params = $request->getQueryParams();
+            $body_raw = $request->getBody()->getContents();
+            $body = json_decode($body_raw, true) ?? [];
+
+            $lobby_code = $params['lobby_code'] ?? $body['lobby_code'] ?? null;
+            $player_name = $params['player_name'] ?? $body['player_name'] ?? null;
+
+            if (empty($lobby_code)) {
+                throw new HttpBadRequestException($request, "Must supply a lobby_code!");
+            }
+
+            $player = $container->get(CreateKingdomPlayerService::class)->createPlayer((int) $lobby_code, $player_name);
+            return ResponseHelper::writeResponse($response, $player, 201);
         };
     }
 
     private static function getKingdomPlayer(ContainerInterface $container): callable
     {
         return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
-            // Get the authorization_token from the request
-            // Call the ReadKingdomPlayerService
-            //      If the provided authz_token matches an existing player.
-            //          return that KingdomPlayer.
-            return ResponseHelper::writeResponse($response, null, 200);
+            $authz_token = $request->getQueryParams()['authz_token'] ?? null;
+            if (empty($authz_token)) {
+                throw new HttpBadRequestException($request, "Must supply an authz_token!");
+            }
+
+            $player = $container->get(ReadKingdomPlayerService::class)->readPlayerByToken($authz_token);
+            return ResponseHelper::writeResponse($response, $player, 200);
         };
     }
 
     private static function postLobbyAuthz(ContainerInterface $container): callable
     {
         return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
-            // Pull the channel_name, socket_id, lobby_code, and authorization_token from the request.
-            // Call the AuthorizeKingdomPlayerService
-            //      If the authz_token matches a player belonging to that lobby.
-            //          return true.
-            //      else
-            //          return false.
-            // If result is false
-            //      respond with 403 HTTP status.
-            // else
-            //      authorize with private lobby using the socket_id and channel_name given in the request.
-            //      respond with 200 HTTP status and provide authorization token in response body.
-            return ResponseHelper::writeResponse($response, null, 200);
+            $params = $request->getQueryParams();
+            $body_raw = $request->getBody()->getContents();
+            $body = json_decode($body_raw, true) ?? [];
+
+            $authz_token = $params['authz_token'] ?? $body['authz_token'] ?? null;
+            $channel_name = $params['channel_name'] ?? $body['channel_name'] ?? null;
+            $socket_id = $params['socket_id'] ?? $body['socket_id'] ?? null;
+
+            $lobby_code = $params['lobby_code'] ?? $body['lobby_code'] ?? null;
+            if (empty($lobby_code) && !empty($channel_name)) {
+                if (preg_match('/private-lobby-(\d+)/', $channel_name, $matches)) {
+                    $lobby_code = (int) $matches[1];
+                }
+            }
+
+            if (empty($authz_token) || empty($channel_name) || empty($socket_id) || empty($lobby_code)) {
+                throw new HttpBadRequestException($request, "Must supply authz_token, channel_name, socket_id, and lobby_code!");
+            }
+
+            $auth_response = $container->get(AuthorizeKingdomPlayerService::class)->authorizePlayer(
+                (string) $authz_token,
+                (int) $lobby_code,
+                (string) $channel_name,
+                (string) $socket_id
+            );
+
+            return ResponseHelper::writeResponse($response, $auth_response, 200);
         };
     }
 
@@ -157,6 +180,18 @@ class KingdomRoutes
             $body_raw = $request->getBody()->getContents();
             $data = json_decode($body_raw, true) ?? [];
 
+            $lobby_code = isset($data['lobby_code']) ? (int) $data['lobby_code'] : null;
+            $authz_token = isset($data['authz_token']) ? (string) $data['authz_token'] : null;
+
+            $lobby_id = null;
+            if ($lobby_code !== null) {
+                $lobby = $container->get(LobbyDbContext::class)->fetchLobbyByCode($lobby_code);
+                if ($lobby === null) {
+                    throw new \DomainException("Lobby not found.", 404);
+                }
+                $lobby_id = $lobby->id;
+            }
+
             $config = new KingdomGenerationConfig(
                 name: (string) ($data['name'] ?? 'New Kingdom'),
                 width: (int) ($data['width'] ?? 50),
@@ -166,7 +201,7 @@ class KingdomRoutes
                 seed: isset($data['seed']) ? (int) $data['seed'] : null,
             );
 
-            $kingdom = $container->get(GenerateKingdomService::class)->generateKingdom($config);
+            $kingdom = $container->get(GenerateKingdomService::class)->generateKingdom($config, $lobby_id, $authz_token);
 
             return ResponseHelper::writeResponse($response, $kingdom, 201);
         };

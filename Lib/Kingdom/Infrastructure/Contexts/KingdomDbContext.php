@@ -44,6 +44,20 @@ class KingdomDbContext extends PdoDbContext
         return Kingdom::fromArray($row);
     }
 
+    public function fetchKingdomByLobbyId(int $lobby_id): ?Kingdom
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM " . self::TABLE_NAME . " WHERE lobby_id = :lobby_id");
+        $stmt->bindParam(':lobby_id', $lobby_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$row) {
+            return null;
+        }
+
+        return Kingdom::fromArray($row);
+    }
+
     public function deleteKingdom(int $id): bool
     {
         return $this->delete(self::TABLE_NAME, $id);
