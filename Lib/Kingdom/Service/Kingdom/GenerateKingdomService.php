@@ -28,9 +28,11 @@ class GenerateKingdomService
         private PusherContext $pusher_context,
     ) {}
 
-    public function generateKingdom(KingdomGenerationConfig $config, ?int $lobby_id = null, ?string $authz_token = null): Kingdom
+    public function generateKingdom(KingdomGenerationConfig $config, ?int $lobby_code = null, ?string $authz_token = null): Kingdom
     {
-        if ($lobby_id !== null) {
+        $lobby = $this->lobby_db->fetchLobbyByCode($lobby_code);
+
+        if ($lobby_code !== null) {
             if ($authz_token === null) {
                 throw new \DomainException("Authorization token is required to generate a kingdom from a lobby.", 401);
             }
@@ -42,7 +44,6 @@ class GenerateKingdomService
             }
 
             // Verify lobby
-            $lobby = $this->lobby_db->fetchLobbyById($lobby_id);
             if ($lobby === null) {
                 throw new \DomainException("Lobby not found.", 404);
             }
@@ -85,7 +86,7 @@ class GenerateKingdomService
                 'name' => $generated_kingdom->name,
                 'grid_width' => $generated_kingdom->grid_width,
                 'grid_height' => $generated_kingdom->grid_height,
-                'lobby_id' => $lobby_id,
+                'lobby_id' => $lobby->id,
             ]);
             $kingdom_id = $this->kingdom_db->insertKingdom($kingdom_to_insert);
 
@@ -123,7 +124,7 @@ class GenerateKingdomService
 
             $pdo->commit();
 
-            if ($lobby_id !== null && isset($lobby)) {
+            if ($lobby_code !== null && isset($lobby)) {
                 $this->pusher_context->broadcastKingdomGenerated($lobby->lobby_code, $kingdom_id);
             }
 
@@ -132,7 +133,7 @@ class GenerateKingdomService
                 'name' => $generated_kingdom->name,
                 'grid_width' => $generated_kingdom->grid_width,
                 'grid_height' => $generated_kingdom->grid_height,
-                'lobby_id' => $lobby_id,
+                'lobby_id' => $lobby->id,
             ], $saved_regions);
 
         } catch (\Throwable $exception) {

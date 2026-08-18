@@ -183,15 +183,6 @@ class KingdomRoutes
             $lobby_code = isset($data['lobby_code']) ? (int) $data['lobby_code'] : null;
             $authz_token = isset($data['authz_token']) ? (string) $data['authz_token'] : null;
 
-            $lobby_id = null;
-            if ($lobby_code !== null) {
-                $lobby = $container->get(LobbyDbContext::class)->fetchLobbyByCode($lobby_code);
-                if ($lobby === null) {
-                    throw new \DomainException("Lobby not found.", 404);
-                }
-                $lobby_id = $lobby->id;
-            }
-
             $config = new KingdomGenerationConfig(
                 name: (string) ($data['name'] ?? 'New Kingdom'),
                 width: (int) ($data['width'] ?? 50),
@@ -201,7 +192,7 @@ class KingdomRoutes
                 seed: isset($data['seed']) ? (int) $data['seed'] : null,
             );
 
-            $kingdom = $container->get(GenerateKingdomService::class)->generateKingdom($config, $lobby_id, $authz_token);
+            $kingdom = $container->get(GenerateKingdomService::class)->generateKingdom($config, $lobby_code, $authz_token);
 
             return ResponseHelper::writeResponse($response, $kingdom, 201);
         };
