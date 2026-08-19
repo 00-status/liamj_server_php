@@ -46,15 +46,17 @@ class CreateLobbyService
         ]);
     }
 
-    private function generateUniqueLobbyCode(): int
+    private function generateUniqueLobbyCode(): string
     {
+        $alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
         for ($i = 0; $i < 100; $i++) {
-            $code = random_int(100000, 999999);
-            $existing = $this->lobby_db->fetchLobbyByCode($code);
-            if ($existing === null) {
-                return $code;
+            $lobby_code = (new \Random\Randomizer())->getBytesFromString($alphabet, 5);
+
+            if ($this->lobby_db->fetchLobbyByCode($lobby_code) === null) {
+                return $lobby_code;
             }
         }
+
         throw new \RuntimeException("Unable to generate a unique lobby code.", 500);
     }
 }

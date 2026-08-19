@@ -9,7 +9,7 @@ class Lobby
      */
     public function __construct(
         public private(set) int $id,
-        public private(set) int $lobby_code,
+        public private(set) string $lobby_code,
         public private(set) string $time_to_die,
         public private(set) string $created,
         public private(set) ?string $deleted = null,
@@ -25,7 +25,7 @@ class Lobby
     {
         return new self(
             id: (int) ($data['id'] ?? 0),
-            lobby_code: (int) $data['lobby_code'],
+            lobby_code: (string) $data['lobby_code'],
             time_to_die: (string) $data['time_to_die'],
             created: (string) $data['created'],
             deleted: isset($data['deleted']) ? (string) $data['deleted'] : null,
