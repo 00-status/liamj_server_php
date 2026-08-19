@@ -2,6 +2,8 @@
 
 namespace Lib\Kingdom\Service\Lobby;
 
+use DateTimeImmutable;
+use Lib\Kingdom\Domain\Entity\Lobby;
 use Lib\Kingdom\Infrastructure\Contexts\LobbyDbContext;
 use Lib\Kingdom\Infrastructure\Contexts\KingdomPlayerDbContext;
 use Lib\Kingdom\Infrastructure\Contexts\PusherContext;
@@ -17,7 +19,8 @@ class AuthorizeKingdomPlayerService
     public function authorizePlayer(string $authz_token, int $lobby_code, string $channel_name, string $socket_id): array
     {
         // 1. Cull expired lobbies first
-        $this->lobby_db->cullExpiredLobbies();
+        $expired_lobbies = $this->lobby_db->fetchExpiredLobbies();
+        $this->lobby_db->deleteRows(array_map(fn(Lobby $lobby) => $lobby->id, $expired_lobbies));
 
         // 2. Fetch player by authz_token
         $player = $this->player_db->fetchPlayerByToken($authz_token);
@@ -37,7 +40,9 @@ class AuthorizeKingdomPlayerService
         }
 
         // 5. Update lobby's time_to_die (extend lifetime by 3 hours)
-        $this->lobby_db->updateTimeToDie($lobby->id);
+        $expired_time = new DateTimeImmutable()->modify("+3 hours")->format(DateTimeImmutable::ATOM);
+        $updated_column = ["time_to_die" => $expired_time];
+        $this->lobby_db->updateColumn($lobby->id, $updated_column);
 
         // 6. Sign and authorize with Pusher via PusherContext
         return $this->pusher_context->authorizeChannel($channel_name, $socket_id);

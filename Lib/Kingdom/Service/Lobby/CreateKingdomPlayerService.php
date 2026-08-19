@@ -2,6 +2,7 @@
 
 namespace Lib\Kingdom\Service\Lobby;
 
+use DateTimeImmutable;
 use Lib\Kingdom\Domain\Entity\KingdomPlayer;
 use Lib\Kingdom\Infrastructure\Contexts\LobbyDbContext;
 use Lib\Kingdom\Infrastructure\Contexts\KingdomPlayerDbContext;
@@ -77,7 +78,9 @@ class CreateKingdomPlayerService
         ]);
 
         // 7. Update lobby's time_to_die (extend lifetime by 3 hours)
-        $this->lobby_db->updateTimeToDie($lobby->id);
+        $expired_time = new DateTimeImmutable()->modify("+3 hours")->format(DateTimeImmutable::ATOM);
+        $column_to_update = ["time_to_die" => $expired_time];
+        $this->lobby_db->updateColumn($lobby->id, $column_to_update);
 
         // 8. Broadcast update to other players in the lobby via PusherContext
         $all_players = array_merge($players, [$new_player]);

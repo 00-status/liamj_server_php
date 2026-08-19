@@ -5,6 +5,7 @@ namespace Lib\Kingdom\Infrastructure\Contexts;
 use DomainException;
 use Lib\PdoDbContext;
 use Lib\Kingdom\Domain\Entity\Kingdom;
+use PDO;
 
 class KingdomDbContext extends PdoDbContext
 {

@@ -12,9 +12,9 @@ echo "Creating lobbies table \n";
 $pdo->exec("CREATE TABLE IF NOT EXISTS lobbies (
     id SERIAL PRIMARY KEY,
     lobby_code INT NOT NULL UNIQUE,
-    time_to_die TIMESTAMP NOT NULL,
-    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    deleted TIMESTAMP
+    time_to_die TIMESTAMPTZ NOT NULL,
+    created TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    deleted TIMESTAMPTZ
 );");
 
 echo "Creating kingdom_players table \n";

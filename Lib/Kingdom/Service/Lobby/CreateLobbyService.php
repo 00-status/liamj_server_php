@@ -14,12 +14,13 @@ class CreateLobbyService
     public function createLobby(): Lobby
     {
         // 1. Cull expired lobbies
-        $this->lobby_db->cullExpiredLobbies();
+        $expired_lobbies = $this->lobby_db->fetchExpiredLobbies();
+        $this->lobby_db->deleteRows(array_map(fn(Lobby $lobby) => $lobby->id, $expired_lobbies));
 
         // 2. Enforce active lobby capacity (max 2)
         $active_count = $this->lobby_db->countActiveLobbies();
         if ($active_count >= 2) {
-            throw new \DomainException("Only two lobbies may exist at any given time to limit server resources.", 403);
+            throw new \DomainException("Cannot create lobby at this time.", 403);
         }
 
         // 3. Generate a unique 6-digit lobby code

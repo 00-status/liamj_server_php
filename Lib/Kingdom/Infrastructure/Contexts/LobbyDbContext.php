@@ -2,7 +2,9 @@
 
 namespace Lib\Kingdom\Infrastructure\Contexts;
 
+use DateTimeImmutable;
 use DomainException;
+use InvalidArgumentException;
 use Lib\PdoDbContext;
 use Lib\Kingdom\Domain\Entity\Lobby;
 use PDO;
@@ -22,6 +24,16 @@ class LobbyDbContext extends PdoDbContext
         return (int) $inserted_id;
     }
 
+    public function fetchLobbyById(int $id): ?Lobby
+    {
+        $row = $this->fetchById(self::TABLE_NAME, $id);
+        if (!$row || !empty($row['deleted'])) {
+            return null;
+        }
+
+        return Lobby::fromArray($row);
+    }
+
     public function fetchLobbyByCode(int $lobby_code): ?Lobby
     {
         $stmt = $this->pdo->prepare("SELECT * FROM " . self::TABLE_NAME . " WHERE lobby_code = :lobby_code AND deleted IS NULL");
@@ -36,33 +48,49 @@ class LobbyDbContext extends PdoDbContext
         return Lobby::fromArray($row);
     }
 
-    public function fetchLobbyById(int $id): ?Lobby
-    {
-        $row = $this->fetchById(self::TABLE_NAME, $id);
-        if (!$row || !empty($row['deleted'])) {
-            return null;
-        }
-
-        return Lobby::fromArray($row);
-    }
-
     public function countActiveLobbies(): int
     {
         $stmt = $this->pdo->query("SELECT COUNT(*) FROM " . self::TABLE_NAME . " WHERE deleted IS NULL");
         return (int) $stmt->fetchColumn();
     }
 
-    public function cullExpiredLobbies(): int
+    /**
+     * @return Lobby[]
+     */
+    public function fetchExpiredLobbies(): array
     {
-        $stmt = $this->pdo->prepare("UPDATE " . self::TABLE_NAME . " SET deleted = CURRENT_TIMESTAMP WHERE deleted IS NULL AND time_to_die < CURRENT_TIMESTAMP");
-        $stmt->execute();
-        return $stmt->rowCount();
+        $query = $this->pdo->query("SELECT * FROM" . self::TABLE_NAME . "WHERE deleted IS NULL AND time_to_die < CURRENT_TIMESTAMP");
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return array_map([Lobby::class, "fromArray"], $result);
     }
 
-    public function updateTimeToDie(int $id): bool
+    /**
+     * Deletes the rows matching the given IDs.
+     * @param int[] $ids
+     * @return void
+     */
+    public function deleteRows(array $ids): void
     {
-        $stmt = $this->pdo->prepare("UPDATE " . self::TABLE_NAME . " SET time_to_die = CURRENT_TIMESTAMP + INTERVAL '3 hours' WHERE id = :id");
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        return $stmt->execute();
+        $now = new DateTimeImmutable()->format(DateTimeImmutable::ATOM);
+        $deleted_column = ["deleted" => $now];
+        foreach($ids as $id) {
+            $this->update(self::TABLE_NAME, $deleted_column, $id);
+        }
+    }
+
+    /**
+     * Updates a column with the matching ID.
+     * @param int $id
+     * @param array $columns
+     * @return bool
+     */
+    public function updateColumn(int $id, array $columns): bool
+    {
+        if (empty($columns)) {
+            throw new InvalidArgumentException("No columns specified!");
+        }
+
+        return $this->update(self::TABLE_NAME, $columns, $id);
     }
 }

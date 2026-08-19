@@ -26,7 +26,6 @@ use Lib\Kingdom\Service\Lobby\ReadLobbyService;
 use Lib\Kingdom\Service\Lobby\CreateKingdomPlayerService;
 use Lib\Kingdom\Service\Lobby\ReadKingdomPlayerService;
 use Lib\Kingdom\Service\Lobby\AuthorizeKingdomPlayerService;
-use Lib\Kingdom\Infrastructure\Contexts\LobbyDbContext;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -45,7 +44,7 @@ class KingdomRoutes
         $app->post('kingdom_player', self::postKingdomPlayer($container));
         $app->get('kingdom_player', self::getKingdomPlayer($container));
 
-        $app->post('lobby/authz', self::postLobbyAuthz($container)); // Authenticates with websocket server.
+        $app->post('lobby/authz', self::postLobbyAuthz($container));
 
         $app->get('kingdoms', self::getKingdoms($container));
         $app->get('kingdoms/{id}', self::getKingdom($container));
