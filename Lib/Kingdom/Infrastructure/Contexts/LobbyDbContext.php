@@ -37,7 +37,7 @@ class LobbyDbContext extends PdoDbContext
     public function fetchLobbyByCode(int $lobby_code): ?Lobby
     {
         $stmt = $this->pdo->prepare("SELECT * FROM " . self::TABLE_NAME . " WHERE lobby_code = :lobby_code AND deleted IS NULL");
-        $stmt->bindParam(':lobby_code', $lobby_code, PDO::PARAM_INT);
+        $stmt->bindParam(':lobby_code', $lobby_code, PDO::PARAM_STR);
         $stmt->execute();
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);

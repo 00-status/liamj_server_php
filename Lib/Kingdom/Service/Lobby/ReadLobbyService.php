@@ -13,7 +13,7 @@ class ReadLobbyService
         private KingdomPlayerDbContext $player_db,
     ) {}
 
-    public function readLobbyByCode(int $lobby_code): Lobby
+    public function readLobbyByCode(string $lobby_code): Lobby
     {
         $lobby = $this->lobby_db->fetchLobbyByCode($lobby_code);
         if ($lobby === null) {

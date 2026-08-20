@@ -18,7 +18,7 @@ class CreateKingdomPlayerService
         private PusherContext $pusher_context,
     ) {}
 
-    public function createPlayer(int $lobby_code): KingdomPlayer
+    public function createPlayer(string $lobby_code): KingdomPlayer
     {
         $lobby = $this->lobby_db->fetchLobbyByCode($lobby_code);
         if ($lobby === null) {

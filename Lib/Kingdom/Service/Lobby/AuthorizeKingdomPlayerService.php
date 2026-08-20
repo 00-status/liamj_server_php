@@ -16,7 +16,7 @@ class AuthorizeKingdomPlayerService
         private PusherContext $pusher_context,
     ) {}
 
-    public function authorizePlayer(string $authz_token, int $lobby_code, string $channel_name, string $socket_id): array
+    public function authorizePlayer(string $authz_token, string $lobby_code, string $channel_name, string $socket_id): array
     {
         // Cull expired lobbies
         $expired_lobbies = $this->lobby_db->fetchExpiredLobbies();

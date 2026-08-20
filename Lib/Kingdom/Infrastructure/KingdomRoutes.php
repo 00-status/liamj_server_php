@@ -83,7 +83,7 @@ class KingdomRoutes
                 throw new HttpBadRequestException($request, "Must supply a lobby_code!");
             }
 
-            $lobby = $container->get(ReadLobbyService::class)->readLobbyByCode((int) $lobby_code);
+            $lobby = $container->get(ReadLobbyService::class)->readLobbyByCode((string) $lobby_code);
             return ResponseHelper::writeResponse($response, $lobby, 200);
         };
     }
@@ -101,7 +101,7 @@ class KingdomRoutes
                 throw new HttpBadRequestException($request, "Must supply a lobby_code!");
             }
 
-            $player = $container->get(CreateKingdomPlayerService::class)->createPlayer((int) $lobby_code);
+            $player = $container->get(CreateKingdomPlayerService::class)->createPlayer((string) $lobby_code);
             return ResponseHelper::writeResponse($response, $player, 201);
         };
     }
@@ -137,7 +137,7 @@ class KingdomRoutes
 
             $auth_response = $container->get(AuthorizeKingdomPlayerService::class)->authorizePlayer(
                 (string) $authz_token,
-                (int) $lobby_code,
+                (string) $lobby_code,
                 (string) $channel_name,
                 (string) $socket_id
             );

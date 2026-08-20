@@ -10,7 +10,7 @@ class PusherContext
         private Pusher $pusher,
     ) {}
 
-    public function broadcastLobbyUpdated(int $lobby_code, array $players): void
+    public function broadcastLobbyUpdated(string $lobby_code, array $players): void
     {
         $this->pusher->trigger("private-lobby-{$lobby_code}", "lobby-updated", [
             'lobby_code' => $lobby_code,
@@ -18,7 +18,7 @@ class PusherContext
         ]);
     }
 
-    public function broadcastKingdomGenerated(int $lobby_code, int $kingdom_id): void
+    public function broadcastKingdomGenerated(string $lobby_code, int $kingdom_id): void
     {
         $this->pusher->trigger("private-lobby-{$lobby_code}", "kingdom-generated", [
             'kingdom_id' => $kingdom_id,
