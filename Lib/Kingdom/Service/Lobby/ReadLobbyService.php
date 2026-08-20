@@ -27,7 +27,6 @@ class ReadLobbyService
             'lobby_code' => $lobby->lobby_code,
             'time_to_die' => $lobby->time_to_die,
             'created' => $lobby->created,
-            'deleted' => $lobby->deleted,
         ], $players);
     }
 }

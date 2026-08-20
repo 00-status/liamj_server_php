@@ -12,7 +12,6 @@ class Lobby
         public private(set) string $lobby_code,
         public private(set) string $time_to_die,
         public private(set) string $created,
-        public private(set) ?string $deleted = null,
         /** @var KingdomPlayer[] */
         public private(set) array $players = [],
     ) {}
@@ -28,7 +27,6 @@ class Lobby
             lobby_code: (string) $data['lobby_code'],
             time_to_die: (string) $data['time_to_die'],
             created: (string) $data['created'],
-            deleted: isset($data['deleted']) ? (string) $data['deleted'] : null,
             players: $players,
         );
     }
@@ -39,7 +37,6 @@ class Lobby
             "lobby_code" => $this->lobby_code,
             "time_to_die" => $this->time_to_die,
             "created" => $this->created,
-            "deleted" => $this->deleted,
         ];
     }
 }

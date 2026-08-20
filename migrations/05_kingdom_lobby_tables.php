@@ -13,8 +13,7 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS lobbies (
     id SERIAL PRIMARY KEY,
     lobby_code VARCHAR(5) NOT NULL,
     time_to_die TIMESTAMPTZ NOT NULL,
-    created TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    deleted TIMESTAMPTZ
+    created TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );");
 
 echo "Creating kingdom_players table \n";
