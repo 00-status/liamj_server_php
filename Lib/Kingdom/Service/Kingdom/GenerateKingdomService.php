@@ -28,48 +28,14 @@ class GenerateKingdomService
         private PusherContext $pusher_context,
     ) {}
 
-    public function generateKingdom(KingdomGenerationConfig $config, ?int $lobby_code = null, ?string $authz_token = null): Kingdom
-    {
+    public function generateKingdom(
+        KingdomGenerationConfig $config,
+        ?string $lobby_code = null,
+        ?string $authz_token = null
+    ): Kingdom {
         $lobby = $this->lobby_db->fetchLobbyByCode($lobby_code);
 
-        if ($lobby_code !== null) {
-            if ($authz_token === null) {
-                throw new \DomainException("Authorization token is required to generate a kingdom from a lobby.", 401);
-            }
-
-            // Verify player
-            $player = $this->player_db->fetchPlayerByToken($authz_token);
-            if ($player === null) {
-                throw new \DomainException("Unauthorized player.", 403);
-            }
-
-            // Verify lobby
-            if ($lobby === null) {
-                throw new \DomainException("Lobby not found.", 404);
-            }
-
-            // Verify player belongs to lobby
-            if ($player->lobby_id !== $lobby->id) {
-                throw new \DomainException("Player does not belong to this lobby.", 403);
-            }
-
-            // Verify leader
-            if (!$player->is_leader) {
-                throw new \DomainException("Only the Lobby Leader can generate a kingdom.", 403);
-            }
-
-            // Verify at least 2 players have joined
-            $players = $this->player_db->fetchPlayersInLobby($lobby->id);
-            if (count($players) < 2) {
-                throw new \DomainException("At least two players must join the lobby before generating a kingdom.", 400);
-            }
-
-            // Verify only one Kingdom can be generated per lobby
-            $existing = $this->kingdom_db->fetchKingdomByLobbyId($lobby->id);
-            if ($existing !== null) {
-                throw new \DomainException("A kingdom has already been generated for this lobby.", 409);
-            }
-        }
+        $this->validateLobby($lobby, $lobby_code, $authz_token);
 
         $templates = $this->read_templates_service->readRegionTemplates();
         if (empty($templates)) {
@@ -143,5 +109,44 @@ class GenerateKingdomService
 
             throw $exception;
         }
+    }
+
+    private function validateLobby($lobby, ?string $lobby_code, ?string $authz_token): void {
+        if (!$lobby_code) {
+            return;
+        }
+
+        if (!$authz_token) {
+            throw new \DomainException("Authorization token is required to generate a kingdom from a lobby.", 401);
+        }
+
+        $player = $this->player_db->fetchPlayerByToken($authz_token);
+        if ($player === null) {
+            throw new \DomainException("Unauthorized player.", 403);
+        }
+
+        if ($lobby === null) {
+            throw new \DomainException("Lobby not found.", 404);
+        }
+
+        if ($player->lobby_id !== $lobby->id) {
+            throw new \DomainException("Player does not belong to this lobby.", 403);
+        }
+
+        if (!$player->is_leader) {
+            throw new \DomainException("Only the Lobby Leader can generate a kingdom.", 403);
+        }
+
+        $players = $this->player_db->fetchPlayersInLobby($lobby->id);
+        if (count($players) < 2) {
+            throw new \DomainException("At least two players must join the lobby before generating a kingdom.", 400);
+        }
+
+        // Verify only one Kingdom can be generated per lobby
+        $existing_kingdom = $this->kingdom_db->fetchKingdomByLobbyId($lobby->id);
+        if ($existing_kingdom !== null) {
+            throw new \DomainException("A kingdom has already been generated for this lobby.", 409);
+        }
+        
     }
 }

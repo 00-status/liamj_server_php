@@ -173,7 +173,7 @@ class KingdomRoutes
             $body_raw = $request->getBody()->getContents();
             $data = json_decode($body_raw, true) ?? [];
 
-            $lobby_code = isset($data['lobby_code']) ? (int) $data['lobby_code'] : null;
+            $lobby_code = isset($data['lobby_code']) ? (string) $data['lobby_code'] : null;
             $authz_token = isset($data['authz_token']) ? (string) $data['authz_token'] : null;
 
             $config = new KingdomGenerationConfig(
