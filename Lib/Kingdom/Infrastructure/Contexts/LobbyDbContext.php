@@ -59,7 +59,7 @@ class LobbyDbContext extends PdoDbContext
      */
     public function fetchExpiredLobbies(): array
     {
-        $query = $this->pdo->query("SELECT * FROM" . self::TABLE_NAME . "WHERE deleted IS NULL AND time_to_die < CURRENT_TIMESTAMP");
+        $query = $this->pdo->query("SELECT * FROM " . self::TABLE_NAME . " WHERE deleted IS NULL AND time_to_die < CURRENT_TIMESTAMP");
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
         return array_map([Lobby::class, "fromArray"], $result);

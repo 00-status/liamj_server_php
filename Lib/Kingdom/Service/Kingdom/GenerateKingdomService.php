@@ -4,6 +4,7 @@ namespace Lib\Kingdom\Service\Kingdom;
 
 use Lib\Kingdom\Domain\Entity\Kingdom;
 use Lib\Kingdom\Domain\Entity\KingdomGenerationConfig;
+use Lib\Kingdom\Domain\Entity\Lobby;
 use Lib\Kingdom\Domain\Entity\Region;
 use Lib\Kingdom\Domain\Entity\Tile;
 use Lib\Kingdom\Domain\KingdomGenerator;
@@ -33,7 +34,7 @@ class GenerateKingdomService
         ?string $lobby_code = null,
         ?string $authz_token = null
     ): Kingdom {
-        $lobby = $this->lobby_db->fetchLobbyByCode($lobby_code);
+        $lobby = $lobby_code ? $this->lobby_db->fetchLobbyByCode($lobby_code) : null;
 
         $this->validateLobby($lobby, $lobby_code, $authz_token);
 
@@ -111,7 +112,7 @@ class GenerateKingdomService
         }
     }
 
-    private function validateLobby($lobby, ?string $lobby_code, ?string $authz_token): void {
+    private function validateLobby(?Lobby $lobby, ?string $lobby_code, ?string $authz_token): void {
         if (!$lobby_code) {
             return;
         }

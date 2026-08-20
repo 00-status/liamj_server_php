@@ -18,7 +18,7 @@ class CreateKingdomPlayerService
         private PusherContext $pusher_context,
     ) {}
 
-    public function createPlayer(string $lobby_code): KingdomPlayer
+    public function createPlayer(string $lobby_code, string $player_name): KingdomPlayer
     {
         $lobby = $this->lobby_db->fetchLobbyByCode($lobby_code);
         if ($lobby === null) {
@@ -31,7 +31,7 @@ class CreateKingdomPlayerService
         }
 
         $taken_names = array_map(fn($player) => strtolower($player->name), $players);
-        $selected_name = $this->generateColorName($taken_names);
+        $selected_name = $this->generateColorName($taken_names, $player_name);
 
         $is_lobby_leader = (count($players) === 0);
 
@@ -78,7 +78,7 @@ class CreateKingdomPlayerService
      * @throws \DomainException
      * @return string
      */
-    private function generateColorName(array $taken_names): string
+    private function generateColorName(array $taken_names, string $player_name): string
     {
         $allowed_colors = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
 
