@@ -96,13 +96,12 @@ class KingdomRoutes
             $body = json_decode($body_raw, true) ?? [];
 
             $lobby_code = $params['lobby_code'] ?? $body['lobby_code'] ?? null;
-            $player_name = $params['player_name'] ?? $body['player_name'] ?? null;
 
             if (empty($lobby_code)) {
                 throw new HttpBadRequestException($request, "Must supply a lobby_code!");
             }
 
-            $player = $container->get(CreateKingdomPlayerService::class)->createPlayer((int) $lobby_code, $player_name);
+            $player = $container->get(CreateKingdomPlayerService::class)->createPlayer((int) $lobby_code);
             return ResponseHelper::writeResponse($response, $player, 201);
         };
     }

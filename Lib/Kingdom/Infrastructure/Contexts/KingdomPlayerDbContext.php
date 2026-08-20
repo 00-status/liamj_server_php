@@ -50,14 +50,4 @@ class KingdomPlayerDbContext extends PdoDbContext
 
         return KingdomPlayer::fromArray($row);
     }
-
-    public function isNameTakenInLobby(int $lobby_id, string $name): bool
-    {
-        $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM " . self::TABLE_NAME . " WHERE lobby_id = :lobby_id AND LOWER(name) = LOWER(:name)");
-        $stmt->bindParam(':lobby_id', $lobby_id, PDO::PARAM_INT);
-        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-        $stmt->execute();
-
-        return $stmt->fetchColumn() > 0;
-    }
 }
