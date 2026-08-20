@@ -18,33 +18,30 @@ class AuthorizeKingdomPlayerService
 
     public function authorizePlayer(string $authz_token, int $lobby_code, string $channel_name, string $socket_id): array
     {
-        // 1. Cull expired lobbies first
+        // Cull expired lobbies
         $expired_lobbies = $this->lobby_db->fetchExpiredLobbies();
         $this->lobby_db->deleteRows(array_map(fn(Lobby $lobby) => $lobby->id, $expired_lobbies));
 
-        // 2. Fetch player by authz_token
         $player = $this->player_db->fetchPlayerByToken($authz_token);
         if ($player === null) {
             throw new \DomainException("Unauthorized player.", 403);
         }
 
-        // 3. Fetch lobby by code
         $lobby = $this->lobby_db->fetchLobbyByCode($lobby_code);
         if ($lobby === null) {
             throw new \DomainException("Lobby not found or expired.", 404);
         }
 
-        // 4. Verify player belongs to this lobby
         if ($player->lobby_id !== $lobby->id) {
             throw new \DomainException("Player does not belong to this lobby.", 403);
         }
 
-        // 5. Update lobby's time_to_die (extend lifetime by 3 hours)
+        // Update lobby's time_to_die (extend lifetime by 3 hours)
         $expired_time = new DateTimeImmutable()->modify("+3 hours")->format(DateTimeImmutable::ATOM);
         $updated_column = ["time_to_die" => $expired_time];
         $this->lobby_db->updateColumn($lobby->id, $updated_column);
 
-        // 6. Sign and authorize with Pusher via PusherContext
+        // Sign and authorize with Pusher via PusherContext
         return $this->pusher_context->authorizeChannel($channel_name, $socket_id);
     }
 }

@@ -55,10 +55,10 @@ class KingdomContainerBuilder
 
             // Pusher SDK Client
             \Pusher\Pusher::class => function () {
-                $app_id = getenv("PUSHER_APP_ID");
-                $key = getenv("PUSHER_KEY");
-                $secret = getenv("PUSHER_SECRET");
-                $cluster = getenv("PUSHER_CLUSTER") ?: "us2";
+                $app_id = getenv("WEBSOCKET_APP_ID");
+                $key = getenv("WEBSOCKET_KEY");
+                $secret = getenv("WEBSOCKET_SECRET");
+                $cluster = "us3";
 
                 if (empty($app_id) || empty($key) || empty($secret)) {
                     // Return a Pusher instance with dummy credentials so dependencies

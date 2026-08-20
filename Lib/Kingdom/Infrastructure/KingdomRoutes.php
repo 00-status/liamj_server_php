@@ -130,13 +130,7 @@ class KingdomRoutes
             $authz_token = $params['authz_token'] ?? $body['authz_token'] ?? null;
             $channel_name = $params['channel_name'] ?? $body['channel_name'] ?? null;
             $socket_id = $params['socket_id'] ?? $body['socket_id'] ?? null;
-
             $lobby_code = $params['lobby_code'] ?? $body['lobby_code'] ?? null;
-            if (empty($lobby_code) && !empty($channel_name)) {
-                if (preg_match('/private-lobby-(\d+)/', $channel_name, $matches)) {
-                    $lobby_code = (int) $matches[1];
-                }
-            }
 
             if (empty($authz_token) || empty($channel_name) || empty($socket_id) || empty($lobby_code)) {
                 throw new HttpBadRequestException($request, "Must supply authz_token, channel_name, socket_id, and lobby_code!");
