@@ -5,6 +5,7 @@ namespace Lib\Kingdom\Infrastructure\Contexts;
 use DomainException;
 use Lib\PdoDbContext;
 use Lib\Kingdom\Domain\Entity\Kingdom;
+use PDO;
 
 class KingdomDbContext extends PdoDbContext
 {
@@ -37,6 +38,20 @@ class KingdomDbContext extends PdoDbContext
     {
         $row = $this->fetchById(self::TABLE_NAME, $id);
 
+        if (!$row) {
+            return null;
+        }
+
+        return Kingdom::fromArray($row);
+    }
+
+    public function fetchKingdomByLobbyId(int $lobby_id): ?Kingdom
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM " . self::TABLE_NAME . " WHERE lobby_id = :lobby_id");
+        $stmt->bindParam(':lobby_id', $lobby_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!$row) {
             return null;
         }

@@ -29,7 +29,7 @@ class TerminalDirectoriesDbContext extends PdoDbContext
     }
 
     /**
-     * @param int[] $directory_ids
+     * @param int $server_id
      * @return Directory[]
      */
     public function fetchDirectories(int $server_id): array
