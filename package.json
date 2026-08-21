@@ -61,6 +61,7 @@
         "ga-gtag": "^1.2.0",
         "graphology": "^0.26.0",
         "inkjs": "^2.4.0",
+        "pusher-js": "^8.6.0",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "react-modal": "^3.16.1",

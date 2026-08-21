@@ -1,4 +1,4 @@
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Page } from '../../../SharedComponents/Page/Page';
@@ -7,7 +7,11 @@ import { TextInput } from '../../../SharedComponents/TextInput/TextInput';
 import { Button } from '../../../SharedComponents/Button/Button';
 import './kingdom-lobby-page.css';
 
-export const KingdomLobbyPage = () => {
+type Props = {
+    setCurrentLobbyCode: Dispatch<SetStateAction<string | null>>;
+};
+
+export const KingdomLobby = ({ setCurrentLobbyCode }: Props) => {
     const navigate = useNavigate();
     const [kingdomId, setKingdomId] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
@@ -58,4 +62,4 @@ export const KingdomLobbyPage = () => {
     );
 };
 
-export default KingdomLobbyPage;
+export default KingdomLobby;
