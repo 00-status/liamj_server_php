@@ -11,5 +11,12 @@
  *
  */
 export const KingdomPage = () => {
+    // If we are NOT connected to the websocket server and we have not yet received a "kingdom-generated" event.
+    //      Render the Lobby
+    //          Create new Lobby
+    //          Join a Lobby
+
+    // If we receive a "kingdom-generated" event from ws server.
+    //      Render KingdomOverview
     return null;
 };
