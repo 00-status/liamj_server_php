@@ -28,21 +28,25 @@ const KingdomPage = () => {
     const [currentLobbyCode, setCurrentLobbyCode] = useState<string | null>(null);
 
     useEffect(() => {
-        // Update auth param context before subscribing
-        setAuthLobbyCode(currentLobbyCode);
+        if (currentLobbyCode) {
+            // Update auth param context before subscribing
+            setAuthLobbyCode(currentLobbyCode);
 
-        const channelName = `private-lobby-${currentLobbyCode}`;
-        const channel = pusherClient.subscribe(channelName);
+            const channelName = `private-lobby-${currentLobbyCode}`;
+            const channel = pusherClient.subscribe(channelName);
 
-        channel.bind('player-joined', (data: unknown) => {
-            console.log('Player joined:', data);
-        });
+            channel.bind('player-joined', (data: unknown) => {
+                console.log('Player joined:', data);
+            });
 
-        return () => {
-            channel.unbind_all();
-            pusherClient.unsubscribe(channelName);
-            setAuthLobbyCode(null);
-        };
+            return () => {
+                channel.unbind_all();
+                pusherClient.unsubscribe(channelName);
+                setAuthLobbyCode(null);
+            };
+        }
+
+        return;
     }, [currentLobbyCode]);
 
     if (!currentLobbyCode) {

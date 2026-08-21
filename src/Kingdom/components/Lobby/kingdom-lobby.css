@@ -1,4 +1,4 @@
-.kingdom-lobby-page {
+.kingdom-lobby {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,30 +7,31 @@
     padding: 40px 20px;
 }
 
-.kingdom-lobby-page__container {
+.kingdom-lobby__container {
     width: 100%;
     max-width: 500px;
 }
 
-.kingdom-lobby-page__form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.kingdom-lobby-page__description {
+.kingdom-lobby__description {
     color: #b0b3b8;
     line-height: 1.5;
     margin: 0;
 }
 
-.kingdom-lobby-page__error {
+.kingdom-lobby__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.kingdom-lobby__error {
     color: #ff5252;
     font-size: 0.9rem;
     font-weight: 500;
 }
 
-.kingdom-lobby-page__actions {
+.kingdom-lobby__form-item {
     display: flex;
-    justify-content: flex-end;
+    justify-content: start;
+    gap: 12px;
 }
