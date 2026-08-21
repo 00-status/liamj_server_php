@@ -42,12 +42,14 @@ const TerminalPage = lazy(
 const KingdomOverviewPage = lazy(
     () =>
         import(
-            /* webpackChunkName: "kingdom-overview-page" */ './Kingdom/Overview/KingdomOverviewPage'
+            /* webpackChunkName: "kingdom-overview-page" */ './Kingdom/components/Overview/KingdomOverviewPage'
         ),
 );
 const KingdomLobbyPage = lazy(
     () =>
-        import(/* webpackChunkName: "kingdom-lobby-page" */ './Kingdom/Overview/KingdomLobbyPage'),
+        import(
+            /* webpackChunkName: "kingdom-lobby-page" */ './Kingdom/components/Lobby/KingdomLobbyPage'
+        ),
 );
 const RegionTemplatesPage = lazy(
     () =>

@@ -2,15 +2,15 @@ import { useMemo, useRef, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
 import './kingdom-overview-page.css';
-import { Page } from '../../SharedComponents/Page/Page';
-import { Loader } from '../../SharedComponents/Loader/Loader';
-import { Button, ButtonTheme } from '../../SharedComponents/Button/Button';
+import { Page } from '../../../SharedComponents/Page/Page';
+import { Loader } from '../../../SharedComponents/Loader/Loader';
+import { Button, ButtonTheme } from '../../../SharedComponents/Button/Button';
+import { useKingdom } from '../../hooks/useKingdom';
+import { Region } from '../../domain/types';
+import { calculateRegionTileCounts } from '../../domain/util';
 
-import { useKingdom } from './hooks/useKingdom';
-import { Region } from './domain/types';
-import { calculateRegionTileCounts } from './domain/util';
-import { KingdomRegionOverlay } from './components/KingdomRegionOverlay';
-import { KingdomCanvas } from './components/KingdomCanvas';
+import { KingdomRegionOverlay } from './KingdomRegionOverlay';
+import { KingdomCanvas } from './KingdomCanvas';
 
 export const KingdomOverviewPage = () => {
     const [searchParams] = useSearchParams();

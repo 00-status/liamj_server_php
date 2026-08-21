@@ -1,10 +1,10 @@
 import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Page } from '../../SharedComponents/Page/Page';
-import { Card } from '../../SharedComponents/Card/Card';
-import { TextInput } from '../../SharedComponents/TextInput/TextInput';
-import { Button } from '../../SharedComponents/Button/Button';
+import { Page } from '../../../SharedComponents/Page/Page';
+import { Card } from '../../../SharedComponents/Card/Card';
+import { TextInput } from '../../../SharedComponents/TextInput/TextInput';
+import { Button } from '../../../SharedComponents/Button/Button';
 import './kingdom-lobby-page.css';
 
 export const KingdomLobbyPage = () => {
