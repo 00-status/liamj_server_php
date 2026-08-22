@@ -6,6 +6,7 @@ import { Card } from '../../../SharedComponents/Card/Card';
 import { TextInput } from '../../../SharedComponents/TextInput/TextInput';
 import { Button } from '../../../SharedComponents/Button/Button';
 import './kingdom-empty-lobby.css';
+import { useKingdomLobby } from '../../hooks/useKingdomLobby';
 
 type Props = {
     setCurrentLobbyCode: Dispatch<SetStateAction<string | null>>;
@@ -17,6 +18,8 @@ export const KingdomEmptyLobby = ({ setCurrentLobbyCode }: Props) => {
     const [kingdomId, setKingdomId] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
 
+    const { createLobby, isLoading, error: apiError } = useKingdomLobby();
+
     // Creating a new lobby:
     //      Call POST api/1/lobby
     //          If successful
@@ -24,6 +27,18 @@ export const KingdomEmptyLobby = ({ setCurrentLobbyCode }: Props) => {
     //              Set the player's authzToken for this lobby in localState, along with an expiry time.
     //          else
     //              Display errorMessage.
+
+    const handleCreateLobby = async () => {
+        const lobby = await createLobby();
+
+        if (!lobby) {
+            return;
+        }
+
+        setNewLobbyCode(lobby.lobbyCode);
+
+        // Call the create endpoint for making a new player.
+    };
 
     const handleJoinLobby = () => {
         if (newLobbyCode.trim().length !== 5) {
@@ -65,9 +80,16 @@ export const KingdomEmptyLobby = ({ setCurrentLobbyCode }: Props) => {
             <div className="kingdom-empty-lobby">
                 <Card
                     title="Lobby"
-                    button={<Button onClick={handleLoadKingdom}>Create New Lobby</Button>}
+                    button={
+                        <Button onClick={handleCreateLobby} disabled={isLoading}>
+                            Create New Lobby
+                        </Button>
+                    }
                 >
-                    <div className="kingdom-empty-lobby__error">{error}</div>
+                    <div className="kingdom-empty-lobby__error">
+                        <p>{error}</p>
+                        <p>{apiError}</p>
+                    </div>
                     <div className="kingdom-empty-lobby__form">
                         <div>
                             <h3>Join Lobby</h3>

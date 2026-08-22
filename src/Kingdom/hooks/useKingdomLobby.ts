@@ -8,35 +8,41 @@ export const useKingdomLobby = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
-    const createLobby = useCallback((abortSignal?: AbortSignal) => {
-        setIsLoading(true);
-        setError(null);
-        fetch('/api/1/lobby', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            signal: abortSignal,
-        })
-            .then((res) => {
-                if (!res.ok) {
-                    throw new Error(`Failed to create Kingdom Lobby (Status: ${res.status})`);
-                }
-                return res.text();
-            })
-            .then((data) => {
-                const dataJson = convertApiCase<KingdomLobby>(data);
+    const createLobby = useCallback(
+        async (abortSignal?: AbortSignal): Promise<KingdomLobby | null> => {
+            setIsLoading(true);
+            setError(null);
 
+            try {
+                const response = await fetch('/api/1/lobby', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    signal: abortSignal,
+                });
+                if (!response.ok) {
+                    throw new Error(`Failed to create Kingdom Lobby (Status: ${response.status})`);
+                }
+
+                const data = await response.text();
+                const dataJson = convertApiCase<KingdomLobby>(data);
                 if (dataJson) {
                     setLobby(dataJson);
                 } else {
                     throw new Error('Invalid Kingdom Lobby response data');
                 }
-            })
-            .catch((error) => {
+
+                return dataJson;
+            } catch (error) {
                 setError(error instanceof Error ? error.message : 'Unknown error occurred');
                 setLobby(null);
-            })
-            .finally(() => setIsLoading(false));
-    }, []);
+
+                return null;
+            } finally {
+                setIsLoading(false);
+            }
+        },
+        [],
+    );
 
     const fetchLobby = useCallback((lobbyCode: string, abortSignal?: AbortSignal) => {
         setIsLoading(true);
