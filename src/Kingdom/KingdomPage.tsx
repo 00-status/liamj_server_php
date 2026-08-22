@@ -7,7 +7,8 @@ import KingdomOverviewPage from './components/Overview/KingdomOverviewPage';
 
 /**
  * KingdomPage | unlisted/kingdom, authenticates with websocket API.
- *      KingdomLobby | create or join lobby. Generate kingdom.
+ *      KingdomEmptyLobby | create or join lobby.
+ *      KingdomLobby | Generate kingdom, list players.
  *      KingdomOverview | GET initial paint of Kingdom. Orchestrate updates to kingdom.
  *           KingdomCanvas
  *           Sidebar
@@ -18,12 +19,29 @@ import KingdomOverviewPage from './components/Overview/KingdomOverviewPage';
  *
  */
 const KingdomPage = () => {
-    // If we are NOT connected to the websocket server and we have not yet received a "kingdom-generated" event.
-    //      Render the Lobby
-    //          Create new Lobby
-    //          Join a Lobby
-    // If we receive a "kingdom-generated" event from ws server.
+    // If any authzTokens exist in localStorage
+    //      Cull the expired ones.
+    //      set the authzTokenMap with the key being the lobby code.
+    //
+    // If the lobbyCode is set AND a matching authzToken exists
+    //      Call the lobby/authz endpoint.
+    //      If successful
+    //          Set isAuthorizedWithLobby to true
+    //      else
+    //          Render error.
+    //          Clear the lobby code.
+    //
+    //
+    // If authorizedWithLobby is true AND we have received a "kingdom-generated" event
     //      Render KingdomOverview
+    //          Call GET /api/1/kingdom endpoint for initial paint of Kingdom.
+    //
+    // If authorizedWithLobby is true BUT we have not received a "kingdom-generated" event.
+    //      Render lobby | Set Kingdom parameters, list players within the lobby.
+    //
+    // If authorizedWithLobby is false.
+    //      Render EmptyLobby | Create new Lobby, join existing Lobby.
+    //
 
     const [currentLobbyCode, setCurrentLobbyCode] = useState<string | null>(null);
 

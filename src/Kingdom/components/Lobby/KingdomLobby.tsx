@@ -17,11 +17,32 @@ export const KingdomLobby = ({ setCurrentLobbyCode }: Props) => {
     const [kingdomId, setKingdomId] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
 
-    const handleSetLobbyCode = () => {
+    // Creating a new lobby:
+    //      Call POST api/1/lobby
+    //          If successful
+    //              Set the lobbyCode from the returned lobby.
+    //              Set the player's authzToken for this lobby in localState, along with an expiry time.
+    //          else
+    //              Display errorMessage.
+
+    const handleJoinLobby = () => {
         if (newLobbyCode.trim().length !== 5) {
             setError('Lobby Code must be exactly 5 characters long.');
             return;
         }
+
+        // If an authzToken exists for the given lobbyCode
+        //      Call GET /api/1/kingdom_player with the lobby code.
+        //          If the response is successful
+        //              Set the player's authzToken in localState, along with a new expiry time.
+        //          else
+        //              render errorMessage
+        // else
+        //      Call POST /api/1/kingdom_player
+        //          If the response is successful
+        //               Set the player's authzToken in localState, along with an expiry time.
+        //          else
+        //               render an errorMessage
 
         setError(null);
         setNewLobbyCode('');
@@ -56,7 +77,7 @@ export const KingdomLobby = ({ setCurrentLobbyCode }: Props) => {
                                     onChange={(value) => setNewLobbyCode(value || '')}
                                     placeholder="ADOMP"
                                 />
-                                <Button onClick={handleSetLobbyCode}>Join Lobby</Button>
+                                <Button onClick={handleJoinLobby}>Join Lobby</Button>
                             </div>
                         </div>
                         <div>
