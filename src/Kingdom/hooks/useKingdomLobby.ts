@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 
 import { KingdomLobby } from '../domain/types';
+import { convertApiCase } from '../../Common/convertApiCase';
 
 export const useKingdomLobby = () => {
     const [lobby, setLobby] = useState<KingdomLobby | null>(null);
@@ -19,11 +20,13 @@ export const useKingdomLobby = () => {
                 if (!res.ok) {
                     throw new Error(`Failed to create Kingdom Lobby (Status: ${res.status})`);
                 }
-                return res.json();
+                return res.text();
             })
             .then((data) => {
-                if (data && data.id) {
-                    setLobby(data);
+                const dataJson = convertApiCase<KingdomLobby>(data);
+
+                if (dataJson) {
+                    setLobby(dataJson);
                 } else {
                     throw new Error('Invalid Kingdom Lobby response data');
                 }
@@ -43,11 +46,13 @@ export const useKingdomLobby = () => {
                 if (!res.ok) {
                     throw new Error(`Failed to fetch Lobby (Status: ${res.status})`);
                 }
-                return res.json();
+                return res.text();
             })
             .then((data) => {
-                if (data && data.id) {
-                    setLobby(data);
+                const dataJson = convertApiCase<KingdomLobby>(data);
+
+                if (dataJson) {
+                    setLobby(dataJson);
                 } else {
                     throw new Error('Invalid Lobby response data');
                 }
