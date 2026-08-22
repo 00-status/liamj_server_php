@@ -4,7 +4,6 @@ import { KingdomLobby } from '../domain/types';
 import { convertApiCase } from '../../Common/convertApiCase';
 
 export const useKingdomLobby = () => {
-    const [lobby, setLobby] = useState<KingdomLobby | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -25,16 +24,13 @@ export const useKingdomLobby = () => {
 
                 const data = await response.text();
                 const dataJson = convertApiCase<KingdomLobby>(data);
-                if (dataJson) {
-                    setLobby(dataJson);
-                } else {
+                if (!dataJson) {
                     throw new Error('Invalid Kingdom Lobby response data');
                 }
 
                 return dataJson;
             } catch (error) {
                 setError(error instanceof Error ? error.message : 'Unknown error occurred');
-                setLobby(null);
 
                 return null;
             } finally {
@@ -44,31 +40,35 @@ export const useKingdomLobby = () => {
         [],
     );
 
-    const fetchLobby = useCallback((lobbyCode: string, abortSignal?: AbortSignal) => {
-        setIsLoading(true);
-        setError(null);
-        fetch(`/api/1/lobby/${lobbyCode}`, { signal: abortSignal })
-            .then((res) => {
-                if (!res.ok) {
-                    throw new Error(`Failed to fetch Lobby (Status: ${res.status})`);
+    const fetchLobby = useCallback(
+        async (lobbyCode: string, abortSignal?: AbortSignal): Promise<KingdomLobby | null> => {
+            setIsLoading(true);
+            setError(null);
+
+            try {
+                const response = await fetch(`/api/1/lobby/${lobbyCode}`, { signal: abortSignal });
+
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch Lobby (Status: ${response.status})`);
                 }
-                return res.text();
-            })
-            .then((data) => {
+
+                const data = await response.text();
                 const dataJson = convertApiCase<KingdomLobby>(data);
 
-                if (dataJson) {
-                    setLobby(dataJson);
-                } else {
+                if (!dataJson) {
                     throw new Error('Invalid Lobby response data');
                 }
-            })
-            .catch((err) => {
-                setError(err instanceof Error ? err.message : 'Unknown error occurred');
-                setLobby(null);
-            })
-            .finally(() => setIsLoading(false));
-    }, []);
 
-    return { lobby, createLobby, fetchLobby, error, isLoading };
+                return dataJson;
+            } catch (error) {
+                setError(error instanceof Error ? error.message : 'Unknown error occurred');
+                return null;
+            } finally {
+                setIsLoading(false);
+            }
+        },
+        [],
+    );
+
+    return { createLobby, fetchLobby, error, isLoading };
 };
