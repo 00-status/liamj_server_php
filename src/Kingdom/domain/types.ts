@@ -23,3 +23,18 @@ export interface Kingdom {
     grid_height: number;
     regions: Region[];
 }
+
+export interface KingdomLobby {
+    id: number;
+    lobbyCode: string;
+    timeToDie: string;
+    created: string;
+}
+
+export interface KingdomPlayer {
+    id: number;
+    lobbyId: number;
+    name: string;
+    isLeader: boolean;
+    authorizationToken: number;
+}
