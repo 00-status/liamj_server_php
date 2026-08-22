@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { pusherClient, setAuthLobbyCode } from '../pusher';
 
-import KingdomLobby from './components/Lobby/KingdomLobby';
+import { KingdomEmptyLobby } from './components/Lobby/KingdomEmptyLobby';
 import KingdomOverviewPage from './components/Overview/KingdomOverviewPage';
 
 /**
@@ -68,7 +68,7 @@ const KingdomPage = () => {
     }, [currentLobbyCode]);
 
     if (!currentLobbyCode) {
-        return <KingdomLobby setCurrentLobbyCode={setCurrentLobbyCode} />;
+        return <KingdomEmptyLobby setCurrentLobbyCode={setCurrentLobbyCode} />;
     }
 
     return <KingdomOverviewPage />;

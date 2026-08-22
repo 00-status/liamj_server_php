@@ -5,13 +5,13 @@ import { Page } from '../../../SharedComponents/Page/Page';
 import { Card } from '../../../SharedComponents/Card/Card';
 import { TextInput } from '../../../SharedComponents/TextInput/TextInput';
 import { Button } from '../../../SharedComponents/Button/Button';
-import './kingdom-lobby.css';
+import './kingdom-empty-lobby.css';
 
 type Props = {
     setCurrentLobbyCode: Dispatch<SetStateAction<string | null>>;
 };
 
-export const KingdomLobby = ({ setCurrentLobbyCode }: Props) => {
+export const KingdomEmptyLobby = ({ setCurrentLobbyCode }: Props) => {
     const navigate = useNavigate();
     const [newLobbyCode, setNewLobbyCode] = useState<string>('');
     const [kingdomId, setKingdomId] = useState<string>('');
@@ -62,16 +62,16 @@ export const KingdomLobby = ({ setCurrentLobbyCode }: Props) => {
 
     return (
         <Page title="Kingdom Lobby" routes={[]}>
-            <div className="kingdom-lobby">
+            <div className="kingdom-empty-lobby">
                 <Card
                     title="Lobby"
                     button={<Button onClick={handleLoadKingdom}>Create New Lobby</Button>}
                 >
-                    <div className="kingdom-lobby__error">{error}</div>
-                    <div className="kingdom-lobby__form">
+                    <div className="kingdom-empty-lobby__error">{error}</div>
+                    <div className="kingdom-empty-lobby__form">
                         <div>
                             <h3>Join Lobby</h3>
-                            <div className="kingdom-lobby__form-item">
+                            <div className="kingdom-empty-lobby__form-item">
                                 <TextInput
                                     value={newLobbyCode}
                                     onChange={(value) => setNewLobbyCode(value || '')}
@@ -82,7 +82,7 @@ export const KingdomLobby = ({ setCurrentLobbyCode }: Props) => {
                         </div>
                         <div>
                             <h3>Load Kingdom</h3>
-                            <div className="kingdom-lobby__form-item">
+                            <div className="kingdom-empty-lobby__form-item">
                                 <TextInput
                                     value={kingdomId}
                                     onChange={(value) => setKingdomId(value || '')}
@@ -99,5 +99,3 @@ export const KingdomLobby = ({ setCurrentLobbyCode }: Props) => {
         </Page>
     );
 };
-
-export default KingdomLobby;
