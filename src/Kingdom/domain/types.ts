@@ -38,3 +38,9 @@ export interface KingdomPlayer {
     isLeader: boolean;
     authorizationToken: number;
 }
+
+export interface LobbyAuthzToken {
+    timeToDie: string;
+    lobbyCode: string;
+    authzToken: string;
+}

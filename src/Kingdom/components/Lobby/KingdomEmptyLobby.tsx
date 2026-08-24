@@ -1,24 +1,33 @@
 import { useState, Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import './kingdom-empty-lobby.css';
 import { Page } from '../../../SharedComponents/Page/Page';
 import { Card } from '../../../SharedComponents/Card/Card';
 import { TextInput } from '../../../SharedComponents/TextInput/TextInput';
 import { Button } from '../../../SharedComponents/Button/Button';
-import './kingdom-empty-lobby.css';
 import { useKingdomLobby } from '../../hooks/useKingdomLobby';
+import { useKingdomPlayer } from '../../hooks/useKingdomPlayer';
+import { LobbyAuthzToken } from '../../domain/types';
 
 type Props = {
     setCurrentLobbyCode: Dispatch<SetStateAction<string | null>>;
+    lobbyAuthzTokenMap: Record<string, LobbyAuthzToken | null>;
+    joinWebSocketLobby: () => void;
 };
 
-export const KingdomEmptyLobby = ({ setCurrentLobbyCode }: Props) => {
+export const KingdomEmptyLobby = ({
+    setCurrentLobbyCode,
+    lobbyAuthzTokenMap,
+    joinWebSocketLobby,
+}: Props) => {
     const navigate = useNavigate();
     const [newLobbyCode, setNewLobbyCode] = useState<string>('');
     const [kingdomId, setKingdomId] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
 
-    const { createLobby, isLoading, error: apiError } = useKingdomLobby();
+    const { createLobby, isLoading: isLobbyLoading, error: lobbyApiError } = useKingdomLobby();
+    const { createPlayer, isLoading: isPlayerLoading, error: playerApiError } = useKingdomPlayer();
 
     // Creating a new lobby:
     //      Call POST api/1/lobby
@@ -37,19 +46,34 @@ export const KingdomEmptyLobby = ({ setCurrentLobbyCode }: Props) => {
 
         setNewLobbyCode(lobby.lobbyCode);
 
-        // Call the create endpoint for making a new player.
+        const player = await createPlayer();
+        // Set player's authzToken in localState.
     };
 
-    const handleJoinLobby = () => {
+    const handleJoinLobby = async () => {
         if (newLobbyCode.trim().length !== 5) {
             setError('Lobby Code must be exactly 5 characters long.');
             return;
         }
 
+        const lobbyAuthzToken = lobbyAuthzTokenMap[newLobbyCode];
+
+        if (!lobbyAuthzToken) {
+            const player = await createPlayer();
+
+            if (!player) {
+                return;
+            }
+
+            // Set authzToken for this lobby.
+        }
+
+        joinWebSocketLobby();
+
         // If an authzToken exists for the given lobbyCode
-        //      Call GET /api/1/kingdom_player with the lobby code.
+        //      Call POST /api/1/lobby/authz with the lobby code.
         //          If the response is successful
-        //              Set the player's authzToken in localState, along with a new expiry time.
+        //              Update the time_to_die on the player's authzToken in localState.
         //          else
         //              render errorMessage
         // else
@@ -75,6 +99,7 @@ export const KingdomEmptyLobby = ({ setCurrentLobbyCode }: Props) => {
         navigate(`/unlisted/kingdom_overview?id=${idInt}`);
     };
 
+    const isLoading = isLobbyLoading || isPlayerLoading;
     return (
         <Page title="Kingdom Lobby" routes={[]}>
             <div className="kingdom-empty-lobby">
@@ -88,7 +113,8 @@ export const KingdomEmptyLobby = ({ setCurrentLobbyCode }: Props) => {
                 >
                     <div className="kingdom-empty-lobby__error">
                         <p>{error}</p>
-                        <p>{apiError}</p>
+                        <p>{lobbyApiError}</p>
+                        <p>{playerApiError}</p>
                     </div>
                     <div className="kingdom-empty-lobby__form">
                         <div>
@@ -99,7 +125,12 @@ export const KingdomEmptyLobby = ({ setCurrentLobbyCode }: Props) => {
                                     onChange={(value) => setNewLobbyCode(value || '')}
                                     placeholder="ADOMP"
                                 />
-                                <Button onClick={handleJoinLobby}>Join Lobby</Button>
+                                <Button
+                                    onClick={handleJoinLobby}
+                                    disabled={!newLobbyCode || isLoading}
+                                >
+                                    Join Lobby
+                                </Button>
                             </div>
                         </div>
                         <div>
@@ -110,7 +141,10 @@ export const KingdomEmptyLobby = ({ setCurrentLobbyCode }: Props) => {
                                     onChange={(value) => setKingdomId(value || '')}
                                     placeholder="23"
                                 />
-                                <Button onClick={handleLoadKingdom} disabled={!!kingdomId}>
+                                <Button
+                                    onClick={handleLoadKingdom}
+                                    disabled={!kingdomId || isLoading}
+                                >
                                     Load Kingdom
                                 </Button>
                             </div>

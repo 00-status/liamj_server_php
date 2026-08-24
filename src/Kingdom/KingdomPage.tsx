@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { pusherClient, setAuthLobbyCode } from '../pusher';
 
@@ -45,30 +45,36 @@ const KingdomPage = () => {
 
     const [currentLobbyCode, setCurrentLobbyCode] = useState<string | null>(null);
 
-    useEffect(() => {
-        if (currentLobbyCode) {
-            // Update auth param context before subscribing
-            setAuthLobbyCode(currentLobbyCode);
-
-            const channelName = `private-lobby-${currentLobbyCode}`;
-            const channel = pusherClient.subscribe(channelName);
-
-            channel.bind('player-joined', (data: unknown) => {
-                console.log('Player joined:', data);
-            });
-
-            return () => {
-                channel.unbind_all();
-                pusherClient.unsubscribe(channelName);
-                setAuthLobbyCode(null);
-            };
+    const joinWebSocketLobby = useCallback(() => {
+        if (!currentLobbyCode) {
+            return;
         }
 
-        return;
+        // Update auth param context before subscribing
+        setAuthLobbyCode(currentLobbyCode);
+
+        const channelName = `private-lobby-${currentLobbyCode}`;
+        const channel = pusherClient.subscribe(channelName);
+
+        channel.bind('player-joined', (data: unknown) => {
+            console.log('Player joined:', data);
+        });
+
+        return () => {
+            channel.unbind_all();
+            pusherClient.unsubscribe(channelName);
+            setAuthLobbyCode(null);
+        };
     }, [currentLobbyCode]);
 
     if (!currentLobbyCode) {
-        return <KingdomEmptyLobby setCurrentLobbyCode={setCurrentLobbyCode} />;
+        return (
+            <KingdomEmptyLobby
+                setCurrentLobbyCode={setCurrentLobbyCode}
+                lobbyAuthzTokenMap={{}}
+                joinWebSocketLobby={joinWebSocketLobby}
+            />
+        );
     }
 
     return <KingdomOverviewPage />;
