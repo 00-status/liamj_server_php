@@ -13,12 +13,14 @@ import { LobbyAuthzToken } from '../../domain/types';
 type Props = {
     setCurrentLobbyCode: Dispatch<SetStateAction<string | null>>;
     lobbyAuthzTokenMap: Record<string, LobbyAuthzToken | null>;
+    saveAuthzTokenToLocalStorage: (arg: LobbyAuthzToken) => void;
     joinWebSocketLobby: () => void;
 };
 
 export const KingdomEmptyLobby = ({
     setCurrentLobbyCode,
     lobbyAuthzTokenMap,
+    saveAuthzTokenToLocalStorage,
     joinWebSocketLobby,
 }: Props) => {
     const navigate = useNavigate();
@@ -28,14 +30,6 @@ export const KingdomEmptyLobby = ({
 
     const { createLobby, isLoading: isLobbyLoading, error: lobbyApiError } = useKingdomLobby();
     const { createPlayer, isLoading: isPlayerLoading, error: playerApiError } = useKingdomPlayer();
-
-    // Creating a new lobby:
-    //      Call POST api/1/lobby
-    //          If successful
-    //              Set the lobbyCode from the returned lobby.
-    //              Set the player's authzToken for this lobby in localState, along with an expiry time.
-    //          else
-    //              Display errorMessage.
 
     const handleCreateLobby = async () => {
         const lobby = await createLobby();
@@ -47,7 +41,21 @@ export const KingdomEmptyLobby = ({
         setNewLobbyCode(lobby.lobbyCode);
 
         const player = await createPlayer();
-        // Set player's authzToken in localState.
+
+        if (!player) {
+            return;
+        }
+
+        const now = new Date();
+        now.setHours(now.getHours() + 3);
+        const nowUTCString = now.toISOString();
+        const lobbyAuthzToken: LobbyAuthzToken = {
+            lobbyCode: lobby.lobbyCode,
+            authzToken: player.authorizationToken,
+            timeToDie: nowUTCString,
+        };
+
+        saveAuthzTokenToLocalStorage(lobbyAuthzToken);
     };
 
     const handleJoinLobby = async () => {

@@ -1,9 +1,10 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { pusherClient, setAuthLobbyCode } from '../pusher';
 
 import { KingdomEmptyLobby } from './components/Lobby/KingdomEmptyLobby';
 import KingdomOverviewPage from './components/Overview/KingdomOverviewPage';
+import { useKingdomLocalStorage } from './hooks/useKingdomLocalStorage';
 
 /**
  * KingdomPage | unlisted/kingdom, authenticates with websocket API.
@@ -19,11 +20,18 @@ import KingdomOverviewPage from './components/Overview/KingdomOverviewPage';
  *
  */
 const KingdomPage = () => {
+    const { lobbyAuthzTokenMap, saveAuthzTokenToLocalStorage, cullAuthzTokensFromLocalStorage } =
+        useKingdomLocalStorage();
+
+    useEffect(() => {
+        cullAuthzTokensFromLocalStorage();
+    }, []);
+
     // If any authzTokens exist in localStorage
     //      Cull the expired ones.
     //      set the authzTokenMap with the key being the lobby code.
     //
-    // If the lobbyCode is set AND a matching authzToken exists
+    // If joinWebSocketLobby is called
     //      Call the lobby/authz endpoint.
     //      If successful
     //          Set isAuthorizedWithLobby to true
@@ -37,7 +45,7 @@ const KingdomPage = () => {
     //          Call GET /api/1/kingdom endpoint for initial paint of Kingdom.
     //
     // If authorizedWithLobby is true BUT we have not received a "kingdom-generated" event.
-    //      Render lobby | Set Kingdom parameters, list players within the lobby.
+    //      Render Lobby | Set Kingdom parameters, list players within the lobby.
     //
     // If authorizedWithLobby is false.
     //      Render EmptyLobby | Create new Lobby, join existing Lobby.
@@ -71,7 +79,8 @@ const KingdomPage = () => {
         return (
             <KingdomEmptyLobby
                 setCurrentLobbyCode={setCurrentLobbyCode}
-                lobbyAuthzTokenMap={{}}
+                lobbyAuthzTokenMap={lobbyAuthzTokenMap}
+                saveAuthzTokenToLocalStorage={saveAuthzTokenToLocalStorage}
                 joinWebSocketLobby={joinWebSocketLobby}
             />
         );

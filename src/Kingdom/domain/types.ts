@@ -36,7 +36,7 @@ export interface KingdomPlayer {
     lobbyId: number;
     name: string;
     isLeader: boolean;
-    authorizationToken: number;
+    authorizationToken: string;
 }
 
 export interface LobbyAuthzToken {

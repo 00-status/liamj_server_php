@@ -2,14 +2,16 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { LobbyAuthzToken } from '../domain/types';
 
-export const useKingdomLocalState = () => {
+const LOCAL_STORAGE_KEY = 'lobbyAuthzTokens';
+
+export const useKingdomLocalStorage = () => {
     const [lobbyAuthzTokens, setLobbyAuthzTokens] = useState<Array<LobbyAuthzToken>>([]);
     const [lobbyAuthzTokenMap, setLobbyAuthzTokenMap] = useState<
         Record<string, LobbyAuthzToken | null>
     >({});
 
     useEffect(() => {
-        const rawData = localStorage.getItem('lobbyAuthzTokens');
+        const rawData = localStorage.getItem(LOCAL_STORAGE_KEY);
         const lobbyAuthzTokensArray: Array<LobbyAuthzToken> | null = rawData
             ? JSON.parse(rawData)
             : null;
@@ -18,7 +20,11 @@ export const useKingdomLocalState = () => {
             return;
         }
 
-        const map = lobbyAuthzTokensArray.reduce<Record<string, LobbyAuthzToken>>(
+        setLobbyAuthzTokens(lobbyAuthzTokensArray);
+    }, []);
+
+    useEffect(() => {
+        const map = lobbyAuthzTokens.reduce<Record<string, LobbyAuthzToken>>(
             (acc, lobbyAuthzToken) => {
                 acc[lobbyAuthzToken.lobbyCode] = lobbyAuthzToken;
                 return acc;
@@ -26,14 +32,14 @@ export const useKingdomLocalState = () => {
             {},
         );
 
-        setLobbyAuthzTokens(lobbyAuthzTokensArray);
         setLobbyAuthzTokenMap(map);
-    }, []);
+    }, [lobbyAuthzTokens]);
 
     const saveAuthzTokenToLocalStorage = useCallback((lobbyAuthzToken: LobbyAuthzToken) => {
         const newLobbyAuthzTokenArray = [...lobbyAuthzTokens, lobbyAuthzToken];
 
-        localStorage.setItem('lobbyAuthzTokens', JSON.stringify(newLobbyAuthzTokenArray));
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newLobbyAuthzTokenArray));
+        setLobbyAuthzTokens(newLobbyAuthzTokenArray);
     }, []);
 
     const cullAuthzTokensFromLocalStorage = useCallback(() => {
@@ -46,7 +52,8 @@ export const useKingdomLocalState = () => {
             return true;
         });
 
-        localStorage.setItem('lobbyAuthzTokens', JSON.stringify(newLobbyAuthzTokenArray));
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newLobbyAuthzTokenArray));
+        setLobbyAuthzTokens(newLobbyAuthzTokenArray);
     }, []);
 
     return { lobbyAuthzTokenMap, saveAuthzTokenToLocalStorage, cullAuthzTokensFromLocalStorage };
