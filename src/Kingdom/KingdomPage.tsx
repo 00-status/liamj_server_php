@@ -20,6 +20,8 @@ import { useKingdomLocalStorage } from './hooks/useKingdomLocalStorage';
  *
  */
 const KingdomPage = () => {
+    const [isAuthorizedWithLobby, setIsAuthorizedWithLobby] = useState<boolean>(false);
+
     const { lobbyAuthzTokenMap, saveAuthzTokenToLocalStorage, cullAuthzTokensFromLocalStorage } =
         useKingdomLocalStorage();
 
@@ -27,11 +29,11 @@ const KingdomPage = () => {
         cullAuthzTokensFromLocalStorage();
     }, []);
 
-    // If any authzTokens exist in localStorage
+    // If any authzTokens exist in localStorage ✅
     //      Cull the expired ones.
     //      set the authzTokenMap with the key being the lobby code.
     //
-    // If joinWebSocketLobby is called
+    // If joinWebSocketLobby is called 🟡
     //      Call the lobby/authz endpoint.
     //      If successful
     //          Set isAuthorizedWithLobby to true
@@ -47,38 +49,37 @@ const KingdomPage = () => {
     // If authorizedWithLobby is true BUT we have not received a "kingdom-generated" event.
     //      Render Lobby | Set Kingdom parameters, list players within the lobby.
     //
-    // If authorizedWithLobby is false.
+    // If authorizedWithLobby is false. ✅
     //      Render EmptyLobby | Create new Lobby, join existing Lobby.
     //
 
-    const [currentLobbyCode, setCurrentLobbyCode] = useState<string | null>(null);
-
-    const joinWebSocketLobby = useCallback(() => {
-        if (!currentLobbyCode) {
+    const joinWebSocketLobby = useCallback((lobbyCode: string) => {
+        if (!lobbyCode) {
             return;
         }
 
         // Update auth param context before subscribing
-        setAuthLobbyCode(currentLobbyCode);
+        setAuthLobbyCode(lobbyCode);
 
-        const channelName = `private-lobby-${currentLobbyCode}`;
+        const channelName = `private-lobby-${lobbyCode}`;
         const channel = pusherClient.subscribe(channelName);
 
         channel.bind('player-joined', (data: unknown) => {
             console.log('Player joined:', data);
         });
 
+        setIsAuthorizedWithLobby(true);
+
         return () => {
             channel.unbind_all();
             pusherClient.unsubscribe(channelName);
             setAuthLobbyCode(null);
         };
-    }, [currentLobbyCode]);
+    }, []);
 
-    if (!currentLobbyCode) {
+    if (!isAuthorizedWithLobby) {
         return (
             <KingdomEmptyLobby
-                setCurrentLobbyCode={setCurrentLobbyCode}
                 lobbyAuthzTokenMap={lobbyAuthzTokenMap}
                 saveAuthzTokenToLocalStorage={saveAuthzTokenToLocalStorage}
                 joinWebSocketLobby={joinWebSocketLobby}

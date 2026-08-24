@@ -1,4 +1,4 @@
-import { useState, Dispatch, SetStateAction } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import './kingdom-empty-lobby.css';
@@ -11,14 +11,12 @@ import { useKingdomPlayer } from '../../hooks/useKingdomPlayer';
 import { LobbyAuthzToken } from '../../domain/types';
 
 type Props = {
-    setCurrentLobbyCode: Dispatch<SetStateAction<string | null>>;
     lobbyAuthzTokenMap: Record<string, LobbyAuthzToken | null>;
-    saveAuthzTokenToLocalStorage: (arg: LobbyAuthzToken) => void;
-    joinWebSocketLobby: () => void;
+    saveAuthzTokenToLocalStorage: (lobbyAuthzToken: LobbyAuthzToken) => void;
+    joinWebSocketLobby: (lobbyCode: string) => void;
 };
 
 export const KingdomEmptyLobby = ({
-    setCurrentLobbyCode,
     lobbyAuthzTokenMap,
     saveAuthzTokenToLocalStorage,
     joinWebSocketLobby,
@@ -46,15 +44,10 @@ export const KingdomEmptyLobby = ({
             return;
         }
 
-        const now = new Date();
-        now.setHours(now.getHours() + 3);
-        const nowUTCString = now.toISOString();
-        const lobbyAuthzToken: LobbyAuthzToken = {
-            lobbyCode: lobby.lobbyCode,
-            authzToken: player.authorizationToken,
-            timeToDie: nowUTCString,
-        };
-
+        const lobbyAuthzToken = createNewLobbyAuthzToken(
+            lobby.lobbyCode,
+            player.authorizationToken,
+        );
         saveAuthzTokenToLocalStorage(lobbyAuthzToken);
     };
 
@@ -73,27 +66,17 @@ export const KingdomEmptyLobby = ({
                 return;
             }
 
-            // Set authzToken for this lobby.
+            const lobbyAuthzToken = createNewLobbyAuthzToken(
+                newLobbyCode,
+                player.authorizationToken,
+            );
+            saveAuthzTokenToLocalStorage(lobbyAuthzToken);
         }
-
-        joinWebSocketLobby();
-
-        // If an authzToken exists for the given lobbyCode
-        //      Call POST /api/1/lobby/authz with the lobby code.
-        //          If the response is successful
-        //              Update the time_to_die on the player's authzToken in localState.
-        //          else
-        //              render errorMessage
-        // else
-        //      Call POST /api/1/kingdom_player
-        //          If the response is successful
-        //               Set the player's authzToken in localState, along with an expiry time.
-        //          else
-        //               render an errorMessage
 
         setError(null);
         setNewLobbyCode('');
-        setCurrentLobbyCode(newLobbyCode);
+        // TODO: update the timeToDie on the player's localStorage authzToken.
+        joinWebSocketLobby(newLobbyCode); // TODO: pass in player's authzToken.
     };
 
     const handleLoadKingdom = () => {
@@ -162,4 +145,18 @@ export const KingdomEmptyLobby = ({
             </div>
         </Page>
     );
+};
+
+const createNewLobbyAuthzToken = (lobbyCode: string, authzToken: string) => {
+    const now = new Date();
+    now.setHours(now.getHours() + 3);
+    const nowUTCString = now.toISOString();
+
+    const lobbyAuthzToken: LobbyAuthzToken = {
+        lobbyCode: lobbyCode,
+        authzToken: authzToken,
+        timeToDie: nowUTCString,
+    };
+
+    return lobbyAuthzToken;
 };
