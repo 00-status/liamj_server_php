@@ -12,6 +12,7 @@ use Lib\Kingdom\Service\Kingdom\ReadKingdomsService;
 use Lib\Kingdom\Service\Kingdom\GenerateKingdomService;
 use Lib\Kingdom\Service\Kingdom\DeleteKingdomService;
 
+use Lib\Kingdom\Service\Lobby\ReadKingdomPlayersService;
 use Lib\Kingdom\Service\Region\ReadRegionsService;
 use Lib\Kingdom\Service\Region\CreateRegionService;
 use Lib\Kingdom\Service\Region\UpdateRegionService;
@@ -24,7 +25,6 @@ use Lib\Kingdom\Service\RegionTemplate\DeleteRegionTemplateService;
 use Lib\Kingdom\Service\Lobby\CreateLobbyService;
 use Lib\Kingdom\Service\Lobby\ReadLobbyService;
 use Lib\Kingdom\Service\Lobby\CreateKingdomPlayerService;
-use Lib\Kingdom\Service\Lobby\ReadKingdomPlayerService;
 use Lib\Kingdom\Service\Lobby\AuthorizeKingdomPlayerService;
 
 use Psr\Container\ContainerInterface;
@@ -42,7 +42,7 @@ class KingdomRoutes
         $app->get('lobby', self::getLobby($container));
 
         $app->post('kingdom_player', self::postKingdomPlayer($container));
-        $app->get('kingdom_player', self::getKingdomPlayer($container));
+        $app->get('kingdom_players', self::getKingdomPlayers($container));
 
         $app->post('lobby/authz', self::postLobbyAuthz($container));
 
@@ -110,15 +110,15 @@ class KingdomRoutes
         };
     }
 
-    private static function getKingdomPlayer(ContainerInterface $container): callable
+    private static function getKingdomPlayers(ContainerInterface $container): callable
     {
         return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
-            $authz_token = $request->getQueryParams()['authz_token'] ?? null;
-            if (empty($authz_token)) {
-                throw new HttpBadRequestException($request, "Must supply an authz_token!");
+            $lobby_code = $request->getQueryParams()['lobby_code'] ?? null;
+            if (empty($lobby_code)) {
+                throw new HttpBadRequestException($request, "Must supply a lobby_code!");
             }
 
-            $player = $container->get(ReadKingdomPlayerService::class)->readPlayerByToken($authz_token);
+            $player = $container->get(ReadKingdomPlayersService::class)->readPlayers($lobby_code);
             return ResponseHelper::writeResponse($response, $player, 200);
         };
     }
