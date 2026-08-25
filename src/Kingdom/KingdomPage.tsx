@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { pusherClient, setAuthLobbyCode } from '../pusher';
+import { pusherClient, setAuthLobbyCode, setAuthzToken } from '../pusher';
 
 import { KingdomEmptyLobby } from './components/Lobby/KingdomEmptyLobby';
 import KingdomOverviewPage from './components/Overview/KingdomOverviewPage';
@@ -39,7 +39,6 @@ const KingdomPage = () => {
     //          Set isAuthorizedWithLobby to true
     //      else
     //          Render error.
-    //          Clear the lobby code.
     //
     //
     // If authorizedWithLobby is true AND we have received a "kingdom-generated" event
@@ -53,13 +52,21 @@ const KingdomPage = () => {
     //      Render EmptyLobby | Create new Lobby, join existing Lobby.
     //
 
-    const joinWebSocketLobby = useCallback((lobbyCode: string) => {
-        if (!lobbyCode) {
+    useEffect(() => {
+        pusherClient.connection.bind('connected', () => setIsAuthorizedWithLobby(true));
+        pusherClient.connection.bind('failed', () =>
+            console.log('Failed to connect to socket server!'),
+        );
+    }, []);
+
+    const joinWebSocketLobby = useCallback((lobbyCode: string, authzToken: string) => {
+        if (!lobbyCode || !authzToken) {
             return;
         }
 
         // Update auth param context before subscribing
         setAuthLobbyCode(lobbyCode);
+        setAuthzToken(authzToken);
 
         const channelName = `private-lobby-${lobbyCode}`;
         const channel = pusherClient.subscribe(channelName);
@@ -67,8 +74,6 @@ const KingdomPage = () => {
         channel.bind('player-joined', (data: unknown) => {
             console.log('Player joined:', data);
         });
-
-        setIsAuthorizedWithLobby(true);
 
         return () => {
             channel.unbind_all();

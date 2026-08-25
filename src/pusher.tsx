@@ -1,9 +1,13 @@
 import Pusher from 'pusher-js';
 
 let currentLobbyCode: string | null = null;
+let currentauthzToken: string | null = null;
 
 export const setAuthLobbyCode = (code: string | null) => {
     currentLobbyCode = code;
+};
+export const setAuthzToken = (authzToken: string | null) => {
+    currentLobbyCode = authzToken;
 };
 
 export const pusherClient = new Pusher('PUSHER_KEY', {
@@ -12,7 +16,7 @@ export const pusherClient = new Pusher('PUSHER_KEY', {
         endpoint: '/api/1/lobby/authz',
         transport: 'ajax',
         paramsProvider: () => {
-            return { lobby_code: currentLobbyCode ?? '' };
+            return { lobby_code: currentLobbyCode, authz_token: currentauthzToken };
         },
     },
 });

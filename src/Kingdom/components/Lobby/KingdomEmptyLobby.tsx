@@ -13,7 +13,7 @@ import { LobbyAuthzToken } from '../../domain/types';
 type Props = {
     lobbyAuthzTokenMap: Record<string, LobbyAuthzToken | null>;
     saveAuthzTokenToLocalStorage: (lobbyAuthzToken: LobbyAuthzToken) => void;
-    joinWebSocketLobby: (lobbyCode: string) => void;
+    joinWebSocketLobby: (lobbyCode: string, authzToken: string) => void;
 };
 
 export const KingdomEmptyLobby = ({
@@ -71,12 +71,18 @@ export const KingdomEmptyLobby = ({
                 player.authorizationToken,
             );
             saveAuthzTokenToLocalStorage(lobbyAuthzToken);
+
+            setError(null);
+            setNewLobbyCode('');
+            joinWebSocketLobby(newLobbyCode, lobbyAuthzToken.authzToken);
+
+            return;
         }
 
         setError(null);
         setNewLobbyCode('');
         // TODO: update the timeToDie on the player's localStorage authzToken.
-        joinWebSocketLobby(newLobbyCode); // TODO: pass in player's authzToken.
+        joinWebSocketLobby(newLobbyCode, lobbyAuthzToken.authzToken);
     };
 
     const handleLoadKingdom = () => {
@@ -131,6 +137,7 @@ export const KingdomEmptyLobby = ({
                                     value={kingdomId}
                                     onChange={(value) => setKingdomId(value || '')}
                                     placeholder="23"
+                                    numbersOnly
                                 />
                                 <Button
                                     onClick={handleLoadKingdom}
