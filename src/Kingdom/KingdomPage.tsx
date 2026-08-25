@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
+import { Channel } from 'pusher-js';
 
 import { pusherClient, setAuthLobbyCode, setAuthzToken } from '../pusher';
 
 import { KingdomEmptyLobby } from './components/EmptyLobby/KingdomEmptyLobby';
 import KingdomOverviewPage from './components/Overview/KingdomOverviewPage';
 import { useKingdomLocalStorage } from './hooks/useKingdomLocalStorage';
+import { Lobby } from './components/Lobby/Lobby';
 
 /**
  * KingdomPage | unlisted/kingdom, authenticates with websocket API.
@@ -21,6 +23,8 @@ import { useKingdomLocalStorage } from './hooks/useKingdomLocalStorage';
  */
 const KingdomPage = () => {
     const [isAuthorizedWithLobby, setIsAuthorizedWithLobby] = useState<boolean>(false);
+    const [channel, setChannel] = useState<Channel | null>(null);
+    const [lobbyCode, setLobbyCode] = useState<string | null>(null);
 
     const { lobbyAuthzTokenMap, saveAuthzTokenToLocalStorage, cullAuthzTokensFromLocalStorage } =
         useKingdomLocalStorage();
@@ -70,6 +74,8 @@ const KingdomPage = () => {
 
         const channelName = `private-lobby-${lobbyCode}`;
         const channel = pusherClient.subscribe(channelName);
+        setChannel(channel);
+        setLobbyCode(lobbyCode);
 
         return () => {
             channel.unbind_all();
@@ -86,6 +92,10 @@ const KingdomPage = () => {
                 joinWebSocketLobby={joinWebSocketLobby}
             />
         );
+    }
+
+    if (channel && lobbyCode) {
+        return <Lobby channel={channel} lobbyCode={lobbyCode} />;
     }
 
     return <KingdomOverviewPage />;

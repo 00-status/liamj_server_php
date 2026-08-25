@@ -4,15 +4,16 @@ import { Channel } from 'pusher-js';
 
 import { KingdomEventHandlers, KingdomEventMap } from '../domain/types';
 
-export function usePusherEvents(channel: Channel | null, handlers: KingdomEventHandlers) {
-    // Store handlers in a ref so useEffect doesn't re-trigger when handlers change
+export const useChannelEvents = (channel: Channel | null, handlers: KingdomEventHandlers) => {
+    // Store handlers in a ref so useEffect doesn't re-trigger if handlers change.
     const handlersRef = useRef(handlers);
     handlersRef.current = handlers;
 
     useEffect(() => {
-        if (!channel) return;
+        if (!channel) {
+            return;
+        }
 
-        // Type-safe wrapper list to track created functions for cleanup
         const boundListeners: Array<{
             eventName: string;
             // Ideally, we would type the data coming in through the WebSocket event and verify that the payload is
@@ -31,11 +32,11 @@ export function usePusherEvents(channel: Channel | null, handlers: KingdomEventH
             }
         });
 
-        // Cleanup: unbind all listeners on unmount or channel change
+        // Cleanup: unbind all listeners on unmount or channel change.
         return () => {
             boundListeners.forEach(({ eventName, callback }) => {
                 channel.unbind(eventName, callback);
             });
         };
     }, [channel]);
-}
+};

@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 
 import { convertApiCase } from '../../Common/convertApiCase';
-import { KingdomPlayer } from '../domain/types';
+import { KingdomPlayer, KingdomPlayerDTO } from '../domain/types';
 
 export const useKingdomPlayer = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -40,22 +40,22 @@ export const useKingdomPlayer = () => {
         [],
     );
 
-    const fetchPlayer = useCallback(
-        async (lobbyCode: string, abortSignal?: AbortSignal): Promise<KingdomPlayer | null> => {
+    const fetchPlayers = useCallback(
+        async (lobbyCode: string, abortSignal?: AbortSignal): Promise<Array<KingdomPlayerDTO>> => {
             setIsLoading(true);
             setError(null);
 
             try {
-                const response = await fetch(`/api/1/kingdom_player/${lobbyCode}`, {
+                const response = await fetch(`/api/1/kingdom_players?${lobbyCode}`, {
                     signal: abortSignal,
                 });
 
                 if (!response.ok) {
-                    throw new Error(`Failed to fetch Player (Status: ${response.status})`);
+                    throw new Error(`Failed to fetch players (Status: ${response.status})`);
                 }
 
                 const data = await response.text();
-                const dataJson = convertApiCase<KingdomPlayer>(data);
+                const dataJson = convertApiCase<Array<KingdomPlayerDTO>>(data);
 
                 if (!dataJson) {
                     throw new Error('Invalid Player response data');
@@ -64,7 +64,7 @@ export const useKingdomPlayer = () => {
                 return dataJson;
             } catch (error) {
                 setError(error instanceof Error ? error.message : 'Unknown error occurred');
-                return null;
+                return [];
             } finally {
                 setIsLoading(false);
             }
@@ -72,5 +72,5 @@ export const useKingdomPlayer = () => {
         [],
     );
 
-    return { createPlayer, fetchPlayer, isLoading, error };
+    return { createPlayer, fetchPlayers, isLoading, error };
 };
