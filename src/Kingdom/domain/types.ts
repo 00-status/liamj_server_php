@@ -38,9 +38,28 @@ export interface KingdomPlayer {
     isLeader: boolean;
     authorizationToken: string;
 }
+export interface KingdomPlayerDTO {
+    id: string;
+    name: string;
+    idLeader: string;
+}
 
 export interface LobbyAuthzToken {
     timeToDie: string;
     lobbyCode: string;
     authzToken: string;
 }
+
+// Channel Events
+export interface LobbyPlayersUpdatedPayload {
+    players: KingdomPlayerDTO[];
+}
+
+export type KingdomEventMap = {
+    'lobby-players-updated': LobbyPlayersUpdatedPayload;
+};
+
+// Map of events and their handlers.
+export type KingdomEventHandlers = {
+    [K in keyof KingdomEventMap]?: (data: KingdomEventMap[K]) => void;
+};
