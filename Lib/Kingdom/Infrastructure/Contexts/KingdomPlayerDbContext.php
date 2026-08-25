@@ -36,4 +36,18 @@ class KingdomPlayerDbContext extends PdoDbContext
             return KingdomPlayer::fromArray($row);
         }, $rows);
     }
+
+    public function fetchPlayerByToken(string $authz_token): ?KingdomPlayer
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM " . self::TABLE_NAME . " WHERE authorization_token = :token");
+        $stmt->bindParam(':token', $authz_token, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$row) {
+            return null;
+        }
+
+        return KingdomPlayer::fromArray($row);
+    }
 }
