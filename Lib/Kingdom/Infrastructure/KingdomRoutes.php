@@ -12,6 +12,7 @@ use Lib\Kingdom\Service\Kingdom\ReadKingdomsService;
 use Lib\Kingdom\Service\Kingdom\GenerateKingdomService;
 use Lib\Kingdom\Service\Kingdom\DeleteKingdomService;
 
+use Lib\Kingdom\Service\Lobby\DeleteLobbyService;
 use Lib\Kingdom\Service\Lobby\ReadKingdomPlayersService;
 use Lib\Kingdom\Service\Region\ReadRegionsService;
 use Lib\Kingdom\Service\Region\CreateRegionService;
@@ -55,6 +56,8 @@ class KingdomRoutes
 
         // Dev only routes
         if ($is_dev_env) {
+            $app->delete('lobby/{lobby_code}', self::deleteLobby($container));
+
             $app->delete('kingdoms/{id}', self::deleteKingdom($container));
 
             $app->post('regions', self::postRegion($container));
@@ -85,6 +88,19 @@ class KingdomRoutes
 
             $lobby = $container->get(ReadLobbyService::class)->readLobbyByCode((string) $lobby_code);
             return ResponseHelper::writeResponse($response, $lobby, 200);
+        };
+    }
+
+    private static function deleteLobby(ContainerInterface $container): callable
+    {
+        return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
+            $lobby_code = $args["lobby_code"] ?? null;
+            if (empty($lobby_code)) {
+                throw new HttpBadRequestException($request, "Must supply a lobby_code!");
+            }
+
+            $container->get(DeleteLobbyService::class)->deleteLobby((string) $lobby_code);
+            return ResponseHelper::writeResponse($response, [], 204);
         };
     }
 
