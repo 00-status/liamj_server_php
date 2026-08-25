@@ -38,7 +38,7 @@ export const KingdomEmptyLobby = ({
 
         setNewLobbyCode(lobby.lobbyCode);
 
-        const player = await createPlayer();
+        const player = await createPlayer(lobby.lobbyCode);
 
         if (!player) {
             return;
@@ -60,7 +60,7 @@ export const KingdomEmptyLobby = ({
         const lobbyAuthzToken = lobbyAuthzTokenMap[newLobbyCode];
 
         if (!lobbyAuthzToken) {
-            const player = await createPlayer();
+            const player = await createPlayer(newLobbyCode);
 
             if (!player) {
                 return;

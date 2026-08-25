@@ -1,6 +1,6 @@
 <?php
 
-namespace Lib\Kingdom\Domain\Entity;
+namespace Lib\Kingdom\Service\DTO;
 
 class KingdomPlayerDTO
 {

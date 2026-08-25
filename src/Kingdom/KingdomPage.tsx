@@ -57,7 +57,7 @@ const KingdomPage = () => {
     //
 
     useEffect(() => {
-        pusherClient.connection.bind('connected', () => setIsAuthorizedWithLobby(true));
+        pusherClient.connection.bind('connected', () => console.log('Connected to pusher.'));
         pusherClient.connection.bind('failed', () =>
             console.log('Failed to connect to socket server!'),
         );
@@ -76,6 +76,7 @@ const KingdomPage = () => {
         const channel = pusherClient.subscribe(channelName);
         setChannel(channel);
         setLobbyCode(lobbyCode);
+        setIsAuthorizedWithLobby(true);
 
         return () => {
             channel.unbind_all();
@@ -93,6 +94,11 @@ const KingdomPage = () => {
             />
         );
     }
+
+    console.log('channel:');
+    console.log(channel);
+    console.log('lobby:');
+    console.log(lobbyCode);
 
     if (channel && lobbyCode) {
         return <Lobby channel={channel} lobbyCode={lobbyCode} />;

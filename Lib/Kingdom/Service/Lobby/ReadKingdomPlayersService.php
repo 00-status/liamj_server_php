@@ -4,9 +4,9 @@ namespace Lib\Kingdom\Service\Lobby;
 
 use DomainException;
 use Lib\Kingdom\Domain\Entity\KingdomPlayer;
-use Lib\Kingdom\Domain\Entity\KingdomPlayerDTO;
 use Lib\Kingdom\Infrastructure\Contexts\KingdomPlayerDbContext;
 use Lib\Kingdom\Infrastructure\Contexts\LobbyDbContext;
+use Lib\Kingdom\Service\DTO\KingdomPlayerDTO;
 
 class ReadKingdomPlayersService
 {

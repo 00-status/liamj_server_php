@@ -4,10 +4,10 @@ namespace Lib\Kingdom\Service\Lobby;
 
 use DateTimeImmutable;
 use Lib\Kingdom\Domain\Entity\KingdomPlayer;
-use Lib\Kingdom\Domain\Entity\KingdomPlayerDTO;
 use Lib\Kingdom\Infrastructure\Contexts\LobbyDbContext;
 use Lib\Kingdom\Infrastructure\Contexts\KingdomPlayerDbContext;
 use Lib\Kingdom\Infrastructure\Contexts\PusherContext;
+use Lib\Kingdom\Service\DTO\KingdomPlayerDTO;
 
 class CreateKingdomPlayerService
 {

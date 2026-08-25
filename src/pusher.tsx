@@ -9,8 +9,8 @@ export const setAuthLobbyCode = (code: string | null) => {
 export const setAuthzToken = (authzToken: string | null) => {
     currentLobbyCode = authzToken;
 };
-
-export const pusherClient = new Pusher('PUSHER_KEY', {
+const pusherKey = '93b1637d373618c25d47';
+export const pusherClient = new Pusher(pusherKey, {
     cluster: 'us3',
     channelAuthorization: {
         endpoint: '/api/1/lobby/authz',

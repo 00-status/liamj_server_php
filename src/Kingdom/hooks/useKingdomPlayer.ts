@@ -8,12 +8,12 @@ export const useKingdomPlayer = () => {
     const [error, setError] = useState<string | null>(null);
 
     const createPlayer = useCallback(
-        async (abortSignal?: AbortSignal): Promise<KingdomPlayer | null> => {
+        async (lobbyCode: string, abortSignal?: AbortSignal): Promise<KingdomPlayer | null> => {
             setIsLoading(true);
             setError(null);
 
             try {
-                const response = await fetch('/api/1/kingdom_player', {
+                const response = await fetch(`/api/1/kingdom_player?lobby_code=${lobbyCode}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     signal: abortSignal,
@@ -46,7 +46,7 @@ export const useKingdomPlayer = () => {
             setError(null);
 
             try {
-                const response = await fetch(`/api/1/kingdom_players?${lobbyCode}`, {
+                const response = await fetch(`/api/1/kingdom_players?lobby_code=${lobbyCode}`, {
                     signal: abortSignal,
                 });
 
