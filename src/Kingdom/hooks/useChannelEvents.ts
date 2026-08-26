@@ -25,11 +25,15 @@ export const useChannelEvents = (channel: Channel | null, handlers: KingdomEvent
 
         // Bind all provided handlers dynamically
         (Object.keys(handlersRef.current) as Array<keyof KingdomEventMap>).forEach((eventName) => {
-            const handler = handlersRef.current[eventName];
-            if (handler) {
-                channel.bind(eventName, handler);
-                boundListeners.push({ eventName, callback: handler });
-            }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const stableCallback = (data: any) => {
+                const currentHandler = handlersRef.current[eventName];
+                if (currentHandler) {
+                    currentHandler(data);
+                }
+            };
+            channel.bind(eventName, stableCallback);
+            boundListeners.push({ eventName, callback: stableCallback });
         });
 
         // Cleanup: unbind all listeners on unmount or channel change.

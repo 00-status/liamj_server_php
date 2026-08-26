@@ -34,7 +34,7 @@ export const KingdomOverviewPage = () => {
     }, [selectedRegion]);
 
     const handleBackToLobby = () => {
-        navigate('/unlisted/kingdom_lobby');
+        navigate('/unlisted/kingdom');
     };
 
     if (isLoading) {

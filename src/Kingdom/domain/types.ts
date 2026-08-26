@@ -39,9 +39,9 @@ export interface KingdomPlayer {
     authorizationToken: string;
 }
 export interface KingdomPlayerDTO {
-    id: string;
+    id: number;
     name: string;
-    idLeader: string;
+    isLeader: string;
 }
 
 export interface LocalKingdomPlayer {

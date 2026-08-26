@@ -36,24 +36,20 @@ export const useKingdomLocalStorage = () => {
     }, [localKingdomPlayer]);
 
     const savePlayerToLocalStorage = useCallback((lobbyAuthzToken: LocalKingdomPlayer) => {
-        const newLobbyAuthzTokenArray = [...localKingdomPlayer, lobbyAuthzToken];
-
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newLobbyAuthzTokenArray));
-        setLocalKingdomPlayer(newLobbyAuthzTokenArray);
+        setLocalKingdomPlayer((prev) => {
+            const next = [...prev, lobbyAuthzToken];
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(next));
+            return next;
+        });
     }, []);
 
     const cullPlayersFromLocalStorage = useCallback(() => {
-        const newLobbyAuthzTokenArray = localKingdomPlayer.filter((lobbyAuthzToken) => {
+        setLocalKingdomPlayer((prev) => {
             const nowUTC = new Date().toISOString();
-            if (lobbyAuthzToken.timeToDie < nowUTC) {
-                return false;
-            }
-
-            return true;
+            const next = prev.filter((token) => token.timeToDie >= nowUTC);
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(next));
+            return next;
         });
-
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newLobbyAuthzTokenArray));
-        setLocalKingdomPlayer(newLobbyAuthzTokenArray);
     }, []);
 
     return {

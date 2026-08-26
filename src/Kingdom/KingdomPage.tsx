@@ -81,7 +81,7 @@ const KingdomPage = () => {
         return (
             <KingdomEmptyLobby
                 localKingdomPlayerMap={localKingdomPlayerMap}
-                saveAuthzTokenToLocalStorage={savePlayerToLocalStorage}
+                savePlayerToLocalStorage={savePlayerToLocalStorage}
                 joinWebSocketLobby={joinWebSocketLobby}
             />
         );

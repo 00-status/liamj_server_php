@@ -142,7 +142,7 @@ class KingdomRoutes
     private static function postLobbyAuthz(ContainerInterface $container): callable
     {
         return function (Request $request, Response $response, $args) use ($container): ResponseInterface {
-            $body = $request->getParsedBody();
+            $body = $request->getParsedBody() ?? [];
 
             $authz_token = $body['authz_token'] ?? null;
             $channel_name = $body['channel_name'] ?? null;
