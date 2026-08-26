@@ -49,8 +49,8 @@ const KingdomPage = () => {
     //      Render KingdomOverview
     //          Call GET /api/1/kingdom endpoint for initial paint of Kingdom.
     //
-    // If authorizedWithLobby is true BUT we have not received a "kingdom-generated" event. 🟡
-    //      Render Lobby | Set Kingdom parameters, list players within the lobby.
+    // If authorizedWithLobby is true BUT we have not received a "kingdom-generated" event.
+    //      Render Lobby | Set Kingdom parameters 🟡, list players within the lobby. ✅
     //
     // If authorizedWithLobby is false. ✅
     //      Render EmptyLobby | Create new Lobby, join existing Lobby.
@@ -94,11 +94,6 @@ const KingdomPage = () => {
             />
         );
     }
-
-    console.log('channel:');
-    console.log(channel);
-    console.log('lobby:');
-    console.log(lobbyCode);
 
     if (channel && lobbyCode) {
         return <Lobby channel={channel} lobbyCode={lobbyCode} />;

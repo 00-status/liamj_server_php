@@ -49,6 +49,9 @@ export const KingdomEmptyLobby = ({
             player.authorizationToken,
         );
         saveAuthzTokenToLocalStorage(lobbyAuthzToken);
+        joinWebSocketLobby(newLobbyCode, lobbyAuthzToken.authzToken);
+        setError(null);
+        setNewLobbyCode('');
     };
 
     const handleJoinLobby = async () => {
@@ -72,17 +75,17 @@ export const KingdomEmptyLobby = ({
             );
             saveAuthzTokenToLocalStorage(lobbyAuthzToken);
 
+            joinWebSocketLobby(newLobbyCode, lobbyAuthzToken.authzToken);
             setError(null);
             setNewLobbyCode('');
-            joinWebSocketLobby(newLobbyCode, lobbyAuthzToken.authzToken);
 
             return;
         }
 
-        setError(null);
-        setNewLobbyCode('');
         // TODO: update the timeToDie on the player's localStorage authzToken.
         joinWebSocketLobby(newLobbyCode, lobbyAuthzToken.authzToken);
+        setError(null);
+        setNewLobbyCode('');
     };
 
     const handleLoadKingdom = () => {
