@@ -39,11 +39,11 @@ const KingdomPage = () => {
     const [channel, setChannel] = useState<Channel | null>(null);
     const [lobbyCode, setLobbyCode] = useState<string | null>(null);
 
-    const { localKingdomPlayerMap, saveAuthzTokenToLocalStorage, cullAuthzTokensFromLocalStorage } =
+    const { localKingdomPlayerMap, savePlayerToLocalStorage, cullPlayersFromLocalStorage } =
         useKingdomLocalStorage();
 
     useEffect(() => {
-        cullAuthzTokensFromLocalStorage();
+        cullPlayersFromLocalStorage();
     }, []);
 
     useEffect(() => {
@@ -81,7 +81,7 @@ const KingdomPage = () => {
         return (
             <KingdomEmptyLobby
                 localKingdomPlayerMap={localKingdomPlayerMap}
-                saveAuthzTokenToLocalStorage={saveAuthzTokenToLocalStorage}
+                saveAuthzTokenToLocalStorage={savePlayerToLocalStorage}
                 joinWebSocketLobby={joinWebSocketLobby}
             />
         );

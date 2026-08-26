@@ -35,14 +35,14 @@ export const useKingdomLocalStorage = () => {
         setLocalKingdomPlayerMap(map);
     }, [localKingdomPlayer]);
 
-    const saveAuthzTokenToLocalStorage = useCallback((lobbyAuthzToken: LocalKingdomPlayer) => {
+    const savePlayerToLocalStorage = useCallback((lobbyAuthzToken: LocalKingdomPlayer) => {
         const newLobbyAuthzTokenArray = [...localKingdomPlayer, lobbyAuthzToken];
 
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newLobbyAuthzTokenArray));
         setLocalKingdomPlayer(newLobbyAuthzTokenArray);
     }, []);
 
-    const cullAuthzTokensFromLocalStorage = useCallback(() => {
+    const cullPlayersFromLocalStorage = useCallback(() => {
         const newLobbyAuthzTokenArray = localKingdomPlayer.filter((lobbyAuthzToken) => {
             const nowUTC = new Date().toISOString();
             if (lobbyAuthzToken.timeToDie < nowUTC) {
@@ -58,7 +58,7 @@ export const useKingdomLocalStorage = () => {
 
     return {
         localKingdomPlayerMap,
-        saveAuthzTokenToLocalStorage,
-        cullAuthzTokensFromLocalStorage,
+        savePlayerToLocalStorage,
+        cullPlayersFromLocalStorage,
     };
 };

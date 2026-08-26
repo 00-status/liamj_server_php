@@ -12,13 +12,13 @@ import { LocalKingdomPlayer } from '../../domain/types';
 
 type Props = {
     localKingdomPlayerMap: Record<string, LocalKingdomPlayer | null>;
-    saveAuthzTokenToLocalStorage: (lobbyAuthzToken: LocalKingdomPlayer) => void;
+    savePlayerToLocalStorage: (lobbyAuthzToken: LocalKingdomPlayer) => void;
     joinWebSocketLobby: (lobbyCode: string, authzToken: string) => void;
 };
 
 export const KingdomEmptyLobby = ({
     localKingdomPlayerMap,
-    saveAuthzTokenToLocalStorage,
+    savePlayerToLocalStorage,
     joinWebSocketLobby,
 }: Props) => {
     const navigate = useNavigate();
@@ -50,7 +50,7 @@ export const KingdomEmptyLobby = ({
             player.name,
             player.isLeader,
         );
-        saveAuthzTokenToLocalStorage(lobbyAuthzToken);
+        savePlayerToLocalStorage(lobbyAuthzToken);
         joinWebSocketLobby(lobby.lobbyCode, lobbyAuthzToken.authzToken);
         setError(null);
         setNewLobbyCode('');
@@ -77,7 +77,7 @@ export const KingdomEmptyLobby = ({
                 player.name,
                 player.isLeader,
             );
-            saveAuthzTokenToLocalStorage(lobbyAuthzToken);
+            savePlayerToLocalStorage(lobbyAuthzToken);
 
             joinWebSocketLobby(newLobbyCode, lobbyAuthzToken.authzToken);
             setError(null);
