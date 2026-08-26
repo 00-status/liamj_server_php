@@ -6,15 +6,15 @@ import { pusherClient, setAuthLobbyCode, setAuthzToken } from '../pusher';
 import { KingdomEmptyLobby } from './components/EmptyLobby/KingdomEmptyLobby';
 import KingdomOverviewPage from './components/Overview/KingdomOverviewPage';
 import { useKingdomLocalStorage } from './hooks/useKingdomLocalStorage';
-import { Lobby } from './components/Lobby/Lobby';
+import { KingdomLobby } from './components/Lobby/KingdomLobby';
 
 /**
  * KingdomPage | unlisted/kingdom, authenticates with websocket API.
- *      KingdomEmptyLobby | create or join lobby.
- *      KingdomLobby | Generate kingdom, list players.
- *      KingdomOverview | GET initial paint of Kingdom. Orchestrate updates to kingdom.
- *           KingdomCanvas
- *           Sidebar
+ *      KingdomEmptyLobby | create or join lobby. ✅
+ *      KingdomLobby | Generate kingdom, list players. 🟡
+ *      KingdomOverview | GET initial paint of Kingdom. Orchestrate updates to kingdom. 🟡
+ *           KingdomCanvas ✅
+ *           Sidebar 🔴
  *               RegionMenu
  *               ProjectMenu
  *               WarMenu
@@ -22,6 +22,19 @@ import { Lobby } from './components/Lobby/Lobby';
  *
  */
 const KingdomPage = () => {
+    // TODO in issue #20:
+    // If authorizedWithLobby is true AND we have received a "kingdom-generated" event
+    //      Render KingdomOverview
+    //          Call GET /api/1/kingdom endpoint for initial paint of Kingdom.
+    //
+    // If authorizedWithLobby is true BUT we have not received a "kingdom-generated" event.
+    //      Render Lobby
+    //          Allow the Lobby Leader to change certain params of the Kingdom to be generated: width, height, and Name.
+    //          Pressing the "Generate Kingdom" button
+    //              Calls the api/1/generate_kingdom API.
+    //          If pusher receives a "kingdom-generated" event.
+    //              Render KingdomOverview for the corresponding Kingdom ID.
+    //
     const [isAuthorizedWithLobby, setIsAuthorizedWithLobby] = useState<boolean>(false);
     const [channel, setChannel] = useState<Channel | null>(null);
     const [lobbyCode, setLobbyCode] = useState<string | null>(null);
@@ -32,29 +45,6 @@ const KingdomPage = () => {
     useEffect(() => {
         cullAuthzTokensFromLocalStorage();
     }, []);
-
-    // If any authzTokens exist in localStorage ✅
-    //      Cull the expired ones.
-    //      set the authzTokenMap with the key being the lobby code.
-    //
-    // If joinWebSocketLobby is called ✅
-    //      Call the lobby/authz endpoint.
-    //      If successful
-    //          Set isAuthorizedWithLobby to true
-    //      else
-    //          Render error.
-    //
-    //
-    // If authorizedWithLobby is true AND we have received a "kingdom-generated" event
-    //      Render KingdomOverview
-    //          Call GET /api/1/kingdom endpoint for initial paint of Kingdom.
-    //
-    // If authorizedWithLobby is true BUT we have not received a "kingdom-generated" event.
-    //      Render Lobby | Set Kingdom parameters 🟡, list players within the lobby. ✅
-    //
-    // If authorizedWithLobby is false. ✅
-    //      Render EmptyLobby | Create new Lobby, join existing Lobby.
-    //
 
     useEffect(() => {
         pusherClient.connection.bind('connected', () => console.log('Connected to pusher.'));
@@ -98,7 +88,9 @@ const KingdomPage = () => {
     }
 
     if (channel && lobbyCode && currentPlayer) {
-        return <Lobby channel={channel} lobbyCode={lobbyCode} currentPlayer={currentPlayer} />;
+        return (
+            <KingdomLobby channel={channel} lobbyCode={lobbyCode} currentPlayer={currentPlayer} />
+        );
     }
 
     return <KingdomOverviewPage />;

@@ -51,7 +51,7 @@ export const KingdomEmptyLobby = ({
             player.isLeader,
         );
         saveAuthzTokenToLocalStorage(lobbyAuthzToken);
-        joinWebSocketLobby(newLobbyCode, lobbyAuthzToken.authzToken);
+        joinWebSocketLobby(lobby.lobbyCode, lobbyAuthzToken.authzToken);
         setError(null);
         setNewLobbyCode('');
     };

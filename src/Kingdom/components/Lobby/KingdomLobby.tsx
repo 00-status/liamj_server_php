@@ -1,9 +1,17 @@
 import { Channel } from 'pusher-js';
 import { useEffect, useState } from 'react';
 
+import './kingdom-lobby.css';
 import { useChannelEvents } from '../../hooks/useChannelEvents';
 import { useKingdomPlayer } from '../../hooks/useKingdomPlayer';
-import { KingdomPlayerDTO, LocalKingdomPlayer } from '../../domain/types';
+import {
+    KingdomPlayerDTO,
+    LobbyPlayersUpdatedPayload,
+    LocalKingdomPlayer,
+} from '../../domain/types';
+import { convertApiCase } from '../../../Common/convertApiCase';
+
+import { KingdomLobbyOptions } from './KingdomLobbyOptions';
 
 type Props = {
     channel: Channel | null;
@@ -11,19 +19,21 @@ type Props = {
     currentPlayer: LocalKingdomPlayer;
 };
 
-export const Lobby = ({ channel, lobbyCode, currentPlayer }: Props) => {
-    // Generate Kingdom.
-    //      Allow the player to change certain params of the Kingdom to be generated: width, height, and Name.
-    //      Pressing the "Generate Kingdom" button will call the api/1/generate_kingdom API.
-
+export const KingdomLobby = ({ channel, lobbyCode, currentPlayer }: Props) => {
     const [players, setPlayers] = useState<Array<KingdomPlayerDTO>>([]);
 
     const { fetchPlayers } = useKingdomPlayer();
 
     useChannelEvents(channel, {
         'lobby-players-updated': (data) => {
-            console.log(data);
-            setPlayers(data.players);
+            const dataString = JSON.stringify(data);
+            const lobbyPlayersUpdated = convertApiCase<LobbyPlayersUpdatedPayload>(dataString);
+
+            if (!lobbyPlayersUpdated) {
+                return;
+            }
+
+            setPlayers(lobbyPlayersUpdated.players);
         },
     });
 
@@ -38,7 +48,7 @@ export const Lobby = ({ channel, lobbyCode, currentPlayer }: Props) => {
     }, []);
 
     return (
-        <div>
+        <div className="kingdom-lobby">
             <div>
                 <h2>Players</h2>
                 <div>
@@ -56,6 +66,7 @@ export const Lobby = ({ channel, lobbyCode, currentPlayer }: Props) => {
                     })}
                 </div>
             </div>
+            <KingdomLobbyOptions />
         </div>
     );
 };
