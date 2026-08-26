@@ -8,16 +8,16 @@ import { TextInput } from '../../../SharedComponents/TextInput/TextInput';
 import { Button } from '../../../SharedComponents/Button/Button';
 import { useKingdomLobby } from '../../hooks/useKingdomLobby';
 import { useKingdomPlayer } from '../../hooks/useKingdomPlayer';
-import { LobbyAuthzToken } from '../../domain/types';
+import { LocalKingdomPlayer } from '../../domain/types';
 
 type Props = {
-    lobbyAuthzTokenMap: Record<string, LobbyAuthzToken | null>;
-    saveAuthzTokenToLocalStorage: (lobbyAuthzToken: LobbyAuthzToken) => void;
+    localKingdomPlayerMap: Record<string, LocalKingdomPlayer | null>;
+    saveAuthzTokenToLocalStorage: (lobbyAuthzToken: LocalKingdomPlayer) => void;
     joinWebSocketLobby: (lobbyCode: string, authzToken: string) => void;
 };
 
 export const KingdomEmptyLobby = ({
-    lobbyAuthzTokenMap,
+    localKingdomPlayerMap,
     saveAuthzTokenToLocalStorage,
     joinWebSocketLobby,
 }: Props) => {
@@ -47,6 +47,8 @@ export const KingdomEmptyLobby = ({
         const lobbyAuthzToken = createNewLobbyAuthzToken(
             lobby.lobbyCode,
             player.authorizationToken,
+            player.name,
+            player.isLeader,
         );
         saveAuthzTokenToLocalStorage(lobbyAuthzToken);
         joinWebSocketLobby(newLobbyCode, lobbyAuthzToken.authzToken);
@@ -60,7 +62,7 @@ export const KingdomEmptyLobby = ({
             return;
         }
 
-        const lobbyAuthzToken = lobbyAuthzTokenMap[newLobbyCode];
+        const lobbyAuthzToken = localKingdomPlayerMap[newLobbyCode];
 
         if (!lobbyAuthzToken) {
             const player = await createPlayer(newLobbyCode);
@@ -72,6 +74,8 @@ export const KingdomEmptyLobby = ({
             const lobbyAuthzToken = createNewLobbyAuthzToken(
                 newLobbyCode,
                 player.authorizationToken,
+                player.name,
+                player.isLeader,
             );
             saveAuthzTokenToLocalStorage(lobbyAuthzToken);
 
@@ -157,15 +161,22 @@ export const KingdomEmptyLobby = ({
     );
 };
 
-const createNewLobbyAuthzToken = (lobbyCode: string, authzToken: string) => {
+const createNewLobbyAuthzToken = (
+    lobbyCode: string,
+    authzToken: string,
+    name: string,
+    isLeader: boolean,
+) => {
     const now = new Date();
     now.setHours(now.getHours() + 3);
     const nowUTCString = now.toISOString();
 
-    const lobbyAuthzToken: LobbyAuthzToken = {
-        lobbyCode: lobbyCode,
-        authzToken: authzToken,
+    const lobbyAuthzToken: LocalKingdomPlayer = {
+        lobbyCode,
+        authzToken,
         timeToDie: nowUTCString,
+        name,
+        isLeader,
     };
 
     return lobbyAuthzToken;

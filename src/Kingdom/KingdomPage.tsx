@@ -26,7 +26,7 @@ const KingdomPage = () => {
     const [channel, setChannel] = useState<Channel | null>(null);
     const [lobbyCode, setLobbyCode] = useState<string | null>(null);
 
-    const { lobbyAuthzTokenMap, saveAuthzTokenToLocalStorage, cullAuthzTokensFromLocalStorage } =
+    const { localKingdomPlayerMap, saveAuthzTokenToLocalStorage, cullAuthzTokensFromLocalStorage } =
         useKingdomLocalStorage();
 
     useEffect(() => {
@@ -85,18 +85,20 @@ const KingdomPage = () => {
         };
     }, []);
 
+    const currentPlayer = lobbyCode ? localKingdomPlayerMap[lobbyCode] : null;
+
     if (!isAuthorizedWithLobby) {
         return (
             <KingdomEmptyLobby
-                lobbyAuthzTokenMap={lobbyAuthzTokenMap}
+                localKingdomPlayerMap={localKingdomPlayerMap}
                 saveAuthzTokenToLocalStorage={saveAuthzTokenToLocalStorage}
                 joinWebSocketLobby={joinWebSocketLobby}
             />
         );
     }
 
-    if (channel && lobbyCode) {
-        return <Lobby channel={channel} lobbyCode={lobbyCode} />;
+    if (channel && lobbyCode && currentPlayer) {
+        return <Lobby channel={channel} lobbyCode={lobbyCode} currentPlayer={currentPlayer} />;
     }
 
     return <KingdomOverviewPage />;

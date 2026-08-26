@@ -44,10 +44,12 @@ export interface KingdomPlayerDTO {
     idLeader: string;
 }
 
-export interface LobbyAuthzToken {
+export interface LocalKingdomPlayer {
     timeToDie: string;
     lobbyCode: string;
     authzToken: string;
+    name: string;
+    isLeader: boolean;
 }
 
 // Channel Events
