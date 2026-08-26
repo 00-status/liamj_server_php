@@ -20,6 +20,7 @@ use Lib\Kingdom\Service\Kingdom\ReadKingdomsService;
 use Lib\Kingdom\Service\Kingdom\GenerateKingdomService;
 use Lib\Kingdom\Service\Kingdom\DeleteKingdomService;
 
+use Lib\Kingdom\Service\Lobby\ReadKingdomPlayersService;
 use Lib\Kingdom\Service\Region\ReadRegionsService;
 use Lib\Kingdom\Service\Region\CreateRegionService;
 use Lib\Kingdom\Service\Region\UpdateRegionService;
@@ -33,7 +34,6 @@ use Lib\Kingdom\Service\RegionTemplate\DeleteRegionTemplateService;
 use Lib\Kingdom\Service\Lobby\CreateLobbyService;
 use Lib\Kingdom\Service\Lobby\ReadLobbyService;
 use Lib\Kingdom\Service\Lobby\CreateKingdomPlayerService;
-use Lib\Kingdom\Service\Lobby\ReadKingdomPlayerService;
 use Lib\Kingdom\Service\Lobby\AuthorizeKingdomPlayerService;
 
 use function DI\autowire;
@@ -78,7 +78,7 @@ class KingdomContainerBuilder
             CreateLobbyService::class => autowire(),
             ReadLobbyService::class => autowire(),
             CreateKingdomPlayerService::class => autowire(),
-            ReadKingdomPlayerService::class => autowire(),
+            ReadKingdomPlayersService::class => autowire(),
             AuthorizeKingdomPlayerService::class => autowire(),
 
             // Kingdom Generator Domain & Strategy

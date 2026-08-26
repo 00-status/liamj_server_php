@@ -7,6 +7,7 @@ use Lib\Kingdom\Domain\Entity\KingdomPlayer;
 use Lib\Kingdom\Infrastructure\Contexts\LobbyDbContext;
 use Lib\Kingdom\Infrastructure\Contexts\KingdomPlayerDbContext;
 use Lib\Kingdom\Infrastructure\Contexts\PusherContext;
+use Lib\Kingdom\Service\DTO\KingdomPlayerDTO;
 
 class CreateKingdomPlayerService
 {
@@ -61,11 +62,11 @@ class CreateKingdomPlayerService
 
         // Broadcast update to other players in the lobby via PusherContext
         $all_players = array_merge($players, [$new_player]);
-        $player_list = array_map(fn($player) => [
-            'id' => $player->id,
-            'name' => $player->name,
-            'is_leader' => $player->is_leader,
-        ], $all_players);
+        $player_list = array_map(fn($player) => new KingdomPlayerDTO(
+            $player->id,
+            $player->name,
+            $player->is_leader,
+        ), $all_players);
 
         $this->pusher_context->broadcastLobbyUpdated($lobby_code, $player_list);
 

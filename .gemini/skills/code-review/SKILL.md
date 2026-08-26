@@ -13,9 +13,15 @@ Act as a Senior Software Engineer specializing in PHP, JavaScript, and Clean Arc
 
 ## 1. Context Collection
 
-To perform the review, inspect the branch changes using:
+To perform the review efficiently, systematically collect the workspace state using the following steps:
 
-- `git diff main...HEAD` (or `git log main..HEAD` for commit context).
+1.  **Map Changed Files:** Get a clean list of modified, added, or deleted files first:
+    git diff --no-ext-diff --name-status main...HEAD
+2.  **Execute Static Analysis & Type Checking:** Let the workspace tooling identify baseline syntax/type issues:
+    - For TypeScript/JavaScript: `npx tsc --noEmit` (or linting commands defined in `package.json`).
+    - For PHP: Run syntax checks or any static analysis tooling if configured.
+3.  **Inspect Targeted Changes:** Use selective, file-specific diffs or standard read tools to examine files identified in step 1:
+    git diff --no-ext-diff main...HEAD -- <file-path>
 
 ## 2. Review Criteria
 

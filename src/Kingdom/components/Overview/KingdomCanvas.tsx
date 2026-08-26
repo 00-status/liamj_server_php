@@ -10,8 +10,8 @@ import {
     useRef,
 } from 'react';
 
-import { Kingdom, Region, Tile } from '../domain/types';
-import { TILE_COLORS } from '../domain/colors';
+import { Kingdom, Region, Tile } from '../../domain/types';
+import { TILE_COLORS } from '../../domain/colors';
 
 const TILE_SIZE = 32;
 const GROW_FACTOR = 4; // The # of pixels to grow hovered tiles

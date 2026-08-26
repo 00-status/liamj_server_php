@@ -42,13 +42,10 @@ const TerminalPage = lazy(
 const KingdomOverviewPage = lazy(
     () =>
         import(
-            /* webpackChunkName: "kingdom-overview-page" */ './Kingdom/Overview/KingdomOverviewPage'
+            /* webpackChunkName: "kingdom-overview-page" */ './Kingdom/components/Overview/KingdomOverviewPage'
         ),
 );
-const KingdomLobbyPage = lazy(
-    () =>
-        import(/* webpackChunkName: "kingdom-lobby-page" */ './Kingdom/Overview/KingdomLobbyPage'),
-);
+const Kingdom = lazy(() => import(/* webpackChunkName: "kingdom" */ './Kingdom/KingdomPage'));
 const RegionTemplatesPage = lazy(
     () =>
         import(
@@ -126,8 +123,8 @@ const router = createBrowserRouter([
         ErrorBoundary: RouterErrorBoundary,
     },
     {
-        path: '/unlisted/kingdom_lobby',
-        element: <KingdomLobbyPage />,
+        path: '/unlisted/kingdom',
+        element: <Kingdom />,
         ErrorBoundary: RouterErrorBoundary,
     },
     {

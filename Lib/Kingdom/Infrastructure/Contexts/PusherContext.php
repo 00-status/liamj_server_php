@@ -12,8 +12,7 @@ class PusherContext
 
     public function broadcastLobbyUpdated(string $lobby_code, array $players): void
     {
-        $this->pusher->trigger("private-lobby-{$lobby_code}", "lobby-updated", [
-            'lobby_code' => $lobby_code,
+        $this->pusher->trigger("private-lobby-{$lobby_code}", "lobby-players-updated", [
             'players' => $players,
         ]);
     }
