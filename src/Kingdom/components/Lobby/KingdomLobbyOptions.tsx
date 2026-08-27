@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import './kingdom-lobby-options.css';
 import { TextInput } from '../../../SharedComponents/TextInput/TextInput';
 import { useGenerateKingdom } from '../../hooks/useGenerateKingdom';
 import { Button } from '../../../SharedComponents/Button/Button';
@@ -34,17 +35,18 @@ export const KingdomLobbyOptions = ({ lobbyCode, authzToken }: Props) => {
     };
 
     return (
-        <div>
-            <h2>Options</h2>
-            <div>
+        <div className="kingdom-lobby-options">
+            <h3>Options</h3>
+            <div className="kingdom-lobby-options__error">
                 {error}
                 {formError}
             </div>
-            <div>
+            <div className="kingdom-lobby-options__form">
                 <TextInput
                     label="Kingdom Name"
                     value={name ?? ''}
                     onChange={(value) => setName(value ?? null)}
+                    placeholder="Camelot"
                 />
                 <TextInput
                     label="Width"
@@ -61,9 +63,11 @@ export const KingdomLobbyOptions = ({ lobbyCode, authzToken }: Props) => {
                     placeholder="30"
                 />
             </div>
-            <Button onClick={handleGenerateKingdom} disabled={isLoading}>
-                Create Game
-            </Button>
+            <div className="kingdom-lobby-options__submit-button">
+                <Button onClick={handleGenerateKingdom} disabled={isLoading}>
+                    Create Game
+                </Button>
+            </div>
         </div>
     );
 };

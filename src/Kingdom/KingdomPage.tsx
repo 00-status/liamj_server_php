@@ -12,8 +12,8 @@ import { useChannelEvents } from './hooks/useChannelEvents';
 /**
  * KingdomPage | unlisted/kingdom, authenticates with websocket API.
  *      KingdomEmptyLobby | create or join lobby. ✅
- *      KingdomLobby | Generate kingdom, list players. 🟡
- *      KingdomOverview | GET initial paint of Kingdom. Orchestrate updates to kingdom. 🟡
+ *      KingdomLobby | Generate kingdom, list players. ✅
+ *      KingdomOverview | GET initial paint of Kingdom. Orchestrate updates to kingdom. ✅
  *           KingdomCanvas ✅
  *           Sidebar 🔴
  *               RegionMenu
@@ -23,18 +23,6 @@ import { useChannelEvents } from './hooks/useChannelEvents';
  *
  */
 const KingdomPage = () => {
-    // TODO in issue #20:
-    // If authorizedWithLobby is true AND we have received a "kingdom-generated" event
-    //      Render KingdomOverview
-    //          Call GET /api/1/kingdom endpoint for initial paint of Kingdom.
-    //
-    // If authorizedWithLobby is true BUT we have not received a "kingdom-generated" event.
-    //      Render Lobby
-    //          Allow the Lobby Leader to change certain params of the Kingdom to be generated: width, height, and Name. ✅
-    //          Pressing the "Generate Kingdom" button Calls the api/1/generate_kingdom API. ✅
-    //          If pusher receives a "kingdom-generated" event. 🟡
-    //              Render KingdomOverview for the corresponding Kingdom ID.
-    //
     const [channel, setChannel] = useState<Channel | null>(null);
     const [lobbyCode, setLobbyCode] = useState<string | null>(null);
     const [kingdomId, setKingdomId] = useState<number | null>(null);

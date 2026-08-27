@@ -1,0 +1,22 @@
+.kingdom-lobby-options {
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+}
+
+.kingdom-lobby-options__error {
+    color: #ff5252;
+    font-weight: 500;
+}
+
+.kingdom-lobby-options__form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.kingdom-lobby-options__submit-button {
+    margin-top: 20px;
+    align-self: end;
+}
