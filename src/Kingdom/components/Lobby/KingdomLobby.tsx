@@ -10,6 +10,8 @@ import {
     LocalKingdomPlayer,
 } from '../../domain/types';
 import { convertApiCase } from '../../../Common/convertApiCase';
+import { Icon } from '../../../SharedComponents/Icon/Icon';
+import { IconType } from '../../../SharedComponents/Icon/domain';
 
 import { KingdomLobbyOptions } from './KingdomLobbyOptions';
 
@@ -61,12 +63,15 @@ export const KingdomLobby = ({ channel, lobbyCode, currentPlayer }: Props) => {
                                 key={player.id}
                             >
                                 {player.name}
+                                {player.isLeader ? <Icon iconType={IconType.TAUNT} /> : ''}
                             </li>
                         );
                     })}
                 </div>
             </div>
-            <KingdomLobbyOptions />
+            {currentPlayer.isLeader && (
+                <KingdomLobbyOptions lobbyCode={lobbyCode} authzToken={currentPlayer.authzToken} />
+            )}
         </div>
     );
 };

@@ -53,9 +53,9 @@ export interface LocalKingdomPlayer {
 }
 
 export interface KingdomGenerationConfig {
-    width: number;
-    height: number;
-    name: string;
+    name?: string;
+    width?: number;
+    height?: number;
 }
 
 // Channel Events
