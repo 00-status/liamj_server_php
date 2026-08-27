@@ -62,9 +62,13 @@ export interface KingdomGenerationConfig {
 export interface LobbyPlayersUpdatedPayload {
     players: KingdomPlayerDTO[];
 }
+export interface KingdomGeneratedPayload {
+    kingdomId: string;
+}
 
 export type KingdomEventMap = {
     'lobby-players-updated': LobbyPlayersUpdatedPayload;
+    'kingdom-generated': KingdomGeneratedPayload;
 };
 
 // Map of events and their handlers.

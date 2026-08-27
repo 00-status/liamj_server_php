@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import { Channel } from 'pusher-js';
 
 import { KingdomEventHandlers, KingdomEventMap } from '../domain/types';
+import { convertApiCase } from '../../Common/convertApiCase';
 
 export const useChannelEvents = (channel: Channel | null, handlers: KingdomEventHandlers) => {
     // Store handlers in a ref so useEffect doesn't re-trigger if handlers change.
@@ -27,9 +28,12 @@ export const useChannelEvents = (channel: Channel | null, handlers: KingdomEvent
         (Object.keys(handlersRef.current) as Array<keyof KingdomEventMap>).forEach((eventName) => {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const stableCallback = (data: any) => {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                const convertedData = convertApiCase<any>(JSON.stringify(data));
+
                 const currentHandler = handlersRef.current[eventName];
                 if (currentHandler) {
-                    currentHandler(data);
+                    currentHandler(convertedData);
                 }
             };
             channel.bind(eventName, stableCallback);
