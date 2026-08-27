@@ -57,6 +57,7 @@ class ReadKingdomService
             'name' => $kingdom->name,
             'grid_width' => $kingdom->grid_width,
             'grid_height' => $kingdom->grid_height,
+            'lobby_id' => $kingdom->lobby_id,
         ], $assembled_regions);
         return $assembled_kingdom;
     }
