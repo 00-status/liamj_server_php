@@ -30,11 +30,15 @@ export const useChannelEvents = (channel: Channel | null, handlers: KingdomEvent
             const stableCallback = (data: any) => {
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const convertedData = convertApiCase<any>(JSON.stringify(data));
+                if (!convertedData) {
+                    return;
+                }
 
                 const currentHandler = handlersRef.current[eventName];
-                if (currentHandler) {
-                    currentHandler(convertedData);
+                if (!currentHandler) {
+                    return;
                 }
+                currentHandler(convertedData);
             };
             channel.bind(eventName, stableCallback);
             boundListeners.push({ eventName, callback: stableCallback });

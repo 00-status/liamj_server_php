@@ -41,7 +41,7 @@ export interface KingdomPlayer {
 export interface KingdomPlayerDTO {
     id: number;
     name: string;
-    isLeader: string;
+    isLeader: boolean;
 }
 
 export interface LocalKingdomPlayer {

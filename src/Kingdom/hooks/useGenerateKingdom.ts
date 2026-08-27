@@ -34,8 +34,10 @@ export const useGenerateKingdom = () => {
                 });
                 if (!response.ok) {
                     const data = await response.text();
-                    const dataJson = convertApiCase<{ error: string }>(data);
-                    throw new Error(dataJson?.error);
+                    const dataJson = convertApiCase<{ error?: string }>(data);
+                    throw new Error(
+                        dataJson?.error ?? 'Failed to generate kingdom. Please try again.',
+                    );
                 }
 
                 const data = await response.text();

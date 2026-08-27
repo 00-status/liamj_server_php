@@ -12,7 +12,7 @@ import { calculateRegionTileCounts } from '../../domain/util';
 import { KingdomRegionOverlay } from './KingdomRegionOverlay';
 import { KingdomCanvas } from './KingdomCanvas';
 
-type Props = { kingdomId: number };
+type Props = { kingdomId?: number | null };
 
 export const KingdomOverviewPage = ({ kingdomId: propKingdomId }: Props) => {
     const [searchParams] = useSearchParams();
@@ -20,7 +20,7 @@ export const KingdomOverviewPage = ({ kingdomId: propKingdomId }: Props) => {
     const kingdomIdStr = searchParams.get('id');
     const paramKingdomId = kingdomIdStr ? parseInt(kingdomIdStr, 10) : null;
 
-    const kingdomId = propKingdomId ? propKingdomId : paramKingdomId;
+    const kingdomId = propKingdomId ?? paramKingdomId;
 
     const { kingdom, isLoading, error } = useKingdom(kingdomId);
 

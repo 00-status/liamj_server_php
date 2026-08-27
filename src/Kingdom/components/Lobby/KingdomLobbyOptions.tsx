@@ -20,8 +20,11 @@ export const KingdomLobbyOptions = ({ lobbyCode, authzToken }: Props) => {
     const { createKingdom, isLoading, error } = useGenerateKingdom();
 
     const handleGenerateKingdom = () => {
-        if ((!!width && width > 500) || (!!height && height > 500)) {
-            setFormError('Kingdom width and height cannot be greater than 500!');
+        if (
+            (width !== null && (width < 30 || width > 500)) ||
+            (height !== null && (height < 30 || height > 500))
+        ) {
+            setFormError('Kingdom width and height must be positive integers between 30 and 500!');
             return;
         }
 
