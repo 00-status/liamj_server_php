@@ -33,7 +33,9 @@ export const useGenerateKingdom = () => {
                     signal: abortSignal,
                 });
                 if (!response.ok) {
-                    throw new Error(`Failed to create Kingdom (Status: ${response.status})`);
+                    const data = await response.text();
+                    const dataJson = convertApiCase<{ error: string }>(data);
+                    throw new Error(dataJson?.error);
                 }
 
                 const data = await response.text();
@@ -44,6 +46,7 @@ export const useGenerateKingdom = () => {
 
                 return dataJson;
             } catch (error) {
+                console.log(error);
                 setError(error instanceof Error ? error.message : 'Unknown error occurred');
 
                 return null;
