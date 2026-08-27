@@ -35,10 +35,9 @@ const KingdomPage = () => {
     //          If pusher receives a "kingdom-generated" event. 🟡
     //              Render KingdomOverview for the corresponding Kingdom ID.
     //
-    const [isAuthorizedWithLobby, setIsAuthorizedWithLobby] = useState<boolean>(false);
     const [channel, setChannel] = useState<Channel | null>(null);
     const [lobbyCode, setLobbyCode] = useState<string | null>(null);
-    const [kingdomId, setKingdomId] = useState<string | null>(null);
+    const [kingdomId, setKingdomId] = useState<number | null>(null);
 
     const { localKingdomPlayerMap, savePlayerToLocalStorage, cullPlayersFromLocalStorage } =
         useKingdomLocalStorage();
@@ -69,7 +68,6 @@ const KingdomPage = () => {
         const channel = pusherClient.subscribe(channelName);
         setChannel(channel);
         setLobbyCode(lobbyCode);
-        setIsAuthorizedWithLobby(true);
 
         return () => {
             channel.unbind_all();
@@ -78,7 +76,9 @@ const KingdomPage = () => {
         };
     }, []);
 
-    if (!isAuthorizedWithLobby) {
+    const currentPlayer = lobbyCode ? localKingdomPlayerMap[lobbyCode] : null;
+
+    if (!channel || !lobbyCode || !currentPlayer) {
         return (
             <KingdomEmptyLobby
                 localKingdomPlayerMap={localKingdomPlayerMap}
@@ -88,14 +88,13 @@ const KingdomPage = () => {
         );
     }
 
-    const currentPlayer = lobbyCode ? localKingdomPlayerMap[lobbyCode] : null;
     if (channel && lobbyCode && currentPlayer && !kingdomId) {
         return (
             <KingdomLobby channel={channel} lobbyCode={lobbyCode} currentPlayer={currentPlayer} />
         );
     }
 
-    return <KingdomOverviewPage />;
+    return <KingdomOverviewPage kingdomId={kingdomId ?? 0} />;
 };
 
 export default KingdomPage;

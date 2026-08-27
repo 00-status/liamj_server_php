@@ -63,7 +63,7 @@ export interface LobbyPlayersUpdatedPayload {
     players: KingdomPlayerDTO[];
 }
 export interface KingdomGeneratedPayload {
-    kingdomId: string;
+    kingdomId: number;
 }
 
 export type KingdomEventMap = {
