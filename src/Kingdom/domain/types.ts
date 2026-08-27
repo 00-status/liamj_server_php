@@ -41,7 +41,7 @@ export interface KingdomPlayer {
 export interface KingdomPlayerDTO {
     id: number;
     name: string;
-    isLeader: string;
+    isLeader: boolean;
 }
 
 export interface LocalKingdomPlayer {
@@ -52,13 +52,23 @@ export interface LocalKingdomPlayer {
     isLeader: boolean;
 }
 
+export interface KingdomGenerationConfig {
+    name?: string;
+    width?: number;
+    height?: number;
+}
+
 // Channel Events
 export interface LobbyPlayersUpdatedPayload {
     players: KingdomPlayerDTO[];
 }
+export interface KingdomGeneratedPayload {
+    kingdomId: number;
+}
 
 export type KingdomEventMap = {
     'lobby-players-updated': LobbyPlayersUpdatedPayload;
+    'kingdom-generated': KingdomGeneratedPayload;
 };
 
 // Map of events and their handlers.

@@ -7,12 +7,13 @@ import { KingdomEmptyLobby } from './components/EmptyLobby/KingdomEmptyLobby';
 import KingdomOverviewPage from './components/Overview/KingdomOverviewPage';
 import { useKingdomLocalStorage } from './hooks/useKingdomLocalStorage';
 import { KingdomLobby } from './components/Lobby/KingdomLobby';
+import { useChannelEvents } from './hooks/useChannelEvents';
 
 /**
  * KingdomPage | unlisted/kingdom, authenticates with websocket API.
  *      KingdomEmptyLobby | create or join lobby. ✅
- *      KingdomLobby | Generate kingdom, list players. 🟡
- *      KingdomOverview | GET initial paint of Kingdom. Orchestrate updates to kingdom. 🟡
+ *      KingdomLobby | Generate kingdom, list players. ✅
+ *      KingdomOverview | GET initial paint of Kingdom. Orchestrate updates to kingdom. ✅
  *           KingdomCanvas ✅
  *           Sidebar 🔴
  *               RegionMenu
@@ -22,36 +23,25 @@ import { KingdomLobby } from './components/Lobby/KingdomLobby';
  *
  */
 const KingdomPage = () => {
-    // TODO in issue #20:
-    // If authorizedWithLobby is true AND we have received a "kingdom-generated" event
-    //      Render KingdomOverview
-    //          Call GET /api/1/kingdom endpoint for initial paint of Kingdom.
-    //
-    // If authorizedWithLobby is true BUT we have not received a "kingdom-generated" event.
-    //      Render Lobby
-    //          Allow the Lobby Leader to change certain params of the Kingdom to be generated: width, height, and Name.
-    //          Pressing the "Generate Kingdom" button
-    //              Calls the api/1/generate_kingdom API.
-    //          If pusher receives a "kingdom-generated" event.
-    //              Render KingdomOverview for the corresponding Kingdom ID.
-    //
-    const [isAuthorizedWithLobby, setIsAuthorizedWithLobby] = useState<boolean>(false);
     const [channel, setChannel] = useState<Channel | null>(null);
     const [lobbyCode, setLobbyCode] = useState<string | null>(null);
+    const [kingdomId, setKingdomId] = useState<number | null>(null);
 
     const { localKingdomPlayerMap, savePlayerToLocalStorage, cullPlayersFromLocalStorage } =
         useKingdomLocalStorage();
 
     useEffect(() => {
         cullPlayersFromLocalStorage();
-    }, []);
 
-    useEffect(() => {
         pusherClient.connection.bind('connected', () => console.log('Connected to pusher.'));
         pusherClient.connection.bind('failed', () =>
             console.log('Failed to connect to socket server!'),
         );
     }, []);
+
+    useChannelEvents(channel, {
+        'kingdom-generated': (value) => setKingdomId(value.kingdomId),
+    });
 
     const joinWebSocketLobby = useCallback((lobbyCode: string, authzToken: string) => {
         if (!lobbyCode || !authzToken) {
@@ -66,7 +56,6 @@ const KingdomPage = () => {
         const channel = pusherClient.subscribe(channelName);
         setChannel(channel);
         setLobbyCode(lobbyCode);
-        setIsAuthorizedWithLobby(true);
 
         return () => {
             channel.unbind_all();
@@ -77,7 +66,7 @@ const KingdomPage = () => {
 
     const currentPlayer = lobbyCode ? localKingdomPlayerMap[lobbyCode] : null;
 
-    if (!isAuthorizedWithLobby) {
+    if (!channel || !lobbyCode || !currentPlayer) {
         return (
             <KingdomEmptyLobby
                 localKingdomPlayerMap={localKingdomPlayerMap}
@@ -87,13 +76,13 @@ const KingdomPage = () => {
         );
     }
 
-    if (channel && lobbyCode && currentPlayer) {
+    if (channel && lobbyCode && currentPlayer && !kingdomId) {
         return (
             <KingdomLobby channel={channel} lobbyCode={lobbyCode} currentPlayer={currentPlayer} />
         );
     }
 
-    return <KingdomOverviewPage />;
+    return <KingdomOverviewPage kingdomId={kingdomId ?? 0} />;
 };
 
 export default KingdomPage;

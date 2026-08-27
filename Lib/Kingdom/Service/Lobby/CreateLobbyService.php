@@ -7,7 +7,7 @@ use Lib\Kingdom\Infrastructure\Contexts\LobbyDbContext;
 
 class CreateLobbyService
 {
-    private const MAXIMUM_LOBBY_COUNT = 2;
+    private const MAXIMUM_LOBBY_COUNT = 5;
 
     public function __construct(
         private LobbyDbContext $lobby_db,

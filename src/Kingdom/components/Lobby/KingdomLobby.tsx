@@ -4,12 +4,11 @@ import { useEffect, useState } from 'react';
 import './kingdom-lobby.css';
 import { useChannelEvents } from '../../hooks/useChannelEvents';
 import { useKingdomPlayer } from '../../hooks/useKingdomPlayer';
-import {
-    KingdomPlayerDTO,
-    LobbyPlayersUpdatedPayload,
-    LocalKingdomPlayer,
-} from '../../domain/types';
-import { convertApiCase } from '../../../Common/convertApiCase';
+import { KingdomPlayerDTO, LocalKingdomPlayer } from '../../domain/types';
+import { Icon } from '../../../SharedComponents/Icon/Icon';
+import { IconType } from '../../../SharedComponents/Icon/domain';
+import { Page } from '../../../SharedComponents/Page/Page';
+import { Card } from '../../../SharedComponents/Card/Card';
 
 import { KingdomLobbyOptions } from './KingdomLobbyOptions';
 
@@ -25,10 +24,7 @@ export const KingdomLobby = ({ channel, lobbyCode, currentPlayer }: Props) => {
     const { fetchPlayers } = useKingdomPlayer();
 
     useChannelEvents(channel, {
-        'lobby-players-updated': (data) => {
-            const dataString = JSON.stringify(data);
-            const lobbyPlayersUpdated = convertApiCase<LobbyPlayersUpdatedPayload>(dataString);
-
+        'lobby-players-updated': (lobbyPlayersUpdated) => {
             if (!lobbyPlayersUpdated) {
                 return;
             }
@@ -48,25 +44,45 @@ export const KingdomLobby = ({ channel, lobbyCode, currentPlayer }: Props) => {
     }, []);
 
     return (
-        <div className="kingdom-lobby">
-            <div>
-                <h2>Players</h2>
-                <div>
-                    {players.map((player) => {
-                        const isCurrentPlayer = player.name === currentPlayer.name;
+        <Page title="Kingdom Lobby" routes={[]}>
+            <div className="kingdom-lobby">
+                <Card title={`Lobby | ${lobbyCode}`}>
+                    <div className="kingdom-lobby__contents">
+                        <div>
+                            <h3>Players</h3>
+                            <ul>
+                                {players.map((player) => {
+                                    const isCurrentPlayer = player.name === currentPlayer.name;
 
-                        return (
-                            <li
-                                className={isCurrentPlayer ? 'kingdom-lobby__list-item--bold' : ''}
-                                key={player.id}
-                            >
-                                {player.name}
-                            </li>
-                        );
-                    })}
-                </div>
+                                    return (
+                                        <li
+                                            className={
+                                                isCurrentPlayer
+                                                    ? 'kingdom-lobby__list-item--bold'
+                                                    : ''
+                                            }
+                                            key={player.id}
+                                        >
+                                            {player.name}
+                                            {player.isLeader ? (
+                                                <Icon iconType={IconType.TAUNT} />
+                                            ) : (
+                                                ''
+                                            )}
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </div>
+                        {currentPlayer.isLeader && (
+                            <KingdomLobbyOptions
+                                lobbyCode={lobbyCode}
+                                authzToken={currentPlayer.authzToken}
+                            />
+                        )}
+                    </div>
+                </Card>
             </div>
-            <KingdomLobbyOptions />
-        </div>
+        </Page>
     );
 };
