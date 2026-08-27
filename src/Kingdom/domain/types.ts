@@ -52,6 +52,12 @@ export interface LocalKingdomPlayer {
     isLeader: boolean;
 }
 
+export interface KingdomGenerationConfig {
+    width: number;
+    height: number;
+    name: string;
+}
+
 // Channel Events
 export interface LobbyPlayersUpdatedPayload {
     players: KingdomPlayerDTO[];
