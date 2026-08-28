@@ -8,6 +8,7 @@ import { Button, ButtonTheme } from '../../../SharedComponents/Button/Button';
 import { useKingdom } from '../../hooks/useKingdom';
 import { Region } from '../../domain/types';
 import { calculateRegionTileCounts } from '../../domain/util';
+import { KingdomLayout } from '../KingdomLayout';
 
 import { KingdomRegionOverlay } from './KingdomRegionOverlay';
 import { KingdomCanvas } from './KingdomCanvas';
@@ -54,7 +55,7 @@ export const KingdomOverviewPage = ({ kingdomId: propKingdomId }: Props) => {
 
     if (error || !kingdomId) {
         return (
-            <Page title="Kingdom Overview" routes={[]}>
+            <KingdomLayout title="Kingdom Overview">
                 <div className="kingdom-overview-page kingdom-overview-page--error">
                     <div className="kingdom-overview-page__error-card">
                         <h2>Error Loading Kingdom</h2>
@@ -62,12 +63,12 @@ export const KingdomOverviewPage = ({ kingdomId: propKingdomId }: Props) => {
                         <Button onClick={handleBackToLobby}>Return to Lobby</Button>
                     </div>
                 </div>
-            </Page>
+            </KingdomLayout>
         );
     }
 
     return (
-        <Page title={kingdom ? `Kingdom: ${kingdom.name}` : 'Kingdom'} routes={[]}>
+        <KingdomLayout title={kingdom ? `Kingdom: ${kingdom.name}` : 'Kingdom'}>
             <div className="kingdom-overview-page">
                 <div className="kingdom-overview-page__header">
                     <div className="kingdom-overview-page__header-left">
@@ -101,7 +102,7 @@ export const KingdomOverviewPage = ({ kingdomId: propKingdomId }: Props) => {
                     )}
                 </div>
             </div>
-        </Page>
+        </KingdomLayout>
     );
 };
 

@@ -129,7 +129,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/unlisted/kingdom_overview',
-        element: <KingdomOverviewPage kingdomId={0} />,
+        element: <KingdomOverviewPage />,
         ErrorBoundary: RouterErrorBoundary,
     },
     {

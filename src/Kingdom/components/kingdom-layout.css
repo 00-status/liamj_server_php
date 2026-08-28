@@ -1,0 +1,30 @@
+.kingdom-layout {
+    width: 100%;
+}
+
+.kingdom-layout__header-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+
+    background-color: #fcfeff;
+    color: #2a2b30;
+}
+.kingdom-layout__header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    text-align: center;
+    margin: 20px 0;
+
+    font-size: 96px;
+    font-family: 'Spectral-Regular';
+    color: #cc1818;
+}
+
+.kingdom-layout__body {
+    width: 100%;
+}
