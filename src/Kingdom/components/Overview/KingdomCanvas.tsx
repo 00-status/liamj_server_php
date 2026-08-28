@@ -106,7 +106,7 @@ export const KingdomCanvas = ({ kingdom, containerRef, setSelectedRegion }: Prop
         const height = rect.height;
 
         // Clear canvas
-        canvasContext.fillStyle = '#222326';
+        canvasContext.fillStyle = '#291f20';
         canvasContext.fillRect(0, 0, width, height);
 
         const { offsetX, offsetY } = cameraRef.current;

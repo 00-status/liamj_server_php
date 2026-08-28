@@ -3,7 +3,6 @@
     flex-direction: column;
     flex: 1;
     width: 100%;
-    padding: 20px;
     box-sizing: border-box;
 }
 
@@ -40,35 +39,20 @@
     margin-bottom: 24px;
 }
 
-.kingdom-overview-page__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.kingdom-overview-page__header-left {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-}
-
-.kingdom-overview-page__header-left h1 {
-    margin: 0;
-}
-
-.kingdom-overview-page__id {
-    color: #888;
-    font-size: 1.1rem;
-    font-weight: bold;
-}
-
 .kingdom-overview-page__instructions {
     color: #8a8d91;
     font-size: 0.95rem;
     margin-bottom: 15px;
 }
 
+.kingdom-overview-page__contents {
+    display: flex;
+    flex-direction: row;
+}
+.kingdom-overview-page__sidebar {
+    width: 400px;
+    height: 100%;
+}
 .kingdom-overview-page__canvas-container {
     position: relative;
     flex: 1;
@@ -95,17 +79,6 @@
 @media (max-width: 768px) {
     .kingdom-overview-page {
         padding: 12px;
-    }
-
-    .kingdom-overview-page__header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-
-    .kingdom-overview-page__header {
-        align-self: stretch;
-        text-align: center;
     }
 
     .kingdom-overview-page__canvas-container {

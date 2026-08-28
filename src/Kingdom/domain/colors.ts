@@ -1,8 +1,8 @@
 export const TILE_COLORS: Record<string, string> = {
-    Prairie: '#e2d06d',
-    Woodland: '#2d5a27',
-    Mountain: '#707a8a',
-    Hills: '#9a7b56',
-    Wetland: '#3b7a57',
-    Water: '#2e5c9a',
+    Prairie: '#bd9855',
+    Woodland: '#4d5936',
+    Mountain: '#524346',
+    Hills: '#945148',
+    Wetland: '#5e6a4b',
+    Water: '#3a4163',
 };

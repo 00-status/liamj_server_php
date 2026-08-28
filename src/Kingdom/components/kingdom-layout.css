@@ -1,5 +1,7 @@
 .kingdom-layout {
     width: 100%;
+    background-color: #3d3032;
+    color: #f0f0f0;
 }
 
 .kingdom-layout__header-container {
@@ -8,7 +10,7 @@
     justify-content: center;
     gap: 10px;
 
-    background-color: #fcfeff;
+    background-color: #f0f0f0;
     color: #2a2b30;
 }
 .kingdom-layout__header {
@@ -22,9 +24,42 @@
 
     font-size: 96px;
     font-family: 'Spectral-Regular';
-    color: #cc1818;
+    color: #a71d31;
 }
 
 .kingdom-layout__body {
     width: 100%;
 }
+
+/**
+# Pastel Kingdom Theme
+Background: 463f3a
+Text: F4F3EE
+Accent: #4d5aa8
+Organization: 8A817C
+Organization 2: BCB8B1
+
+Prairie: #cfcc82
+Woodland: #528047
+Mountain: #999c9e
+Hills: #917567
+Wetland: #6b9681
+water: #4d5aa8
+
+# Dark Kingdom Theme
+Background: #3d3032
+Text: #f0f0f0
+Accent: #A71D31
+Organization: #291f20
+Organization 2: #635a5b
+
+Biome,      Sunset (Base),"High-Fantasy Day (Zelda-style, vibrant)","Midnight (Cool, desaturated, deep shadows)"
+Prairie,    #bd9855,    #d6af4a (Sun-kissed golden wheat),  #484742 (Faded muted dusk)
+Woodland,   #4d5936,    #4a7c36 (Lush, vibrant foliage),    #1e2e21 (Deep forest shadow)
+Mountain,   #524346,    #636675 (Slate blue-gray rock),     #232630 (Cold twilight stone)
+Hills,      #945148,    #a36343 (Warm clay terra cotta),    #422b28 (Dark earth)
+Wetland,    #5e6a4b,    #58946e (Rich moss / teal flora),   #23382f (Dark marsh green)
+Water,      #3a4163,    #3d77a6 (Saturated bright azure),   #1b223d (Abyssal blue)
+
+
+*/

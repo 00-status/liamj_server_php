@@ -4,7 +4,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import './kingdom-overview-page.css';
 import { Page } from '../../../SharedComponents/Page/Page';
 import { Loader } from '../../../SharedComponents/Loader/Loader';
-import { Button, ButtonTheme } from '../../../SharedComponents/Button/Button';
+import { Button } from '../../../SharedComponents/Button/Button';
 import { useKingdom } from '../../hooks/useKingdom';
 import { Region } from '../../domain/types';
 import { calculateRegionTileCounts } from '../../domain/util';
@@ -70,36 +70,30 @@ export const KingdomOverviewPage = ({ kingdomId: propKingdomId }: Props) => {
     return (
         <KingdomLayout title={kingdom ? `Kingdom: ${kingdom.name}` : 'Kingdom'}>
             <div className="kingdom-overview-page">
-                <div className="kingdom-overview-page__header">
-                    <div className="kingdom-overview-page__header-left">
-                        <h1>{kingdom?.name}</h1>
-                        <span className="kingdom-overview-page__id">ID: {kingdom?.id}</span>
-                    </div>
-                    <Button onClick={handleBackToLobby} buttonTheme={ButtonTheme.Subtle}>
-                        Back to Lobby
-                    </Button>
-                </div>
-
-                <div className="kingdom-overview-page__instructions">
+                <div>
                     <p>
                         🖱️ Click and drag to pan the map. Hover to see region boundaries. Click a
                         region to inspect details.
                     </p>
                 </div>
-
-                <div className="kingdom-overview-page__canvas-container" ref={containerRef}>
-                    <KingdomCanvas
-                        kingdom={kingdom}
-                        containerRef={containerRef}
-                        setSelectedRegion={setSelectedRegion}
-                    />
-                    {selectedRegion && regionStats && (
-                        <KingdomRegionOverlay
-                            selectedRegion={selectedRegion}
-                            regionStats={regionStats}
+                <div className="kingdom-overview-page__contents">
+                    <div className="kingdom-overview-page__sidebar">
+                        <h2>Sidebar</h2>
+                    </div>
+                    <div className="kingdom-overview-page__canvas-container" ref={containerRef}>
+                        <KingdomCanvas
+                            kingdom={kingdom}
+                            containerRef={containerRef}
                             setSelectedRegion={setSelectedRegion}
                         />
-                    )}
+                        {selectedRegion && regionStats && (
+                            <KingdomRegionOverlay
+                                selectedRegion={selectedRegion}
+                                regionStats={regionStats}
+                                setSelectedRegion={setSelectedRegion}
+                            />
+                        )}
+                    </div>
                 </div>
             </div>
         </KingdomLayout>

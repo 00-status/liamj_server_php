@@ -13,12 +13,7 @@ export const KingdomLayout = ({ title, children }: Props) => {
             <div className="kingdom-layout__header-container">
                 <h1 className="kingdom-layout__header">{title}</h1>
             </div>
-            <div className="kingdom-layout__body">
-                <h1>{children}</h1>
-            </div>
-            <div>
-                <div>Footer</div>
-            </div>
+            <div className="kingdom-layout__body">{children}</div>
         </div>
     );
 };
