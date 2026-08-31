@@ -77,6 +77,33 @@ export const Terminal = ({ servers, directories, fetchDirectories, onEnteredComm
         }
     }, [outputRef, terminal.outputs]);
 
+    const onEnter = () => {
+        onEnteredCommand();
+
+        const commandResult = executeCommand(terminal, setTerminal, currentCommand);
+
+        setTerminal((state) => {
+            return {
+                ...state,
+                outputs: [
+                    ...terminal.outputs,
+                    {
+                        id: crypto.randomUUID(),
+                        output: commandPrefix + currentCommand,
+                    },
+                    { id: crypto.randomUUID(), output: commandResult },
+                ],
+                commandHistory: [
+                    ...terminal.commandHistory,
+                    { id: crypto.randomUUID(), text: currentCommand },
+                ],
+            };
+        });
+
+        setCurrentCommand('');
+        setCommandHistoryIndex(0);
+    };
+
     const onArrowUp = () => {
         const history = terminal.commandHistory;
         const historyLength = history.length;
@@ -138,32 +165,7 @@ export const Terminal = ({ servers, directories, fetchDirectories, onEnteredComm
                     prefixText={commandPrefix}
                     currentCommandText={currentCommand}
                     onChange={(newValue) => setCurrentCommand(newValue)}
-                    onEnter={() => {
-                        onEnteredCommand();
-
-                        const commandResult = executeCommand(terminal, setTerminal, currentCommand);
-
-                        setTerminal((state) => {
-                            return {
-                                ...state,
-                                outputs: [
-                                    ...terminal.outputs,
-                                    {
-                                        id: crypto.randomUUID(),
-                                        output: commandPrefix + currentCommand,
-                                    },
-                                    { id: crypto.randomUUID(), output: commandResult },
-                                ],
-                                commandHistory: [
-                                    ...terminal.commandHistory,
-                                    { id: crypto.randomUUID(), text: currentCommand },
-                                ],
-                            };
-                        });
-
-                        setCurrentCommand('');
-                        setCommandHistoryIndex(0);
-                    }}
+                    onEnter={onEnter}
                     onTab={() => {
                         const currentDirectory = terminal.currentDirectory;
 
