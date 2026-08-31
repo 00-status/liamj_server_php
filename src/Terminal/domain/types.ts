@@ -1,4 +1,4 @@
-import { TerminalState } from '../Terminal';
+import { TerminalState } from '../components/Terminal';
 
 import { ChangeDirectoryHandler } from './Commands/ChangeDirectoryHandler';
 import { ClearHandler } from './Commands/ClearHandler';

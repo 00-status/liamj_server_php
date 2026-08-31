@@ -6,11 +6,11 @@ import './terminal-page.css';
 import { Icon } from '../SharedComponents/Icon/Icon';
 import { IconTheme, IconType } from '../SharedComponents/Icon/domain';
 
-import { Terminal } from './Terminal';
-import { CodeBlockGenerator } from './CodeBlockGenerator';
+import { Terminal } from './components/Terminal';
+import { CodeBlockGenerator } from './components/CodeBlockGenerator';
 import { useServers } from './hooks/server/useServers';
 import { useDirectories } from './hooks/directories/useDirectories';
-import { TerminalLoader } from './TerminalLoader';
+import { TerminalLoader } from './components/TerminalLoader';
 
 const TerminalPage = () => {
     const navigate = useNavigate();

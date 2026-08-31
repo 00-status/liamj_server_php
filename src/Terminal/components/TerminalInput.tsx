@@ -6,11 +6,19 @@ type Props = {
     onChange: (value: string) => void;
     onEnter: () => void;
     onTab: () => void;
+    onArrowUp: () => void;
+    onArrowDown: () => void;
 };
 
-export const TerminalInput = (props: Props) => {
-    const { prefixText, currentCommandText, onChange, onEnter, onTab } = props;
-
+export const TerminalInput = ({
+    prefixText,
+    currentCommandText,
+    onChange,
+    onEnter,
+    onTab,
+    onArrowUp,
+    onArrowDown,
+}: Props) => {
     const inputRef = useRef<HTMLInputElement | null>(null);
 
     const onInputWrapperClick = () => {
@@ -27,6 +35,8 @@ export const TerminalInput = (props: Props) => {
                 value={currentCommandText}
                 onChange={(event) => onChange(event.target.value ?? '')}
                 onKeyUp={(event) => {
+                    event.preventDefault();
+
                     if (event.key === 'Enter' && currentCommandText) {
                         onEnter();
                     }
@@ -34,9 +44,20 @@ export const TerminalInput = (props: Props) => {
                     if (event.key === 'Tab' && currentCommandText) {
                         onTab();
                     }
+
+                    if (event.key === 'ArrowUp') {
+                        onArrowUp();
+                    }
+                    if (event.key === 'ArrowDown') {
+                        onArrowDown();
+                    }
                 }}
                 onKeyDown={(event) => {
-                    if (event.key === 'Tab') {
+                    if (
+                        event.key === 'Tab' ||
+                        event.key === 'ArrowUp' ||
+                        event.key === 'ArrowDown'
+                    ) {
                         event.preventDefault();
                     }
                 }}
