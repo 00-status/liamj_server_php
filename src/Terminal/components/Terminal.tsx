@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import { gtag } from 'ga-gtag';
 
 import './terminal.css';
-import { Command, IHandler, validCommands } from './domain/types';
-import { findNextFileSystemObject } from './domain/findNextFileSystemObject';
-import { Server } from './hooks/server/useServers';
-import { Directory } from './hooks/directories/useDirectories';
+import { Command, IHandler, validCommands } from '../domain/types';
+import { findNextFileSystemObject } from '../domain/findNextFileSystemObject';
+import { Server } from '../hooks/server/useServers';
+import { Directory } from '../hooks/directories/useDirectories';
 import { TerminalInput } from './TerminalInput';
 import { TerminalLoader } from './TerminalLoader';
 

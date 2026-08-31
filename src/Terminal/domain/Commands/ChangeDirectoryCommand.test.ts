@@ -1,5 +1,5 @@
 import { Directory } from '../../hooks/directories/useDirectories';
-import { TerminalState } from '../../Terminal';
+import { TerminalState } from '../../components/Terminal';
 
 import { ChangeDirectoryHandler } from './ChangeDirectoryHandler';
 
