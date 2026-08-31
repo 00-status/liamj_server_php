@@ -32,7 +32,7 @@ type Props = {
 };
 
 export const Terminal = ({ servers, directories, fetchDirectories, onEnteredCommand }: Props) => {
-    const [commandHistoryIndex, setCommandHistoryIndex] = useState<number | null>(null);
+    const [commandHistoryIndex, setCommandHistoryIndex] = useState<number>(0);
     const [currentCommand, setCurrentCommand] = useState<string>('');
     const outputRef = useRef<HTMLDivElement | null>(null);
 
@@ -81,36 +81,43 @@ export const Terminal = ({ servers, directories, fetchDirectories, onEnteredComm
         const history = terminal.commandHistory;
         const historyLength = history.length;
 
-        if (commandHistoryIndex === historyLength - 1) {
+        if (commandHistoryIndex === historyLength) {
             return;
         }
 
-        const index = commandHistoryIndex === null ? 0 : commandHistoryIndex;
-        const command = history[index] ?? null;
+        const nextIndex = commandHistoryIndex + 1;
+        const command = history.at(-nextIndex);
 
         if (!command) {
+            // Error state
+            setCurrentCommand('');
+            setCommandHistoryIndex(0);
             return;
         }
 
         setCurrentCommand(command.text);
-        setCommandHistoryIndex(index + 1);
+        setCommandHistoryIndex(nextIndex);
     };
 
     const onArrowDown = () => {
         const history = terminal.commandHistory;
 
-        if (commandHistoryIndex === null) {
+        if (commandHistoryIndex === 0) {
+            setCurrentCommand('');
             return;
         }
 
-        const command = history[commandHistoryIndex] ?? null;
+        const previousIndex = commandHistoryIndex - 1;
+        const command = history.at(-previousIndex);
 
         if (!command) {
+            setCurrentCommand('');
+            setCommandHistoryIndex(0);
             return;
         }
 
         setCurrentCommand(command.text);
-        setCommandHistoryIndex(commandHistoryIndex - 1);
+        setCommandHistoryIndex(previousIndex);
     };
 
     const commandPrefix =
@@ -155,6 +162,7 @@ export const Terminal = ({ servers, directories, fetchDirectories, onEnteredComm
                         });
 
                         setCurrentCommand('');
+                        setCommandHistoryIndex(0);
                     }}
                     onTab={() => {
                         const currentDirectory = terminal.currentDirectory;
@@ -169,6 +177,8 @@ export const Terminal = ({ servers, directories, fetchDirectories, onEnteredComm
                             setCurrentCommand(nextFSO);
                         }
                     }}
+                    onArrowUp={onArrowUp}
+                    onArrowDown={onArrowDown}
                 />
             )}
         </div>
