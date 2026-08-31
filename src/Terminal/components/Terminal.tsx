@@ -6,6 +6,7 @@ import { Command, IHandler, validCommands } from '../domain/types';
 import { findNextFileSystemObject } from '../domain/findNextFileSystemObject';
 import { Server } from '../hooks/server/useServers';
 import { Directory } from '../hooks/directories/useDirectories';
+
 import { TerminalInput } from './TerminalInput';
 import { TerminalLoader } from './TerminalLoader';
 
@@ -30,8 +31,10 @@ type Props = {
     onEnteredCommand: () => void;
 };
 
-export const Terminal = (props: Props) => {
-    const { servers, directories, fetchDirectories, onEnteredCommand } = props;
+export const Terminal = ({ servers, directories, fetchDirectories, onEnteredCommand }: Props) => {
+    const [commandHistoryIndex, setCommandHistoryIndex] = useState<number | null>(null);
+    const [currentCommand, setCurrentCommand] = useState<string>('');
+    const outputRef = useRef<HTMLDivElement | null>(null);
 
     const [terminal, setTerminal] = useState<TerminalState>({
         servers: servers,
@@ -43,10 +46,6 @@ export const Terminal = (props: Props) => {
             { id: crypto.randomUUID(), output: 'Welcome. Type "help" for a list of commands' },
         ],
     });
-
-    const [currentCommand, setCurrentCommand] = useState<string>('');
-
-    const outputRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         if (!terminal.currentDirectory) {
@@ -77,6 +76,42 @@ export const Terminal = (props: Props) => {
             outputRef.current.scrollTop = outputRef.current.scrollHeight;
         }
     }, [outputRef, terminal.outputs]);
+
+    const onArrowUp = () => {
+        const history = terminal.commandHistory;
+        const historyLength = history.length;
+
+        if (commandHistoryIndex === historyLength - 1) {
+            return;
+        }
+
+        const index = commandHistoryIndex === null ? 0 : commandHistoryIndex;
+        const command = history[index] ?? null;
+
+        if (!command) {
+            return;
+        }
+
+        setCurrentCommand(command.text);
+        setCommandHistoryIndex(index + 1);
+    };
+
+    const onArrowDown = () => {
+        const history = terminal.commandHistory;
+
+        if (commandHistoryIndex === null) {
+            return;
+        }
+
+        const command = history[commandHistoryIndex] ?? null;
+
+        if (!command) {
+            return;
+        }
+
+        setCurrentCommand(command.text);
+        setCommandHistoryIndex(commandHistoryIndex - 1);
+    };
 
     const commandPrefix =
         terminal.currentServer.name + '@' + (terminal?.currentDirectory?.name ?? '') + '% ';
