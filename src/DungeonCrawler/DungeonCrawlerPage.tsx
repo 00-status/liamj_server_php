@@ -1,6 +1,7 @@
 import { Page } from '../SharedComponents/Page/Page';
 
 import { MonsterStats } from './components/MonsterStats';
+import { PlayerStats } from './components/PlayerStats';
 import { Character } from './domain/types';
 
 const DungeonCrawlerPage = () => {
@@ -18,23 +19,26 @@ const DungeonCrawlerPage = () => {
         },
         modifiers: [],
     };
+    const examplePlayer: Character = {
+        name: 'Jimothy the Jacked',
+        currentHP: 20,
+        currentMP: 5,
+        stats: {
+            healthPoints: 20,
+            magicPoints: 5,
+            attack: 5,
+            magicAttack: 10,
+            defence: 2,
+            magicDefence: 2,
+        },
+        modifiers: [],
+    };
 
     return (
         <Page title="Dungeons of Galericca" routes={[]}>
             <div>
                 <MonsterStats monster={exampleMonster} />
-                <div>
-                    <div>
-                        Left Panel
-                        <h2>Player Character</h2>
-                        <div>Actions</div>
-                    </div>
-                    <div>
-                        Right Panel
-                        <div>Character Stats</div>
-                        <div>Info Log</div>
-                    </div>
-                </div>
+                <PlayerStats player={examplePlayer} />
             </div>
         </Page>
     );

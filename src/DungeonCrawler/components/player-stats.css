@@ -1,0 +1,18 @@
+.player-stats {
+    display: flex;
+    gap: 20px;
+}
+
+.player-stats__left-panel {
+    min-width: 400px;
+}
+
+.player-stats__right-panel {
+    min-width: 400px;
+}
+
+.player-stats__stat-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+}
