@@ -10,7 +10,7 @@ type Props = {
 
 export const PlayerStats = ({ player }: Props) => {
     return (
-        <Card title={player.name}>
+        <Card title={player.name} isFullWidth>
             <div className="player-stats">
                 <div className="player-stats__left-panel">
                     <div>Actions</div>

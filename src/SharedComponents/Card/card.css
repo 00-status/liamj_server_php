@@ -11,6 +11,10 @@
     background-color: #313137;
 }
 
+.card--full-width {
+    width: 100%;
+}
+
 .card__title {
     display: flex;
     flex-direction: row;

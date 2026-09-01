@@ -1,4 +1,7 @@
+import { Card } from '../../SharedComponents/Card/Card';
 import { Character } from '../domain/types';
+
+import { CharacterStat } from './CharacterStat';
 
 type Props = {
     monster: Character;
@@ -6,11 +9,11 @@ type Props = {
 
 export const MonsterStats = ({ monster }: Props) => {
     return (
-        <div>
-            <h2>{monster.name}</h2>
-            <div>
-                {monster.currentHP}/{monster.stats.healthPoints}
-            </div>
-        </div>
+        <Card title={monster.name} isFullWidth>
+            <CharacterStat
+                label="HP"
+                value={`${monster.currentHP}/${monster.stats.healthPoints}`}
+            />
+        </Card>
     );
 };
