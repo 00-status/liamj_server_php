@@ -5,7 +5,8 @@ import { Page } from '../SharedComponents/Page/Page';
 import './dungeon-crawler-page.css';
 import { MonsterStats } from './components/MonsterStats';
 import { PlayerStats } from './components/PlayerStats';
-import { Character } from './domain/types';
+import { Character, DamageType } from './domain/types';
+import { damageCharacter } from './domain/character/damageCharacter';
 
 const exampleMonster: Character = {
     name: 'Skeleton',
@@ -37,10 +38,19 @@ const examplePlayer: Character = {
 };
 
 const DungeonCrawlerPage = () => {
-    const [currentPlayer, setCurrentPlayer] = useState<Character>(exampleMonster);
-    const [currentMonster, setCurrentMonster] = useState<Character | null>(examplePlayer);
+    const [currentPlayer, setCurrentPlayer] = useState<Character>(examplePlayer);
+    const [currentMonster, setCurrentMonster] = useState<Character | null>(exampleMonster);
 
     const onPlayerAttack = () => {
+        if (!currentMonster || !currentPlayer) {
+            return;
+        }
+
+        const damageResult = damageCharacter(
+            currentMonster,
+            currentPlayer.stats.attack,
+            DamageType.physical,
+        );
         // Decrement Monster Health based on Player Attack
         // Add message to Log.
         // If Monster Health is 0

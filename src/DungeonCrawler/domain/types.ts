@@ -22,3 +22,8 @@ export interface StatModifier {
     type: 'flat' | 'percent'; // e.g., +10 ATK vs +15% ATK
     durationTurns?: number;
 }
+
+export enum DamageType {
+    physical = 'Physical',
+    magic = 'Magic',
+}
