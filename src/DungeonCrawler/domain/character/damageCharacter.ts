@@ -7,12 +7,12 @@ export const damageCharacter = (
 ): { newHealth: number; damageTaken: number } => {
     let actualDamageValue = 0;
     if (damageType === DamageType.magic) {
-        actualDamageValue = Math.min(1, damageValue - targetCharacter.stats.magicDefence);
+        actualDamageValue = Math.max(1, damageValue - targetCharacter.stats.magicDefence);
     } else {
-        actualDamageValue = Math.min(1, damageValue - targetCharacter.stats.defence);
+        actualDamageValue = Math.max(1, damageValue - targetCharacter.stats.defence);
     }
 
-    const newHealth = Math.min(0, targetCharacter.currentHP - actualDamageValue);
+    const newHealth = Math.max(0, targetCharacter.currentHP - actualDamageValue);
 
     return { newHealth, damageTaken: actualDamageValue };
 };

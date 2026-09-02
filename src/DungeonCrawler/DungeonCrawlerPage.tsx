@@ -5,7 +5,7 @@ import { Page } from '../SharedComponents/Page/Page';
 import './dungeon-crawler-page.css';
 import { MonsterStats } from './components/MonsterStats';
 import { PlayerStats } from './components/PlayerStats';
-import { Character, DamageType } from './domain/types';
+import { Character, DamageType, LogMessage } from './domain/types';
 import { damageCharacter } from './domain/character/damageCharacter';
 
 const exampleMonster: Character = {
@@ -41,7 +41,7 @@ const DungeonCrawlerPage = () => {
     const [currentPlayer, setCurrentPlayer] = useState<Character>(examplePlayer);
     const [currentMonster, setCurrentMonster] = useState<Character | null>(exampleMonster);
 
-    const [combatLog, setCombatLog] = useState<string[]>([]);
+    const [combatLog, setCombatLog] = useState<LogMessage[]>([]);
     const [gameState, setGameState] = useState<string>('combat');
 
     useEffect(() => {
@@ -49,7 +49,7 @@ const DungeonCrawlerPage = () => {
             setGameState('game_won');
         }
 
-        if (currentMonster?.currentHP ?? 0 <= 0) {
+        if ((currentMonster?.currentHP ?? 0) <= 0) {
             setGameState('game_over');
         }
     }, [currentPlayer, currentMonster]);
@@ -67,7 +67,10 @@ const DungeonCrawlerPage = () => {
 
         setCombatLog((state) => [
             ...state,
-            `${currentPlayer.name} damaged ${currentMonster.name} for ${damageResult.damageTaken}!`,
+            {
+                id: crypto.randomUUID(),
+                message: `${currentPlayer.name} damaged ${currentMonster.name} for ${damageResult.damageTaken}!`,
+            },
         ]);
 
         const newMonster = { ...currentMonster, currentHP: damageResult.newHealth };
@@ -85,7 +88,10 @@ const DungeonCrawlerPage = () => {
 
         setCombatLog((state) => [
             ...state,
-            `${currentMonster.name} damaged ${currentPlayer.name} for ${playerDamageResult.damageTaken}!`,
+            {
+                id: crypto.randomUUID(),
+                message: `${currentMonster.name} damaged ${currentPlayer.name} for ${playerDamageResult.damageTaken}!`,
+            },
         ]);
 
         const newPlayer = { ...currentPlayer, currentHP: playerDamageResult.newHealth };
@@ -99,7 +105,11 @@ const DungeonCrawlerPage = () => {
             {gameState === 'combat' && (
                 <div className="dungeon-crawler-page">
                     {currentMonster && <MonsterStats monster={currentMonster} />}
-                    <PlayerStats player={currentPlayer} combatLog={combatLog} />
+                    <PlayerStats
+                        player={currentPlayer}
+                        combatLog={combatLog}
+                        onPlayerAttack={onPlayerAttack}
+                    />
                 </div>
             )}
         </Page>

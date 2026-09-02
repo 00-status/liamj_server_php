@@ -27,3 +27,5 @@ export enum DamageType {
     physical = 'Physical',
     magic = 'Magic',
 }
+
+export type LogMessage = { id: string; message: string };
