@@ -6,9 +6,10 @@ import { CharacterStat } from './CharacterStat';
 
 type Props = {
     player: Character;
+    combatLog: string[];
 };
 
-export const PlayerStats = ({ player }: Props) => {
+export const PlayerStats = ({ player, combatLog }: Props) => {
     return (
         <Card title={player.name} isFullWidth>
             <div className="player-stats">
@@ -31,7 +32,11 @@ export const PlayerStats = ({ player }: Props) => {
                         <CharacterStat label="MDEF" value={player.stats.magicDefence} />
                     </div>
 
-                    <div>Info Log</div>
+                    <div>
+                        <Card title="Log" isFullWidth>
+                            {combatLog.map((log) => log)}
+                        </Card>
+                    </div>
                 </div>
             </div>
         </Card>

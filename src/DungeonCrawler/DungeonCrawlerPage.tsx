@@ -41,6 +41,8 @@ const DungeonCrawlerPage = () => {
     const [currentPlayer, setCurrentPlayer] = useState<Character>(examplePlayer);
     const [currentMonster, setCurrentMonster] = useState<Character | null>(exampleMonster);
 
+    const [combatLog, setCombatLog] = useState<string[]>([]);
+
     const onPlayerAttack = () => {
         if (!currentMonster || !currentPlayer) {
             return;
@@ -51,10 +53,16 @@ const DungeonCrawlerPage = () => {
             currentPlayer.stats.attack,
             DamageType.physical,
         );
-        // Decrement Monster Health based on Player Attack
+
+        setCombatLog((state) => [
+            ...state,
+            `${currentPlayer.name} damaged ${currentMonster.name} for ${damageResult.damageTaken}!`,
+        ]);
+
+        // Decrement Monster Health based on Player Attack ✅
         // Add message to Log.
         // If Monster Health is 0
-        //      Display a grantulations message.
+        //      return;
         //
         // Decrement the Player's Health based on the Monster Attack.
         // Add a message to the log.
@@ -63,11 +71,14 @@ const DungeonCrawlerPage = () => {
         setCurrentMonster(null);
     };
 
+    // If Monster health is 0, then Display a grantulations message.
+    // If Player health is 0, then Display a Game Over message.
+
     return (
         <Page title="Dungeons of Galericca" routes={[]}>
             <div className="dungeon-crawler-page">
                 {currentMonster && <MonsterStats monster={currentMonster} />}
-                <PlayerStats player={currentPlayer} />
+                <PlayerStats player={currentPlayer} combatLog={combatLog} />
             </div>
         </Page>
     );
