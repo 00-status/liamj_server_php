@@ -8,6 +8,7 @@ import '@react-sigma/core/lib/style.css';
 import { StoneTowerPage } from './StoneTower/StoneTowerPage';
 
 const AboutMe = lazy(() => import(/* webpackChunkName: "about-me" */ './AboutMe/AboutMe'));
+
 const DiceRoller = lazy(
     () => import(/* webpackChunkName: "dice-roller" */ './DNDTools/DiceRoller/DiceRoller'),
 );
@@ -15,6 +16,11 @@ const DndShop = lazy(() => import(/* webpackChunkName: "dnd-shop" */ './DNDTools
 const WeaponMaker = lazy(
     () => import(/* webpackChunkName: "weapon-maker" */ './DNDTools/WeaponMaker/WeaponMaker'),
 );
+
+const DungeonCrawlerPage = lazy(
+    () => import(/* webpackChunkName: "dungeon-crawler" */ './DungeonCrawler/DungeonCrawlerPage'),
+);
+
 const DialogueTreeMaker = lazy(
     () =>
         import(
@@ -145,6 +151,11 @@ const router = createBrowserRouter([
     {
         path: '/unlisted/stone_tower',
         element: <StoneTowerPage />,
+        ErrorBoundary: RouterErrorBoundary,
+    },
+    {
+        path: '/unlisted/dungeon_crawler',
+        element: <DungeonCrawlerPage />,
         ErrorBoundary: RouterErrorBoundary,
     },
     { path: '*', element: <NotFoundPage />, ErrorBoundary: RouterErrorBoundary },
