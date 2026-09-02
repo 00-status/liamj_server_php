@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Page } from '../SharedComponents/Page/Page';
 
@@ -42,6 +42,17 @@ const DungeonCrawlerPage = () => {
     const [currentMonster, setCurrentMonster] = useState<Character | null>(exampleMonster);
 
     const [combatLog, setCombatLog] = useState<string[]>([]);
+    const [gameState, setGameState] = useState<string>('combat');
+
+    useEffect(() => {
+        if (currentPlayer.currentHP <= 0) {
+            setGameState('game_won');
+        }
+
+        if (currentMonster?.currentHP ?? 0 <= 0) {
+            setGameState('game_over');
+        }
+    }, [currentPlayer, currentMonster]);
 
     const onPlayerAttack = () => {
         if (!currentMonster || !currentPlayer) {
@@ -59,27 +70,38 @@ const DungeonCrawlerPage = () => {
             `${currentPlayer.name} damaged ${currentMonster.name} for ${damageResult.damageTaken}!`,
         ]);
 
-        // Decrement Monster Health based on Player Attack ✅
-        // Add message to Log.
-        // If Monster Health is 0
-        //      return;
-        //
-        // Decrement the Player's Health based on the Monster Attack.
-        // Add a message to the log.
-        // If the Player's Health is 0
-        //      Display a Game Over message.
-        setCurrentMonster(null);
-    };
+        const newMonster = { ...currentMonster, currentHP: damageResult.newHealth };
+        setCurrentMonster(newMonster);
 
-    // If Monster health is 0, then Display a grantulations message.
-    // If Player health is 0, then Display a Game Over message.
+        if (newMonster.currentHP === 0) {
+            return;
+        }
+
+        const playerDamageResult = damageCharacter(
+            currentPlayer,
+            currentMonster.stats.attack,
+            DamageType.physical,
+        );
+
+        setCombatLog((state) => [
+            ...state,
+            `${currentMonster.name} damaged ${currentPlayer.name} for ${playerDamageResult.damageTaken}!`,
+        ]);
+
+        const newPlayer = { ...currentPlayer, currentHP: playerDamageResult.newHealth };
+        setCurrentPlayer(newPlayer);
+    };
 
     return (
         <Page title="Dungeons of Galericca" routes={[]}>
-            <div className="dungeon-crawler-page">
-                {currentMonster && <MonsterStats monster={currentMonster} />}
-                <PlayerStats player={currentPlayer} combatLog={combatLog} />
-            </div>
+            {gameState === 'game_over' && <div>Game Over!</div>}
+            {gameState === 'game_won' && <div>Game Won!</div>}
+            {gameState === 'combat' && (
+                <div className="dungeon-crawler-page">
+                    {currentMonster && <MonsterStats monster={currentMonster} />}
+                    <PlayerStats player={currentPlayer} combatLog={combatLog} />
+                </div>
+            )}
         </Page>
     );
 };
