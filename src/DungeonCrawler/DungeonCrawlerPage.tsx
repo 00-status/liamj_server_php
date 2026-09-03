@@ -5,7 +5,7 @@ import { Page } from '../SharedComponents/Page/Page';
 import './dungeon-crawler-page.css';
 import { MonsterStats } from './components/MonsterStats';
 import { PlayerStats } from './components/PlayerStats';
-import { Character, DamageType, LogMessage } from './domain/types';
+import { Ability, Character, DamageType, LogMessage } from './domain/types';
 import { damageCharacter } from './domain/character/damageCharacter';
 
 const exampleMonster: Character = {
@@ -21,6 +21,7 @@ const exampleMonster: Character = {
         magicDefence: 20,
     },
     modifiers: [],
+    abilities: [],
 };
 const examplePlayer: Character = {
     name: 'Jimothy the Jacked',
@@ -35,6 +36,10 @@ const examplePlayer: Character = {
         magicDefence: 10,
     },
     modifiers: [],
+    abilities: [
+        { name: 'YEET!', damageType: DamageType.magic, abilityPower: 1.5, cost: 3 },
+        { name: 'Sweep the Leg!', damageType: DamageType.magic, abilityPower: 1.2, cost: 2 },
+    ],
 };
 
 const DungeonCrawlerPage = () => {
@@ -46,30 +51,42 @@ const DungeonCrawlerPage = () => {
 
     useEffect(() => {
         if (currentPlayer.currentHP <= 0) {
-            setGameState('game_won');
+            setGameState('game_over');
         }
 
         if ((currentMonster?.currentHP ?? 0) <= 0) {
-            setGameState('game_over');
+            setGameState('game_won');
         }
     }, [currentPlayer, currentMonster]);
 
-    const onPlayerAttack = () => {
+    const onPlayerAbility = (ability?: Ability) => {
         if (!currentMonster || !currentPlayer) {
             return;
         }
 
+        setCurrentPlayer((state) => ({
+            ...state,
+            currentMP: Math.max(0, state.currentMP - (ability?.cost ?? 0)),
+        }));
+
         const damageResult = damageCharacter(
             currentMonster,
-            currentPlayer.stats.attack,
-            DamageType.physical,
+            ability
+                ? currentPlayer.stats.attack * ability.abilityPower
+                : currentPlayer.stats.attack,
+            ability ? ability.damageType : DamageType.physical,
         );
 
         setCombatLog((state) => [
             ...state,
             {
                 id: crypto.randomUUID(),
-                message: `${currentPlayer.name} damaged ${currentMonster.name} for ${damageResult.damageTaken}!`,
+                message: formatLogMessage(
+                    currentPlayer.name,
+                    currentMonster.name,
+                    damageResult.damageTaken,
+                    ability ? ability.name : 'Basic Attack',
+                ),
             },
         ]);
 
@@ -90,12 +107,19 @@ const DungeonCrawlerPage = () => {
             ...state,
             {
                 id: crypto.randomUUID(),
-                message: `${currentMonster.name} damaged ${currentPlayer.name} for ${playerDamageResult.damageTaken}!`,
+                message: formatLogMessage(
+                    currentMonster.name,
+                    currentPlayer.name,
+                    playerDamageResult.damageTaken,
+                    'Basic Attack',
+                ),
             },
         ]);
 
-        const newPlayer = { ...currentPlayer, currentHP: playerDamageResult.newHealth };
-        setCurrentPlayer(newPlayer);
+        setCurrentPlayer((state) => ({
+            ...state,
+            currentHP: playerDamageResult.newHealth,
+        }));
     };
 
     return (
@@ -108,12 +132,21 @@ const DungeonCrawlerPage = () => {
                     <PlayerStats
                         player={currentPlayer}
                         combatLog={combatLog}
-                        onPlayerAttack={onPlayerAttack}
+                        onPlayerAbility={onPlayerAbility}
                     />
                 </div>
             )}
         </Page>
     );
+};
+
+const formatLogMessage = (
+    attackerName: string,
+    target: string,
+    damageTaken: string | number,
+    abilityName: string,
+): string => {
+    return `${attackerName} damaged ${target} for ${damageTaken}! using ${abilityName}`;
 };
 
 export default DungeonCrawlerPage;

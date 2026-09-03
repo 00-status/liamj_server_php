@@ -1,23 +1,73 @@
 import './player-stats.css';
-import { Character, LogMessage } from '../domain/types';
+import { useState } from 'react';
+
+import { Ability, Character, DamageType, LogMessage } from '../domain/types';
 import { Card } from '../../SharedComponents/Card/Card';
-import { Button } from '../../SharedComponents/Button/Button';
+import { Button, ButtonTheme } from '../../SharedComponents/Button/Button';
 
 import { CharacterStat } from './CharacterStat';
+
+enum MenuState {
+    base = 'Base',
+    magic = 'Magic',
+}
+
+type MenuOption = {
+    action: () => void;
+    label: string;
+    isDisabled?: boolean;
+};
 
 type Props = {
     player: Character;
     combatLog: LogMessage[];
-    onPlayerAttack: () => void;
+    onPlayerAbility: (ability?: Ability) => void;
 };
 
-export const PlayerStats = ({ player, combatLog, onPlayerAttack }: Props) => {
+export const PlayerStats = ({ player, combatLog, onPlayerAbility }: Props) => {
+    const [menuState, setMenuState] = useState<MenuState>(MenuState.base);
+
+    const getActions = (): Array<MenuOption> => {
+        switch (menuState) {
+            case MenuState.base:
+                return [
+                    { action: () => onPlayerAbility(), label: 'Attack!' },
+                    { action: () => setMenuState(MenuState.magic), label: 'Magic' },
+                ];
+            case MenuState.magic: {
+                const magicAbilities = player.abilities
+                    .filter((ability) => ability.damageType === DamageType.magic)
+                    .map((ability) => ({
+                        action: () => onPlayerAbility(ability),
+                        label: ability.name,
+                        isDisabled: ability.cost > player.currentMP,
+                    }));
+
+                return [
+                    { action: () => setMenuState(MenuState.base), label: 'Back' },
+                    ...magicAbilities,
+                ];
+            }
+            default:
+                return [];
+        }
+    };
+
     return (
         <Card title={player.name} isFullWidth>
             <div className="player-stats">
                 <div className="player-stats__left-panel">
                     <h2>Actions</h2>
-                    <Button onClick={onPlayerAttack}>Attack!</Button>
+                    {getActions().map((action) => (
+                        <Button
+                            key={action.label}
+                            onClick={action.action}
+                            disabled={action.isDisabled}
+                            buttonTheme={ButtonTheme.Subtle}
+                        >
+                            {action.label}
+                        </Button>
+                    ))}
                 </div>
                 <div className="player-stats__right-panel">
                     <div className="player-stats__stat-block">
