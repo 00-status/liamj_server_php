@@ -1,9 +1,21 @@
 import './player-stats.css';
-import { Character, LogMessage } from '../domain/types';
+import { useState } from 'react';
+
+import { Character, DamageType, LogMessage } from '../domain/types';
 import { Card } from '../../SharedComponents/Card/Card';
 import { Button } from '../../SharedComponents/Button/Button';
 
 import { CharacterStat } from './CharacterStat';
+
+enum MenuState {
+    base = 'Base',
+    magic = 'Magic',
+}
+
+type MenuOption = {
+    action: () => void;
+    label: string;
+};
 
 type Props = {
     player: Character;
@@ -12,12 +24,43 @@ type Props = {
 };
 
 export const PlayerStats = ({ player, combatLog, onPlayerAttack }: Props) => {
+    const [menuState, setMenuState] = useState<MenuState>(MenuState.base);
+
+    const getActions = (): Array<MenuOption> => {
+        switch (menuState) {
+            case MenuState.base:
+                return [
+                    { action: onPlayerAttack, label: 'Attack!' },
+                    { action: () => setMenuState(MenuState.magic), label: 'Magic' },
+                ];
+            case MenuState.magic: {
+                const magicAbilities = player.abilities
+                    .filter((ability) => ability.damageType === DamageType.magic)
+                    .map((ability) => ({
+                        action: () => {},
+                        label: ability.name,
+                    }));
+
+                return [
+                    { action: () => setMenuState(MenuState.base), label: 'Back' },
+                    ...magicAbilities,
+                ];
+            }
+            default:
+                return [];
+        }
+    };
+
     return (
         <Card title={player.name} isFullWidth>
             <div className="player-stats">
                 <div className="player-stats__left-panel">
                     <h2>Actions</h2>
-                    <Button onClick={onPlayerAttack}>Attack!</Button>
+                    {getActions().map((action) => (
+                        <Button key={action.label} onClick={action.action}>
+                            {action.label}
+                        </Button>
+                    ))}
                 </div>
                 <div className="player-stats__right-panel">
                     <div className="player-stats__stat-block">
