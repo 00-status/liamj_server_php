@@ -9,30 +9,30 @@ import { Character, DamageType, LogMessage } from './domain/types';
 import { damageCharacter } from './domain/character/damageCharacter';
 
 const exampleMonster: Character = {
-    name: 'Skeleton',
-    currentHP: 10,
-    currentMP: 5,
+    name: 'Armoured Skeleton',
+    currentHP: 50,
+    currentMP: 2,
     stats: {
-        healthPoints: 10,
+        healthPoints: 50,
         magicPoints: 5,
-        attack: 5,
+        attack: 10,
         magicAttack: 10,
-        defence: 2,
-        magicDefence: 2,
+        defence: 50,
+        magicDefence: 20,
     },
     modifiers: [],
 };
 const examplePlayer: Character = {
     name: 'Jimothy the Jacked',
-    currentHP: 20,
+    currentHP: 100,
     currentMP: 5,
     stats: {
-        healthPoints: 20,
+        healthPoints: 100,
         magicPoints: 5,
-        attack: 5,
-        magicAttack: 10,
-        defence: 2,
-        magicDefence: 2,
+        attack: 20,
+        magicAttack: 5,
+        defence: 10,
+        magicDefence: 10,
     },
     modifiers: [],
 };
