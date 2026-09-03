@@ -4,6 +4,7 @@ export interface Character {
     currentHP: number;
     currentMP: number;
     modifiers: StatModifier[];
+    abilities: Ability[];
 }
 
 export interface BaseStats {
@@ -21,6 +22,13 @@ export interface StatModifier {
     value: number;
     type: 'flat' | 'percent'; // e.g., +10 ATK vs +15% ATK
     durationTurns?: number;
+}
+
+export interface Ability {
+    name: string;
+    damageType: DamageType;
+    abilityPower: number;
+    cost: number;
 }
 
 export enum DamageType {

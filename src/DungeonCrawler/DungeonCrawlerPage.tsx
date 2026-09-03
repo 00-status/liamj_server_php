@@ -21,6 +21,7 @@ const exampleMonster: Character = {
         magicDefence: 20,
     },
     modifiers: [],
+    abilities: [],
 };
 const examplePlayer: Character = {
     name: 'Jimothy the Jacked',
@@ -35,6 +36,10 @@ const examplePlayer: Character = {
         magicDefence: 10,
     },
     modifiers: [],
+    abilities: [
+        { name: 'YEET!', damageType: DamageType.magic, abilityPower: 1.5, cost: 3 },
+        { name: 'Sweep the Leg!', damageType: DamageType.magic, abilityPower: 1.2, cost: 2 },
+    ],
 };
 
 const DungeonCrawlerPage = () => {
