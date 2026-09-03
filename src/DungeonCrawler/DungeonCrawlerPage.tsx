@@ -59,22 +59,29 @@ const DungeonCrawlerPage = () => {
         }
     }, [currentPlayer, currentMonster]);
 
-    const onPlayerAttack = () => {
+    const onPlayerAbility = (ability?: Ability) => {
         if (!currentMonster || !currentPlayer) {
             return;
         }
 
         const damageResult = damageCharacter(
             currentMonster,
-            currentPlayer.stats.attack,
-            DamageType.physical,
+            ability
+                ? currentPlayer.stats.attack * ability.abilityPower
+                : currentPlayer.stats.attack,
+            ability ? ability.damageType : DamageType.physical,
         );
 
         setCombatLog((state) => [
             ...state,
             {
                 id: crypto.randomUUID(),
-                message: `${currentPlayer.name} damaged ${currentMonster.name} for ${damageResult.damageTaken}!`,
+                message: formatLogMessage(
+                    currentPlayer.name,
+                    currentMonster.name,
+                    damageResult.damageTaken,
+                    ability ? ability.name : 'Basic Attack',
+                ),
             },
         ]);
 
@@ -95,51 +102,12 @@ const DungeonCrawlerPage = () => {
             ...state,
             {
                 id: crypto.randomUUID(),
-                message: `${currentMonster.name} damaged ${currentPlayer.name} for ${playerDamageResult.damageTaken}!`,
-            },
-        ]);
-
-        const newPlayer = { ...currentPlayer, currentHP: playerDamageResult.newHealth };
-        setCurrentPlayer(newPlayer);
-    };
-
-    const onPlayerAbility = (ability: Ability) => {
-        if (!currentMonster || !currentPlayer) {
-            return;
-        }
-
-        const damageResult = damageCharacter(
-            currentMonster,
-            currentPlayer.stats.attack * ability.abilityPower,
-            ability.damageType,
-        );
-
-        setCombatLog((state) => [
-            ...state,
-            {
-                id: crypto.randomUUID(),
-                message: `${currentPlayer.name} damaged ${currentMonster.name} for ${damageResult.damageTaken}!`,
-            },
-        ]);
-
-        const newMonster = { ...currentMonster, currentHP: damageResult.newHealth };
-        setCurrentMonster(newMonster);
-
-        if (newMonster.currentHP === 0) {
-            return;
-        }
-
-        const playerDamageResult = damageCharacter(
-            currentPlayer,
-            currentMonster.stats.attack,
-            DamageType.physical,
-        );
-
-        setCombatLog((state) => [
-            ...state,
-            {
-                id: crypto.randomUUID(),
-                message: `${currentMonster.name} damaged ${currentPlayer.name} for ${playerDamageResult.damageTaken}!`,
+                message: formatLogMessage(
+                    currentMonster.name,
+                    currentPlayer.name,
+                    playerDamageResult.damageTaken,
+                    'Basic Attack',
+                ),
             },
         ]);
 
@@ -157,13 +125,21 @@ const DungeonCrawlerPage = () => {
                     <PlayerStats
                         player={currentPlayer}
                         combatLog={combatLog}
-                        onPlayerAttack={onPlayerAttack}
                         onPlayerAbility={onPlayerAbility}
                     />
                 </div>
             )}
         </Page>
     );
+};
+
+const formatLogMessage = (
+    attackerName: string,
+    target: string,
+    damageTaken: string | number,
+    abilityName: string,
+): string => {
+    return `${attackerName} damaged ${target} for ${damageTaken}! using ${abilityName}`;
 };
 
 export default DungeonCrawlerPage;

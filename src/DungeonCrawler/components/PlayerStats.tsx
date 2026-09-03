@@ -20,18 +20,17 @@ type MenuOption = {
 type Props = {
     player: Character;
     combatLog: LogMessage[];
-    onPlayerAttack: () => void;
-    onPlayerAbility: (ability: Ability) => void;
+    onPlayerAbility: (ability?: Ability) => void;
 };
 
-export const PlayerStats = ({ player, combatLog, onPlayerAttack, onPlayerAbility }: Props) => {
+export const PlayerStats = ({ player, combatLog, onPlayerAbility }: Props) => {
     const [menuState, setMenuState] = useState<MenuState>(MenuState.base);
 
     const getActions = (): Array<MenuOption> => {
         switch (menuState) {
             case MenuState.base:
                 return [
-                    { action: onPlayerAttack, label: 'Attack!' },
+                    { action: () => onPlayerAbility(), label: 'Attack!' },
                     { action: () => setMenuState(MenuState.magic), label: 'Magic' },
                 ];
             case MenuState.magic: {
