@@ -5,7 +5,7 @@ import { Page } from '../SharedComponents/Page/Page';
 import './dungeon-crawler-page.css';
 import { MonsterStats } from './components/MonsterStats';
 import { PlayerStats } from './components/PlayerStats';
-import { Character, DamageType, LogMessage } from './domain/types';
+import { Ability, Character, DamageType, LogMessage } from './domain/types';
 import { damageCharacter } from './domain/character/damageCharacter';
 
 const exampleMonster: Character = {
@@ -51,11 +51,11 @@ const DungeonCrawlerPage = () => {
 
     useEffect(() => {
         if (currentPlayer.currentHP <= 0) {
-            setGameState('game_won');
+            setGameState('game_over');
         }
 
         if ((currentMonster?.currentHP ?? 0) <= 0) {
-            setGameState('game_over');
+            setGameState('game_won');
         }
     }, [currentPlayer, currentMonster]);
 
@@ -103,6 +103,50 @@ const DungeonCrawlerPage = () => {
         setCurrentPlayer(newPlayer);
     };
 
+    const onPlayerAbility = (ability: Ability) => {
+        if (!currentMonster || !currentPlayer) {
+            return;
+        }
+
+        const damageResult = damageCharacter(
+            currentMonster,
+            currentPlayer.stats.attack * ability.abilityPower,
+            ability.damageType,
+        );
+
+        setCombatLog((state) => [
+            ...state,
+            {
+                id: crypto.randomUUID(),
+                message: `${currentPlayer.name} damaged ${currentMonster.name} for ${damageResult.damageTaken}!`,
+            },
+        ]);
+
+        const newMonster = { ...currentMonster, currentHP: damageResult.newHealth };
+        setCurrentMonster(newMonster);
+
+        if (newMonster.currentHP === 0) {
+            return;
+        }
+
+        const playerDamageResult = damageCharacter(
+            currentPlayer,
+            currentMonster.stats.attack,
+            DamageType.physical,
+        );
+
+        setCombatLog((state) => [
+            ...state,
+            {
+                id: crypto.randomUUID(),
+                message: `${currentMonster.name} damaged ${currentPlayer.name} for ${playerDamageResult.damageTaken}!`,
+            },
+        ]);
+
+        const newPlayer = { ...currentPlayer, currentHP: playerDamageResult.newHealth };
+        setCurrentPlayer(newPlayer);
+    };
+
     return (
         <Page title="Dungeons of Galericca" routes={[]}>
             {gameState === 'game_over' && <div>Game Over!</div>}
@@ -114,6 +158,7 @@ const DungeonCrawlerPage = () => {
                         player={currentPlayer}
                         combatLog={combatLog}
                         onPlayerAttack={onPlayerAttack}
+                        onPlayerAbility={onPlayerAbility}
                     />
                 </div>
             )}

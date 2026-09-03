@@ -1,7 +1,7 @@
 import './player-stats.css';
 import { useState } from 'react';
 
-import { Character, DamageType, LogMessage } from '../domain/types';
+import { Ability, Character, DamageType, LogMessage } from '../domain/types';
 import { Card } from '../../SharedComponents/Card/Card';
 import { Button } from '../../SharedComponents/Button/Button';
 
@@ -21,9 +21,10 @@ type Props = {
     player: Character;
     combatLog: LogMessage[];
     onPlayerAttack: () => void;
+    onPlayerAbility: (ability: Ability) => void;
 };
 
-export const PlayerStats = ({ player, combatLog, onPlayerAttack }: Props) => {
+export const PlayerStats = ({ player, combatLog, onPlayerAttack, onPlayerAbility }: Props) => {
     const [menuState, setMenuState] = useState<MenuState>(MenuState.base);
 
     const getActions = (): Array<MenuOption> => {
@@ -37,7 +38,7 @@ export const PlayerStats = ({ player, combatLog, onPlayerAttack }: Props) => {
                 const magicAbilities = player.abilities
                     .filter((ability) => ability.damageType === DamageType.magic)
                     .map((ability) => ({
-                        action: () => {},
+                        action: () => onPlayerAbility(ability),
                         label: ability.name,
                     }));
 
