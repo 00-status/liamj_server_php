@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { Ability, Character, DamageType, LogMessage } from '../domain/types';
 import { Card } from '../../SharedComponents/Card/Card';
-import { Button } from '../../SharedComponents/Button/Button';
+import { Button, ButtonTheme } from '../../SharedComponents/Button/Button';
 
 import { CharacterStat } from './CharacterStat';
 
@@ -63,6 +63,7 @@ export const PlayerStats = ({ player, combatLog, onPlayerAbility }: Props) => {
                             key={action.label}
                             onClick={action.action}
                             disabled={action.isDisabled}
+                            buttonTheme={ButtonTheme.Subtle}
                         >
                             {action.label}
                         </Button>
