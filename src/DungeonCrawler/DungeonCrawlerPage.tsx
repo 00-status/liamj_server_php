@@ -64,6 +64,11 @@ const DungeonCrawlerPage = () => {
             return;
         }
 
+        setCurrentPlayer((state) => ({
+            ...state,
+            currentMP: Math.max(0, state.currentMP - (ability?.cost ?? 0)),
+        }));
+
         const damageResult = damageCharacter(
             currentMonster,
             ability
@@ -111,8 +116,10 @@ const DungeonCrawlerPage = () => {
             },
         ]);
 
-        const newPlayer = { ...currentPlayer, currentHP: playerDamageResult.newHealth };
-        setCurrentPlayer(newPlayer);
+        setCurrentPlayer((state) => ({
+            ...state,
+            currentHP: playerDamageResult.newHealth,
+        }));
     };
 
     return (

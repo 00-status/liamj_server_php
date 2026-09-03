@@ -15,6 +15,7 @@ enum MenuState {
 type MenuOption = {
     action: () => void;
     label: string;
+    isDisabled?: boolean;
 };
 
 type Props = {
@@ -39,6 +40,7 @@ export const PlayerStats = ({ player, combatLog, onPlayerAbility }: Props) => {
                     .map((ability) => ({
                         action: () => onPlayerAbility(ability),
                         label: ability.name,
+                        isDisabled: ability.cost > player.currentMP,
                     }));
 
                 return [
@@ -57,7 +59,11 @@ export const PlayerStats = ({ player, combatLog, onPlayerAbility }: Props) => {
                 <div className="player-stats__left-panel">
                     <h2>Actions</h2>
                     {getActions().map((action) => (
-                        <Button key={action.label} onClick={action.action}>
+                        <Button
+                            key={action.label}
+                            onClick={action.action}
+                            disabled={action.isDisabled}
+                        >
                             {action.label}
                         </Button>
                     ))}
