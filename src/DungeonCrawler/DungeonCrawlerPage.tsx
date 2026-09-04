@@ -5,7 +5,7 @@ import { Page } from '../SharedComponents/Page/Page';
 import './dungeon-crawler-page.css';
 import { MonsterStats } from './components/MonsterStats';
 import { PlayerStats } from './components/PlayerStats';
-import { Ability, Character, DamageType, LogMessage } from './domain/types';
+import { Ability, TargetScope, Character, DamageType, LogMessage } from './domain/types';
 import { damageCharacter } from './domain/character/damageCharacter';
 
 const exampleMonster: Character = {
@@ -26,10 +26,10 @@ const exampleMonster: Character = {
 const examplePlayer: Character = {
     name: 'Jimothy the Jacked',
     currentHP: 100,
-    currentMP: 5,
+    currentMP: 6,
     stats: {
         healthPoints: 100,
-        magicPoints: 5,
+        magicPoints: 6,
         attack: 20,
         magicAttack: 5,
         defence: 10,
@@ -37,8 +37,42 @@ const examplePlayer: Character = {
     },
     modifiers: [],
     abilities: [
-        { name: 'YEET!', damageType: DamageType.magic, abilityPower: 1.5, cost: 3 },
-        { name: 'Sweep the Leg!', damageType: DamageType.magic, abilityPower: 1.2, cost: 2 },
+        {
+            name: 'YEET!',
+            cost: 3,
+            statusEffects: [
+                {
+                    target: TargetScope.opponent,
+                    damageType: DamageType.magic,
+                    power: 1.5,
+                    modifiers: [],
+                },
+            ],
+        },
+        {
+            name: 'Sweep the Leg!',
+            cost: 2,
+            statusEffects: [
+                {
+                    target: TargetScope.opponent,
+                    damageType: DamageType.magic,
+                    power: 1.2,
+                    modifiers: [],
+                },
+            ],
+        },
+        {
+            name: 'Get me a beer!',
+            cost: 2,
+            statusEffects: [
+                {
+                    target: TargetScope.self,
+                    damageType: DamageType.healing,
+                    power: 1.0,
+                    modifiers: [],
+                },
+            ],
+        },
     ],
 };
 
