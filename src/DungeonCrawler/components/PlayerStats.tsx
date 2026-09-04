@@ -1,9 +1,10 @@
 import './player-stats.css';
 import { useState } from 'react';
 
-import { Ability, Character, DamageType, LogMessage } from '../domain/types';
+import { Ability, AbilityType, Character, LogMessage } from '../domain/types';
 import { Card } from '../../SharedComponents/Card/Card';
 import { Button, ButtonTheme } from '../../SharedComponents/Button/Button';
+import { attackAbility } from '../domain/constants';
 
 import { CharacterStat } from './CharacterStat';
 
@@ -21,7 +22,7 @@ type MenuOption = {
 type Props = {
     player: Character;
     combatLog: LogMessage[];
-    onPlayerAbility: (ability?: Ability) => void;
+    onPlayerAbility: (ability: Ability) => void;
 };
 
 export const PlayerStats = ({ player, combatLog, onPlayerAbility }: Props) => {
@@ -31,12 +32,12 @@ export const PlayerStats = ({ player, combatLog, onPlayerAbility }: Props) => {
         switch (menuState) {
             case MenuState.base:
                 return [
-                    { action: () => onPlayerAbility(), label: 'Attack!' },
+                    { action: () => onPlayerAbility(attackAbility), label: 'Attack!' },
                     { action: () => setMenuState(MenuState.magic), label: 'Magic' },
                 ];
             case MenuState.magic: {
                 const magicAbilities = player.abilities
-                    .filter((ability) => ability.damageType === DamageType.magic)
+                    .filter((ability) => ability.type === AbilityType.magic)
                     .map((ability) => ({
                         action: () => onPlayerAbility(ability),
                         label: ability.name,

@@ -26,14 +26,34 @@ export interface StatModifier {
 
 export interface Ability {
     name: string;
-    damageType: DamageType;
-    abilityPower: number;
     cost: number;
+    type: AbilityType;
+    statusEffects: StatusEffect[];
+}
+
+export enum AbilityType {
+    physical = 'physical',
+    magic = 'magic',
+}
+
+export interface StatusEffect {
+    target: TargetScope;
+    damageType: DamageType;
+    power: number;
+    duration?: number;
+    modifiers: StatModifier[];
 }
 
 export enum DamageType {
     physical = 'Physical',
     magic = 'Magic',
+    healing = 'Healing',
+}
+
+export enum TargetScope {
+    self = 'self',
+    opponent = 'single_opponent',
+    all_opponents = 'all_opponents',
 }
 
 export type LogMessage = { id: string; message: string };
