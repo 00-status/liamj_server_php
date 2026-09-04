@@ -93,7 +93,7 @@ const DungeonCrawlerPage = () => {
         }
     }, [currentPlayer, currentMonster]);
 
-    const onPlayerAbility = (ability?: Ability) => {
+    const onPlayerAbility = (ability: Ability) => {
         if (!currentMonster || !currentPlayer) {
             return;
         }
