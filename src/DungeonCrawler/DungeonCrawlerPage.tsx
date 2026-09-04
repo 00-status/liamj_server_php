@@ -5,8 +5,16 @@ import { Page } from '../SharedComponents/Page/Page';
 import './dungeon-crawler-page.css';
 import { MonsterStats } from './components/MonsterStats';
 import { PlayerStats } from './components/PlayerStats';
-import { Ability, TargetScope, Character, DamageType, LogMessage } from './domain/types';
+import {
+    Ability,
+    TargetScope,
+    Character,
+    DamageType,
+    LogMessage,
+    AbilityType,
+} from './domain/types';
 import { applyAbilityEffects } from './domain/character/applyAbilityEffects';
+import { attackAbility } from './domain/constants';
 
 const exampleMonster: Character = {
     name: 'Armoured Skeleton',
@@ -40,6 +48,7 @@ const examplePlayer: Character = {
         {
             name: 'YEET!',
             cost: 3,
+            type: AbilityType.magic,
             statusEffects: [
                 {
                     target: TargetScope.opponent,
@@ -52,6 +61,7 @@ const examplePlayer: Character = {
         {
             name: 'Sweep the Leg!',
             cost: 2,
+            type: AbilityType.magic,
             statusEffects: [
                 {
                     target: TargetScope.opponent,
@@ -64,6 +74,7 @@ const examplePlayer: Character = {
         {
             name: 'Get me a beer!',
             cost: 2,
+            type: AbilityType.magic,
             statusEffects: [
                 {
                     target: TargetScope.self,
@@ -109,7 +120,7 @@ const DungeonCrawlerPage = () => {
             caster: newMonster,
             opponent: newPlayer,
             logs,
-        } = applyAbilityEffects(currentMonster, currentPlayer, ability);
+        } = applyAbilityEffects(currentMonster, currentPlayer, attackAbility);
 
         setCurrentPlayer(newPlayer);
         setCurrentMonster(newMonster);

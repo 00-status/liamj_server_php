@@ -27,7 +27,13 @@ export interface StatModifier {
 export interface Ability {
     name: string;
     cost: number;
+    type: AbilityType;
     statusEffects: StatusEffect[];
+}
+
+export enum AbilityType {
+    physical = 'physical',
+    magic = 'magic',
 }
 
 export interface StatusEffect {
