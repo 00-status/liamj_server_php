@@ -1,6 +1,7 @@
 import { Ability, Character, DamageType, TargetScope } from '../types';
 
 import { damageCharacter } from './damageCharacter';
+import { healCharacter } from './healCharacter';
 
 const EFFECT_HANDLERS: Record<
     DamageType,
@@ -30,7 +31,7 @@ export const applyAbilityEffects = (
     initialCaster: Character,
     initialOpponent: Character,
     ability: Ability,
-): string[] => {
+): { caster: Character; opponent: Character; logs: string[] } => {
     let caster = { ...initialCaster };
     let opponent = { ...initialOpponent };
     const logs: string[] = [];
@@ -60,5 +61,5 @@ export const applyAbilityEffects = (
         );
     }
 
-    return logs;
+    return { caster, opponent, logs };
 };
