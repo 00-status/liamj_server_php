@@ -32,7 +32,10 @@ export const applyAbilityEffects = (
     initialOpponent: Character,
     ability: Ability,
 ): { caster: Character; opponent: Character; logs: LogMessage[] } => {
-    let caster = { ...initialCaster };
+    let caster = {
+        ...initialCaster,
+        currentMP: Math.max(0, initialCaster.currentMP - ability.cost),
+    };
     let opponent = { ...initialOpponent };
     const logs: LogMessage[] = [];
 
