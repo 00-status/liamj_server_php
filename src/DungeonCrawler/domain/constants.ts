@@ -7,7 +7,7 @@ export const attackAbility: Ability = {
     statusEffects: [
         {
             target: TargetScope.opponent,
-            damageType: DamageType.magic,
+            damageType: DamageType.physical,
             power: 1.0,
             modifiers: [],
         },
