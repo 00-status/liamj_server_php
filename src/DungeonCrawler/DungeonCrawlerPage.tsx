@@ -6,7 +6,7 @@ import './dungeon-crawler-page.css';
 import { MonsterStats } from './components/MonsterStats';
 import { PlayerStats } from './components/PlayerStats';
 import { Ability, TargetScope, Character, DamageType, LogMessage } from './domain/types';
-import { damageCharacter } from './domain/character/damageCharacter';
+import { applyAbilityEffects } from './domain/character/applyAbilityEffects';
 
 const exampleMonster: Character = {
     name: 'Armoured Skeleton',
@@ -76,111 +76,83 @@ const examplePlayer: Character = {
     ],
 };
 
+enum GameState {
+    player_turn = 'player_turn',
+    enemy_turn = 'enemy_turn',
+    game_over = 'game_over',
+    game_won = 'game_won',
+}
+
 const DungeonCrawlerPage = () => {
+    const [gameState, setGameState] = useState<GameState>(GameState.player_turn);
     const [currentPlayer, setCurrentPlayer] = useState<Character>(examplePlayer);
     const [currentMonster, setCurrentMonster] = useState<Character | null>(exampleMonster);
 
     const [combatLog, setCombatLog] = useState<LogMessage[]>([]);
-    const [gameState, setGameState] = useState<string>('combat');
 
     useEffect(() => {
         if (currentPlayer.currentHP <= 0) {
-            setGameState('game_over');
+            setGameState(GameState.game_over);
         }
 
         if ((currentMonster?.currentHP ?? 0) <= 0) {
-            setGameState('game_won');
+            setGameState(GameState.game_won);
         }
     }, [currentPlayer, currentMonster]);
+
+    useEffect(() => {
+        if (!currentMonster || !currentPlayer || gameState !== GameState.enemy_turn) {
+            return;
+        }
+
+        const {
+            caster: newMonster,
+            opponent: newPlayer,
+            logs,
+        } = applyAbilityEffects(currentMonster, currentPlayer, ability);
+
+        setCurrentPlayer(newPlayer);
+        setCurrentMonster(newMonster);
+        setCombatLog((state) => [...state, ...logs]);
+
+        setGameState(GameState.player_turn);
+    }, [gameState, currentMonster, currentPlayer]);
 
     const onPlayerAbility = (ability: Ability) => {
         if (!currentMonster || !currentPlayer) {
             return;
         }
 
-        setCurrentPlayer((state) => ({
-            ...state,
-            currentMP: Math.max(0, state.currentMP - (ability?.cost ?? 0)),
-        }));
+        const {
+            caster: newPlayer,
+            opponent: newMonster,
+            logs,
+        } = applyAbilityEffects(currentPlayer, currentMonster, ability);
 
-        const damageResult = damageCharacter(
-            currentMonster,
-            ability
-                ? currentPlayer.stats.attack * ability.abilityPower
-                : currentPlayer.stats.attack,
-            ability ? ability.damageType : DamageType.physical,
-        );
-
-        setCombatLog((state) => [
-            ...state,
-            {
-                id: crypto.randomUUID(),
-                message: formatLogMessage(
-                    currentPlayer.name,
-                    currentMonster.name,
-                    damageResult.damageTaken,
-                    ability ? ability.name : 'Basic Attack',
-                ),
-            },
-        ]);
-
-        const newMonster = { ...currentMonster, currentHP: damageResult.newHealth };
+        setCurrentPlayer(newPlayer);
         setCurrentMonster(newMonster);
+        setCombatLog((state) => [...state, ...logs]);
 
-        if (newMonster.currentHP === 0) {
-            return;
-        }
-
-        const playerDamageResult = damageCharacter(
-            currentPlayer,
-            currentMonster.stats.attack,
-            DamageType.physical,
-        );
-
-        setCombatLog((state) => [
-            ...state,
-            {
-                id: crypto.randomUUID(),
-                message: formatLogMessage(
-                    currentMonster.name,
-                    currentPlayer.name,
-                    playerDamageResult.damageTaken,
-                    'Basic Attack',
-                ),
-            },
-        ]);
-
-        setCurrentPlayer((state) => ({
-            ...state,
-            currentHP: playerDamageResult.newHealth,
-        }));
+        setGameState(GameState.enemy_turn);
     };
 
     return (
         <Page title="Dungeons of Galericca" routes={[]}>
             {gameState === 'game_over' && <div>Game Over!</div>}
             {gameState === 'game_won' && <div>Game Won!</div>}
-            {gameState === 'combat' && (
-                <div className="dungeon-crawler-page">
-                    {currentMonster && <MonsterStats monster={currentMonster} />}
-                    <PlayerStats
-                        player={currentPlayer}
-                        combatLog={combatLog}
-                        onPlayerAbility={onPlayerAbility}
-                    />
-                </div>
-            )}
+            {gameState === 'player_turn' ||
+                (gameState === 'enemy_turn' && (
+                    <div className="dungeon-crawler-page">
+                        {currentMonster && <MonsterStats monster={currentMonster} />}
+                        <PlayerStats
+                            player={currentPlayer}
+                            combatLog={combatLog}
+                            onPlayerAbility={onPlayerAbility}
+                        />
+                    </div>
+                ))}
         </Page>
     );
-};
-
-const formatLogMessage = (
-    attackerName: string,
-    target: string,
-    damageTaken: string | number,
-    abilityName: string,
-): string => {
-    return `${attackerName} damaged ${target} for ${damageTaken}! using ${abilityName}`;
 };
 
 export default DungeonCrawlerPage;

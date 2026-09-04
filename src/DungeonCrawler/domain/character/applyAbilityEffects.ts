@@ -1,4 +1,4 @@
-import { Ability, Character, DamageType, TargetScope } from '../types';
+import { Ability, Character, DamageType, LogMessage, TargetScope } from '../types';
 
 import { damageCharacter } from './damageCharacter';
 import { healCharacter } from './healCharacter';
@@ -31,10 +31,10 @@ export const applyAbilityEffects = (
     initialCaster: Character,
     initialOpponent: Character,
     ability: Ability,
-): { caster: Character; opponent: Character; logs: string[] } => {
+): { caster: Character; opponent: Character; logs: LogMessage[] } => {
     let caster = { ...initialCaster };
     let opponent = { ...initialOpponent };
-    const logs: string[] = [];
+    const logs: LogMessage[] = [];
 
     for (const effect of ability.statusEffects) {
         const handler = EFFECT_HANDLERS[effect.damageType];
@@ -56,9 +56,10 @@ export const applyAbilityEffects = (
             opponent = updatedTarget;
         }
 
-        logs.push(
-            `${caster.name} used ${ability.name} on ${currentTarget.name} for ${healthChange} ${effect.damageType}!`,
-        );
+        logs.push({
+            id: crypto.randomUUID(),
+            message: `${caster.name} used ${ability.name} on ${currentTarget.name} for ${healthChange} ${effect.damageType}!`,
+        });
     }
 
     return { caster, opponent, logs };
