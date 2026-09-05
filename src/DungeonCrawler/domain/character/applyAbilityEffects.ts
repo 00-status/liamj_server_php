@@ -2,6 +2,7 @@ import { Ability, Character, DamageType, LogMessage, TargetScope } from '../type
 
 import { damageCharacter } from './damageCharacter';
 import { healCharacter } from './healCharacter';
+import { restoreMagicForCharacter } from './restoreMagicForCharacter';
 
 const EFFECT_HANDLERS: Record<
     DamageType,
@@ -10,7 +11,7 @@ const EFFECT_HANDLERS: Record<
         apply: (
             target: Character,
             value: number,
-        ) => { updatedTarget: Character; healthChange: number };
+        ) => { updatedTarget: Character; statChange: number };
     }
 > = {
     [DamageType.physical]: {
@@ -22,8 +23,12 @@ const EFFECT_HANDLERS: Record<
         apply: (target, value) => damageCharacter(target, value, DamageType.magic),
     },
     [DamageType.healing]: {
-        getStat: (caster) => caster.stats.magicAttack,
+        getStat: (caster) => caster.stats.healthPoints,
         apply: (target, value) => healCharacter(target, value),
+    },
+    [DamageType.magic_restore]: {
+        getStat: (caster) => caster.stats.magicPoints,
+        apply: (target, value) => restoreMagicForCharacter(target, value),
     },
 };
 
@@ -51,7 +56,7 @@ export const applyAbilityEffects = (
         const baseStat = handler.getStat(caster);
         const calculatedValue = baseStat * effect.power;
 
-        const { updatedTarget, healthChange } = handler.apply(currentTarget, calculatedValue);
+        const { updatedTarget, statChange } = handler.apply(currentTarget, calculatedValue);
 
         if (isSelfTarget) {
             caster = updatedTarget;
@@ -61,7 +66,7 @@ export const applyAbilityEffects = (
 
         logs.push({
             id: crypto.randomUUID(),
-            message: `${caster.name} used ${ability.name} on ${currentTarget.name} for ${healthChange} ${effect.damageType}!`,
+            message: `${caster.name} used ${ability.name} on ${currentTarget.name} for ${statChange} ${effect.damageType}!`,
         });
     }
 

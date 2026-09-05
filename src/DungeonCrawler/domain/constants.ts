@@ -11,5 +11,11 @@ export const attackAbility: Ability = {
             power: 1.0,
             modifiers: [],
         },
+        {
+            target: TargetScope.self,
+            damageType: DamageType.magic_restore,
+            power: 0.2,
+            modifiers: [],
+        },
     ],
 };
