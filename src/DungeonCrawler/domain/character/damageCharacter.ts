@@ -8,7 +8,7 @@ export const damageCharacter = (
     targetCharacter: Character,
     damageValue: number,
     damageType: DamageType,
-): { updatedTarget: Character; healthChange: number } => {
+): { updatedTarget: Character; statChange: number } => {
     let actualDamageValue = 0;
     if (damageType === DamageType.magic) {
         const damageMultiplier = Math.max(
@@ -27,5 +27,5 @@ export const damageCharacter = (
     const newHealth = Math.max(0, targetCharacter.currentHP - actualDamageValue);
 
     const updatedTarget: Character = { ...targetCharacter, currentHP: newHealth };
-    return { updatedTarget, healthChange: actualDamageValue };
+    return { updatedTarget, statChange: actualDamageValue };
 };

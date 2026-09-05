@@ -45,9 +45,10 @@ export interface StatusEffect {
 }
 
 export enum DamageType {
-    physical = 'Physical',
-    magic = 'Magic',
-    healing = 'Healing',
+    physical = 'physical',
+    magic = 'magic',
+    healing = 'healing',
+    magic_restore = 'magic_restore',
 }
 
 export enum TargetScope {

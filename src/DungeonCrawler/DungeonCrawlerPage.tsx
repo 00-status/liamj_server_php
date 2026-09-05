@@ -79,7 +79,7 @@ const examplePlayer: Character = {
                 {
                     target: TargetScope.self,
                     damageType: DamageType.healing,
-                    power: 1.0,
+                    power: 0.2,
                     modifiers: [],
                 },
             ],
