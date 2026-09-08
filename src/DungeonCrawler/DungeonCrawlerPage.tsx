@@ -96,8 +96,9 @@ enum GameState {
 
 const DungeonCrawlerPage = () => {
     const [gameState, setGameState] = useState<GameState>(GameState.player_turn);
+    const [roomsClearedCount, setRoomsClearedCount] = useState<number>(0);
     const [currentPlayer, setCurrentPlayer] = useState<Character>(examplePlayer);
-    const [currentMonster, setCurrentMonster] = useState<Character | null>(exampleMonster);
+    const [currentMonster, setCurrentMonster] = useState<Character | null>({ ...exampleMonster });
 
     const [combatLog, setCombatLog] = useState<LogMessage[]>([]);
 
@@ -105,11 +106,7 @@ const DungeonCrawlerPage = () => {
         if (currentPlayer.currentHP <= 0) {
             setGameState(GameState.game_over);
         }
-
-        if ((currentMonster?.currentHP ?? 0) <= 0) {
-            setGameState(GameState.game_won);
-        }
-    }, [currentPlayer, currentMonster]);
+    }, [currentPlayer.currentHP, currentMonster?.currentHP]);
 
     useEffect(() => {
         if (!currentMonster || !currentPlayer || gameState !== GameState.enemy_turn) {
@@ -140,11 +137,18 @@ const DungeonCrawlerPage = () => {
             logs,
         } = applyAbilityEffects(currentPlayer, currentMonster, ability);
 
-        setCurrentPlayer(newPlayer);
-        setCurrentMonster(newMonster);
-        setCombatLog((state) => [...state, ...logs]);
+        if (newMonster.currentHP <= 0) {
+            setCurrentMonster({ ...exampleMonster });
+            setRoomsClearedCount((count) => ++count);
+            setGameState(GameState.player_turn);
+            setCombatLog([]);
+        } else {
+            setCurrentMonster(newMonster);
+            setGameState(GameState.enemy_turn);
+            setCombatLog((state) => [...state, ...logs]);
+        }
 
-        setGameState(GameState.enemy_turn);
+        setCurrentPlayer(newPlayer);
     };
 
     return (
@@ -153,6 +157,7 @@ const DungeonCrawlerPage = () => {
             {gameState === 'game_won' && <div>Game Won!</div>}
             {(gameState === 'player_turn' || gameState === 'enemy_turn') && (
                 <div className="dungeon-crawler-page">
+                    <div>{roomsClearedCount && <div>{roomsClearedCount}</div>}</div>
                     {currentMonster && <MonsterStats monster={currentMonster} />}
                     <PlayerStats
                         player={currentPlayer}
