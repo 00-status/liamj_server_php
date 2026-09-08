@@ -86,14 +86,13 @@ export const PlayerStats = ({ player, combatLog, onPlayerAbility }: Props) => {
                         <CharacterStat label="MDEF" value={player.stats.magicDefence} />
                     </div>
 
-                    <div>
-                        <Card title="Log" isFullWidth>
-                            {combatLog.map((log) => (
-                                <p key={log.id} className="player-stats__log">
-                                    {log.message}
-                                </p>
-                            ))}
-                        </Card>
+                    <div className="player-stats__log">
+                        <h2>Log</h2>
+                        {combatLog.map((log) => (
+                            <p key={log.id} className="player-stats__log-entry">
+                                {log.message}
+                            </p>
+                        ))}
                     </div>
                 </div>
             </div>

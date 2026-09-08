@@ -5,10 +5,12 @@
 
 .player-stats__left-panel {
     min-width: 400px;
+    flex: 1;
 }
 
 .player-stats__right-panel {
     min-width: 400px;
+    flex: 1;
 }
 
 .player-stats__stat-block {
@@ -18,5 +20,15 @@
 }
 
 .player-stats__log {
-    margin: 0;
+    width: 100%;
+
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #3b3b40;
+    box-shadow: 1px 1px 4px #1f2028;
+}
+
+.player-stats__log-entry {
+    margin-bottom: 4px;
 }
