@@ -157,7 +157,7 @@ const DungeonCrawlerPage = () => {
             {gameState === 'game_won' && <div>Game Won!</div>}
             {(gameState === 'player_turn' || gameState === 'enemy_turn') && (
                 <div className="dungeon-crawler-page">
-                    <div>{roomsClearedCount && <div>{roomsClearedCount}</div>}</div>
+                    <div className="dungeon-crawler-page__room_count">{roomsClearedCount}</div>
                     {currentMonster && <MonsterStats monster={currentMonster} />}
                     <PlayerStats
                         player={currentPlayer}

@@ -6,3 +6,12 @@
     gap: 20px;
     padding: 20px 0;
 }
+
+.dungeon-crawler-page__room_count {
+    text-align: center;
+    padding: 20px;
+
+    border-radius: 8px;
+    background-color: #3b3b40;
+    box-shadow: 1px 1px 4px #1f2028;
+}
