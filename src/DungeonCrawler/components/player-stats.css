@@ -1,15 +1,14 @@
 .player-stats {
     display: flex;
+    flex-wrap: wrap;
     gap: 20px;
 }
 
 .player-stats__left-panel {
-    min-width: 400px;
     flex: 1;
 }
 
 .player-stats__right-panel {
-    min-width: 400px;
     flex: 1;
 }
 
