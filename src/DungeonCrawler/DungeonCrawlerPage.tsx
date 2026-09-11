@@ -29,6 +29,7 @@ const exampleMonster: Character = {
         magicDefence: 20,
     },
     modifiers: [],
+    equipables: [],
     abilities: [],
 };
 const examplePlayer: Character = {
@@ -44,6 +45,7 @@ const examplePlayer: Character = {
         magicDefence: 10,
     },
     modifiers: [],
+    equipables: [],
     abilities: [
         {
             name: 'YEET!',

@@ -4,6 +4,7 @@ export interface Character {
     currentHP: number;
     currentMP: number;
     modifiers: StatModifier[];
+    equipables: Equipment[];
     abilities: Ability[];
 }
 
@@ -35,7 +36,14 @@ export interface StatModifier {
 
 export interface Equipment {
     name: string;
+    slot: EquipmentSlot;
     modifier: StatModifier;
+}
+
+export enum EquipmentSlot {
+    armour = 'armour',
+    weapon = 'weapon',
+    trinket = 'trinket',
 }
 
 export interface Ability {

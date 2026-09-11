@@ -1,13 +1,22 @@
-import { BaseStatNames, Character } from '../types';
+import { BaseStatNames, Character, StatModifier } from '../types';
 
-export const getCharacterStat = (character: Character, stat: BaseStatNames) => {
-    // Create a list of all modifiers (equipment or otherwise) for the given stat.
-    // Create an acc
-    // For each modifier
-    //      If the modifier is flat
-    //          add the modifier to the stat.
-    //      else
-    //          Multiply the modifier with the stat.
-    // Round the acc to an int.
-    // Return the acc
+export const getCharacterStat = (character: Character, stat: BaseStatNames): number => {
+    const modifiers: StatModifier[] = [
+        ...character.modifiers,
+        ...character.equipables.map((equipment) => equipment.modifier),
+    ];
+
+    let statAcc = character.stats[stat];
+
+    modifiers.forEach((modifier) => {
+        if (modifier.type === 'flat') {
+            statAcc += modifier.value;
+        } else {
+            statAcc *= modifier.value;
+        }
+    });
+
+    statAcc = Math.round(statAcc);
+
+    return statAcc;
 };
