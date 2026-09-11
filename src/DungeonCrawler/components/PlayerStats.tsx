@@ -1,10 +1,11 @@
 import './player-stats.css';
 import { useState } from 'react';
 
-import { Ability, AbilityType, Character, LogMessage } from '../domain/types';
+import { Ability, AbilityType, BaseStatNames, Character, LogMessage } from '../domain/types';
 import { Card } from '../../SharedComponents/Card/Card';
 import { Button, ButtonTheme } from '../../SharedComponents/Button/Button';
 import { attackAbility } from '../domain/constants';
+import { getCharacterStat } from '../domain/character/getCharacterStat';
 
 import { CharacterStat } from './CharacterStat';
 
@@ -74,16 +75,28 @@ export const PlayerStats = ({ player, combatLog, onPlayerAbility }: Props) => {
                     <div className="player-stats__stat-block">
                         <CharacterStat
                             label="HP"
-                            value={`${player.currentHP} / ${player.stats.healthPoints}`}
+                            value={`${player.currentHP} / ${getCharacterStat(player, BaseStatNames.healthPoints)}`}
                         />
                         <CharacterStat
                             label="MP"
-                            value={`${player.currentMP} / ${player.stats.magicPoints}`}
+                            value={`${player.currentMP} / ${getCharacterStat(player, BaseStatNames.magicPoints)}`}
                         />
-                        <CharacterStat label="ATK" value={player.stats.attack} />
-                        <CharacterStat label="MATK" value={player.stats.magicAttack} />
-                        <CharacterStat label="DEF" value={player.stats.defence} />
-                        <CharacterStat label="MDEF" value={player.stats.magicDefence} />
+                        <CharacterStat
+                            label="ATK"
+                            value={getCharacterStat(player, BaseStatNames.attack)}
+                        />
+                        <CharacterStat
+                            label="MATK"
+                            value={getCharacterStat(player, BaseStatNames.magicAttack)}
+                        />
+                        <CharacterStat
+                            label="DEF"
+                            value={getCharacterStat(player, BaseStatNames.defence)}
+                        />
+                        <CharacterStat
+                            label="MDEF"
+                            value={getCharacterStat(player, BaseStatNames.magicDefence)}
+                        />
                     </div>
 
                     <div className="player-stats__log">

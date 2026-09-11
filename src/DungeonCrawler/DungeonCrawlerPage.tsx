@@ -15,6 +15,8 @@ import {
 } from './domain/types';
 import { applyAbilityEffects } from './domain/character/applyAbilityEffects';
 import { attackAbility } from './domain/constants';
+import { exampleEquipables } from './domain/equipables';
+import { CharacterEquipment } from './components/CharacterEquipment';
 
 const exampleMonster: Character = {
     name: 'Armoured Skeleton',
@@ -29,6 +31,7 @@ const exampleMonster: Character = {
         magicDefence: 20,
     },
     modifiers: [],
+    equipables: [],
     abilities: [],
 };
 const examplePlayer: Character = {
@@ -44,6 +47,7 @@ const examplePlayer: Character = {
         magicDefence: 10,
     },
     modifiers: [],
+    equipables: exampleEquipables,
     abilities: [
         {
             name: 'YEET!',
@@ -164,6 +168,9 @@ const DungeonCrawlerPage = () => {
                         combatLog={combatLog}
                         onPlayerAbility={onPlayerAbility}
                     />
+                    {!!currentPlayer.equipables.length && (
+                        <CharacterEquipment equipables={currentPlayer.equipables} />
+                    )}
                 </div>
             )}
         </Page>

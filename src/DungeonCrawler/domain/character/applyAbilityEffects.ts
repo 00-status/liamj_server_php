@@ -1,6 +1,7 @@
-import { Ability, Character, DamageType, LogMessage, TargetScope } from '../types';
+import { Ability, BaseStatNames, Character, DamageType, LogMessage, TargetScope } from '../types';
 
 import { damageCharacter } from './damageCharacter';
+import { getCharacterStat } from './getCharacterStat';
 import { healCharacter } from './healCharacter';
 import { restoreMagicForCharacter } from './restoreMagicForCharacter';
 
@@ -15,19 +16,19 @@ const EFFECT_HANDLERS: Record<
     }
 > = {
     [DamageType.physical]: {
-        getStat: (caster) => caster.stats.attack,
+        getStat: (caster) => getCharacterStat(caster, BaseStatNames.attack),
         apply: (target, value) => damageCharacter(target, value, DamageType.physical),
     },
     [DamageType.magic]: {
-        getStat: (caster) => caster.stats.magicAttack,
+        getStat: (caster) => getCharacterStat(caster, BaseStatNames.magicAttack),
         apply: (target, value) => damageCharacter(target, value, DamageType.magic),
     },
     [DamageType.healing]: {
-        getStat: (caster) => caster.stats.healthPoints,
+        getStat: (caster) => getCharacterStat(caster, BaseStatNames.healthPoints),
         apply: (target, value) => healCharacter(target, value),
     },
     [DamageType.magic_restore]: {
-        getStat: (caster) => caster.stats.magicPoints,
+        getStat: (caster) => getCharacterStat(caster, BaseStatNames.magicPoints),
         apply: (target, value) => restoreMagicForCharacter(target, value),
     },
 };
