@@ -7,13 +7,22 @@ export interface Character {
     abilities: Ability[];
 }
 
+export enum BaseStatNames {
+    healthPoints = 'healthPoints',
+    magicPoints = 'magicPoints',
+    attack = 'attack',
+    magicAttack = 'magicAttack',
+    defence = 'defence',
+    magicDefence = 'magicDefence',
+}
+
 export interface BaseStats {
-    healthPoints: number;
-    magicPoints: number;
-    attack: number;
-    magicAttack: number;
-    defence: number;
-    magicDefence: number;
+    [BaseStatNames.healthPoints]: number;
+    [BaseStatNames.magicPoints]: number;
+    [BaseStatNames.attack]: number;
+    [BaseStatNames.magicAttack]: number;
+    [BaseStatNames.defence]: number;
+    [BaseStatNames.magicDefence]: number;
 }
 
 export interface StatModifier {
@@ -22,6 +31,11 @@ export interface StatModifier {
     value: number;
     type: 'flat' | 'percent'; // e.g., +10 ATK vs +15% ATK
     durationTurns?: number;
+}
+
+export interface Equipment {
+    name: string;
+    modifier: StatModifier;
 }
 
 export interface Ability {
