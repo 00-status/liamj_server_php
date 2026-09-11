@@ -37,7 +37,7 @@ export interface StatModifier {
 export interface Equipment {
     name: string;
     slot: EquipmentSlot;
-    modifier: StatModifier;
+    modifiers: StatModifier[];
 }
 
 export enum EquipmentSlot {

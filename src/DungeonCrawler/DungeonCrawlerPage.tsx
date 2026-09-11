@@ -15,6 +15,7 @@ import {
 } from './domain/types';
 import { applyAbilityEffects } from './domain/character/applyAbilityEffects';
 import { attackAbility } from './domain/constants';
+import { exampleEquipables } from './domain/equipables';
 
 const exampleMonster: Character = {
     name: 'Armoured Skeleton',
@@ -45,7 +46,7 @@ const examplePlayer: Character = {
         magicDefence: 10,
     },
     modifiers: [],
-    equipables: [],
+    equipables: exampleEquipables,
     abilities: [
         {
             name: 'YEET!',
