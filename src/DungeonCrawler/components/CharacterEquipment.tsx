@@ -1,24 +1,18 @@
-import { useMemo } from 'react';
-
 import './character-equipment.css';
 import { Button, ButtonTheme } from '../../SharedComponents/Button/Button';
 import { Card } from '../../SharedComponents/Card/Card';
 import { Equipment, StatModifier } from '../domain/types';
 import { BaseStatDisplayNames } from '../domain/constants';
+import { canCharacterEquipItem } from '../domain/character/canCharacterEquipItem';
 
 type Props = { equippables: Equipment[]; toggleEquipmentActive: (name: string) => void };
 
 export const CharacterEquipment = ({ equippables, toggleEquipmentActive }: Props) => {
-    const isPlayerAtItemCap = useMemo(() => {
-        const activeEquipment = equippables.filter((equipment) => equipment.active).length;
-        console.log(activeEquipment);
-        return activeEquipment >= 3;
-    }, [equippables]);
-
     return (
         <Card title="Equipment">
             <div className="character-equipment">
                 {equippables.map((equippable) => {
+                    const canThePlayerEquipItem = canCharacterEquipItem(equippables, equippable);
                     return (
                         <div key={equippable.name}>
                             <div className="character-equipment__item-header">
@@ -28,7 +22,7 @@ export const CharacterEquipment = ({ equippables, toggleEquipmentActive }: Props
                                 <Button
                                     onClick={() => toggleEquipmentActive(equippable.name)}
                                     buttonTheme={ButtonTheme.Subtle}
-                                    disabled={!equippable.active && isPlayerAtItemCap}
+                                    disabled={!equippable.active && !canThePlayerEquipItem}
                                 >
                                     {equippable.active ? 'Un-Equip' : 'Equip'}
                                 </Button>
