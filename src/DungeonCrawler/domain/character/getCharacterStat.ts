@@ -2,7 +2,9 @@ import { BaseStatNames, Character, StatModifier } from '../types';
 
 export const getCharacterStat = (character: Character, stat: BaseStatNames): number => {
     const equipableModifiers = character.equipables.reduce<StatModifier[]>((acc, equipment) => {
-        acc = [...acc, ...equipment.modifiers];
+        if (equipment.active) {
+            acc = [...acc, ...equipment.modifiers];
+        }
         return acc;
     }, []);
 

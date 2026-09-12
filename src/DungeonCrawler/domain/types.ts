@@ -37,6 +37,7 @@ export interface StatModifier {
 export interface Equipment {
     name: string;
     slot: EquipmentSlot;
+    active: boolean;
     modifiers: StatModifier[];
 }
 
