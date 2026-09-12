@@ -155,6 +155,15 @@ const DungeonCrawlerPage = () => {
         setCurrentPlayer(newPlayer);
     };
 
+    const toggleEquipmentActive = (name: string) => {
+        setCurrentPlayer((state) => ({
+            ...state,
+            equipables: state.equipables.map((item) =>
+                item.name === name ? { ...item, active: !item.active } : item,
+            ),
+        }));
+    };
+
     return (
         <Page title="Dungeons of Galericca" routes={[]}>
             {gameState === 'game_over' && <div>Game Over!</div>}
@@ -169,7 +178,10 @@ const DungeonCrawlerPage = () => {
                         onPlayerAbility={onPlayerAbility}
                     />
                     {!!currentPlayer.equipables.length && (
-                        <CharacterEquipment equipables={currentPlayer.equipables} />
+                        <CharacterEquipment
+                            equippables={currentPlayer.equipables}
+                            toggleEquipmentActive={toggleEquipmentActive}
+                        />
                     )}
                 </div>
             )}

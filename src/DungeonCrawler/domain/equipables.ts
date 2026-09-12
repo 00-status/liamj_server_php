@@ -4,6 +4,7 @@ export const exampleEquipables: Equipment[] = [
     {
         name: 'Cape of Daring',
         slot: EquipmentSlot.trinket,
+        active: true,
         modifiers: [
             {
                 id: '1',
@@ -22,6 +23,7 @@ export const exampleEquipables: Equipment[] = [
     {
         name: 'Armour of the Valiant Knight',
         slot: EquipmentSlot.armour,
+        active: true,
         modifiers: [
             {
                 id: '3',
@@ -40,6 +42,7 @@ export const exampleEquipables: Equipment[] = [
     {
         name: 'Hellblade',
         slot: EquipmentSlot.weapon,
+        active: true,
         modifiers: [
             {
                 id: '3',
@@ -51,6 +54,25 @@ export const exampleEquipables: Equipment[] = [
                 id: '4',
                 stat: BaseStatNames.magicAttack,
                 value: 25,
+                type: 'flat',
+            },
+        ],
+    },
+    {
+        name: 'Phial of Light',
+        slot: EquipmentSlot.trinket,
+        active: false,
+        modifiers: [
+            {
+                id: '5',
+                stat: BaseStatNames.magicPoints,
+                value: 1,
+                type: 'flat',
+            },
+            {
+                id: '6',
+                stat: BaseStatNames.magicDefence,
+                value: 10,
                 type: 'flat',
             },
         ],

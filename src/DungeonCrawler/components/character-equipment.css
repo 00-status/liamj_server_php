@@ -1,0 +1,12 @@
+.character-equipment {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.character-equipment__item-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
