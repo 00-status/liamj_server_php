@@ -19,3 +19,12 @@ export const attackAbility: Ability = {
         },
     ],
 };
+
+export const BaseStatDisplayNames = {
+    healthPoints: 'Health Points',
+    magicPoints: 'Magic Points',
+    attack: 'Attack',
+    magicAttack: 'Magic Attack',
+    defence: 'Defence',
+    magicDefence: 'Magic Defence',
+};
