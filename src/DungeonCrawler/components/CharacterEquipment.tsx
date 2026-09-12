@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import './character-equipment.css';
 import { Button, ButtonTheme } from '../../SharedComponents/Button/Button';
 import { Card } from '../../SharedComponents/Card/Card';
@@ -7,6 +9,12 @@ import { BaseStatDisplayNames } from '../domain/constants';
 type Props = { equippables: Equipment[]; toggleEquipmentActive: (name: string) => void };
 
 export const CharacterEquipment = ({ equippables, toggleEquipmentActive }: Props) => {
+    const isPlayerAtItemCap = useMemo(() => {
+        const activeEquipment = equippables.filter((equipment) => equipment.active).length;
+        console.log(activeEquipment);
+        return activeEquipment >= 3;
+    }, [equippables]);
+
     return (
         <Card title="Equipment">
             <div className="character-equipment">
@@ -20,6 +28,7 @@ export const CharacterEquipment = ({ equippables, toggleEquipmentActive }: Props
                                 <Button
                                     onClick={() => toggleEquipmentActive(equippable.name)}
                                     buttonTheme={ButtonTheme.Subtle}
+                                    disabled={!equippable.active && isPlayerAtItemCap}
                                 >
                                     {equippable.active ? 'Un-Equip' : 'Equip'}
                                 </Button>

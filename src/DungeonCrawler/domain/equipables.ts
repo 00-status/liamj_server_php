@@ -58,4 +58,23 @@ export const exampleEquipables: Equipment[] = [
             },
         ],
     },
+    {
+        name: 'Phial of Light',
+        slot: EquipmentSlot.trinket,
+        active: false,
+        modifiers: [
+            {
+                id: '5',
+                stat: BaseStatNames.magicPoints,
+                value: 1,
+                type: 'flat',
+            },
+            {
+                id: '6',
+                stat: BaseStatNames.magicDefence,
+                value: 10,
+                type: 'flat',
+            },
+        ],
+    },
 ];
