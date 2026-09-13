@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { Page } from '../SharedComponents/Page/Page';
 
@@ -85,23 +85,24 @@ enum GameState {
 }
 
 const DungeonCrawlerPage = () => {
-    const [gameState, setGameState] = useState<GameState>(GameState.player_turn);
     const [roomsClearedCount, setRoomsClearedCount] = useState<number>(0);
     const [currentPlayer, setCurrentPlayer] = useState<Character>(examplePlayer);
-    const [currentMonster, setCurrentMonster] = useState<Character | null>(
+    const [currentMonster, setCurrentMonster] = useState<Character | null>(() =>
         selectNewMonster(exampleMonsters),
     );
 
     const [combatLog, setCombatLog] = useState<LogMessage[]>([]);
 
-    useEffect(() => {
+    const gameState = useMemo(() => {
         if (currentPlayer.currentHP <= 0) {
-            setGameState(GameState.game_over);
+            return GameState.game_over;
         }
-    }, [currentPlayer.currentHP, currentMonster?.currentHP]);
 
-    useEffect(() => {
-        if (!currentMonster || !currentPlayer || gameState !== GameState.enemy_turn) {
+        return GameState.player_turn;
+    }, [currentPlayer.currentHP]);
+
+    const onEnemyTurn = () => {
+        if (!currentMonster) {
             return;
         }
 
@@ -114,9 +115,7 @@ const DungeonCrawlerPage = () => {
         setCurrentPlayer(newPlayer);
         setCurrentMonster(newMonster);
         setCombatLog((state) => [...state, ...logs]);
-
-        setGameState(GameState.player_turn);
-    }, [gameState, currentMonster, currentPlayer]);
+    };
 
     const onPlayerAbility = (ability: Ability) => {
         if (!currentMonster || !currentPlayer) {
@@ -131,16 +130,15 @@ const DungeonCrawlerPage = () => {
 
         if (newMonster.currentHP <= 0) {
             setCurrentMonster(selectNewMonster(exampleMonsters));
-            setRoomsClearedCount((count) => ++count);
-            setGameState(GameState.player_turn);
+            setRoomsClearedCount((count) => count + 1);
             setCombatLog([]);
         } else {
             setCurrentMonster(newMonster);
-            setGameState(GameState.enemy_turn);
             setCombatLog((state) => [...state, ...logs]);
         }
 
         setCurrentPlayer(newPlayer);
+        onEnemyTurn();
     };
 
     const toggleEquipmentActive = (name: string) => {
@@ -155,8 +153,7 @@ const DungeonCrawlerPage = () => {
     return (
         <Page title="Dungeons of Galericca" routes={[]}>
             {gameState === 'game_over' && <div>Game Over!</div>}
-            {gameState === 'game_won' && <div>Game Won!</div>}
-            {(gameState === 'player_turn' || gameState === 'enemy_turn') && (
+            {gameState === 'player_turn' && (
                 <div className="dungeon-crawler-page">
                     <div className="dungeon-crawler-page__room_count">{roomsClearedCount}</div>
                     {currentMonster && <MonsterStats monster={currentMonster} />}
