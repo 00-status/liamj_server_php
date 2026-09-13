@@ -1,18 +1,26 @@
 const js = require('@eslint/js');
 const globals = require('globals');
 const react = require('eslint-plugin-react');
-const reactHooks = require('eslint-plugin-react-hooks');
 const ts = require('@typescript-eslint/eslint-plugin');
 const tsParser = require('@typescript-eslint/parser');
-const importPlugin = require('eslint-plugin-import');
+const importX = require('eslint-plugin-import-x');
 const prettier = require('eslint-plugin-prettier');
 const prettierConfig = require('eslint-config-prettier');
 
 module.exports = [
     {
-        files: ['**/*.{js,jsx,ts,tsx}'],
-        ignores: ['dist/**', 'node_modules/**'],
+        ignores: ['public/**', 'node_modules/**', '*.config.js', '*.config.cjs', 'webpack.*.js'],
+    },
 
+    js.configs.recommended,
+    react.configs.flat.recommended,
+    react.configs.flat['jsx-runtime'],
+    importX.flatConfigs.recommended,
+    importX.flatConfigs.typescript,
+    prettierConfig,
+
+    {
+        files: ['**/*.{js,jsx,ts,tsx}'],
         languageOptions: {
             parser: tsParser,
             ecmaVersion: 'latest',
@@ -26,36 +34,25 @@ module.exports = [
                 ecmaFeatures: { jsx: true },
             },
         },
-
         plugins: {
-            react,
-            'react-hooks': reactHooks,
             '@typescript-eslint': ts,
-            import: importPlugin,
             prettier,
         },
-
         settings: {
             react: { version: 'detect' },
-            'import/resolver': {
+            'import-x/resolver': {
                 typescript: {
                     project: './tsconfig.json',
                 },
             },
         },
-
         rules: {
-            ...js.configs.recommended.rules,
-            ...react.configs.recommended.rules,
             ...ts.configs.recommended.rules,
-            ...importPlugin.configs.recommended.rules,
-            ...prettierConfig.rules,
 
             'prettier/prettier': 'error',
             'react/react-in-jsx-scope': 'off',
             'react/no-unescaped-entities': 'off',
-
-            'import/order': [
+            'import-x/order': [
                 'warn',
                 {
                     groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
@@ -63,7 +60,5 @@ module.exports = [
                 },
             ],
         },
-
-        ignores: ['*.config.js', '*.config.cjs', 'webpack.*.js'],
     },
 ];
