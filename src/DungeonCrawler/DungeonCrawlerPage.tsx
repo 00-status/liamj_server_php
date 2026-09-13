@@ -15,25 +15,11 @@ import {
 } from './domain/types';
 import { applyAbilityEffects } from './domain/character/applyAbilityEffects';
 import { attackAbility } from './domain/constants';
-import { exampleEquipables } from './domain/equipables';
+import { exampleEquippables } from './domain/equippables';
 import { CharacterEquipment } from './components/CharacterEquipment';
+import { selectNewMonster } from './domain/monster/selectNewMonster';
+import { exampleMonsters } from './domain/monsters';
 
-const exampleMonster: Character = {
-    name: 'Armoured Skeleton',
-    currentHP: 50,
-    currentMP: 2,
-    stats: {
-        healthPoints: 50,
-        magicPoints: 5,
-        attack: 10,
-        magicAttack: 10,
-        defence: 50,
-        magicDefence: 20,
-    },
-    modifiers: [],
-    equipables: [],
-    abilities: [],
-};
 const examplePlayer: Character = {
     name: 'Jimothy the Jacked',
     currentHP: 100,
@@ -47,7 +33,7 @@ const examplePlayer: Character = {
         magicDefence: 10,
     },
     modifiers: [],
-    equipables: exampleEquipables,
+    equipables: exampleEquippables,
     abilities: [
         {
             name: 'YEET!',
@@ -102,7 +88,9 @@ const DungeonCrawlerPage = () => {
     const [gameState, setGameState] = useState<GameState>(GameState.player_turn);
     const [roomsClearedCount, setRoomsClearedCount] = useState<number>(0);
     const [currentPlayer, setCurrentPlayer] = useState<Character>(examplePlayer);
-    const [currentMonster, setCurrentMonster] = useState<Character | null>({ ...exampleMonster });
+    const [currentMonster, setCurrentMonster] = useState<Character | null>(
+        selectNewMonster(exampleMonsters),
+    );
 
     const [combatLog, setCombatLog] = useState<LogMessage[]>([]);
 
@@ -142,7 +130,7 @@ const DungeonCrawlerPage = () => {
         } = applyAbilityEffects(currentPlayer, currentMonster, ability);
 
         if (newMonster.currentHP <= 0) {
-            setCurrentMonster({ ...exampleMonster });
+            setCurrentMonster(selectNewMonster(exampleMonsters));
             setRoomsClearedCount((count) => ++count);
             setGameState(GameState.player_turn);
             setCombatLog([]);

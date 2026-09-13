@@ -1,6 +1,6 @@
 import { BaseStatNames, Equipment, EquipmentSlot } from './types';
 
-export const exampleEquipables: Equipment[] = [
+export const exampleEquippables: Equipment[] = [
     {
         name: 'Cape of Daring',
         slot: EquipmentSlot.trinket,
