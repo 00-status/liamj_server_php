@@ -3,7 +3,7 @@ import { Ability, AbilityType, DamageType, TargetScope } from './types';
 export const attackAbility: Ability = {
     name: 'Attack',
     cost: 0,
-    type: AbilityType.physical,
+    type: AbilityType.default,
     statusEffects: [
         {
             target: TargetScope.opponent,

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { Page } from '../SharedComponents/Page/Page';
 
@@ -35,6 +35,7 @@ const examplePlayer: Character = {
     modifiers: [],
     equipables: exampleEquippables,
     abilities: [
+        attackAbility,
         {
             name: 'YEET!',
             cost: 3,
@@ -112,8 +113,8 @@ const DungeonCrawlerPage = () => {
             logs,
         } = applyAbilityEffects(currentMonster, currentPlayer, attackAbility);
 
-        setCurrentPlayer(newPlayer);
-        setCurrentMonster(newMonster);
+        setCurrentPlayer(() => newPlayer);
+        setCurrentMonster(() => newMonster);
         setCombatLog((state) => [...state, ...logs]);
     };
 
@@ -128,17 +129,17 @@ const DungeonCrawlerPage = () => {
             logs,
         } = applyAbilityEffects(currentPlayer, currentMonster, ability);
 
+        setCurrentPlayer(() => newPlayer);
+
         if (newMonster.currentHP <= 0) {
-            setCurrentMonster(selectNewMonster(exampleMonsters));
+            setCurrentMonster(() => selectNewMonster(exampleMonsters));
             setRoomsClearedCount((count) => count + 1);
             setCombatLog([]);
         } else {
-            setCurrentMonster(newMonster);
+            setCurrentMonster(() => newMonster);
             setCombatLog((state) => [...state, ...logs]);
+            onEnemyTurn();
         }
-
-        setCurrentPlayer(newPlayer);
-        onEnemyTurn();
     };
 
     const toggleEquipmentActive = (name: string) => {

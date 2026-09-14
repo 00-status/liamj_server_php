@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { Ability, AbilityType, BaseStatNames, Character, LogMessage } from '../domain/types';
 import { Card } from '../../SharedComponents/Card/Card';
 import { Button, ButtonTheme } from '../../SharedComponents/Button/Button';
-import { attackAbility } from '../domain/constants';
 import { getCharacterStat } from '../domain/character/getCharacterStat';
 
 import { CharacterStat } from './CharacterStat';
@@ -31,11 +30,20 @@ export const PlayerStats = ({ player, combatLog, onPlayerAbility }: Props) => {
 
     const getActions = (): Array<MenuOption> => {
         switch (menuState) {
-            case MenuState.base:
+            case MenuState.base: {
+                const defaultAbilities = player.abilities
+                    .filter((ability) => ability.type === AbilityType.default)
+                    .map((ability) => ({
+                        action: () => onPlayerAbility(ability),
+                        label: ability.name,
+                        isDisabled: ability.cost > player.currentMP,
+                    }));
+
                 return [
-                    { action: () => onPlayerAbility(attackAbility), label: 'Attack!' },
+                    ...defaultAbilities,
                     { action: () => setMenuState(MenuState.magic), label: 'Magic' },
                 ];
+            }
             case MenuState.magic: {
                 const magicAbilities = player.abilities
                     .filter((ability) => ability.type === AbilityType.magic)
