@@ -55,7 +55,8 @@ export interface Ability {
 }
 
 export enum AbilityType {
-    physical = 'physical',
+    default = 'default',
+    skill = 'skill',
     magic = 'magic',
 }
 

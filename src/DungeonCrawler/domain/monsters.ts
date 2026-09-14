@@ -1,3 +1,4 @@
+import { attackAbility } from './constants';
 import { AbilityType, BaseStatNames, Character, DamageType, TargetScope } from './types';
 
 export const exampleMonsters: Character[] = [
@@ -16,6 +17,7 @@ export const exampleMonsters: Character[] = [
         modifiers: [],
         equipables: [],
         abilities: [
+            attackAbility,
             {
                 name: 'Bone Bonk',
                 cost: 3,
@@ -46,6 +48,7 @@ export const exampleMonsters: Character[] = [
         modifiers: [],
         equipables: [],
         abilities: [
+            attackAbility,
             {
                 name: 'Bone Bonk',
                 cost: 3,
@@ -76,6 +79,7 @@ export const exampleMonsters: Character[] = [
         modifiers: [],
         equipables: [],
         abilities: [
+            attackAbility,
             {
                 name: 'Bite',
                 cost: 4,
