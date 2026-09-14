@@ -1,68 +1,9 @@
 import { applyAbilityEffects } from './character/applyAbilityEffects';
-import { attackAbility } from './constants';
-import { exampleEquippables } from './equippables';
+import { examplePlayer } from './constants';
 import { pickMonsterAbility } from './monster/pickMonsterAbility';
 import { selectNewMonster } from './monster/selectNewMonster';
 import { exampleMonsters } from './monsters';
-import { Ability, AbilityType, Character, DamageType, LogMessage, TargetScope } from './types';
-
-const examplePlayer: Character = {
-    name: 'Jimothy the Jacked',
-    currentHP: 100,
-    currentMP: 6,
-    stats: {
-        healthPoints: 100,
-        magicPoints: 6,
-        attack: 20,
-        magicAttack: 20,
-        defence: 10,
-        magicDefence: 10,
-    },
-    modifiers: [],
-    equipables: exampleEquippables,
-    abilities: [
-        attackAbility,
-        {
-            name: 'YEET!',
-            cost: 3,
-            type: AbilityType.magic,
-            statusEffects: [
-                {
-                    target: TargetScope.opponent,
-                    damageType: DamageType.magic,
-                    power: 1.5,
-                    modifiers: [],
-                },
-            ],
-        },
-        {
-            name: 'Sweep the Leg!',
-            cost: 2,
-            type: AbilityType.magic,
-            statusEffects: [
-                {
-                    target: TargetScope.opponent,
-                    damageType: DamageType.magic,
-                    power: 1.2,
-                    modifiers: [],
-                },
-            ],
-        },
-        {
-            name: 'Get me a beer!',
-            cost: 2,
-            type: AbilityType.magic,
-            statusEffects: [
-                {
-                    target: TargetScope.self,
-                    damageType: DamageType.healing,
-                    power: 0.2,
-                    modifiers: [],
-                },
-            ],
-        },
-    ],
-};
+import { Ability, Character, LogMessage } from './types';
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability }
