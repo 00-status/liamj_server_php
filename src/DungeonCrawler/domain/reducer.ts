@@ -106,7 +106,7 @@ export const dungeonCrawlerReducer = (
                 return {
                     ...state,
                     phase: GamePhase.PLAYER_TURN,
-                    roomsClearedCount: state.roomsClearedCount++,
+                    roomsClearedCount: state.roomsClearedCount + 1,
                     currentPlayer: newPlayer,
                     currentMonster: selectNewMonster(exampleMonsters),
                     combatLog: [],
@@ -137,10 +137,10 @@ export const dungeonCrawlerReducer = (
             };
         }
         case 'PLAYER_TOGGLES_EQUIPMENT': {
-            const equippables = state.currentPlayer.equipables.map((item) =>
+            const equipables = state.currentPlayer.equipables.map((item) =>
                 item.name === action.equippableName ? { ...item, active: !item.active } : item,
             );
-            const newPlayer = { ...state.currentPlayer, equippables };
+            const newPlayer: Character = { ...state.currentPlayer, equipables };
 
             return { ...state, currentPlayer: newPlayer };
         }
