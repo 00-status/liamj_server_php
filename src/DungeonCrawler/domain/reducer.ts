@@ -1,6 +1,7 @@
 import { applyAbilityEffects } from './character/applyAbilityEffects';
 import { attackAbility } from './constants';
 import { exampleEquippables } from './equippables';
+import { pickMonsterAbility } from './monster/pickMonsterAbility';
 import { selectNewMonster } from './monster/selectNewMonster';
 import { exampleMonsters } from './monsters';
 import { Ability, AbilityType, Character, DamageType, LogMessage, TargetScope } from './types';
@@ -65,7 +66,7 @@ const examplePlayer: Character = {
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability }
-    | { type: 'ENEMY_USES_ABILITY'; ability: Ability }
+    | { type: 'ENEMY_USES_ABILITY' }
     | { type: 'PLAYER_TOGGLES_EQUIPMENT'; equippableName: string };
 
 export enum GamePhase {
@@ -122,11 +123,16 @@ export const dungeonCrawlerReducer = (
             };
         }
         case 'ENEMY_USES_ABILITY': {
+            const chosenAbility = pickMonsterAbility(
+                state.currentMonster.currentMP,
+                state.currentMonster.abilities,
+            );
+
             const {
                 caster: newMonster,
                 opponent: newPlayer,
                 logs,
-            } = applyAbilityEffects(state.currentMonster, state.currentPlayer, action.ability);
+            } = applyAbilityEffects(state.currentMonster, state.currentPlayer, chosenAbility);
 
             return {
                 ...state,

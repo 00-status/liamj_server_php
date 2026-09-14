@@ -8,7 +8,6 @@ import { PlayerStats } from './components/PlayerStats';
 import { CharacterEquipment } from './components/CharacterEquipment';
 import { dungeonCrawlerInitialState, dungeonCrawlerReducer, GamePhase } from './domain/reducer';
 import { Ability } from './domain/types';
-import { attackAbility } from './domain/constants';
 
 const DungeonCrawlerPage = () => {
     const [state, dispatch] = useReducer(dungeonCrawlerReducer, dungeonCrawlerInitialState);
@@ -21,7 +20,7 @@ const DungeonCrawlerPage = () => {
             return;
         }
 
-        dispatch({ type: 'ENEMY_USES_ABILITY', ability: attackAbility });
+        dispatch({ type: 'ENEMY_USES_ABILITY' });
     }, [state.phase]);
 
     const onPlayerAbility = (ability: Ability) => {
