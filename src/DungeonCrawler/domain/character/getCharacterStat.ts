@@ -1,17 +1,14 @@
-import { BaseStatNames, Character, DynamicStatModifier } from '../types';
+import { BaseStatModifier, BaseStatNames, Character } from '../types';
 
 export const getCharacterStat = (character: Character, stat: BaseStatNames): number => {
-    const equipableModifiers = character.equipables.reduce<DynamicStatModifier[]>(
-        (acc, equipment) => {
-            if (equipment.active) {
-                acc = [...acc, ...equipment.modifiers];
-            }
-            return acc;
-        },
-        [],
-    );
+    const equipableModifiers = character.equipables.reduce<BaseStatModifier[]>((acc, equipment) => {
+        if (equipment.active) {
+            acc = [...acc, ...equipment.modifiers];
+        }
+        return acc;
+    }, []);
 
-    const modifiers: DynamicStatModifier[] = [...character.modifiers, ...equipableModifiers].filter(
+    const modifiers: BaseStatModifier[] = [...character.modifiers, ...equipableModifiers].filter(
         (modifier) => modifier.stat === stat,
     );
 
