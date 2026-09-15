@@ -7,12 +7,14 @@ export const attackAbility: Ability = {
     type: AbilityType.default,
     statusEffects: [
         {
+            name: 'Attack',
             target: TargetScope.opponent,
             damageType: DamageType.physical,
             power: 1.0,
             modifiers: [],
         },
         {
+            name: 'MP Restore',
             target: TargetScope.self,
             damageType: DamageType.magic_restore,
             power: 0.2,
@@ -34,6 +36,7 @@ export const examplePlayer: Character = {
         magicDefence: 10,
     },
     modifiers: [],
+    pointModifiers: [],
     equipables: exampleEquippables,
     abilities: [
         attackAbility,
@@ -43,6 +46,7 @@ export const examplePlayer: Character = {
             type: AbilityType.magic,
             statusEffects: [
                 {
+                    name: 'YEET!',
                     target: TargetScope.opponent,
                     damageType: DamageType.magic,
                     power: 1.5,
@@ -56,6 +60,7 @@ export const examplePlayer: Character = {
             type: AbilityType.magic,
             statusEffects: [
                 {
+                    name: 'Sweep the Leg!',
                     target: TargetScope.opponent,
                     damageType: DamageType.magic,
                     power: 1.2,
@@ -69,6 +74,7 @@ export const examplePlayer: Character = {
             type: AbilityType.magic,
             statusEffects: [
                 {
+                    name: 'HP Restore',
                     target: TargetScope.self,
                     damageType: DamageType.healing,
                     power: 0.2,

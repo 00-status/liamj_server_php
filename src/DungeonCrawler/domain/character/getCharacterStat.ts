@@ -1,19 +1,25 @@
-import { BaseStatNames, Character, StatModifier } from '../types';
+import { BaseStatModifier, BaseStatNames, Character } from '../types';
 
 export const getCharacterStat = (character: Character, stat: BaseStatNames): number => {
-    const equipableModifiers = character.equipables.reduce<StatModifier[]>((acc, equipment) => {
+    const equipableModifiers = character.equipables.reduce<BaseStatModifier[]>((acc, equipment) => {
         if (equipment.active) {
             acc = [...acc, ...equipment.modifiers];
         }
         return acc;
     }, []);
 
-    const modifiers: StatModifier[] = [...character.modifiers, ...equipableModifiers].filter(
+    const modifiers: BaseStatModifier[] = [...character.modifiers, ...equipableModifiers].filter(
         (modifier) => modifier.stat === stat,
     );
 
     // Ensure Flat values are applied first
-    modifiers.sort((e1) => (e1.type === 'flat' ? -1 : 1));
+    modifiers.sort((a, b) => {
+        if (a.type === b.type) {
+            return 0;
+        }
+
+        return a.type === 'flat' ? -1 : 1;
+    });
 
     let statAcc = character.stats[stat];
     modifiers.forEach((modifier) => {

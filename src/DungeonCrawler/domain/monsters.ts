@@ -15,6 +15,7 @@ export const exampleMonsters: Character[] = [
             magicDefence: 20,
         },
         modifiers: [],
+        pointModifiers: [],
         equipables: [],
         abilities: [
             attackAbility,
@@ -24,6 +25,7 @@ export const exampleMonsters: Character[] = [
                 type: AbilityType.magic,
                 statusEffects: [
                     {
+                        name: 'Bone Bonk',
                         target: TargetScope.opponent,
                         damageType: DamageType.magic,
                         power: 3.0,
@@ -46,6 +48,7 @@ export const exampleMonsters: Character[] = [
             magicDefence: 20,
         },
         modifiers: [],
+        pointModifiers: [],
         equipables: [],
         abilities: [
             attackAbility,
@@ -55,6 +58,7 @@ export const exampleMonsters: Character[] = [
                 type: AbilityType.magic,
                 statusEffects: [
                     {
+                        name: 'Bone Bonk',
                         target: TargetScope.opponent,
                         damageType: DamageType.magic,
                         power: 3.0,
@@ -77,6 +81,7 @@ export const exampleMonsters: Character[] = [
             magicDefence: 20,
         },
         modifiers: [],
+        pointModifiers: [],
         equipables: [],
         abilities: [
             attackAbility,
@@ -86,18 +91,28 @@ export const exampleMonsters: Character[] = [
                 type: AbilityType.magic,
                 statusEffects: [
                     {
+                        name: 'Bite',
                         target: TargetScope.opponent,
                         damageType: DamageType.magic,
                         power: 3.0,
                         modifiers: [
                             {
                                 id: '1',
+                                name: 'Defence Drain',
                                 stat: BaseStatNames.defence,
                                 value: -10,
                                 type: 'flat',
                                 durationTurns: 2,
                             },
                         ],
+                    },
+                    {
+                        name: 'Rot Poison',
+                        target: TargetScope.opponent,
+                        damageType: DamageType.magic,
+                        power: 0.5,
+                        duration: 3,
+                        modifiers: [],
                     },
                 ],
             },

@@ -1,11 +1,20 @@
-import { Ability, BaseStatNames, Character, DamageType, LogMessage, TargetScope } from '../types';
+import {
+    Ability,
+    BaseStatNames,
+    Character,
+    DamageType,
+    LogMessage,
+    PointModifier,
+    DynamicStatModifier,
+    TargetScope,
+} from '../types';
 
 import { damageCharacter } from './damageCharacter';
 import { getCharacterStat } from './getCharacterStat';
 import { healCharacter } from './healCharacter';
 import { restoreMagicForCharacter } from './restoreMagicForCharacter';
 
-const EFFECT_HANDLERS: Record<
+const STATUS_EFFECT_HANDLERS: Record<
     DamageType,
     {
         getStat: (caster: Character) => number;
@@ -46,30 +55,103 @@ export const applyAbilityEffects = (
     const logs: LogMessage[] = [];
 
     for (const effect of ability.statusEffects) {
-        const handler = EFFECT_HANDLERS[effect.damageType];
-        if (!handler) {
-            continue;
+        const isSelfTarget = effect.target === TargetScope.self;
+        let currentTarget = isSelfTarget ? caster : opponent;
+
+        // ==========================================
+        // PHASE 1: Generic Modifier Application
+        // ==========================================
+
+        if (effect.modifiers.length > 0) {
+            // Give each applied modifier a fresh ID so effects can stack
+            const instantiatedModifiers: DynamicStatModifier[] = effect.modifiers.map(
+                (modifier) => ({
+                    ...modifier,
+                    id: crypto.randomUUID(),
+                }),
+            );
+
+            currentTarget = {
+                ...currentTarget,
+                modifiers: [...currentTarget.modifiers, ...instantiatedModifiers],
+            };
+
+            logs.push({
+                id: crypto.randomUUID(),
+                message: `${currentTarget.name} received stat modifiers from ${ability.name}.`,
+            });
         }
 
-        const isSelfTarget = effect.target === TargetScope.self;
-        const currentTarget = isSelfTarget ? caster : opponent;
+        if (effect.duration && effect.duration > 0) {
+            const newPointModifier: PointModifier = {
+                id: crypto.randomUUID(),
+                name: effect.name,
+                damageType: effect.damageType,
+                power: effect.power,
+                duration: effect.duration,
+            };
 
-        const baseStat = handler.getStat(caster);
-        const calculatedValue = baseStat * effect.power;
+            currentTarget = {
+                ...currentTarget,
+                pointModifiers: [...currentTarget.pointModifiers, newPointModifier],
+            };
 
-        const { updatedTarget, statChange } = handler.apply(currentTarget, calculatedValue);
+            logs.push({
+                id: crypto.randomUUID(),
+                message: `${currentTarget.name} is afflicted with a lingering effect!`,
+            });
+        }
+
+        // ==========================================
+        // PHASE 2: Immediate Handler Execution
+        // ==========================================
+
+        const handler = STATUS_EFFECT_HANDLERS[effect.damageType];
+
+        // Only apply immediate damage if the effect is NOT a DoT.
+        if (handler && !effect.duration) {
+            const baseStat = handler.getStat(caster);
+            const calculatedValue = baseStat * effect.power;
+
+            const { updatedTarget, statChange } = handler.apply(currentTarget, calculatedValue);
+            currentTarget = updatedTarget;
+
+            logs.push({
+                id: crypto.randomUUID(),
+                message: `${caster.name} used ${ability.name} on ${currentTarget.name} for ${statChange} ${effect.damageType}!`,
+            });
+        }
 
         if (isSelfTarget) {
-            caster = updatedTarget;
+            caster = currentTarget;
         } else {
-            opponent = updatedTarget;
+            opponent = currentTarget;
         }
-
-        logs.push({
-            id: crypto.randomUUID(),
-            message: `${caster.name} used ${ability.name} on ${currentTarget.name} for ${statChange} ${effect.damageType}!`,
-        });
     }
 
     return { caster, opponent, logs };
+};
+
+export const applyPointModifierEffects = (
+    character: Character,
+): { target: Character; logs: LogMessage[] } => {
+    let target: Character = { ...character };
+    const logs: LogMessage[] = [];
+
+    character.pointModifiers.forEach((pointModifier: PointModifier) => {
+        const handler = STATUS_EFFECT_HANDLERS[pointModifier.damageType];
+
+        const baseStat = handler.getStat(character);
+        const calculatedValue = baseStat * pointModifier.power;
+
+        const { updatedTarget, statChange } = handler.apply(target, calculatedValue);
+
+        target = updatedTarget;
+        logs.push({
+            id: crypto.randomUUID(),
+            message: `${character.name} took ${statChange} ${pointModifier.damageType} from ${pointModifier.name}!`,
+        });
+    });
+
+    return { target, logs };
 };
