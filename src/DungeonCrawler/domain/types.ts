@@ -29,6 +29,7 @@ export interface BaseStats {
 
 export interface StatModifier {
     id: string;
+    name: string;
     stat: keyof BaseStats;
     value: number;
     type: 'flat' | 'percent'; // e.g., +10 ATK vs +15% ATK

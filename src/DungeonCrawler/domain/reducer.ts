@@ -1,4 +1,5 @@
 import { applyAbilityEffects, applyPointModifierEffects } from './character/applyAbilityEffects';
+import { decreaseModifierDuration } from './character/decreaseModifierDuration';
 import { examplePlayer } from './constants';
 import { pickMonsterAbility } from './monster/pickMonsterAbility';
 import { selectNewMonster } from './monster/selectNewMonster';
@@ -40,13 +41,18 @@ export const dungeonCrawlerReducer = (
         case 'PLAYER_USES_ABILITY': {
             const playerWithPointModifiers = applyPointModifierEffects(state.currentPlayer);
 
-            // Decrease Modifier duration
+            const { newCharacter: playerWithDecreasedModifiers, logs: modifierLogs } =
+                decreaseModifierDuration(playerWithPointModifiers);
 
             const {
                 caster: newPlayer,
                 opponent: newMonster,
                 logs,
-            } = applyAbilityEffects(playerWithPointModifiers, state.currentMonster, action.ability);
+            } = applyAbilityEffects(
+                playerWithDecreasedModifiers,
+                state.currentMonster,
+                action.ability,
+            );
 
             if (newMonster.currentHP <= 0) {
                 return {
@@ -64,7 +70,7 @@ export const dungeonCrawlerReducer = (
                 phase: GamePhase.ENEMY_TURN,
                 currentPlayer: newPlayer,
                 currentMonster: newMonster,
-                combatLog: [...state.combatLog, ...logs],
+                combatLog: [...state.combatLog, ...modifierLogs, ...logs],
             };
         }
         case 'ENEMY_USES_ABILITY': {
@@ -73,18 +79,27 @@ export const dungeonCrawlerReducer = (
                 state.currentMonster.abilities,
             );
 
+            const monsterWithPointModifiers = applyPointModifierEffects(state.currentMonster);
+
+            const { newCharacter: monsterWithDecreasedModifiers, logs: modifierLogs } =
+                decreaseModifierDuration(monsterWithPointModifiers);
+
             const {
                 caster: newMonster,
                 opponent: newPlayer,
                 logs,
-            } = applyAbilityEffects(state.currentMonster, state.currentPlayer, chosenAbility);
+            } = applyAbilityEffects(
+                monsterWithDecreasedModifiers,
+                state.currentPlayer,
+                chosenAbility,
+            );
 
             return {
                 ...state,
                 phase: GamePhase.PLAYER_TURN,
                 currentPlayer: newPlayer,
                 currentMonster: newMonster,
-                combatLog: [...state.combatLog, ...logs],
+                combatLog: [...state.combatLog, ...modifierLogs, ...logs],
             };
         }
         case 'PLAYER_TOGGLES_EQUIPMENT': {
