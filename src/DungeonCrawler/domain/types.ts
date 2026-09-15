@@ -37,6 +37,7 @@ export interface StatModifier {
 
 export interface PointModifier {
     id: string;
+    name: string;
     damageType: DamageType;
     power: number;
     duration: number;
@@ -69,6 +70,7 @@ export enum AbilityType {
 }
 
 export interface StatusEffect {
+    name: string;
     target: TargetScope;
     damageType: DamageType;
     power: number;

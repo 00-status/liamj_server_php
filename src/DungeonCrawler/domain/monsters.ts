@@ -25,6 +25,7 @@ export const exampleMonsters: Character[] = [
                 type: AbilityType.magic,
                 statusEffects: [
                     {
+                        name: 'Bone Bonk',
                         target: TargetScope.opponent,
                         damageType: DamageType.magic,
                         power: 3.0,
@@ -57,6 +58,7 @@ export const exampleMonsters: Character[] = [
                 type: AbilityType.magic,
                 statusEffects: [
                     {
+                        name: 'Bone Bonk',
                         target: TargetScope.opponent,
                         damageType: DamageType.magic,
                         power: 3.0,
@@ -89,6 +91,7 @@ export const exampleMonsters: Character[] = [
                 type: AbilityType.magic,
                 statusEffects: [
                     {
+                        name: 'Bite',
                         target: TargetScope.opponent,
                         damageType: DamageType.magic,
                         power: 3.0,

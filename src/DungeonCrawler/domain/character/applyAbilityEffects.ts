@@ -14,7 +14,7 @@ import { getCharacterStat } from './getCharacterStat';
 import { healCharacter } from './healCharacter';
 import { restoreMagicForCharacter } from './restoreMagicForCharacter';
 
-const EFFECT_HANDLERS: Record<
+const STATUS_EFFECT_HANDLERS: Record<
     DamageType,
     {
         getStat: (caster: Character) => number;
@@ -83,6 +83,7 @@ export const applyAbilityEffects = (
         if (effect.duration && effect.duration > 0) {
             const newPointModifier: PointModifier = {
                 id: crypto.randomUUID(),
+                name: effect.name,
                 damageType: effect.damageType,
                 power: effect.power,
                 duration: effect.duration,
@@ -103,7 +104,7 @@ export const applyAbilityEffects = (
         // PHASE 2: Immediate Handler Execution
         // ==========================================
 
-        const handler = EFFECT_HANDLERS[effect.damageType];
+        const handler = STATUS_EFFECT_HANDLERS[effect.damageType];
 
         // Only apply immediate damage if the effect is NOT a DoT.
         if (handler && !effect.duration) {
@@ -127,4 +128,26 @@ export const applyAbilityEffects = (
     }
 
     return { caster, opponent, logs };
+};
+
+export const applyPointModifierEffects = (character: Character): Character => {
+    let target: Character = { ...character };
+    const logs: LogMessage[] = [];
+
+    character.pointModifiers.forEach((pointModifier: PointModifier) => {
+        const handler = STATUS_EFFECT_HANDLERS[pointModifier.damageType];
+
+        const baseStat = handler.getStat(character);
+        const calculatedValue = baseStat * pointModifier.power;
+
+        const { updatedTarget, statChange } = handler.apply(character, calculatedValue);
+
+        target = updatedTarget;
+        logs.push({
+            id: crypto.randomUUID(),
+            message: `${character.name} took ${statChange} ${pointModifier.damageType} from ${pointModifier.name}!`,
+        });
+    });
+
+    return target;
 };

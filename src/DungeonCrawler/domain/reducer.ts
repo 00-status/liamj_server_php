@@ -1,4 +1,4 @@
-import { applyAbilityEffects } from './character/applyAbilityEffects';
+import { applyAbilityEffects, applyPointModifierEffects } from './character/applyAbilityEffects';
 import { examplePlayer } from './constants';
 import { pickMonsterAbility } from './monster/pickMonsterAbility';
 import { selectNewMonster } from './monster/selectNewMonster';
@@ -38,11 +38,15 @@ export const dungeonCrawlerReducer = (
 ): DungeonCrawlerState => {
     switch (action.type) {
         case 'PLAYER_USES_ABILITY': {
+            const playerWithPointModifiers = applyPointModifierEffects(state.currentPlayer);
+
+            // Decrease Modifier duration
+
             const {
                 caster: newPlayer,
                 opponent: newMonster,
                 logs,
-            } = applyAbilityEffects(state.currentPlayer, state.currentMonster, action.ability);
+            } = applyAbilityEffects(playerWithPointModifiers, state.currentMonster, action.ability);
 
             if (newMonster.currentHP <= 0) {
                 return {
