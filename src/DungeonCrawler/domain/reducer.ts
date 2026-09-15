@@ -39,7 +39,8 @@ export const dungeonCrawlerReducer = (
 ): DungeonCrawlerState => {
     switch (action.type) {
         case 'PLAYER_USES_ABILITY': {
-            const playerWithPointModifiers = applyPointModifierEffects(state.currentPlayer);
+            const { target: playerWithPointModifiers, logs: pointModifierLogs } =
+                applyPointModifierEffects(state.currentPlayer);
 
             const { newCharacter: playerWithDecreasedModifiers, logs: modifierLogs } =
                 decreaseModifierDuration(playerWithPointModifiers);
@@ -70,7 +71,7 @@ export const dungeonCrawlerReducer = (
                 phase: GamePhase.ENEMY_TURN,
                 currentPlayer: newPlayer,
                 currentMonster: newMonster,
-                combatLog: [...state.combatLog, ...modifierLogs, ...logs],
+                combatLog: [...state.combatLog, ...pointModifierLogs, ...modifierLogs, ...logs],
             };
         }
         case 'ENEMY_USES_ABILITY': {
@@ -79,7 +80,8 @@ export const dungeonCrawlerReducer = (
                 state.currentMonster.abilities,
             );
 
-            const monsterWithPointModifiers = applyPointModifierEffects(state.currentMonster);
+            const { target: monsterWithPointModifiers, logs: pointModifierLogs } =
+                applyPointModifierEffects(state.currentMonster);
 
             const { newCharacter: monsterWithDecreasedModifiers, logs: modifierLogs } =
                 decreaseModifierDuration(monsterWithPointModifiers);
@@ -99,7 +101,7 @@ export const dungeonCrawlerReducer = (
                 phase: GamePhase.PLAYER_TURN,
                 currentPlayer: newPlayer,
                 currentMonster: newMonster,
-                combatLog: [...state.combatLog, ...modifierLogs, ...logs],
+                combatLog: [...state.combatLog, ...pointModifierLogs, ...modifierLogs, ...logs],
             };
         }
         case 'PLAYER_TOGGLES_EQUIPMENT': {

@@ -13,7 +13,13 @@ export const getCharacterStat = (character: Character, stat: BaseStatNames): num
     );
 
     // Ensure Flat values are applied first
-    modifiers.sort((e1) => (e1.type === 'flat' ? -1 : 1));
+    modifiers.sort((a, b) => {
+        if (a.type === b.type) {
+            return 0;
+        }
+
+        return a.type === 'flat' ? -1 : 1;
+    });
 
     let statAcc = character.stats[stat];
     modifiers.forEach((modifier) => {

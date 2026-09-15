@@ -132,7 +132,9 @@ export const applyAbilityEffects = (
     return { caster, opponent, logs };
 };
 
-export const applyPointModifierEffects = (character: Character): Character => {
+export const applyPointModifierEffects = (
+    character: Character,
+): { target: Character; logs: LogMessage[] } => {
     let target: Character = { ...character };
     const logs: LogMessage[] = [];
 
@@ -142,7 +144,7 @@ export const applyPointModifierEffects = (character: Character): Character => {
         const baseStat = handler.getStat(character);
         const calculatedValue = baseStat * pointModifier.power;
 
-        const { updatedTarget, statChange } = handler.apply(character, calculatedValue);
+        const { updatedTarget, statChange } = handler.apply(target, calculatedValue);
 
         target = updatedTarget;
         logs.push({
@@ -151,5 +153,5 @@ export const applyPointModifierEffects = (character: Character): Character => {
         });
     });
 
-    return target;
+    return { target, logs };
 };

@@ -18,7 +18,7 @@ export const decreaseModifierDuration = (
                 });
             }
 
-            return isExpired;
+            return !isExpired;
         });
 
     const remainingStatModifiers = character.modifiers
@@ -34,7 +34,7 @@ export const decreaseModifierDuration = (
                 });
             }
 
-            return isExpired;
+            return !isExpired;
         });
 
     return {
@@ -43,6 +43,6 @@ export const decreaseModifierDuration = (
             pointModifiers: remainingPointModifiers,
             modifiers: remainingStatModifiers,
         },
-        logs: [],
+        logs,
     };
 };
