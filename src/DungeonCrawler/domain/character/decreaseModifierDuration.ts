@@ -1,4 +1,4 @@
-import { Character, LogMessage, PointModifier, StatModifier } from '../types';
+import { Character, LogMessage, PointModifier, DynamicStatModifier } from '../types';
 
 export const decreaseModifierDuration = (
     character: Character,
@@ -22,10 +22,10 @@ export const decreaseModifierDuration = (
         });
 
     const remainingStatModifiers = character.modifiers
-        .map((statModifier: StatModifier) => {
+        .map((statModifier: DynamicStatModifier) => {
             return { ...statModifier, duration: statModifier.durationTurns - 1 };
         })
-        .filter((statModifier: StatModifier) => {
+        .filter((statModifier: DynamicStatModifier) => {
             const isExpired = statModifier.durationTurns <= 0;
             if (isExpired) {
                 logs.push({

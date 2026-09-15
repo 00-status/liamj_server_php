@@ -98,6 +98,7 @@ export const exampleMonsters: Character[] = [
                         modifiers: [
                             {
                                 id: '1',
+                                name: 'Defence Drain',
                                 stat: BaseStatNames.defence,
                                 value: -10,
                                 type: 'flat',

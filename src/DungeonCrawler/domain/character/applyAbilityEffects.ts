@@ -5,7 +5,7 @@ import {
     DamageType,
     LogMessage,
     PointModifier,
-    StatModifier,
+    DynamicStatModifier,
     TargetScope,
 } from '../types';
 
@@ -64,10 +64,12 @@ export const applyAbilityEffects = (
 
         if (effect.modifiers.length > 0) {
             // Give each applied modifier a fresh ID so effects can stack
-            const instantiatedModifiers: StatModifier[] = effect.modifiers.map((modifier) => ({
-                ...modifier,
-                id: crypto.randomUUID(),
-            }));
+            const instantiatedModifiers: DynamicStatModifier[] = effect.modifiers.map(
+                (modifier) => ({
+                    ...modifier,
+                    id: crypto.randomUUID(),
+                }),
+            );
 
             currentTarget = {
                 ...currentTarget,

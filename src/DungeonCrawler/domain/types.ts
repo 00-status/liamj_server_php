@@ -3,7 +3,7 @@ export interface Character {
     stats: BaseStats;
     currentHP: number;
     currentMP: number;
-    modifiers: StatModifier[];
+    modifiers: DynamicStatModifier[];
     pointModifiers: PointModifier[];
     equipables: Equipment[];
     abilities: Ability[];
@@ -27,12 +27,15 @@ export interface BaseStats {
     [BaseStatNames.magicDefence]: number;
 }
 
-export interface StatModifier {
+export interface BaseStatModifier {
     id: string;
-    name: string;
     stat: keyof BaseStats;
     value: number;
     type: 'flat' | 'percent'; // e.g., +10 ATK vs +15% ATK
+}
+
+export interface DynamicStatModifier extends BaseStatModifier {
+    name: string;
     durationTurns: number;
 }
 
@@ -48,7 +51,7 @@ export interface Equipment {
     name: string;
     slot: EquipmentSlot;
     active: boolean;
-    modifiers: StatModifier[];
+    modifiers: BaseStatModifier[];
 }
 
 export enum EquipmentSlot {
@@ -76,7 +79,7 @@ export interface StatusEffect {
     damageType: DamageType;
     power: number;
     duration?: number;
-    modifiers: StatModifier[];
+    modifiers: DynamicStatModifier[];
 }
 
 export enum DamageType {

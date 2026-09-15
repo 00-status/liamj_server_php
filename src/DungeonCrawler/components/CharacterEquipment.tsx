@@ -1,7 +1,7 @@
 import './character-equipment.css';
 import { Button, ButtonTheme } from '../../SharedComponents/Button/Button';
 import { Card } from '../../SharedComponents/Card/Card';
-import { Equipment, StatModifier } from '../domain/types';
+import { Equipment, DynamicStatModifier } from '../domain/types';
 import { BaseStatDisplayNames } from '../domain/constants';
 import { canCharacterEquipItem } from '../domain/character/canCharacterEquipItem';
 
@@ -41,14 +41,14 @@ export const CharacterEquipment = ({ equippables, toggleEquipmentActive }: Props
     );
 };
 
-const formatEquipmentModifier = (modifier: StatModifier): string => {
+const formatEquipmentModifier = (modifier: DynamicStatModifier): string => {
     const formattedValue = formatModifierValue(modifier);
     const statName = BaseStatDisplayNames[modifier.stat] ?? modifier.stat;
 
     return `${formattedValue} ${statName}`;
 };
 
-const formatModifierValue = (modifier: StatModifier): string => {
+const formatModifierValue = (modifier: DynamicStatModifier): string => {
     const { value, type } = modifier;
 
     if (type === 'percent') {
