@@ -34,6 +34,7 @@ export const examplePlayer: Character = {
         magicDefence: 10,
     },
     modifiers: [],
+    pointModifiers: [],
     equipables: exampleEquippables,
     abilities: [
         attackAbility,

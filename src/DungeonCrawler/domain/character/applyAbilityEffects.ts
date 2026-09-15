@@ -45,6 +45,14 @@ export const applyAbilityEffects = (
     let opponent = { ...initialOpponent };
     const logs: LogMessage[] = [];
 
+    // If the effect has a duration
+    //      Create a new pointModifier
+    //      Add the pointModifier to the correct target.
+    // If the effect has modifiers.
+    //      For each modifier
+    //          Create a new PointModifier
+    //          Add the new PointModifier to the correct target.
+
     for (const effect of ability.statusEffects) {
         const handler = EFFECT_HANDLERS[effect.damageType];
         if (!handler) {

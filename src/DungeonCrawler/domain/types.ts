@@ -4,6 +4,7 @@ export interface Character {
     currentHP: number;
     currentMP: number;
     modifiers: StatModifier[];
+    pointModifiers: PointModifier[];
     equipables: Equipment[];
     abilities: Ability[];
 }
@@ -31,7 +32,14 @@ export interface StatModifier {
     stat: keyof BaseStats;
     value: number;
     type: 'flat' | 'percent'; // e.g., +10 ATK vs +15% ATK
-    durationTurns?: number;
+    durationTurns: number;
+}
+
+export interface PointModifier {
+    id: string;
+    damageType: DamageType;
+    power: number;
+    duration: number;
 }
 
 export interface Equipment {

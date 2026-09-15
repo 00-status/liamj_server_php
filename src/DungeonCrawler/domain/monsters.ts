@@ -15,6 +15,7 @@ export const exampleMonsters: Character[] = [
             magicDefence: 20,
         },
         modifiers: [],
+        pointModifiers: [],
         equipables: [],
         abilities: [
             attackAbility,
@@ -46,6 +47,7 @@ export const exampleMonsters: Character[] = [
             magicDefence: 20,
         },
         modifiers: [],
+        pointModifiers: [],
         equipables: [],
         abilities: [
             attackAbility,
@@ -77,6 +79,7 @@ export const exampleMonsters: Character[] = [
             magicDefence: 20,
         },
         modifiers: [],
+        pointModifiers: [],
         equipables: [],
         abilities: [
             attackAbility,
