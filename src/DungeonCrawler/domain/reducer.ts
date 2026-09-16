@@ -3,7 +3,7 @@ import { decreaseModifierDuration } from './character/decreaseModifierDuration';
 import { examplePlayer } from './constants';
 import { isFormationDefeated } from './formation/isFormationDefeated';
 import { pickMonsterAbility } from './monster/pickMonsterAbility';
-import { selectNewMonster } from './monster/selectNewMonster';
+import { buildNewMonsterFormation } from './monster/selectNewMonster';
 import { exampleMonsters } from './monsters';
 import { Ability, Character, Combatant, Formation, LogMessage } from './types';
 
@@ -29,7 +29,7 @@ type DungeonCrawlerState = {
 export const dungeonCrawlerInitialState: DungeonCrawlerState = {
     phase: GamePhase.PLAYER_TURN,
     roomsClearedCount: 0,
-    monsterFormation: selectNewMonster(exampleMonsters), // TODO: Create a buildNewMonsterFormation function
+    monsterFormation: buildNewMonsterFormation(exampleMonsters),
     playerFormation: examplePlayer, // TODO: Create a player formation with two Combatants in it.
     combatLog: [],
 };
@@ -66,7 +66,7 @@ export const dungeonCrawlerReducer = (
                     phase: GamePhase.PLAYER_TURN,
                     roomsClearedCount: state.roomsClearedCount + 1,
                     playerFormation: newPlayerFormation,
-                    monsterFormation: selectNewMonster(exampleMonsters), // TODO: Load a new formation.
+                    monsterFormation: buildNewMonsterFormation(exampleMonsters),
                     combatLog: [],
                 };
             }
