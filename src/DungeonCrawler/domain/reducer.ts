@@ -56,37 +56,17 @@ export const dungeonCrawlerReducer = (
                 isTargetInMonsterFormation ? state.monsterFormation : state.playerFormation,
             );
 
-            const newMonsterFormation = structuredClone(state.monsterFormation);
-            const updatedMonsterCombatants = newMonsterFormation.combatants.map((combatant) => {
-                const associatedCombatant = updatedCombatants[combatant.id];
-                if (!associatedCombatant) {
-                    return combatant;
-                }
-
-                return associatedCombatant;
-            });
-            newMonsterFormation.combatants = updatedMonsterCombatants;
-
-            const newPlayerFormation = structuredClone(state.playerFormation);
-            const updatedPlayerCombatants = newPlayerFormation.combatants.map((combatant) => {
-                const associatedCombatant = updatedCombatants[combatant.id];
-                if (!associatedCombatant) {
-                    return combatant;
-                }
-
-                return associatedCombatant;
-            });
-            newPlayerFormation.combatants = updatedPlayerCombatants;
+            const newMonsterFormation = updateFormation(state.monsterFormation, updatedCombatants);
+            const newPlayerFormation = updateFormation(state.playerFormation, updatedCombatants);
 
             const isMonsterFormationDefeated = isFormationDefeated(newMonsterFormation);
             if (isMonsterFormationDefeated) {
-                // TODO: If ALL monsters in the formation have 0 HP, then load a new formation.
                 return {
                     ...state,
                     phase: GamePhase.PLAYER_TURN,
                     roomsClearedCount: state.roomsClearedCount + 1,
                     playerFormation: newPlayerFormation,
-                    monsterFormation: selectNewMonster(exampleMonsters),
+                    monsterFormation: selectNewMonster(exampleMonsters), // TODO: Load a new formation.
                     combatLog: [],
                 };
             }
@@ -140,4 +120,23 @@ export const dungeonCrawlerReducer = (
         default:
             return state;
     }
+};
+
+const updateFormation = (
+    formation: Formation,
+    combatantDictionary: { [key: string]: Combatant },
+): Formation => {
+    const newFormation = structuredClone(formation);
+
+    const updatedCombatants = newFormation.combatants.map((combatant) => {
+        const associatedCombatant = combatantDictionary[combatant.id];
+        if (!associatedCombatant) {
+            return combatant;
+        }
+
+        return associatedCombatant;
+    });
+    newFormation.combatants = updatedCombatants;
+
+    return newFormation;
 };
