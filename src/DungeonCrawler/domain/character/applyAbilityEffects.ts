@@ -7,6 +7,8 @@ import {
     PointModifier,
     DynamicStatModifier,
     TargetScope,
+    Combatant,
+    Formation,
 } from '../types';
 
 import { damageCharacter } from './damageCharacter';
@@ -46,16 +48,27 @@ const STATUS_EFFECT_HANDLERS: Record<
 //      Arguments: Caster, Target, Target's Formation
 //      Returns: A list of updated Combatants, a list of LogMessages
 
+// Have all combatants in a dictionary, keyed by their ID.
+
 export const applyAbilityEffects = (
-    initialCaster: Character,
-    initialOpponent: Character,
+    initialCaster: Combatant,
     ability: Ability,
-): { caster: Character; opponent: Character; logs: LogMessage[] } => {
-    let caster = {
+    initialTarget: Combatant,
+    formationOfTarget: Formation,
+): { updatedCombatants: Combatant[]; logs: LogMessage[] } => {
+    const caster: Combatant = {
         ...initialCaster,
-        currentMP: Math.max(0, initialCaster.currentMP - ability.cost),
+        character: {
+            ...initialCaster.character,
+            currentMP: Math.max(0, initialCaster.character.currentMP - ability.cost),
+        },
     };
-    let opponent = { ...initialOpponent };
+
+    const combatantDictionary: { [key: string]: Combatant } = Object.fromEntries(
+        formationOfTarget.combatants.map((combatant) => [combatant.id, combatant]),
+    );
+    combatantDictionary[caster.id] = { ...caster };
+
     const logs: LogMessage[] = [];
 
     for (const effect of ability.statusEffects) {
