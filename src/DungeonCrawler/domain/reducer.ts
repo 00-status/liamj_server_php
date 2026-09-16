@@ -1,6 +1,7 @@
 import { applyAbilityEffects, applyPointModifierEffects } from './character/applyAbilityEffects';
 import { decreaseModifierDuration } from './character/decreaseModifierDuration';
 import { examplePlayer } from './constants';
+import { isFormationDefeated } from './formation/isFormationDefeated';
 import { pickMonsterAbility } from './monster/pickMonsterAbility';
 import { selectNewMonster } from './monster/selectNewMonster';
 import { exampleMonsters } from './monsters';
@@ -55,14 +56,37 @@ export const dungeonCrawlerReducer = (
                 isTargetInMonsterFormation ? state.monsterFormation : state.playerFormation,
             );
 
-            if (newMonster.currentHP <= 0) {
+            const newMonsterFormation = structuredClone(state.monsterFormation);
+            const updatedMonsterCombatants = newMonsterFormation.combatants.map((combatant) => {
+                const associatedCombatant = updatedCombatants[combatant.id];
+                if (!associatedCombatant) {
+                    return combatant;
+                }
+
+                return associatedCombatant;
+            });
+            newMonsterFormation.combatants = updatedMonsterCombatants;
+
+            const newPlayerFormation = structuredClone(state.playerFormation);
+            const updatedPlayerCombatants = newPlayerFormation.combatants.map((combatant) => {
+                const associatedCombatant = updatedCombatants[combatant.id];
+                if (!associatedCombatant) {
+                    return combatant;
+                }
+
+                return associatedCombatant;
+            });
+            newPlayerFormation.combatants = updatedPlayerCombatants;
+
+            const isMonsterFormationDefeated = isFormationDefeated(newMonsterFormation);
+            if (isMonsterFormationDefeated) {
                 // TODO: If ALL monsters in the formation have 0 HP, then load a new formation.
                 return {
                     ...state,
                     phase: GamePhase.PLAYER_TURN,
                     roomsClearedCount: state.roomsClearedCount + 1,
-                    currentPlayer: newPlayer,
-                    currentMonster: selectNewMonster(exampleMonsters),
+                    playerFormation: newPlayerFormation,
+                    monsterFormation: selectNewMonster(exampleMonsters),
                     combatLog: [],
                 };
             }
@@ -70,8 +94,8 @@ export const dungeonCrawlerReducer = (
             return {
                 ...state,
                 phase: GamePhase.ENEMY_TURN,
-                currentPlayer: newPlayer,
-                currentMonster: newMonster,
+                playerFormation: newPlayerFormation,
+                monsterFormation: newMonsterFormation,
                 combatLog: [...state.combatLog, ...pointModifierLogs, ...modifierLogs, ...logs],
             };
         }

@@ -49,7 +49,7 @@ export const applyAbilityEffects = (
     ability: Ability,
     initialTarget: Combatant,
     formationOfTarget: Formation,
-): { updatedCombatants: Combatant[]; logs: LogMessage[] } => {
+): { updatedCombatants: { [key: string]: Combatant }; logs: LogMessage[] } => {
     const caster: Combatant = {
         ...initialCaster,
         character: {
@@ -154,7 +154,7 @@ export const applyAbilityEffects = (
         }
     }
 
-    return { updatedCombatants: Object.values(combatantDictionary), logs };
+    return { updatedCombatants: combatantDictionary, logs };
 };
 
 export const applyPointModifierEffects = (
