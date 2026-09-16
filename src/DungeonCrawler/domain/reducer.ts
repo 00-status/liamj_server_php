@@ -3,7 +3,7 @@ import { decreaseModifierDuration } from './character/decreaseModifierDuration';
 import { examplePlayer } from './constants';
 import { isFormationDefeated } from './formation/isFormationDefeated';
 import { pickMonsterAbility } from './monster/pickMonsterAbility';
-import { buildNewMonsterFormation } from './monster/selectNewMonster';
+import { buildNewMonsterFormation } from './monster/buildNewMonsterFormation';
 import { exampleMonsters } from './monsters';
 import { Ability, Character, Combatant, Formation, LogMessage } from './types';
 
@@ -16,6 +16,7 @@ export enum GamePhase {
     GAME_OVER = 'GAME_OVER',
     PLAYER_TURN = 'PLAYER_TURN',
     ENEMY_TURN = 'ENEMY_TURN',
+    ENEMY_EXECUTES = 'ENEMY_EXECUTES',
 }
 
 type DungeonCrawlerState = {
@@ -103,7 +104,7 @@ export const dungeonCrawlerReducer = (
 
             return {
                 ...state,
-                phase: GamePhase.PLAYER_TURN,
+                phase: GamePhase.ENEMY_EXECUTES,
                 currentPlayer: newPlayer,
                 currentMonster: newMonster,
                 combatLog: [...state.combatLog, ...pointModifierLogs, ...modifierLogs, ...logs],
