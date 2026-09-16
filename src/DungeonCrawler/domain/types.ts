@@ -1,3 +1,21 @@
+export interface Formation {
+    id: string;
+    team: 'player' | 'monster';
+    combatants: Combatant[];
+    gridDimensions: { x: number; y: number };
+}
+
+export interface Combatant {
+    id: string;
+    character: Character;
+    position: Position;
+}
+
+export interface Position {
+    x: number;
+    y: number;
+}
+
 export interface Character {
     name: string;
     stats: BaseStats;
@@ -93,7 +111,10 @@ export enum TargetScope {
     self = 'self',
     target = 'target',
     target_and_adjacent = 'target_and_adjacent',
-    all_opponents = 'all_opponents',
+    adjacent = 'adjacent',
+    target_and_surrounding = 'target_and_surrounding',
+    surrounding = 'surrounding',
+    all_opponents = 'entire_formation',
 }
 
 export type LogMessage = { id: string; message: string };
