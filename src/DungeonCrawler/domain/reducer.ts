@@ -33,12 +33,21 @@ export const dungeonCrawlerInitialState: DungeonCrawlerState = {
     combatLog: [],
 };
 
+// currentMonsterFormation: Formation
+// currentPlayerFormation: Formation
+// Formation:
+//      id, name, team, gridDimensions, combatants
+// Combatant:
+//      id, character, position
+
 export const dungeonCrawlerReducer = (
     state: DungeonCrawlerState,
     action: Actions,
 ): DungeonCrawlerState => {
     switch (action.type) {
         case 'PLAYER_USES_ABILITY': {
+            // Player uses action.ability** on **action.targetCombatantID** combatant.
+
             const { target: playerWithPointModifiers, logs: pointModifierLogs } =
                 applyPointModifierEffects(state.currentPlayer);
 

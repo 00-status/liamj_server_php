@@ -42,6 +42,10 @@ const STATUS_EFFECT_HANDLERS: Record<
     },
 };
 
+// applyAbilityEffects
+//      Arguments: Caster, Target, Target's Formation
+//      Returns: A list of updated Combatants, a list of LogMessages
+
 export const applyAbilityEffects = (
     initialCaster: Character,
     initialOpponent: Character,
@@ -55,6 +59,7 @@ export const applyAbilityEffects = (
     const logs: LogMessage[] = [];
 
     for (const effect of ability.statusEffects) {
+        // TODO: Get valid targets (target, target_and_adjacent, target_and_surrounding, all_targets).
         const isSelfTarget = effect.target === TargetScope.self;
         let currentTarget = isSelfTarget ? caster : opponent;
 

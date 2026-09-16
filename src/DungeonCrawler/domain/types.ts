@@ -91,7 +91,8 @@ export enum DamageType {
 
 export enum TargetScope {
     self = 'self',
-    opponent = 'single_opponent',
+    target = 'target',
+    target_and_adjacent = 'target_and_adjacent',
     all_opponents = 'all_opponents',
 }
 

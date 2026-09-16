@@ -8,7 +8,7 @@ export const attackAbility: Ability = {
     statusEffects: [
         {
             name: 'Attack',
-            target: TargetScope.opponent,
+            target: TargetScope.target,
             damageType: DamageType.physical,
             power: 1.0,
             modifiers: [],
@@ -47,7 +47,7 @@ export const examplePlayer: Character = {
             statusEffects: [
                 {
                     name: 'YEET!',
-                    target: TargetScope.opponent,
+                    target: TargetScope.target,
                     damageType: DamageType.magic,
                     power: 1.5,
                     modifiers: [],
@@ -61,7 +61,7 @@ export const examplePlayer: Character = {
             statusEffects: [
                 {
                     name: 'Sweep the Leg!',
-                    target: TargetScope.opponent,
+                    target: TargetScope.target,
                     damageType: DamageType.magic,
                     power: 1.2,
                     modifiers: [],
