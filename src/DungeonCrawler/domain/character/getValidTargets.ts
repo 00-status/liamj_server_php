@@ -1,5 +1,13 @@
 import { Combatant, Formation, TargetScope } from '../types';
 
+/**
+ * Gets all valid targets, given the targetScope. Returns a deep copy of each combatant.
+ * @param caster
+ * @param target
+ * @param formationOfTarget
+ * @param targetScope
+ * @returns
+ */
 export const getValidTargets = (
     caster: Combatant,
     target: Combatant,
@@ -8,11 +16,11 @@ export const getValidTargets = (
 ): Combatant[] => {
     switch (targetScope) {
         case TargetScope.self:
-            return [{ ...caster }];
+            return [structuredClone(caster)];
         case TargetScope.target:
-            return [{ ...target }];
+            return [structuredClone(target)];
         case TargetScope.all_opponents:
-            return formationOfTarget.combatants.map((combatant) => ({ ...combatant }));
+            return formationOfTarget.combatants.map((combatant) => structuredClone(combatant));
         case TargetScope.adjacent:
             return getAdjacentCombatants(target, formationOfTarget.combatants);
         case TargetScope.surrounding:
@@ -32,17 +40,19 @@ const getAdjacentCombatants = (
     includeDiagonals = false,
     includeTarget = true,
 ): Combatant[] => {
-    return allCombatants.filter((combatant) => {
-        if (combatant.id === target.id && !includeTarget) {
-            return false;
-        }
+    return allCombatants
+        .filter((combatant) => {
+            if (combatant.id === target.id && !includeTarget) {
+                return false;
+            }
 
-        const rowDiff = Math.abs(combatant.position.x - target.position.x);
-        const colDiff = Math.abs(combatant.position.y - target.position.y);
+            const rowDiff = Math.abs(combatant.position.x - target.position.x);
+            const colDiff = Math.abs(combatant.position.y - target.position.y);
 
-        if (includeDiagonals) {
-            return rowDiff <= 1 && colDiff <= 1; // Chebyshev distance
-        }
-        return rowDiff + colDiff <= 1; // Manhattan distance (Up/Down/Left/Right)
-    });
+            if (includeDiagonals) {
+                return rowDiff <= 1 && colDiff <= 1; // Chebyshev distance
+            }
+            return rowDiff + colDiff <= 1; // Manhattan distance (Up/Down/Left/Right)
+        })
+        .map((combatant) => structuredClone(combatant));
 };
