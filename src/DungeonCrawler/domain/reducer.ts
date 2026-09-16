@@ -4,10 +4,10 @@ import { examplePlayer } from './constants';
 import { pickMonsterAbility } from './monster/pickMonsterAbility';
 import { selectNewMonster } from './monster/selectNewMonster';
 import { exampleMonsters } from './monsters';
-import { Ability, Character, LogMessage } from './types';
+import { Ability, Character, Combatant, Formation, LogMessage } from './types';
 
 type Actions =
-    | { type: 'PLAYER_USES_ABILITY'; ability: Ability }
+    | { type: 'PLAYER_USES_ABILITY'; ability: Ability; caster: Combatant; target: Combatant }
     | { type: 'ENEMY_USES_ABILITY' }
     | { type: 'PLAYER_TOGGLES_EQUIPMENT'; equippableName: string };
 
@@ -20,25 +20,18 @@ export enum GamePhase {
 type DungeonCrawlerState = {
     phase: GamePhase;
     roomsClearedCount: number;
-    currentMonster: Character;
-    currentPlayer: Character;
+    monsterFormation: Formation;
+    playerFormation: Formation;
     combatLog: LogMessage[];
 };
 
 export const dungeonCrawlerInitialState: DungeonCrawlerState = {
     phase: GamePhase.PLAYER_TURN,
     roomsClearedCount: 0,
-    currentMonster: selectNewMonster(exampleMonsters),
-    currentPlayer: examplePlayer,
+    monsterFormation: selectNewMonster(exampleMonsters), // TODO: Create a buildNewMonsterFormation function
+    playerFormation: examplePlayer, // TODO: Create a player formation with two Combatants in it.
     combatLog: [],
 };
-
-// currentMonsterFormation: Formation
-// currentPlayerFormation: Formation
-// Formation:
-//      id, name, team, gridDimensions, combatants
-// Combatant:
-//      id, character, position
 
 export const dungeonCrawlerReducer = (
     state: DungeonCrawlerState,
@@ -46,25 +39,24 @@ export const dungeonCrawlerReducer = (
 ): DungeonCrawlerState => {
     switch (action.type) {
         case 'PLAYER_USES_ABILITY': {
-            // Player uses action.ability** on **action.targetCombatantID** combatant.
+            const isTargetInMonsterFormation = state.monsterFormation.combatants.find(
+                (combatant) => combatant.id === action.target.id,
+            );
 
             const { target: playerWithPointModifiers, logs: pointModifierLogs } =
-                applyPointModifierEffects(state.currentPlayer);
-
+                applyPointModifierEffects(action.caster.character);
             const { newCharacter: playerWithDecreasedModifiers, logs: modifierLogs } =
                 decreaseModifierDuration(playerWithPointModifiers);
 
-            const {
-                caster: newPlayer,
-                opponent: newMonster,
-                logs,
-            } = applyAbilityEffects(
-                playerWithDecreasedModifiers,
-                state.currentMonster,
+            const { updatedCombatants, logs } = applyAbilityEffects(
+                { ...action.caster, character: playerWithDecreasedModifiers },
                 action.ability,
+                action.target,
+                isTargetInMonsterFormation ? state.monsterFormation : state.playerFormation,
             );
 
             if (newMonster.currentHP <= 0) {
+                // TODO: If ALL monsters in the formation have 0 HP, then load a new formation.
                 return {
                     ...state,
                     phase: GamePhase.PLAYER_TURN,
