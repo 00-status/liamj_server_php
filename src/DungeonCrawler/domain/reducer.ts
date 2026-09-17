@@ -5,7 +5,8 @@ import { isFormationDefeated } from './formation/isFormationDefeated';
 import { pickMonsterAbility } from './monster/pickMonsterAbility';
 import { buildNewMonsterFormation } from './monster/buildNewMonsterFormation';
 import { exampleMonsters } from './monsters';
-import { Ability, Character, Combatant, Formation, LogMessage } from './types';
+import { Ability, Character, Combatant, Formation, LogMessage, MonsterCombatant } from './types';
+import { selectTargetForMonster } from './monster/selectTargetForMonster';
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability; caster: Combatant; target: Combatant }
@@ -81,32 +82,47 @@ export const dungeonCrawlerReducer = (
             };
         }
         case 'ENEMY_USES_ABILITY': {
+            const monsterCombatants = state.monsterFormation.combatants.filter(
+                (combatant) => combatant instanceof MonsterCombatant,
+            );
+            const actingMonster = monsterCombatants.find(
+                (combatant) => combatant.turnsUntilAction <= 0,
+            );
+
+            if (!actingMonster) {
+                return state;
+            }
+
+            const targetCombatant = selectTargetForMonster(state.playerFormation);
+            const isTargetInPlayerFormation = state.playerFormation.combatants.find(
+                (combatant) => combatant.id === targetCombatant.id,
+            );
+
             const chosenAbility = pickMonsterAbility(
-                state.currentMonster.currentMP,
-                state.currentMonster.abilities,
+                actingMonster.character.currentMP,
+                actingMonster.character.abilities,
             );
 
-            const { target: monsterWithPointModifiers, logs: pointModifierLogs } =
-                applyPointModifierEffects(state.currentMonster);
+            const { target: actingMonsterWithPointModifiers, logs: pointModifierLogs } =
+                applyPointModifierEffects(actingMonster.character);
+            const { newCharacter: actingMonsterWithDecreasedModifiers, logs: modifierLogs } =
+                decreaseModifierDuration(actingMonsterWithPointModifiers);
 
-            const { newCharacter: monsterWithDecreasedModifiers, logs: modifierLogs } =
-                decreaseModifierDuration(monsterWithPointModifiers);
-
-            const {
-                caster: newMonster,
-                opponent: newPlayer,
-                logs,
-            } = applyAbilityEffects(
-                monsterWithDecreasedModifiers,
-                state.currentPlayer,
+            const { updatedCombatants, logs } = applyAbilityEffects(
+                actingMonster.cloneWith({ character: actingMonsterWithDecreasedModifiers }),
                 chosenAbility,
+                targetCombatant,
+                isTargetInPlayerFormation ? state.playerFormation : state.monsterFormation,
             );
+
+            const newMonsterFormation = updateFormation(state.monsterFormation, updatedCombatants);
+            const newPlayerFormation = updateFormation(state.playerFormation, updatedCombatants);
 
             return {
                 ...state,
                 phase: GamePhase.ENEMY_EXECUTES,
-                currentPlayer: newPlayer,
-                currentMonster: newMonster,
+                monsterFormation: newMonsterFormation,
+                playerFormation: newPlayerFormation,
                 combatLog: [...state.combatLog, ...pointModifierLogs, ...modifierLogs, ...logs],
             };
         }
@@ -127,7 +143,11 @@ const updateFormation = (
     formation: Formation,
     combatantDictionary: { [key: string]: Combatant },
 ): Formation => {
-    const newFormation = structuredClone(formation);
+    const newFormation: Formation = {
+        ...formation,
+        combatants: formation.combatants.map((combatant) => combatant.clone()),
+        gridDimensions: structuredClone(formation.gridDimensions),
+    };
 
     const updatedCombatants = newFormation.combatants.map((combatant) => {
         const associatedCombatant = combatantDictionary[combatant.id];
