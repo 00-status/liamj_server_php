@@ -60,10 +60,7 @@ export class MonsterCombatant extends Combatant {
 // A monster Combatant can act if:
 //      Their turnsUntilAction is 0.
 
-// At the end of the PLAYER_USES_ABILITY Action
-//      Decrease each monster's turnsUntilAction by 1.
-
-// In DungeonCrawlerPage
+// In DungeonCrawlerPage 🟡
 //      If the phase is PLAYER_TURN:
 //          Wait for the player to act.
 //      If the phase is ENEMY_TURN:
@@ -71,16 +68,12 @@ export class MonsterCombatant extends Combatant {
 //      If the phase is ENEMY_EXECUTES
 //          Dispatch a FINISH_EXECUTION Action with a 2 second delay.
 
-// In the ENEMY_USES_ABILITY Action
-//      Get each combatant within the MonsterFormation.
-//      For Each combatant
-//          Ensure they all have the turnsUntilAction property (they are a MonsterCombatant).
-//          If any MonsterCombatants' turnsUntilAction is 0
-//              Write the monsterCombatant to a selectedMonster const.
-//      If selectedMonster exists
-//          It takes its turn as normal.
-//      Set gamePhase to ENEMY_EXECUTES.
-// In the FINISH_EXECUTION Action
+// At the end of the PLAYER_USES_ABILITY Action 🟡
+//      Decrease each monster's turnsUntilAction by 1.
+// In the ENEMY_USES_ABILITY Action ✅
+// In the FINISH_EXECUTION Action 🟡
+//      If any monster's turnsUntilAction is 0
+//          Update their turnsUntilAction to a value between 1 and 4.
 //      If the previous phase was ENEMY_TURN AND any enemy's turnsUntilAction is 0
 //          Set the phase to ENEMY_TURN.
 //      If the previous phase was ENEMY_TURN BUT no monsters' turnsUntilAction is 0

@@ -1,6 +1,6 @@
 import { applyAbilityEffects, applyPointModifierEffects } from './character/applyAbilityEffects';
 import { decreaseModifierDuration } from './character/decreaseModifierDuration';
-import { examplePlayer } from './constants';
+import { examplePlayerFormation } from './constants';
 import { isFormationDefeated } from './formation/isFormationDefeated';
 import { pickMonsterAbility } from './monster/pickMonsterAbility';
 import { buildNewMonsterFormation } from './monster/buildNewMonsterFormation';
@@ -32,7 +32,7 @@ export const dungeonCrawlerInitialState: DungeonCrawlerState = {
     phase: GamePhase.PLAYER_TURN,
     roomsClearedCount: 0,
     monsterFormation: buildNewMonsterFormation(exampleMonsters),
-    playerFormation: examplePlayer, // TODO: Create a player formation with two Combatants in it.
+    playerFormation: examplePlayerFormation,
     combatLog: [],
 };
 
