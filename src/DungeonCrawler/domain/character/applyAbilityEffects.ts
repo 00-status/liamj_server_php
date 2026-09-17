@@ -50,7 +50,7 @@ export const applyAbilityEffects = (
     initialTarget: Combatant,
     formationOfTarget: Formation,
 ): { updatedCombatants: { [key: string]: Combatant }; logs: LogMessage[] } => {
-    const caster: Combatant = initialCaster.copyWith({
+    const caster: Combatant = initialCaster.cloneWith({
         character: {
             ...initialCaster.character,
             currentMP: Math.max(0, initialCaster.character.currentMP - ability.cost),
@@ -144,7 +144,7 @@ export const applyAbilityEffects = (
                     target.character,
                     calculatedValue,
                 );
-                combatantDictionary[targetToUpdate.id] = targetToUpdate.copyWith({
+                combatantDictionary[targetToUpdate.id] = targetToUpdate.cloneWith({
                     character: updatedTarget,
                 });
 

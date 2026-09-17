@@ -51,7 +51,7 @@ export const dungeonCrawlerReducer = (
                 decreaseModifierDuration(playerWithPointModifiers);
 
             const { updatedCombatants, logs } = applyAbilityEffects(
-                action.caster.copyWith({ character: playerWithDecreasedModifiers }),
+                action.caster.cloneWith({ character: playerWithDecreasedModifiers }),
                 action.ability,
                 action.target,
                 isTargetInMonsterFormation ? state.monsterFormation : state.playerFormation,

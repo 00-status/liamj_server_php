@@ -26,7 +26,7 @@ export class Combatant {
         });
     }
 
-    copyWith<T extends Combatant>(this: T, changes: Partial<T>): T {
+    cloneWith<T extends Combatant>(this: T, changes: Partial<T>): T {
         const characterClone = structuredClone(this.character);
         const positionClone = structuredClone(this.position);
 
