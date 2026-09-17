@@ -5,13 +5,13 @@ import { isFormationDefeated } from './formation/isFormationDefeated';
 import { pickMonsterAbility } from './monster/pickMonsterAbility';
 import { buildNewMonsterFormation } from './monster/buildNewMonsterFormation';
 import { exampleMonsters } from './monsters';
-import { Ability, Character, Combatant, Formation, LogMessage, MonsterCombatant } from './types';
+import { Ability, Combatant, Formation, LogMessage, MonsterCombatant } from './types';
 import { selectTargetForMonster } from './monster/selectTargetForMonster';
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability; caster: Combatant; target: Combatant }
     | { type: 'ENEMY_USES_ABILITY' }
-    | { type: 'PLAYER_TOGGLES_EQUIPMENT'; equippableName: string };
+    | { type: 'PLAYER_TOGGLES_EQUIPMENT'; combatantID: string; equippableName: string };
 
 export enum GamePhase {
     GAME_OVER = 'GAME_OVER',
@@ -127,12 +127,26 @@ export const dungeonCrawlerReducer = (
             };
         }
         case 'PLAYER_TOGGLES_EQUIPMENT': {
-            const equipables = state.currentPlayer.equipables.map((item) =>
+            const targetCombatant = state.playerFormation.combatants.find(
+                (combatant) => combatant.id === action.combatantID,
+            );
+
+            if (!targetCombatant) {
+                return state;
+            }
+
+            const equipables = targetCombatant.character.equipables.map((item) =>
                 item.name === action.equippableName ? { ...item, active: !item.active } : item,
             );
-            const newPlayer: Character = { ...state.currentPlayer, equipables };
+            const combatants: Combatant[] = state.playerFormation.combatants.map((combatant) => {
+                return combatant.id === targetCombatant.id
+                    ? targetCombatant.cloneWith({
+                          character: { ...targetCombatant.character, equipables },
+                      })
+                    : combatant;
+            });
 
-            return { ...state, currentPlayer: newPlayer };
+            return { ...state, playerFormation: { ...state.playerFormation, combatants } };
         }
         default:
             return state;
