@@ -1,4 +1,4 @@
-import { Character, Combatant, Formation } from '../types';
+import { Character, Combatant, Formation, MonsterCombatant } from '../types';
 
 const MIN_GRID = 1;
 const MAX_GRID_WIDTH = 4;
@@ -17,22 +17,24 @@ export const buildNewMonsterFormation = (potentialMonsters: Character[]): Format
             }
 
             const selectedMonster = selectNewMonster(potentialMonsters);
-            const newCombatant: Combatant = {
-                id: crypto.randomUUID(),
-                character: selectedMonster,
-                position: { x, y },
-            };
+            const newCombatant: MonsterCombatant = new MonsterCombatant(
+                crypto.randomUUID(),
+                selectedMonster,
+                { x, y },
+                0,
+            );
             combatants.push(newCombatant);
         }
     }
 
     if (combatants.length === 0) {
         const selectedMonster = selectNewMonster(potentialMonsters);
-        const newCombatant: Combatant = {
-            id: crypto.randomUUID(),
-            character: selectedMonster,
-            position: { x: 1, y: 1 },
-        };
+        const newCombatant: MonsterCombatant = new MonsterCombatant(
+            crypto.randomUUID(),
+            selectedMonster,
+            { x: 1, y: 1 },
+            0,
+        );
         combatants.push(newCombatant);
     }
 

@@ -5,14 +5,54 @@ export interface Formation {
     gridDimensions: { x: number; y: number };
 }
 
-export interface Combatant {
-    id: string;
-    character: Character;
-    position: Position;
+export class Combatant {
+    constructor(
+        public id: string,
+        public character: Character,
+        public position: Position,
+    ) {}
+
+    public createCombatant(args: Combatant) {
+        return new Combatant(args.id, args.character, args.position);
+    }
+
+    public clone(): Combatant {
+        const characterClone = structuredClone(this.character);
+        const positionClone = structuredClone(this.position);
+
+        return Object.assign(Object.create(Object.getPrototypeOf(this)), this, {
+            character: characterClone,
+            position: positionClone,
+        });
+    }
+
+    copyWith<T extends Combatant>(this: T, changes: Partial<T>): T {
+        const characterClone = structuredClone(this.character);
+        const positionClone = structuredClone(this.position);
+
+        return Object.assign(
+            Object.create(Object.getPrototypeOf(this)),
+            this,
+            { character: characterClone, position: positionClone },
+            changes,
+        );
+    }
 }
 
-export interface MonsterCombatant extends Combatant {
-    turnsUntilAction: number;
+export class MonsterCombatant extends Combatant {
+    constructor(
+        id: string,
+        character: Character,
+        position: Position,
+        public turnsUntilAction: number,
+    ) {
+        super(id, character, position);
+        this.turnsUntilAction = turnsUntilAction;
+    }
+
+    public override createCombatant(args: Combatant): Combatant {
+        return new MonsterCombatant(args.id, args.character, args.position, 0);
+    }
 }
 
 // A player character can act if:

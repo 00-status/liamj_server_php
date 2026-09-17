@@ -50,18 +50,21 @@ export const applyAbilityEffects = (
     initialTarget: Combatant,
     formationOfTarget: Formation,
 ): { updatedCombatants: { [key: string]: Combatant }; logs: LogMessage[] } => {
-    const caster: Combatant = {
-        ...initialCaster,
+    const caster: Combatant = initialCaster.copyWith({
         character: {
             ...initialCaster.character,
             currentMP: Math.max(0, initialCaster.character.currentMP - ability.cost),
         },
-    };
+    });
 
-    const combatantDictionary: { [key: string]: Combatant } = Object.fromEntries(
-        formationOfTarget.combatants.map((combatant) => [combatant.id, structuredClone(combatant)]),
-    );
-    combatantDictionary[caster.id] = { ...caster };
+    // Clone each class instance so we don't mess anything up in the calling code.
+    const combatantDictionary: { [key: string]: Combatant } = formationOfTarget.combatants.reduce<{
+        [key: string]: Combatant;
+    }>((acc, combatant) => {
+        acc[combatant.id] = combatant.clone();
+        return acc;
+    }, {});
+    combatantDictionary[caster.id] = caster.clone();
 
     const logs: LogMessage[] = [];
 
@@ -141,10 +144,9 @@ export const applyAbilityEffects = (
                     target.character,
                     calculatedValue,
                 );
-                combatantDictionary[targetToUpdate.id] = {
-                    ...targetToUpdate,
+                combatantDictionary[targetToUpdate.id] = targetToUpdate.copyWith({
                     character: updatedTarget,
-                };
+                });
 
                 logs.push({
                     id: crypto.randomUUID(),
