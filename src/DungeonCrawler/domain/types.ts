@@ -72,8 +72,7 @@ export class MonsterCombatant extends Combatant {
 //      Decrease each monster's turnsUntilAction by 1.
 // In the ENEMY_USES_ABILITY Action ✅
 // In the FINISH_EXECUTION Action 🟡
-//      If any monster's turnsUntilAction is 0
-//          Update their turnsUntilAction to a value between 1 and 4.
+//      Get a list of monsters.
 //      If the previous phase was ENEMY_TURN AND any enemy's turnsUntilAction is 0
 //          Set the phase to ENEMY_TURN.
 //      If the previous phase was ENEMY_TURN BUT no monsters' turnsUntilAction is 0

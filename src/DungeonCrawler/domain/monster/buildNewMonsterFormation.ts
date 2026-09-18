@@ -1,4 +1,5 @@
 import { Character, Combatant, Formation, MonsterCombatant } from '../types';
+import { getRandomInt } from '../utiils';
 
 const MIN_GRID = 1;
 const MAX_GRID_WIDTH = 4;
@@ -55,8 +56,4 @@ const selectNewMonster = (potentialMonsters: Character[]): Character => {
     }
 
     return { ...selectedMonster };
-};
-
-const getRandomInt = (min: number, max: number): number => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
 };

@@ -7,10 +7,12 @@ import { buildNewMonsterFormation } from './monster/buildNewMonsterFormation';
 import { exampleMonsters } from './monsters';
 import { Ability, Combatant, Formation, LogMessage, MonsterCombatant } from './types';
 import { selectTargetForMonster } from './monster/selectTargetForMonster';
+import { resetTurnsUntilAction } from './monster/resetTurnsUntilAction';
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability; caster: Combatant; target: Combatant }
     | { type: 'ENEMY_USES_ABILITY' }
+    | { type: 'FINISH_EXECUTION' }
     | { type: 'PLAYER_TOGGLES_EQUIPMENT'; combatantID: string; equippableName: string };
 
 export enum GamePhase {
@@ -108,8 +110,13 @@ export const dungeonCrawlerReducer = (
             const { newCharacter: actingMonsterWithDecreasedModifiers, logs: modifierLogs } =
                 decreaseModifierDuration(actingMonsterWithPointModifiers);
 
+            const updatedActingMonster = actingMonster.cloneWith({
+                character: actingMonsterWithDecreasedModifiers,
+                turnsUntilAction: resetTurnsUntilAction(),
+            });
+
             const { updatedCombatants, logs } = applyAbilityEffects(
-                actingMonster.cloneWith({ character: actingMonsterWithDecreasedModifiers }),
+                updatedActingMonster,
                 chosenAbility,
                 targetCombatant,
                 isTargetInPlayerFormation ? state.playerFormation : state.monsterFormation,
@@ -125,6 +132,9 @@ export const dungeonCrawlerReducer = (
                 playerFormation: newPlayerFormation,
                 combatLog: [...state.combatLog, ...pointModifierLogs, ...modifierLogs, ...logs],
             };
+        }
+        case 'FINISH_EXECUTION': {
+            return state;
         }
         case 'PLAYER_TOGGLES_EQUIPMENT': {
             const targetCombatant = state.playerFormation.combatants.find(
