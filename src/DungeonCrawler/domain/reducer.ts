@@ -134,7 +134,22 @@ export const dungeonCrawlerReducer = (
             };
         }
         case 'FINISH_EXECUTION': {
-            return state;
+            const areAllPlayerCharactersDefeated = state.playerFormation.combatants.every(
+                (combatant) => combatant.character.currentHP <= 0,
+            );
+            const monsters = state.monsterFormation.combatants.filter(
+                (combatant) => combatant instanceof MonsterCombatant,
+            );
+
+            if (areAllPlayerCharactersDefeated) {
+                return { ...state, phase: GamePhase.GAME_OVER };
+            }
+
+            if (monsters.some((monster) => monster.turnsUntilAction <= 0)) {
+                return { ...state, phase: GamePhase.ENEMY_TURN };
+            }
+
+            return { ...state, phase: GamePhase.PLAYER_TURN };
         }
         case 'PLAYER_TOGGLES_EQUIPMENT': {
             const targetCombatant = state.playerFormation.combatants.find(
