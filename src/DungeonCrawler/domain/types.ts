@@ -63,15 +63,15 @@ export class MonsterCombatant extends Combatant {
 // In DungeonCrawlerPage 🟡
 //      If the phase is PLAYER_TURN:
 //          Wait for the player to act.
-//      If the phase is ENEMY_TURN:
+//      If the phase is ENEMY_TURN: ✅
 //          Dispatch a ENEMY_USES_ABILITY Action.
-//      If the phase is ENEMY_EXECUTES
+//      If the phase is ENEMY_EXECUTES ✅
 //          Dispatch a FINISH_EXECUTION Action with a 2 second delay.
 
-// At the end of the PLAYER_USES_ABILITY Action 🟡
+// At the end of the PLAYER_USES_ABILITY Action ✅
 //      Decrease each monster's turnsUntilAction by 1.
 // In the ENEMY_USES_ABILITY Action ✅
-// In the FINISH_EXECUTION Action 🟡
+// In the FINISH_EXECUTION Action ✅
 //      Get a list of monsters.
 //      If the previous phase was ENEMY_TURN AND any enemy's turnsUntilAction is 0
 //          Set the phase to ENEMY_TURN.

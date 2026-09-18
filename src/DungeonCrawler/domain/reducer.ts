@@ -7,7 +7,10 @@ import { buildNewMonsterFormation } from './monster/buildNewMonsterFormation';
 import { exampleMonsters } from './monsters';
 import { Ability, Combatant, Formation, LogMessage, MonsterCombatant } from './types';
 import { selectTargetForMonster } from './monster/selectTargetForMonster';
-import { resetTurnsUntilAction } from './monster/resetTurnsUntilAction';
+import {
+    resetTurnsUntilAction,
+    updateTurnsForMonsterCombatantList,
+} from './monster/turnsUntilAction';
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability; caster: Combatant; target: Combatant }
@@ -48,11 +51,13 @@ export const dungeonCrawlerReducer = (
                 (combatant) => combatant.id === action.target.id,
             );
 
+            // Apply DoTs and Status Modifiers.
             const { target: playerWithPointModifiers, logs: pointModifierLogs } =
                 applyPointModifierEffects(action.caster.character);
             const { newCharacter: playerWithDecreasedModifiers, logs: modifierLogs } =
                 decreaseModifierDuration(playerWithPointModifiers);
 
+            // Apply the ability's effects.
             const { updatedCombatants, logs } = applyAbilityEffects(
                 action.caster.cloneWith({ character: playerWithDecreasedModifiers }),
                 action.ability,
@@ -75,11 +80,17 @@ export const dungeonCrawlerReducer = (
                 };
             }
 
+            // Decrease enemy turnsUntilAction
+            const monsterFormationWithUpdatedTurns: Formation = {
+                ...newMonsterFormation,
+                combatants: updateTurnsForMonsterCombatantList(newMonsterFormation.combatants),
+            };
+
             return {
                 ...state,
                 phase: GamePhase.ENEMY_TURN,
                 playerFormation: newPlayerFormation,
-                monsterFormation: newMonsterFormation,
+                monsterFormation: monsterFormationWithUpdatedTurns,
                 combatLog: [...state.combatLog, ...pointModifierLogs, ...modifierLogs, ...logs],
             };
         }

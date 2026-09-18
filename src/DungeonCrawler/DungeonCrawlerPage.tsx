@@ -11,17 +11,27 @@ import { Ability } from './domain/types';
 
 const DungeonCrawlerPage = () => {
     const [state, dispatch] = useReducer(dungeonCrawlerReducer, dungeonCrawlerInitialState);
-    const { roomsClearedCount, currentPlayer, currentMonster, combatLog } = state;
-
-    const isPlayerDead = currentPlayer.currentHP <= 0;
+    const { phase, roomsClearedCount, playerFormation, monsterFormation, combatLog } = state;
 
     useEffect(() => {
-        if (state.phase !== GamePhase.ENEMY_TURN) {
+        if (phase === GamePhase.ENEMY_EXECUTES) {
+            const timer = setTimeout(() => {
+                // TODO: Replace with individual animations per each action taken on the enemy's turn.
+                dispatch({ type: 'FINISH_EXECUTION' });
+            }, 2000);
+
+            return () => clearTimeout(timer);
+        }
+
+        if (phase === GamePhase.ENEMY_TURN) {
+            dispatch({ type: 'ENEMY_USES_ABILITY' });
             return;
         }
 
-        dispatch({ type: 'ENEMY_USES_ABILITY' });
-    }, [state.phase]);
+        return;
+    }, [phase]);
+
+    useEffect(() => {}, [state.phase]);
 
     const onPlayerAbility = (ability: Ability) => {
         dispatch({ type: 'PLAYER_USES_ABILITY', ability });
@@ -33,8 +43,8 @@ const DungeonCrawlerPage = () => {
 
     return (
         <Page title="Dungeons of Galericca" routes={[]}>
-            {isPlayerDead && <div>Game Over!</div>}
-            {!isPlayerDead && (
+            {phase === GamePhase.GAME_OVER && <div>Game Over!</div>}
+            {phase !== GamePhase.GAME_OVER && (
                 <div className="dungeon-crawler-page">
                     <div className="dungeon-crawler-page__room_count">{roomsClearedCount}</div>
                     {currentMonster && <MonsterStats monster={currentMonster} />}
