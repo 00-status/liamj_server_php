@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 
 import { Page } from '../SharedComponents/Page/Page';
 
@@ -12,6 +12,9 @@ import { Ability, Combatant } from './domain/types';
 const DungeonCrawlerPage = () => {
     const [state, dispatch] = useReducer(dungeonCrawlerReducer, dungeonCrawlerInitialState);
     const { phase, roomsClearedCount, playerFormation, monsterFormation, combatLog } = state;
+
+    const currentPlayerCombatant = playerFormation.combatants[0];
+    const [selectedAbility, setSelectedAbility] = useState<Ability | null>(null);
 
     useEffect(() => {
         if (phase === GamePhase.ENEMY_EXECUTES) {
@@ -33,12 +36,29 @@ const DungeonCrawlerPage = () => {
 
     useEffect(() => {}, [state.phase]);
 
-    const onPlayerAbility = (caster: Combatant, target: Combatant, ability: Ability) => {
-        dispatch({ type: 'PLAYER_USES_ABILITY', caster, target, ability });
+    const onPlayerAbilitySelect = (ability: Ability) => {
+        setSelectedAbility(ability);
     };
 
-    const toggleEquipmentActive = (combatantID: string, equippableName: string) => {
-        dispatch({ type: 'PLAYER_TOGGLES_EQUIPMENT', combatantID, equippableName });
+    const onEnemySelect = (target: Combatant) => {
+        if (!selectedAbility || !currentPlayerCombatant) {
+            return;
+        }
+
+        dispatch({
+            type: 'PLAYER_USES_ABILITY',
+            caster: currentPlayerCombatant,
+            target,
+            ability: selectedAbility,
+        });
+    };
+
+    const toggleEquipmentActive = (equippableName: string) => {
+        dispatch({
+            type: 'PLAYER_TOGGLES_EQUIPMENT',
+            combatantID: currentPlayerCombatant.id,
+            equippableName,
+        });
     };
 
     return (
@@ -47,18 +67,22 @@ const DungeonCrawlerPage = () => {
             {phase !== GamePhase.GAME_OVER && (
                 <div className="dungeon-crawler-page">
                     <div className="dungeon-crawler-page__room_count">{roomsClearedCount}</div>
-                    <MonsterStats formation={monsterFormation} />
-                    {/* <PlayerStats
-                        player={currentPlayer}
-                        combatLog={combatLog}
-                        onPlayerAbility={onPlayerAbility}
+                    <MonsterStats
+                        formation={monsterFormation}
+                        isPlayerSelecting={!!selectedAbility}
+                        onEnemySelect={onEnemySelect}
                     />
-                    {!!currentPlayer.equipables.length && (
+                    <PlayerStats
+                        player={currentPlayerCombatant.character}
+                        combatLog={combatLog}
+                        onPlayerAbility={onPlayerAbilitySelect}
+                    />
+                    {!!currentPlayerCombatant.character.equipables.length && (
                         <CharacterEquipment
-                            equippables={currentPlayer.equipables}
+                            equippables={currentPlayerCombatant.character.equipables}
                             toggleEquipmentActive={toggleEquipmentActive}
                         />
-                    )} */}
+                    )}
                 </div>
             )}
         </Page>

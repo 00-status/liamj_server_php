@@ -1,14 +1,16 @@
 import './monster-stats.css';
 import { Card } from '../../SharedComponents/Card/Card';
-import { Formation } from '../domain/types';
+import { Combatant, Formation } from '../domain/types';
 
 import { CharacterStat } from './CharacterStat';
 
 type Props = {
     formation: Formation;
+    isPlayerSelecting: boolean;
+    onEnemySelect: (target: Combatant) => void;
 };
 
-export const MonsterStats = ({ formation }: Props) => {
+export const MonsterStats = ({ formation, isPlayerSelecting, onEnemySelect }: Props) => {
     const gridStyles = {
         gridTemplateColumns: 'auto '.repeat(formation.gridDimensions.x),
         gridTemplateRows: 'auto '.repeat(formation.gridDimensions.y),
@@ -23,7 +25,8 @@ export const MonsterStats = ({ formation }: Props) => {
                     return (
                         <div
                             key={combatant.id}
-                            className="monster-stat__item"
+                            onClick={() => onEnemySelect(combatant)}
+                            className={isPlayerSelecting ? 'monster-stat__item--selecting' : ''}
                             style={{
                                 gridColumnStart: combatant.position.x,
                                 gridRowStart: combatant.position.y,

@@ -2,3 +2,20 @@
     display: grid;
     gap: 12px;
 }
+
+.monster-stat__item--selecting {
+    animation: smooth-flash 2.5s ease-in-out infinite alternate;
+}
+
+.monster-stat__item--selecting:hover {
+    background-color: aliceblue;
+}
+
+@keyframes smooth-flash {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.5;
+    }
+}
