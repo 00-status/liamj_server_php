@@ -7,7 +7,7 @@ import { MonsterStats } from './components/MonsterStats';
 import { PlayerStats } from './components/PlayerStats';
 import { CharacterEquipment } from './components/CharacterEquipment';
 import { dungeonCrawlerInitialState, dungeonCrawlerReducer, GamePhase } from './domain/reducer';
-import { Ability } from './domain/types';
+import { Ability, Combatant } from './domain/types';
 
 const DungeonCrawlerPage = () => {
     const [state, dispatch] = useReducer(dungeonCrawlerReducer, dungeonCrawlerInitialState);
@@ -33,12 +33,12 @@ const DungeonCrawlerPage = () => {
 
     useEffect(() => {}, [state.phase]);
 
-    const onPlayerAbility = (ability: Ability) => {
-        dispatch({ type: 'PLAYER_USES_ABILITY', ability });
+    const onPlayerAbility = (caster: Combatant, target: Combatant, ability: Ability) => {
+        dispatch({ type: 'PLAYER_USES_ABILITY', caster, target, ability });
     };
 
-    const toggleEquipmentActive = (equippableName: string) => {
-        dispatch({ type: 'PLAYER_TOGGLES_EQUIPMENT', equippableName });
+    const toggleEquipmentActive = (combatantID: string, equippableName: string) => {
+        dispatch({ type: 'PLAYER_TOGGLES_EQUIPMENT', combatantID, equippableName });
     };
 
     return (
@@ -47,8 +47,8 @@ const DungeonCrawlerPage = () => {
             {phase !== GamePhase.GAME_OVER && (
                 <div className="dungeon-crawler-page">
                     <div className="dungeon-crawler-page__room_count">{roomsClearedCount}</div>
-                    {currentMonster && <MonsterStats monster={currentMonster} />}
-                    <PlayerStats
+                    <MonsterStats formation={monsterFormation} />
+                    {/* <PlayerStats
                         player={currentPlayer}
                         combatLog={combatLog}
                         onPlayerAbility={onPlayerAbility}
@@ -58,7 +58,7 @@ const DungeonCrawlerPage = () => {
                             equippables={currentPlayer.equipables}
                             toggleEquipmentActive={toggleEquipmentActive}
                         />
-                    )}
+                    )} */}
                 </div>
             )}
         </Page>
