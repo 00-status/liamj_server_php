@@ -22,10 +22,11 @@ type MenuOption = {
 type Props = {
     player: Character;
     combatLog: LogMessage[];
+    canPlayerAct: boolean;
     onPlayerAbility: (ability: Ability) => void;
 };
 
-export const PlayerStats = ({ player, combatLog, onPlayerAbility }: Props) => {
+export const PlayerStats = ({ player, combatLog, canPlayerAct, onPlayerAbility }: Props) => {
     const [menuState, setMenuState] = useState<MenuState>(MenuState.base);
 
     const getActions = (): Array<MenuOption> => {
@@ -36,7 +37,7 @@ export const PlayerStats = ({ player, combatLog, onPlayerAbility }: Props) => {
                     .map((ability) => ({
                         action: () => onPlayerAbility(ability),
                         label: ability.name,
-                        isDisabled: ability.cost > player.currentMP,
+                        isDisabled: ability.cost > player.currentMP || !canPlayerAct,
                     }));
 
                 return [
@@ -50,7 +51,7 @@ export const PlayerStats = ({ player, combatLog, onPlayerAbility }: Props) => {
                     .map((ability) => ({
                         action: () => onPlayerAbility(ability),
                         label: ability.name,
-                        isDisabled: ability.cost > player.currentMP,
+                        isDisabled: ability.cost > player.currentMP || !canPlayerAct,
                     }));
 
                 return [

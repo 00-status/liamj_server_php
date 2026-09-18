@@ -76,6 +76,7 @@ const DungeonCrawlerPage = () => {
                     <PlayerStats
                         player={currentPlayerCombatant.character}
                         combatLog={combatLog}
+                        canPlayerAct={phase === GamePhase.PLAYER_TURN}
                         onPlayerAbility={onPlayerAbilitySelect}
                     />
                     {!!currentPlayerCombatant.character.equipables.length && (

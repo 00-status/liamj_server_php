@@ -3,9 +3,7 @@ import { getRandomInt } from '../utiils';
 
 export const decreaseTurnsForMonsterCombatantList = (combatants: Combatant[]): Combatant[] => {
     const monsterCombatants = combatants
-        .filter((combatant) => {
-            return combatant instanceof MonsterCombatant;
-        })
+        .filter((combatant) => combatant instanceof MonsterCombatant)
         .map((monsterCombatant) => {
             return monsterCombatant.cloneWith({
                 turnsUntilAction: Math.max(0, monsterCombatant.turnsUntilAction - 1),

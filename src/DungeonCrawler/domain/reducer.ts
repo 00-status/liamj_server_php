@@ -103,7 +103,7 @@ export const dungeonCrawlerReducer = (
             );
 
             if (!actingMonster) {
-                return state;
+                return { ...state, phase: GamePhase.PLAYER_TURN };
             }
 
             const targetCombatant = selectTargetForMonster(state.playerFormation);
