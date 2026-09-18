@@ -9,7 +9,7 @@ import { Ability, Combatant, Formation, LogMessage, MonsterCombatant } from './t
 import { selectTargetForMonster } from './monster/selectTargetForMonster';
 import {
     resetTurnsUntilAction,
-    updateTurnsForMonsterCombatantList,
+    decreaseTurnsForMonsterCombatantList,
 } from './monster/turnsUntilAction';
 
 type Actions =
@@ -83,7 +83,7 @@ export const dungeonCrawlerReducer = (
             // Decrease enemy turnsUntilAction
             const monsterFormationWithUpdatedTurns: Formation = {
                 ...newMonsterFormation,
-                combatants: updateTurnsForMonsterCombatantList(newMonsterFormation.combatants),
+                combatants: decreaseTurnsForMonsterCombatantList(newMonsterFormation.combatants),
             };
 
             return {
@@ -95,9 +95,9 @@ export const dungeonCrawlerReducer = (
             };
         }
         case 'ENEMY_USES_ABILITY': {
-            const monsterCombatants = state.monsterFormation.combatants.filter(
-                (combatant) => combatant instanceof MonsterCombatant,
-            );
+            const monsterCombatants = state.monsterFormation.combatants
+                .filter((combatant) => combatant instanceof MonsterCombatant)
+                .filter((monsterCombatant) => monsterCombatant.character.currentHP > 0);
             const actingMonster = monsterCombatants.find(
                 (combatant) => combatant.turnsUntilAction <= 0,
             );
