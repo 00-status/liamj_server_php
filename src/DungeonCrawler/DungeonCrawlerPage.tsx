@@ -51,6 +51,7 @@ const DungeonCrawlerPage = () => {
             target,
             ability: selectedAbility,
         });
+        setSelectedAbility(null);
     };
 
     const toggleEquipmentActive = (equippableName: string) => {

@@ -1,8 +1,6 @@
 import './monster-stats.css';
 import { Card } from '../../SharedComponents/Card/Card';
-import { Combatant, Formation } from '../domain/types';
-
-import { CharacterStat } from './CharacterStat';
+import { Combatant, Formation, MonsterCombatant } from '../domain/types';
 
 type Props = {
     formation: Formation;
@@ -11,6 +9,10 @@ type Props = {
 };
 
 export const MonsterStats = ({ formation, isPlayerSelecting, onEnemySelect }: Props) => {
+    const monsters = formation.combatants.filter(
+        (combatant) => combatant instanceof MonsterCombatant,
+    );
+
     const gridStyles = {
         gridTemplateColumns: 'auto '.repeat(formation.gridDimensions.x),
         gridTemplateRows: 'auto '.repeat(formation.gridDimensions.y),
@@ -19,23 +21,25 @@ export const MonsterStats = ({ formation, isPlayerSelecting, onEnemySelect }: Pr
     return (
         <Card title={'Monsters!'} isFullWidth>
             <div className="monster-stats" style={gridStyles}>
-                {formation.combatants.map((combatant) => {
+                {monsters.map((combatant) => {
                     const character = combatant.character;
 
                     return (
                         <div
                             key={combatant.id}
-                            onClick={() => onEnemySelect(combatant)}
-                            className={isPlayerSelecting ? 'monster-stat__item--selecting' : ''}
+                            onClick={() => (isPlayerSelecting ? onEnemySelect(combatant) : null)}
+                            className={
+                                'monster-stat__item ' +
+                                (isPlayerSelecting ? 'monster-stat__item--selecting' : '')
+                            }
                             style={{
                                 gridColumnStart: combatant.position.x,
                                 gridRowStart: combatant.position.y,
                             }}
                         >
-                            <CharacterStat
-                                label="HP"
-                                value={`${character.currentHP}/${character.stats.healthPoints}`}
-                            />
+                            <b>{character.name}</b>
+                            <div>{`HP: ${character.currentHP}/${character.stats.healthPoints}`}</div>
+                            <div>{`Next Action: ${combatant.turnsUntilAction}`}</div>
                         </div>
                     );
                 })}

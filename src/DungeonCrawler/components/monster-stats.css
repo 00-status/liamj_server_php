@@ -3,12 +3,21 @@
     gap: 12px;
 }
 
+.monster-stat__item {
+    text-align: center;
+    padding: 8px;
+
+    border-radius: 8px;
+    background-color: #3b3b40;
+    box-shadow: 1px 1px 4px #1f2028;
+}
+
 .monster-stat__item--selecting {
-    animation: smooth-flash 2.5s ease-in-out infinite alternate;
+    animation: smooth-flash 1.5s ease-in-out infinite alternate;
 }
 
 .monster-stat__item--selecting:hover {
-    background-color: aliceblue;
+    background-color: #49494e;
 }
 
 @keyframes smooth-flash {
@@ -16,6 +25,6 @@
         opacity: 1;
     }
     100% {
-        opacity: 0.5;
+        opacity: 0.75;
     }
 }
