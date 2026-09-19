@@ -1,3 +1,65 @@
+export interface Formation {
+    id: string;
+    team: 'player' | 'monster';
+    combatants: Combatant[];
+    gridDimensions: { x: number; y: number };
+}
+
+export class Combatant {
+    constructor(
+        public id: string,
+        public character: Character,
+        public position: Position,
+    ) {}
+
+    public createCombatant(args: Combatant) {
+        return new Combatant(args.id, args.character, args.position);
+    }
+
+    public clone(): Combatant {
+        const characterClone = structuredClone(this.character);
+        const positionClone = structuredClone(this.position);
+
+        return Object.assign(Object.create(Object.getPrototypeOf(this)), this, {
+            character: characterClone,
+            position: positionClone,
+        });
+    }
+
+    cloneWith<T extends Combatant>(this: T, changes: Partial<T>): T {
+        const characterClone = structuredClone(this.character);
+        const positionClone = structuredClone(this.position);
+
+        return Object.assign(
+            Object.create(Object.getPrototypeOf(this)),
+            this,
+            { character: characterClone, position: positionClone },
+            changes,
+        );
+    }
+}
+
+export class MonsterCombatant extends Combatant {
+    constructor(
+        id: string,
+        character: Character,
+        position: Position,
+        public turnsUntilAction: number,
+    ) {
+        super(id, character, position);
+        this.turnsUntilAction = turnsUntilAction;
+    }
+
+    public override createCombatant(args: Combatant): Combatant {
+        return new MonsterCombatant(args.id, args.character, args.position, 0);
+    }
+}
+
+export interface Position {
+    x: number;
+    y: number;
+}
+
 export interface Character {
     name: string;
     stats: BaseStats;
@@ -91,8 +153,12 @@ export enum DamageType {
 
 export enum TargetScope {
     self = 'self',
-    opponent = 'single_opponent',
-    all_opponents = 'all_opponents',
+    target = 'target',
+    target_and_adjacent = 'target_and_adjacent',
+    adjacent = 'adjacent',
+    target_and_surrounding = 'target_and_surrounding',
+    surrounding = 'surrounding',
+    all_opponents = 'entire_formation',
 }
 
 export type LogMessage = { id: string; message: string };
