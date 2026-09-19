@@ -14,8 +14,8 @@ export const MonsterStats = ({ formation, isPlayerSelecting, onEnemySelect }: Pr
     );
 
     const gridStyles = {
-        gridTemplateColumns: 'auto '.repeat(formation.gridDimensions.x),
-        gridTemplateRows: 'auto '.repeat(formation.gridDimensions.y),
+        gridTemplateColumns: '1fr '.repeat(formation.gridDimensions.x),
+        gridTemplateRows: '1fr '.repeat(formation.gridDimensions.y),
     };
 
     return (
@@ -29,8 +29,8 @@ export const MonsterStats = ({ formation, isPlayerSelecting, onEnemySelect }: Pr
                             key={combatant.id}
                             onClick={() => (isPlayerSelecting ? onEnemySelect(combatant) : null)}
                             className={
-                                'monster-stat__item ' +
-                                (isPlayerSelecting ? 'monster-stat__item--selecting' : '')
+                                'monster-stats__item ' +
+                                (isPlayerSelecting ? 'monster-stats__item--selecting' : '')
                             }
                             style={{
                                 gridColumnStart: combatant.position.x,
