@@ -14,8 +14,12 @@ const DungeonCrawlerPage = () => {
     const [state, dispatch] = useReducer(dungeonCrawlerReducer, dungeonCrawlerInitialState);
     const { phase, roomsClearedCount, playerFormation, monsterFormation, combatLog } = state;
 
-    const currentPlayerCombatant = playerFormation.combatants[0];
+    const [selectedPlayerCharacterID, setSelectedPlayerCharacterID] = useState<string | null>(null);
     const [selectedAbility, setSelectedAbility] = useState<Ability | null>(null);
+
+    const selectedPlayerCharacter = playerFormation.combatants.find(
+        (combatant) => combatant.id === selectedPlayerCharacterID,
+    );
 
     useEffect(() => {
         if (phase === GamePhase.ENEMY_EXECUTES) {
@@ -47,13 +51,13 @@ const DungeonCrawlerPage = () => {
     };
 
     const onEnemySelect = (target: Combatant) => {
-        if (!selectedAbility || !currentPlayerCombatant) {
+        if (!selectedAbility || !selectedPlayerCharacter) {
             return;
         }
 
         dispatch({
             type: 'PLAYER_USES_ABILITY',
-            caster: currentPlayerCombatant,
+            caster: selectedPlayerCharacter,
             target,
             ability: selectedAbility,
         });
@@ -61,9 +65,13 @@ const DungeonCrawlerPage = () => {
     };
 
     const toggleEquipmentActive = (equippableName: string) => {
+        if (!selectedPlayerCharacter) {
+            return;
+        }
+
         dispatch({
             type: 'PLAYER_TOGGLES_EQUIPMENT',
-            combatantID: currentPlayerCombatant.id,
+            combatantID: selectedPlayerCharacter.id,
             equippableName,
         });
     };
@@ -82,7 +90,11 @@ const DungeonCrawlerPage = () => {
                     <PlayerFormation
                         formation={playerFormation}
                         canPlayerAct={phase === GamePhase.PLAYER_TURN}
+                        currentPlayer={selectedPlayerCharacter || null}
                         currentAbility={selectedAbility}
+                        onPlayerSelect={(combatantID: string) =>
+                            setSelectedPlayerCharacterID(combatantID)
+                        }
                         onPlayerAbility={onPlayerAbilitySelect}
                     />
                     <Card title="Log">
@@ -92,12 +104,13 @@ const DungeonCrawlerPage = () => {
                             ))}
                         </div>
                     </Card>
-                    {!!currentPlayerCombatant.character.equipables.length && (
-                        <CharacterEquipment
-                            equippables={currentPlayerCombatant.character.equipables}
-                            toggleEquipmentActive={toggleEquipmentActive}
-                        />
-                    )}
+                    {!!selectedPlayerCharacter &&
+                        !!selectedPlayerCharacter.character.equipables.length && (
+                            <CharacterEquipment
+                                equippables={selectedPlayerCharacter.character.equipables}
+                                toggleEquipmentActive={toggleEquipmentActive}
+                            />
+                        )}
                 </div>
             )}
         </Page>
