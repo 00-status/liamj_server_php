@@ -5,10 +5,10 @@ import { Card } from '../SharedComponents/Card/Card';
 
 import './dungeon-crawler-page.css';
 import { MonsterStats } from './components/MonsterStats';
-import { PlayerStats } from './components/PlayerStats';
 import { CharacterEquipment } from './components/CharacterEquipment';
 import { dungeonCrawlerInitialState, dungeonCrawlerReducer, GamePhase } from './domain/reducer';
 import { Ability, Combatant } from './domain/types';
+import { PlayerFormation } from './components/PlayerFormation/PlayerFormation';
 
 const DungeonCrawlerPage = () => {
     const [state, dispatch] = useReducer(dungeonCrawlerReducer, dungeonCrawlerInitialState);
@@ -79,8 +79,8 @@ const DungeonCrawlerPage = () => {
                         isPlayerSelecting={!!selectedAbility}
                         onEnemySelect={onEnemySelect}
                     />
-                    <PlayerStats
-                        player={currentPlayerCombatant.character}
+                    <PlayerFormation
+                        formation={playerFormation}
                         canPlayerAct={phase === GamePhase.PLAYER_TURN}
                         currentAbility={selectedAbility}
                         onPlayerAbility={onPlayerAbilitySelect}
