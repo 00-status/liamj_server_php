@@ -1,6 +1,7 @@
 import { useEffect, useReducer, useState } from 'react';
 
 import { Page } from '../SharedComponents/Page/Page';
+import { Card } from '../SharedComponents/Card/Card';
 
 import './dungeon-crawler-page.css';
 import { MonsterStats } from './components/MonsterStats';
@@ -75,10 +76,16 @@ const DungeonCrawlerPage = () => {
                     />
                     <PlayerStats
                         player={currentPlayerCombatant.character}
-                        combatLog={combatLog}
                         canPlayerAct={phase === GamePhase.PLAYER_TURN}
                         onPlayerAbility={onPlayerAbilitySelect}
                     />
+                    <Card title="Log">
+                        <div>
+                            {combatLog.map((log) => (
+                                <p key={log.id}>{log.message}</p>
+                            ))}
+                        </div>
+                    </Card>
                     {!!currentPlayerCombatant.character.equipables.length && (
                         <CharacterEquipment
                             equippables={currentPlayerCombatant.character.equipables}

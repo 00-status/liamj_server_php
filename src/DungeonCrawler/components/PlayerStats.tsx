@@ -1,7 +1,7 @@
 import './player-stats.css';
 import { useState } from 'react';
 
-import { Ability, AbilityType, BaseStatNames, Character, LogMessage } from '../domain/types';
+import { Ability, AbilityType, BaseStatNames, Character } from '../domain/types';
 import { Card } from '../../SharedComponents/Card/Card';
 import { Button, ButtonTheme } from '../../SharedComponents/Button/Button';
 import { getCharacterStat } from '../domain/character/getCharacterStat';
@@ -21,12 +21,11 @@ type MenuOption = {
 
 type Props = {
     player: Character;
-    combatLog: LogMessage[];
     canPlayerAct: boolean;
     onPlayerAbility: (ability: Ability) => void;
 };
 
-export const PlayerStats = ({ player, combatLog, canPlayerAct, onPlayerAbility }: Props) => {
+export const PlayerStats = ({ player, canPlayerAct, onPlayerAbility }: Props) => {
     const [menuState, setMenuState] = useState<MenuState>(MenuState.base);
 
     const getActions = (): Array<MenuOption> => {
@@ -106,15 +105,6 @@ export const PlayerStats = ({ player, combatLog, canPlayerAct, onPlayerAbility }
                             label="MDEF"
                             value={getCharacterStat(player, BaseStatNames.magicDefence)}
                         />
-                    </div>
-
-                    <div className="player-stats__log">
-                        <h2>Log</h2>
-                        {combatLog.map((log) => (
-                            <p key={log.id} className="player-stats__log-entry">
-                                {log.message}
-                            </p>
-                        ))}
                     </div>
                 </div>
             </div>
