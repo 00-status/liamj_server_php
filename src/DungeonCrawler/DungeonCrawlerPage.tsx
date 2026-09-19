@@ -38,6 +38,11 @@ const DungeonCrawlerPage = () => {
     useEffect(() => {}, [state.phase]);
 
     const onPlayerAbilitySelect = (ability: Ability) => {
+        if (ability.name === selectedAbility?.name) {
+            setSelectedAbility(null);
+            return;
+        }
+
         setSelectedAbility(ability);
     };
 
@@ -77,6 +82,7 @@ const DungeonCrawlerPage = () => {
                     <PlayerStats
                         player={currentPlayerCombatant.character}
                         canPlayerAct={phase === GamePhase.PLAYER_TURN}
+                        currentAbility={selectedAbility}
                         onPlayerAbility={onPlayerAbilitySelect}
                     />
                     <Card title="Log">

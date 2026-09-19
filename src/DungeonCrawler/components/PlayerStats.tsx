@@ -1,5 +1,5 @@
 import './player-stats.css';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { Ability, AbilityType, BaseStatNames, Character } from '../domain/types';
 import { Card } from '../../SharedComponents/Card/Card';
@@ -17,18 +17,20 @@ type MenuOption = {
     action: () => void;
     label: string;
     isDisabled?: boolean;
+    isSelected?: boolean;
 };
 
 type Props = {
     player: Character;
     canPlayerAct: boolean;
+    currentAbility: Ability | null;
     onPlayerAbility: (ability: Ability) => void;
 };
 
-export const PlayerStats = ({ player, canPlayerAct, onPlayerAbility }: Props) => {
+export const PlayerStats = ({ player, canPlayerAct, currentAbility, onPlayerAbility }: Props) => {
     const [menuState, setMenuState] = useState<MenuState>(MenuState.base);
 
-    const getActions = (): Array<MenuOption> => {
+    const actions = useMemo((): Array<MenuOption> => {
         switch (menuState) {
             case MenuState.base: {
                 const defaultAbilities = player.abilities
@@ -37,6 +39,7 @@ export const PlayerStats = ({ player, canPlayerAct, onPlayerAbility }: Props) =>
                         action: () => onPlayerAbility(ability),
                         label: ability.name,
                         isDisabled: ability.cost > player.currentMP || !canPlayerAct,
+                        isSelected: currentAbility?.name === ability.name && canPlayerAct,
                     }));
 
                 return [
@@ -51,6 +54,7 @@ export const PlayerStats = ({ player, canPlayerAct, onPlayerAbility }: Props) =>
                         action: () => onPlayerAbility(ability),
                         label: ability.name,
                         isDisabled: ability.cost > player.currentMP || !canPlayerAct,
+                        isSelected: currentAbility?.name === ability.name && canPlayerAct,
                     }));
 
                 return [
@@ -61,19 +65,21 @@ export const PlayerStats = ({ player, canPlayerAct, onPlayerAbility }: Props) =>
             default:
                 return [];
         }
-    };
+    }, [player, canPlayerAct, currentAbility, onPlayerAbility, menuState]);
 
     return (
         <Card title={player.name} isFullWidth>
             <div className="player-stats">
                 <div className="player-stats__left-panel">
                     <h2>Actions</h2>
-                    {getActions().map((action) => (
+                    {actions.map((action) => (
                         <Button
                             key={action.label}
                             onClick={action.action}
-                            disabled={action.isDisabled}
-                            buttonTheme={ButtonTheme.Subtle}
+                            disabled={!action.isSelected && action.isDisabled}
+                            buttonTheme={
+                                action.isSelected ? ButtonTheme.Default : ButtonTheme.Subtle
+                            }
                         >
                             {action.label}
                         </Button>
