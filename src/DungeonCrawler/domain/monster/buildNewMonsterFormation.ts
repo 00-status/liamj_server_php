@@ -1,4 +1,4 @@
-import { Character, Combatant, Formation, MonsterCombatant } from '../types';
+import { Character, Combatant, Formation, FormationTeam, MonsterCombatant } from '../types';
 import { getRandomInt } from '../utiils';
 
 const MIN_GRID = 1;
@@ -41,7 +41,7 @@ export const buildNewMonsterFormation = (potentialMonsters: Character[]): Format
 
     return {
         id: crypto.randomUUID(),
-        team: 'monster',
+        team: FormationTeam.MONSTER,
         gridDimensions: { x: gridWidth, y: gridHeight },
         combatants,
     };

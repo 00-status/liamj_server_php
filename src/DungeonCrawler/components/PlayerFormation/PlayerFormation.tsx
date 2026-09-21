@@ -1,7 +1,8 @@
-import { Card } from '../../../SharedComponents/Card/Card';
-import { Ability, Combatant, Formation } from '../../domain/types';
-
 import './player-formation.css';
+import { Card } from '../../../SharedComponents/Card/Card';
+import { Ability, Combatant, Formation, FormationTeam } from '../../domain/types';
+import { canPlayerTargetCombatant } from '../../domain/character/canPlayerTargetCombatant';
+
 import { PlayerStats } from './PlayerStats';
 import { PlayerActions } from './PlayerActions';
 
@@ -12,6 +13,7 @@ type Props = {
     currentAbility: Ability | null;
     onPlayerSelect: (combatantID: string) => void;
     onPlayerAbility: (ability: Ability) => void;
+    onTargetCombatant: (target: Combatant) => void;
 };
 
 export const PlayerFormation = ({
@@ -21,6 +23,7 @@ export const PlayerFormation = ({
     currentAbility,
     onPlayerSelect,
     onPlayerAbility,
+    onTargetCombatant,
 }: Props) => {
     const gridStyles = {
         gridTemplateColumns: '1fr '.repeat(formation.gridDimensions.x),
@@ -32,11 +35,28 @@ export const PlayerFormation = ({
             <div>
                 <div className="player-formation__grid" style={gridStyles}>
                     {formation.combatants.map((combatant) => {
+                        const canTargetCombatant =
+                            currentAbility &&
+                            currentPlayer &&
+                            canPlayerTargetCombatant(
+                                currentAbility.abilityTarget,
+                                currentPlayer?.id,
+                                combatant.id,
+                                FormationTeam.PLAYER,
+                            );
+
+                        const classes =
+                            'player-formation__grid-item ' +
+                            (canTargetCombatant ? 'player-formation__grid-item--selected' : '');
                         return (
                             <div
                                 key={combatant.id}
-                                className="player-formation__grid-item"
-                                onClick={() => onPlayerSelect(combatant.id)}
+                                className={classes}
+                                onClick={() =>
+                                    canTargetCombatant
+                                        ? onTargetCombatant(combatant)
+                                        : onPlayerSelect(combatant.id)
+                                }
                                 style={{
                                     gridColumnStart: combatant.position.x,
                                     gridRowStart: combatant.position.y,

@@ -8,6 +8,7 @@ import {
     Combatant,
     DamageType,
     Formation,
+    FormationTeam,
     TargetScope,
 } from './types';
 
@@ -145,7 +146,7 @@ const examplePlayer2: Character = {
 
 export const examplePlayerFormation: Formation = {
     id: crypto.randomUUID(),
-    team: 'player',
+    team: FormationTeam.PLAYER,
     combatants: [
         new Combatant(crypto.randomUUID(), examplePlayer, { x: 1, y: 1 }),
         new Combatant(crypto.randomUUID(), examplePlayer2, { x: 2, y: 1 }),

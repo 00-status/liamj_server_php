@@ -1,8 +1,13 @@
 export interface Formation {
     id: string;
-    team: 'player' | 'monster';
+    team: FormationTeam;
     combatants: Combatant[];
     gridDimensions: { x: number; y: number };
+}
+
+export enum FormationTeam {
+    PLAYER = 'PLAYER',
+    MONSTER = 'MONSTER',
 }
 
 export class Combatant {

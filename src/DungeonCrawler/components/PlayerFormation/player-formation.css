@@ -12,9 +12,21 @@
     background-color: #3b3b40;
     box-shadow: 1px 1px 4px #1f2028;
 }
-
 .player-formation__grid-item:hover {
     background-color: #49494e;
+}
+
+.player-formation__grid-item--selected {
+    border: 1px solid #fcfeff;
+    animation: player-formation-smooth-flash 1.5s ease-in-out infinite alternate;
+}
+@keyframes player-formation-smooth-flash {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.75;
+    }
 }
 
 .player-formation__information {

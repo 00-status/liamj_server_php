@@ -4,11 +4,11 @@ import { Combatant, Formation, MonsterCombatant } from '../domain/types';
 
 type Props = {
     formation: Formation;
-    isPlayerSelecting: boolean;
+    canPlayerSelect: boolean;
     onEnemySelect: (target: Combatant) => void;
 };
 
-export const MonsterStats = ({ formation, isPlayerSelecting, onEnemySelect }: Props) => {
+export const MonsterStats = ({ formation, canPlayerSelect, onEnemySelect }: Props) => {
     const monsters = formation.combatants.filter(
         (combatant) => combatant instanceof MonsterCombatant,
     );
@@ -27,10 +27,10 @@ export const MonsterStats = ({ formation, isPlayerSelecting, onEnemySelect }: Pr
                     return (
                         <div
                             key={combatant.id}
-                            onClick={() => (isPlayerSelecting ? onEnemySelect(combatant) : null)}
+                            onClick={() => (canPlayerSelect ? onEnemySelect(combatant) : null)}
                             className={
                                 'monster-stats__item ' +
-                                (isPlayerSelecting ? 'monster-stats__item--selecting' : '')
+                                (canPlayerSelect ? 'monster-stats__item--selecting' : '')
                             }
                             style={{
                                 gridColumnStart: combatant.position.x,

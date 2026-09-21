@@ -16,7 +16,6 @@
     border: 1px solid #fcfeff;
     animation: smooth-flash 1.5s ease-in-out infinite alternate;
 }
-
 .monster-stats__item--selecting:hover {
     background-color: #49494e;
 }
