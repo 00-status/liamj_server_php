@@ -13,6 +13,7 @@
 }
 
 .monster-stats__item--selecting {
+    border: 1px solid #fcfeff;
     animation: smooth-flash 1.5s ease-in-out infinite alternate;
 }
 

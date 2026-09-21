@@ -1,6 +1,7 @@
 import { exampleEquippables } from './equippables';
 import {
     Ability,
+    AbilityTarget,
     AbilityType,
     BaseStatNames,
     Character,
@@ -14,6 +15,7 @@ export const attackAbility: Ability = {
     name: 'Attack',
     cost: 0,
     type: AbilityType.default,
+    abilityTarget: AbilityTarget.OPPONENT_FORMATION,
     statusEffects: [
         {
             name: 'Attack',
@@ -53,6 +55,7 @@ const examplePlayer: Character = {
             name: 'YEET!',
             cost: 3,
             type: AbilityType.magic,
+            abilityTarget: AbilityTarget.OPPONENT_FORMATION,
             statusEffects: [
                 {
                     name: 'YEET!',
@@ -67,6 +70,7 @@ const examplePlayer: Character = {
             name: 'Sweep the Leg!',
             cost: 2,
             type: AbilityType.magic,
+            abilityTarget: AbilityTarget.OPPONENT_FORMATION,
             statusEffects: [
                 {
                     name: 'Sweep the Leg!',
@@ -81,6 +85,7 @@ const examplePlayer: Character = {
             name: 'Get me a beer!',
             cost: 2,
             type: AbilityType.magic,
+            abilityTarget: AbilityTarget.SELF,
             statusEffects: [
                 {
                     name: 'HP Restore',
@@ -115,6 +120,7 @@ const examplePlayer2: Character = {
             name: 'Hype Man',
             cost: 3,
             type: AbilityType.magic,
+            abilityTarget: AbilityTarget.ALLY_FORMATION,
             statusEffects: [
                 {
                     name: 'Heal',

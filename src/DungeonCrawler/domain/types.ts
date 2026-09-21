@@ -126,6 +126,7 @@ export interface Ability {
     name: string;
     cost: number;
     type: AbilityType;
+    abilityTarget: AbilityTarget;
     statusEffects: StatusEffect[];
 }
 
@@ -133,6 +134,13 @@ export enum AbilityType {
     default = 'default',
     skill = 'skill',
     magic = 'magic',
+}
+
+export enum AbilityTarget {
+    OPPONENT_FORMATION = 'OPPONENT_FORMATION',
+    ALLY_FORMATION = 'ALLY_FORMATION',
+    SELF = 'SELF',
+    ALL = 'ALL',
 }
 
 export interface StatusEffect {
