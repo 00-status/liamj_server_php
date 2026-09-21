@@ -141,7 +141,7 @@ export const applyAbilityEffects = (
                 }
 
                 const { updatedTarget, statChange } = handler.apply(
-                    target.character,
+                    targetToUpdate.character,
                     calculatedValue,
                 );
                 combatantDictionary[targetToUpdate.id] = targetToUpdate.cloneWith({
@@ -150,7 +150,7 @@ export const applyAbilityEffects = (
 
                 logs.push({
                     id: crypto.randomUUID(),
-                    message: `${caster.character.name} used ${ability.name} on ${target.character.name} for ${statChange} ${effect.damageType}!`,
+                    message: `${caster.character.name} used ${ability.name} on ${targetToUpdate.character.name} for ${statChange} ${effect.damageType}!`,
                 });
             });
         }

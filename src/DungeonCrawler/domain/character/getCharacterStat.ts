@@ -21,10 +21,6 @@ export const getCharacterStat = (character: Character, stat: BaseStatNames): num
         return a.type === 'flat' ? -1 : 1;
     });
 
-    if (stat === BaseStatNames.attack) {
-        console.log(modifiers);
-    }
-
     let statAcc = character.stats[stat];
     modifiers.forEach((modifier) => {
         if (modifier.type === 'flat') {
