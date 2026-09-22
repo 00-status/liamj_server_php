@@ -1,12 +1,14 @@
 import { exampleEquippables } from './equippables';
 import {
     Ability,
+    AbilityTarget,
     AbilityType,
     BaseStatNames,
     Character,
     Combatant,
     DamageType,
     Formation,
+    FormationTeam,
     TargetScope,
 } from './types';
 
@@ -14,6 +16,7 @@ export const attackAbility: Ability = {
     name: 'Attack',
     cost: 0,
     type: AbilityType.default,
+    abilityTarget: AbilityTarget.OPPONENT_FORMATION,
     statusEffects: [
         {
             name: 'Attack',
@@ -53,6 +56,7 @@ const examplePlayer: Character = {
             name: 'YEET!',
             cost: 3,
             type: AbilityType.magic,
+            abilityTarget: AbilityTarget.OPPONENT_FORMATION,
             statusEffects: [
                 {
                     name: 'YEET!',
@@ -67,6 +71,7 @@ const examplePlayer: Character = {
             name: 'Sweep the Leg!',
             cost: 2,
             type: AbilityType.magic,
+            abilityTarget: AbilityTarget.OPPONENT_FORMATION,
             statusEffects: [
                 {
                     name: 'Sweep the Leg!',
@@ -81,6 +86,7 @@ const examplePlayer: Character = {
             name: 'Get me a beer!',
             cost: 2,
             type: AbilityType.magic,
+            abilityTarget: AbilityTarget.SELF,
             statusEffects: [
                 {
                     name: 'HP Restore',
@@ -115,6 +121,7 @@ const examplePlayer2: Character = {
             name: 'Hype Man',
             cost: 3,
             type: AbilityType.magic,
+            abilityTarget: AbilityTarget.ALLY_FORMATION,
             statusEffects: [
                 {
                     name: 'Heal',
@@ -139,7 +146,7 @@ const examplePlayer2: Character = {
 
 export const examplePlayerFormation: Formation = {
     id: crypto.randomUUID(),
-    team: 'player',
+    team: FormationTeam.PLAYER,
     combatants: [
         new Combatant(crypto.randomUUID(), examplePlayer, { x: 1, y: 1 }),
         new Combatant(crypto.randomUUID(), examplePlayer2, { x: 2, y: 1 }),

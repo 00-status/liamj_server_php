@@ -1,8 +1,13 @@
 export interface Formation {
     id: string;
-    team: 'player' | 'monster';
+    team: FormationTeam;
     combatants: Combatant[];
     gridDimensions: { x: number; y: number };
+}
+
+export enum FormationTeam {
+    PLAYER = 'PLAYER',
+    MONSTER = 'MONSTER',
 }
 
 export class Combatant {
@@ -126,6 +131,7 @@ export interface Ability {
     name: string;
     cost: number;
     type: AbilityType;
+    abilityTarget: AbilityTarget;
     statusEffects: StatusEffect[];
 }
 
@@ -133,6 +139,13 @@ export enum AbilityType {
     default = 'default',
     skill = 'skill',
     magic = 'magic',
+}
+
+export enum AbilityTarget {
+    OPPONENT_FORMATION = 'OPPONENT_FORMATION',
+    ALLY_FORMATION = 'ALLY_FORMATION',
+    SELF = 'SELF',
+    ALL = 'ALL',
 }
 
 export interface StatusEffect {

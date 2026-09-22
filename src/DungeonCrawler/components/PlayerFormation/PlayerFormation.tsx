@@ -1,26 +1,29 @@
+import './player-formation.css';
 import { Card } from '../../../SharedComponents/Card/Card';
 import { Ability, Combatant, Formation } from '../../domain/types';
 
-import './player-formation.css';
 import { PlayerStats } from './PlayerStats';
 import { PlayerActions } from './PlayerActions';
+import { PlayerGridButton } from './PlayerGridButton';
 
 type Props = {
     formation: Formation;
-    canPlayerAct: boolean;
+    canPlayerTakeActions: boolean;
     currentPlayer: Combatant | null;
     currentAbility: Ability | null;
     onPlayerSelect: (combatantID: string) => void;
     onPlayerAbility: (ability: Ability) => void;
+    onTargetCombatant: (target: Combatant) => void;
 };
 
 export const PlayerFormation = ({
     formation,
-    canPlayerAct,
+    canPlayerTakeActions,
     currentPlayer,
     currentAbility,
     onPlayerSelect,
     onPlayerAbility,
+    onTargetCombatant,
 }: Props) => {
     const gridStyles = {
         gridTemplateColumns: '1fr '.repeat(formation.gridDimensions.x),
@@ -33,21 +36,14 @@ export const PlayerFormation = ({
                 <div className="player-formation__grid" style={gridStyles}>
                     {formation.combatants.map((combatant) => {
                         return (
-                            <div
+                            <PlayerGridButton
                                 key={combatant.id}
-                                className="player-formation__grid-item"
-                                onClick={() => onPlayerSelect(combatant.id)}
-                                style={{
-                                    gridColumnStart: combatant.position.x,
-                                    gridRowStart: combatant.position.y,
-                                }}
-                            >
-                                <b>{combatant.character.name}</b>
-                                <p>
-                                    HP: {combatant.character.currentHP}/
-                                    {combatant.character.stats.healthPoints}
-                                </p>
-                            </div>
+                                combatant={combatant}
+                                currentAbility={currentAbility}
+                                currentPlayer={currentPlayer}
+                                onTarget={onTargetCombatant}
+                                onSelect={onPlayerSelect}
+                            />
                         );
                     })}
                 </div>
@@ -57,7 +53,7 @@ export const PlayerFormation = ({
                     <div className="player-formation__information">
                         <PlayerActions
                             player={currentPlayer.character}
-                            canPlayerAct={canPlayerAct}
+                            canPlayerTakeActions={canPlayerTakeActions}
                             currentAbility={currentAbility}
                             onPlayerAbility={onPlayerAbility}
                         />

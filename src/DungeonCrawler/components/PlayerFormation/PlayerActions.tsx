@@ -18,12 +18,17 @@ type MenuOption = {
 
 type Props = {
     player: Character;
-    canPlayerAct: boolean;
+    canPlayerTakeActions: boolean;
     currentAbility: Ability | null;
     onPlayerAbility: (ability: Ability) => void;
 };
 
-export const PlayerActions = ({ player, canPlayerAct, currentAbility, onPlayerAbility }: Props) => {
+export const PlayerActions = ({
+    player,
+    canPlayerTakeActions,
+    currentAbility,
+    onPlayerAbility,
+}: Props) => {
     const [menuState, setMenuState] = useState<MenuState>(MenuState.base);
 
     const actions = useMemo((): Array<MenuOption> => {
@@ -34,8 +39,8 @@ export const PlayerActions = ({ player, canPlayerAct, currentAbility, onPlayerAb
                     .map((ability) => ({
                         action: () => onPlayerAbility(ability),
                         label: ability.name,
-                        isDisabled: ability.cost > player.currentMP || !canPlayerAct,
-                        isSelected: currentAbility?.name === ability.name && canPlayerAct,
+                        isDisabled: ability.cost > player.currentMP || !canPlayerTakeActions,
+                        isSelected: currentAbility?.name === ability.name && canPlayerTakeActions,
                     }));
 
                 return [
@@ -49,8 +54,8 @@ export const PlayerActions = ({ player, canPlayerAct, currentAbility, onPlayerAb
                     .map((ability) => ({
                         action: () => onPlayerAbility(ability),
                         label: ability.name,
-                        isDisabled: ability.cost > player.currentMP || !canPlayerAct,
-                        isSelected: currentAbility?.name === ability.name && canPlayerAct,
+                        isDisabled: ability.cost > player.currentMP || !canPlayerTakeActions,
+                        isSelected: currentAbility?.name === ability.name && canPlayerTakeActions,
                     }));
 
                 return [
@@ -61,7 +66,7 @@ export const PlayerActions = ({ player, canPlayerAct, currentAbility, onPlayerAb
             default:
                 return [];
         }
-    }, [player, canPlayerAct, currentAbility, onPlayerAbility, menuState]);
+    }, [player, canPlayerTakeActions, currentAbility, onPlayerAbility, menuState]);
 
     return (
         <div className="player-actions">

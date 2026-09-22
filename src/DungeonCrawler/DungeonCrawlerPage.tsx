@@ -50,7 +50,7 @@ const DungeonCrawlerPage = () => {
         setSelectedAbility(ability);
     };
 
-    const onEnemySelect = (target: Combatant) => {
+    const onTargetSelect = (target: Combatant) => {
         if (!selectedAbility || !selectedPlayerCharacter) {
             return;
         }
@@ -84,18 +84,24 @@ const DungeonCrawlerPage = () => {
                     <div className="dungeon-crawler-page__room_count">{roomsClearedCount}</div>
                     <MonsterStats
                         formation={monsterFormation}
-                        isPlayerSelecting={!!selectedAbility}
-                        onEnemySelect={onEnemySelect}
+                        currentAbility={selectedAbility}
+                        currentPlayer={selectedPlayerCharacter || null}
+                        onEnemySelect={onTargetSelect}
                     />
                     <PlayerFormation
                         formation={playerFormation}
-                        canPlayerAct={phase === GamePhase.PLAYER_TURN}
+                        canPlayerTakeActions={
+                            phase === GamePhase.PLAYER_TURN &&
+                            !!selectedPlayerCharacter &&
+                            selectedPlayerCharacter.character.currentHP > 0
+                        }
                         currentPlayer={selectedPlayerCharacter || null}
                         currentAbility={selectedAbility}
                         onPlayerSelect={(combatantID: string) =>
                             setSelectedPlayerCharacterID(combatantID)
                         }
                         onPlayerAbility={onPlayerAbilitySelect}
+                        onTargetCombatant={onTargetSelect}
                     />
                     <Card title="Log">
                         <div>

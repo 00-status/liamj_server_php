@@ -1,5 +1,12 @@
 import { attackAbility } from './constants';
-import { AbilityType, BaseStatNames, Character, DamageType, TargetScope } from './types';
+import {
+    AbilityTarget,
+    AbilityType,
+    BaseStatNames,
+    Character,
+    DamageType,
+    TargetScope,
+} from './types';
 
 export const exampleMonsters: Character[] = [
     {
@@ -23,6 +30,7 @@ export const exampleMonsters: Character[] = [
                 name: 'Bone Bonk',
                 cost: 3,
                 type: AbilityType.magic,
+                abilityTarget: AbilityTarget.OPPONENT_FORMATION,
                 statusEffects: [
                     {
                         name: 'Bone Bonk',
@@ -56,6 +64,7 @@ export const exampleMonsters: Character[] = [
                 name: 'Bone Bonk',
                 cost: 3,
                 type: AbilityType.magic,
+                abilityTarget: AbilityTarget.OPPONENT_FORMATION,
                 statusEffects: [
                     {
                         name: 'Bone Bonk',
@@ -89,6 +98,7 @@ export const exampleMonsters: Character[] = [
                 name: 'Bite',
                 cost: 4,
                 type: AbilityType.magic,
+                abilityTarget: AbilityTarget.OPPONENT_FORMATION,
                 statusEffects: [
                     {
                         name: 'Bite',
