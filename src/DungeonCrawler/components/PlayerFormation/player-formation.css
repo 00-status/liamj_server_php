@@ -12,11 +12,8 @@
     background-color: #3b3b40;
     box-shadow: 1px 1px 4px #1f2028;
 }
-.player-formation__grid-item:hover {
-    background-color: #49494e;
-}
 
-.player-formation__grid-item--selected {
+.player-formation__grid-item--targetable {
     border: 1px solid #fcfeff;
     animation: player-formation-smooth-flash 1.5s ease-in-out infinite alternate;
 }
@@ -27,6 +24,13 @@
     100% {
         opacity: 0.75;
     }
+}
+.player-formation__grid-item--targetable:hover {
+    background-color: #49494e;
+}
+
+.player-formation__grid-item--selectable:hover {
+    background-color: #49494e;
 }
 
 .player-formation__information {

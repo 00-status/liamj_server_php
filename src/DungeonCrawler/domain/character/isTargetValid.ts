@@ -1,14 +1,18 @@
-import { AbilityTarget, FormationTeam } from '../types';
+import { AbilityTarget, Combatant, FormationTeam } from '../types';
 
-export const canPlayerTargetCombatant = (
+export const isTargetValid = (
     abilityTarget: AbilityTarget,
     casterID: string,
-    targetID: string,
+    target: Combatant,
     targetTeam: FormationTeam,
 ): boolean => {
     const isTargetingOpponents = abilityTarget === AbilityTarget.OPPONENT_FORMATION;
     const isTargetingAllies = abilityTarget === AbilityTarget.ALLY_FORMATION;
     const isTargetingSelf = abilityTarget === AbilityTarget.SELF;
+
+    if (target.character.currentHP <= 0) {
+        return false;
+    }
 
     if (abilityTarget === AbilityTarget.ALL) {
         return true;
@@ -22,7 +26,7 @@ export const canPlayerTargetCombatant = (
         return true;
     }
 
-    if (isTargetingSelf && casterID === targetID) {
+    if (isTargetingSelf && casterID === target.id) {
         return true;
     }
 

@@ -7,7 +7,7 @@ import './dungeon-crawler-page.css';
 import { MonsterStats } from './components/MonsterStats';
 import { CharacterEquipment } from './components/CharacterEquipment';
 import { dungeonCrawlerInitialState, dungeonCrawlerReducer, GamePhase } from './domain/reducer';
-import { Ability, AbilityTarget, Combatant } from './domain/types';
+import { Ability, Combatant } from './domain/types';
 import { PlayerFormation } from './components/PlayerFormation/PlayerFormation';
 
 const DungeonCrawlerPage = () => {
@@ -84,15 +84,17 @@ const DungeonCrawlerPage = () => {
                     <div className="dungeon-crawler-page__room_count">{roomsClearedCount}</div>
                     <MonsterStats
                         formation={monsterFormation}
-                        canPlayerSelect={
-                            !!selectedAbility &&
-                            selectedAbility.abilityTarget === AbilityTarget.OPPONENT_FORMATION
-                        }
+                        currentAbility={selectedAbility}
+                        currentPlayer={selectedPlayerCharacter || null}
                         onEnemySelect={onTargetSelect}
                     />
                     <PlayerFormation
                         formation={playerFormation}
-                        canPlayerAct={phase === GamePhase.PLAYER_TURN}
+                        canPlayerTakeActions={
+                            phase === GamePhase.PLAYER_TURN &&
+                            !!selectedPlayerCharacter &&
+                            selectedPlayerCharacter.character.currentHP > 0
+                        }
                         currentPlayer={selectedPlayerCharacter || null}
                         currentAbility={selectedAbility}
                         onPlayerSelect={(combatantID: string) =>
