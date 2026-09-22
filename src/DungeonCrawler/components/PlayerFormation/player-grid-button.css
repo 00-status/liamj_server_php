@@ -1,0 +1,28 @@
+.player-grid-button {
+    text-align: center;
+    padding: 8px;
+
+    border-radius: 8px;
+    background-color: #3b3b40;
+    box-shadow: 1px 1px 4px #1f2028;
+}
+
+.player-grid-button--targetable {
+    border: 1px solid #fcfeff;
+    animation: player-grid-button-smooth-flash 1.5s ease-in-out infinite alternate;
+}
+@keyframes player-grid-button-smooth-flash {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.75;
+    }
+}
+.player-grid-button--targetable:hover {
+    background-color: #49494e;
+}
+
+.player-grid-button--selectable:hover {
+    background-color: #49494e;
+}
