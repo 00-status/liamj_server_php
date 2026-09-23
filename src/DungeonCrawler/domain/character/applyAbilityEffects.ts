@@ -109,10 +109,13 @@ export const applyAbilityEffects = (
         );
 
         if (pointEffect.duration > 0) {
+            const handler = STATUS_EFFECT_HANDLERS[pointEffect.damageType];
+            const casterStatValue = handler ? handler.getStat(caster.character) : 0;
+
             const newPointModifier: PointModifier = {
                 id: crypto.randomUUID(),
                 name: pointEffect.name,
-                caster: { ...initialCaster.character },
+                casterStatValue,
                 damageType: pointEffect.damageType,
                 power: pointEffect.power,
                 duration: pointEffect.duration,
@@ -174,8 +177,7 @@ export const applyPointModifierEffects = (
     character.pointModifiers.forEach((pointModifier: PointModifier) => {
         const handler = STATUS_EFFECT_HANDLERS[pointModifier.damageType];
 
-        const casterBaseStat = handler.getStat(pointModifier.caster);
-        const calculatedValue = casterBaseStat * pointModifier.power;
+        const calculatedValue = pointModifier.casterStatValue * pointModifier.power;
 
         const { updatedTarget, statChange } = handler.apply(target, calculatedValue);
 

@@ -114,7 +114,7 @@ export interface DynamicStatModifier extends BaseStatModifier {
 export interface PointModifier {
     id: string;
     name: string;
-    caster: Character;
+    casterStatValue: number;
     damageType: DamageType;
     power: number;
     duration: number;
