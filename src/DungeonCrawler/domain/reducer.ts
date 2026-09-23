@@ -51,7 +51,7 @@ export const dungeonCrawlerReducer = (
                 (combatant) => combatant.id === action.target.id,
             );
 
-            // Apply DoTs and Status Modifiers.
+            // Apply DoTs and decrease Modifier durations.
             const { target: playerWithPointModifiers, logs: pointModifierLogs } =
                 applyPointModifierEffects(action.caster.character);
             const { newCharacter: playerWithDecreasedModifiers, logs: modifierLogs } =

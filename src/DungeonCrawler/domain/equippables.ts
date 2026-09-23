@@ -1,4 +1,4 @@
-import { BaseStatNames, Equipment, EquipmentSlot } from './types';
+import { BaseStatNames, DamageScaleMethod, Equipment, EquipmentSlot } from './types';
 
 export const exampleEquippables: Equipment[] = [
     {
@@ -10,13 +10,13 @@ export const exampleEquippables: Equipment[] = [
                 id: '1',
                 stat: BaseStatNames.defence,
                 value: 0.9,
-                type: 'percent',
+                type: DamageScaleMethod.PERCENT,
             },
             {
                 id: '2',
                 stat: BaseStatNames.attack,
                 value: 1.1,
-                type: 'percent',
+                type: DamageScaleMethod.PERCENT,
             },
         ],
     },
@@ -29,13 +29,13 @@ export const exampleEquippables: Equipment[] = [
                 id: '3',
                 stat: BaseStatNames.defence,
                 value: 50,
-                type: 'flat',
+                type: DamageScaleMethod.FLAT,
             },
             {
                 id: '4',
                 stat: BaseStatNames.magicDefence,
                 value: 20,
-                type: 'flat',
+                type: DamageScaleMethod.FLAT,
             },
         ],
     },
@@ -48,13 +48,13 @@ export const exampleEquippables: Equipment[] = [
                 id: '3',
                 stat: BaseStatNames.attack,
                 value: 25,
-                type: 'flat',
+                type: DamageScaleMethod.FLAT,
             },
             {
                 id: '4',
                 stat: BaseStatNames.magicAttack,
                 value: 25,
-                type: 'flat',
+                type: DamageScaleMethod.FLAT,
             },
         ],
     },
@@ -67,13 +67,13 @@ export const exampleEquippables: Equipment[] = [
                 id: '5',
                 stat: BaseStatNames.magicPoints,
                 value: 1,
-                type: 'flat',
+                type: DamageScaleMethod.FLAT,
             },
             {
                 id: '6',
                 stat: BaseStatNames.magicDefence,
                 value: 10,
-                type: 'flat',
+                type: DamageScaleMethod.FLAT,
             },
         ],
     },

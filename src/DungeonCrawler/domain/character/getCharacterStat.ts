@@ -1,4 +1,4 @@
-import { BaseStatModifier, BaseStatNames, Character } from '../types';
+import { BaseStatModifier, BaseStatNames, Character, DamageScaleMethod } from '../types';
 
 export const getCharacterStat = (character: Character, stat: BaseStatNames): number => {
     const equipableModifiers = character.equipables.reduce<BaseStatModifier[]>((acc, equipment) => {
@@ -18,12 +18,12 @@ export const getCharacterStat = (character: Character, stat: BaseStatNames): num
             return 0;
         }
 
-        return a.type === 'flat' ? -1 : 1;
+        return a.type === DamageScaleMethod.FLAT ? -1 : 1;
     });
 
     let statAcc = character.stats[stat];
     modifiers.forEach((modifier) => {
-        if (modifier.type === 'flat') {
+        if (modifier.type === DamageScaleMethod.FLAT) {
             statAcc += modifier.value;
         } else {
             statAcc *= modifier.value;

@@ -23,10 +23,10 @@ export const decreaseModifierDuration = (
 
     const remainingStatModifiers = character.modifiers
         .map((statModifier: DynamicStatModifier) => {
-            return { ...statModifier, durationTurns: statModifier.durationTurns - 1 };
+            return { ...statModifier, durationTurns: statModifier.duration - 1 };
         })
         .filter((statModifier: DynamicStatModifier) => {
-            const isExpired = statModifier.durationTurns <= 0;
+            const isExpired = statModifier.duration <= 0;
             if (isExpired) {
                 logs.push({
                     id: crypto.randomUUID(),
