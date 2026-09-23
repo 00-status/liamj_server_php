@@ -26,7 +26,7 @@ const DungeonCrawlerPage = () => {
             const timer = setTimeout(() => {
                 // TODO: Replace with individual animations per each action taken on the enemy's turn.
                 dispatch({ type: 'FINISH_EXECUTION' });
-            }, 2000);
+            }, 1000);
 
             return () => clearTimeout(timer);
         }
