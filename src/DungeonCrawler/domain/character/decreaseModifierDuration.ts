@@ -23,7 +23,11 @@ export const decreaseModifierDuration = (
 
     const remainingStatModifiers = character.modifiers
         .map((statModifier: DynamicStatModifier) => {
-            return { ...statModifier, durationTurns: statModifier.duration - 1 };
+            const newModifier: DynamicStatModifier = {
+                ...statModifier,
+                duration: statModifier.duration - 1,
+            };
+            return newModifier;
         })
         .filter((statModifier: DynamicStatModifier) => {
             const isExpired = statModifier.duration <= 0;
