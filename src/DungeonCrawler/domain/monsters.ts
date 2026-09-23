@@ -4,6 +4,7 @@ import {
     AbilityType,
     BaseStatNames,
     Character,
+    DamageScaleMethod,
     DamageType,
     TargetScope,
 } from './types';
@@ -31,15 +32,16 @@ export const exampleMonsters: Character[] = [
                 cost: 3,
                 type: AbilityType.magic,
                 abilityTarget: AbilityTarget.OPPONENT_FORMATION,
-                statusEffects: [
+                pointEffects: [
                     {
                         name: 'Bone Bonk',
                         target: TargetScope.target,
                         damageType: DamageType.magic,
                         power: 3.0,
-                        modifiers: [],
+                        duration: 0,
                     },
                 ],
+                statusEffects: [],
             },
         ],
     },
@@ -65,15 +67,16 @@ export const exampleMonsters: Character[] = [
                 cost: 3,
                 type: AbilityType.magic,
                 abilityTarget: AbilityTarget.OPPONENT_FORMATION,
-                statusEffects: [
+                pointEffects: [
                     {
                         name: 'Bone Bonk',
                         target: TargetScope.target,
                         damageType: DamageType.magic,
                         power: 3.0,
-                        modifiers: [],
+                        duration: 0,
                     },
                 ],
+                statusEffects: [],
             },
         ],
     },
@@ -99,22 +102,13 @@ export const exampleMonsters: Character[] = [
                 cost: 4,
                 type: AbilityType.magic,
                 abilityTarget: AbilityTarget.OPPONENT_FORMATION,
-                statusEffects: [
+                pointEffects: [
                     {
                         name: 'Bite',
                         target: TargetScope.target,
                         damageType: DamageType.magic,
                         power: 3.0,
-                        modifiers: [
-                            {
-                                id: '1',
-                                name: 'Defence Drain',
-                                stat: BaseStatNames.defence,
-                                value: -10,
-                                type: 'flat',
-                                durationTurns: 2,
-                            },
-                        ],
+                        duration: 0,
                     },
                     {
                         name: 'Rot Poison',
@@ -122,7 +116,17 @@ export const exampleMonsters: Character[] = [
                         damageType: DamageType.magic,
                         power: 0.5,
                         duration: 3,
-                        modifiers: [],
+                    },
+                ],
+                statusEffects: [
+                    {
+                        id: '1',
+                        name: 'Defence Drain',
+                        target: TargetScope.target,
+                        stat: BaseStatNames.defence,
+                        value: -10,
+                        damageScaleType: DamageScaleMethod.FLAT,
+                        duration: 2,
                     },
                 ],
             },

@@ -1,7 +1,7 @@
 import './character-equipment.css';
 import { Button, ButtonTheme } from '../../SharedComponents/Button/Button';
 import { Card } from '../../SharedComponents/Card/Card';
-import { Equipment, BaseStatModifier } from '../domain/types';
+import { Equipment, BaseStatModifier, DamageScaleMethod } from '../domain/types';
 import { BaseStatDisplayNames } from '../domain/constants';
 import { canCharacterEquipItem } from '../domain/character/canCharacterEquipItem';
 
@@ -51,7 +51,7 @@ const formatEquipmentModifier = (modifier: BaseStatModifier): string => {
 const formatModifierValue = (modifier: BaseStatModifier): string => {
     const { value, type } = modifier;
 
-    if (type === 'percent') {
+    if (type === DamageScaleMethod.PERCENT) {
         const delta = Math.round((value - 1) * 100);
         const sign = delta >= 0 ? '+' : '';
         return `${sign}${delta}%`;

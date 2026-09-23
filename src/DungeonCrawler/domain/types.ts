@@ -108,7 +108,7 @@ export interface BaseStatModifier {
 
 export interface DynamicStatModifier extends BaseStatModifier {
     name: string;
-    durationTurns: number;
+    duration: number;
 }
 
 export interface PointModifier {

@@ -6,6 +6,7 @@ import {
     BaseStatNames,
     Character,
     Combatant,
+    DamageScaleMethod,
     DamageType,
     Formation,
     FormationTeam,
@@ -17,22 +18,23 @@ export const attackAbility: Ability = {
     cost: 0,
     type: AbilityType.default,
     abilityTarget: AbilityTarget.OPPONENT_FORMATION,
-    statusEffects: [
+    pointEffects: [
         {
             name: 'Attack',
             target: TargetScope.target,
             damageType: DamageType.physical,
             power: 1.0,
-            modifiers: [],
+            duration: 0,
         },
         {
             name: 'MP Restore',
             target: TargetScope.self,
             damageType: DamageType.magic_restore,
             power: 0.2,
-            modifiers: [],
+            duration: 0,
         },
     ],
+    statusEffects: [],
 };
 
 const examplePlayer: Character = {
@@ -57,45 +59,48 @@ const examplePlayer: Character = {
             cost: 3,
             type: AbilityType.magic,
             abilityTarget: AbilityTarget.OPPONENT_FORMATION,
-            statusEffects: [
+            pointEffects: [
                 {
                     name: 'YEET!',
                     target: TargetScope.target,
                     damageType: DamageType.magic,
                     power: 1.5,
-                    modifiers: [],
+                    duration: 0,
                 },
             ],
+            statusEffects: [],
         },
         {
             name: 'Sweep the Leg!',
             cost: 2,
             type: AbilityType.magic,
             abilityTarget: AbilityTarget.OPPONENT_FORMATION,
-            statusEffects: [
+            pointEffects: [
                 {
                     name: 'Sweep the Leg!',
-                    target: TargetScope.target,
+                    target: TargetScope.target_and_adjacent,
                     damageType: DamageType.magic,
                     power: 1.2,
-                    modifiers: [],
+                    duration: 0,
                 },
             ],
+            statusEffects: [],
         },
         {
             name: 'Get me a beer!',
             cost: 2,
             type: AbilityType.magic,
             abilityTarget: AbilityTarget.SELF,
-            statusEffects: [
+            pointEffects: [
                 {
                     name: 'HP Restore',
                     target: TargetScope.self,
                     damageType: DamageType.healing,
                     power: 0.2,
-                    modifiers: [],
+                    duration: 0,
                 },
             ],
+            statusEffects: [],
         },
     ],
 };
@@ -122,22 +127,24 @@ const examplePlayer2: Character = {
             cost: 3,
             type: AbilityType.magic,
             abilityTarget: AbilityTarget.ALLY_FORMATION,
-            statusEffects: [
+            pointEffects: [
                 {
                     name: 'Heal',
                     target: TargetScope.target,
                     damageType: DamageType.healing,
                     power: 0.1,
-                    modifiers: [
-                        {
-                            id: crypto.randomUUID(),
-                            name: 'Hyped!',
-                            durationTurns: 3,
-                            stat: BaseStatNames.attack,
-                            value: 15,
-                            type: 'flat',
-                        },
-                    ],
+                    duration: 0,
+                },
+            ],
+            statusEffects: [
+                {
+                    id: crypto.randomUUID(),
+                    name: 'Hyped!',
+                    target: TargetScope.target,
+                    duration: 3,
+                    stat: BaseStatNames.attack,
+                    value: 15,
+                    damageScaleType: DamageScaleMethod.FLAT,
                 },
             ],
         },
