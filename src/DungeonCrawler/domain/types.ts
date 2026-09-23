@@ -94,11 +94,16 @@ export interface BaseStats {
     [BaseStatNames.magicDefence]: number;
 }
 
+export enum DamageScaleMethod {
+    FLAT = 'FLATE',
+    PERCENT = 'PERCENT',
+}
+
 export interface BaseStatModifier {
     id: string;
     stat: keyof BaseStats;
     value: number;
-    type: 'flat' | 'percent'; // e.g., +10 ATK vs +15% ATK
+    type: DamageScaleMethod; // e.g., +10 ATK vs +15% ATK
 }
 
 export interface DynamicStatModifier extends BaseStatModifier {
@@ -132,6 +137,7 @@ export interface Ability {
     cost: number;
     type: AbilityType;
     abilityTarget: AbilityTarget;
+    pointEffects: PointEffect[];
     statusEffects: StatusEffect[];
 }
 
@@ -148,13 +154,22 @@ export enum AbilityTarget {
     ALL = 'ALL',
 }
 
-export interface StatusEffect {
+export interface AbilityEffect {
     name: string;
     target: TargetScope;
+    duration: number;
+}
+
+export interface PointEffect extends AbilityEffect {
     damageType: DamageType;
     power: number;
-    duration?: number;
-    modifiers: DynamicStatModifier[];
+}
+
+export interface StatusEffect extends AbilityEffect {
+    id: string;
+    stat: keyof BaseStats;
+    value: number;
+    damageScaleType: DamageScaleMethod;
 }
 
 export enum DamageType {
