@@ -201,15 +201,20 @@ export type CombatEvent =
       }
     | {
           type: 'APPLY_DAMAGE';
-          casterCombatantID: string;
           pointModifierID: string;
           targets: CombatEventDamageTarget[];
+      }
+    | {
+          type: 'APPLY_POINT_EFFECT';
+          casterCombatantID: string;
+          pointEffectID: string;
+          targetCombatantIDs: string[];
       }
     | {
           type: 'APPLY_STATUS_EFFECT';
           casterCombatantID: string;
           statusEffectID: string;
-          targets: { targetCombatantID: string }[];
+          targetCombatantIDs: string[];
       };
 
 export interface CombatEventDamageTarget {

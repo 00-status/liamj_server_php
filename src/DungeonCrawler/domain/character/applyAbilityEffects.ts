@@ -8,6 +8,7 @@ import {
     DynamicStatModifier,
     Combatant,
     Formation,
+    CombatEvent,
 } from '../types';
 
 import { damageCharacter } from './damageCharacter';
@@ -169,24 +170,31 @@ export const applyAbilityEffects = (
 };
 
 export const applyPointModifierEffects = (
+    combatantID: string,
     character: Character,
-): { target: Character; logs: LogMessage[] } => {
-    let target: Character = { ...character };
-    const logs: LogMessage[] = [];
+): CombatEvent[] => {
+    const target: Character = { ...character };
+    const combatEvents: CombatEvent[] = [];
 
     character.pointModifiers.forEach((pointModifier: PointModifier) => {
-        const handler = STATUS_EFFECT_HANDLERS[pointModifier.damageType];
-
         const calculatedValue = pointModifier.casterStatValue * pointModifier.power;
 
-        const { updatedTarget, statChange } = handler.apply(target, calculatedValue);
+        const handler = STATUS_EFFECT_HANDLERS[pointModifier.damageType];
+        const { statChange } = handler.apply(target, calculatedValue);
 
-        target = updatedTarget;
-        logs.push({
-            id: crypto.randomUUID(),
-            message: `${character.name} took ${statChange} ${pointModifier.damageType} from ${pointModifier.name}!`,
-        });
+        const damageEvent: CombatEvent = {
+            type: 'APPLY_DAMAGE',
+            pointModifierID: pointModifier.id,
+            targets: [
+                {
+                    targetCombatantID: combatantID,
+                    amount: statChange,
+                    damageType: pointModifier.damageType,
+                },
+            ],
+        };
+        combatEvents.push(damageEvent);
     });
 
-    return { target, logs };
+    return combatEvents;
 };

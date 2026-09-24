@@ -5,7 +5,7 @@ import { isFormationDefeated } from './formation/isFormationDefeated';
 import { pickMonsterAbility } from './monster/pickMonsterAbility';
 import { buildNewMonsterFormation } from './monster/buildNewMonsterFormation';
 import { exampleMonsters } from './monsters';
-import { Ability, Combatant, Formation, LogMessage, MonsterCombatant } from './types';
+import { Ability, Combatant, CombatEvent, Formation, LogMessage, MonsterCombatant } from './types';
 import { selectTargetForMonster } from './monster/selectTargetForMonster';
 import {
     resetTurnsUntilAction,
@@ -31,6 +31,7 @@ type DungeonCrawlerState = {
     monsterFormation: Formation;
     playerFormation: Formation;
     combatLog: LogMessage[];
+    combatEvents: CombatEvent[];
 };
 
 export const dungeonCrawlerInitialState: DungeonCrawlerState = {
@@ -39,6 +40,7 @@ export const dungeonCrawlerInitialState: DungeonCrawlerState = {
     monsterFormation: buildNewMonsterFormation(exampleMonsters),
     playerFormation: examplePlayerFormation,
     combatLog: [],
+    combatEvents: [],
 };
 
 export const dungeonCrawlerReducer = (
@@ -52,8 +54,11 @@ export const dungeonCrawlerReducer = (
             );
 
             // Apply DoTs and decrease Modifier durations.
-            const { target: playerWithPointModifiers, logs: pointModifierLogs } =
-                applyPointModifierEffects(action.caster.character);
+            const pointModifierEvents = applyPointModifierEffects(
+                action.caster.id,
+                action.caster.character,
+            );
+
             const { newCharacter: playerWithDecreasedModifiers, logs: modifierLogs } =
                 decreaseModifierDuration(playerWithPointModifiers);
 
