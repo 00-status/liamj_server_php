@@ -1,16 +1,11 @@
 import { applyAbilityEffects, applyPointModifierEffects } from './character/applyAbilityEffects';
-import { decreaseModifierDuration } from './character/decreaseModifierDuration';
 import { examplePlayerFormation } from './constants';
-import { isFormationDefeated } from './formation/isFormationDefeated';
 import { pickMonsterAbility } from './monster/pickMonsterAbility';
 import { buildNewMonsterFormation } from './monster/buildNewMonsterFormation';
 import { exampleMonsters } from './monsters';
 import { Ability, Combatant, CombatEvent, Formation, LogMessage, MonsterCombatant } from './types';
 import { selectTargetForMonster } from './monster/selectTargetForMonster';
-import {
-    resetTurnsUntilAction,
-    decreaseTurnsForMonsterCombatantList,
-} from './monster/turnsUntilAction';
+import { resetTurnsUntilAction } from './monster/turnsUntilAction';
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability; caster: Combatant; target: Combatant }
@@ -21,6 +16,7 @@ type Actions =
 export enum GamePhase {
     GAME_OVER = 'GAME_OVER',
     PLAYER_TURN = 'PLAYER_TURN',
+    PLAYER_EXECUTES = 'PLAYER_EXECUTES',
     ENEMY_TURN = 'ENEMY_TURN',
     ENEMY_EXECUTES = 'ENEMY_EXECUTES',
 }
@@ -49,54 +45,32 @@ export const dungeonCrawlerReducer = (
 ): DungeonCrawlerState => {
     switch (action.type) {
         case 'PLAYER_USES_ABILITY': {
+            const caster = action.caster;
+
             const isTargetInMonsterFormation = state.monsterFormation.combatants.find(
                 (combatant) => combatant.id === action.target.id,
             );
 
-            // Apply DoTs and decrease Modifier durations.
-            const pointModifierEvents = applyPointModifierEffects(
-                action.caster.id,
-                action.caster.character,
-            );
+            // Apply DoTs.
+            const pointModifierEvents = applyPointModifierEffects(caster.id, caster.character);
 
-            const { newCharacter: playerWithDecreasedModifiers, logs: modifierLogs } =
-                decreaseModifierDuration(playerWithPointModifiers);
-
-            // Apply the ability's effects.
-            const { updatedCombatants, logs } = applyAbilityEffects(
-                action.caster.cloneWith({ character: playerWithDecreasedModifiers }),
+            const effectEvents = applyAbilityEffects(
+                caster,
                 action.ability,
                 action.target,
                 isTargetInMonsterFormation ? state.monsterFormation : state.playerFormation,
             );
 
-            const newMonsterFormation = updateFormation(state.monsterFormation, updatedCombatants);
-            const newPlayerFormation = updateFormation(state.playerFormation, updatedCombatants);
-
-            const isMonsterFormationDefeated = isFormationDefeated(newMonsterFormation);
-            if (isMonsterFormationDefeated) {
-                return {
-                    ...state,
-                    phase: GamePhase.PLAYER_TURN,
-                    roomsClearedCount: state.roomsClearedCount + 1,
-                    playerFormation: newPlayerFormation,
-                    monsterFormation: buildNewMonsterFormation(exampleMonsters),
-                    combatLog: [],
-                };
-            }
-
-            // Decrease enemy turnsUntilAction
-            const monsterFormationWithUpdatedTurns: Formation = {
-                ...newMonsterFormation,
-                combatants: decreaseTurnsForMonsterCombatantList(newMonsterFormation.combatants),
+            // Decrease modifier durations
+            const decreaseEvent: CombatEvent = {
+                type: 'DECREASE_MODIFIERS',
+                combatantID: caster.id,
             };
 
             return {
                 ...state,
-                phase: GamePhase.ENEMY_TURN,
-                playerFormation: newPlayerFormation,
-                monsterFormation: monsterFormationWithUpdatedTurns,
-                combatLog: [...state.combatLog, ...pointModifierLogs, ...modifierLogs, ...logs],
+                phase: GamePhase.PLAYER_EXECUTES,
+                combatEvents: [...pointModifierEvents, ...effectEvents, decreaseEvent],
             };
         }
         case 'ENEMY_USES_ABILITY': {
@@ -121,32 +95,32 @@ export const dungeonCrawlerReducer = (
                 actingMonster.character.abilities,
             );
 
-            const { target: actingMonsterWithPointModifiers, logs: pointModifierLogs } =
-                applyPointModifierEffects(actingMonster.character);
-            const { newCharacter: actingMonsterWithDecreasedModifiers, logs: modifierLogs } =
-                decreaseModifierDuration(actingMonsterWithPointModifiers);
+            // Apply DoTs
+            const pointModifierEvents = applyPointModifierEffects(
+                actingMonster.id,
+                actingMonster.character,
+            );
 
             const updatedActingMonster = actingMonster.cloneWith({
-                character: actingMonsterWithDecreasedModifiers,
                 turnsUntilAction: resetTurnsUntilAction(),
             });
-
-            const { updatedCombatants, logs } = applyAbilityEffects(
+            const effectEvents = applyAbilityEffects(
                 updatedActingMonster,
                 chosenAbility,
                 targetCombatant,
                 isTargetInPlayerFormation ? state.playerFormation : state.monsterFormation,
             );
 
-            const newMonsterFormation = updateFormation(state.monsterFormation, updatedCombatants);
-            const newPlayerFormation = updateFormation(state.playerFormation, updatedCombatants);
+            // Decrease modifier durations
+            const decreaseEvent: CombatEvent = {
+                type: 'DECREASE_MODIFIERS',
+                combatantID: actingMonster.id,
+            };
 
             return {
                 ...state,
                 phase: GamePhase.ENEMY_EXECUTES,
-                monsterFormation: newMonsterFormation,
-                playerFormation: newPlayerFormation,
-                combatLog: [...state.combatLog, ...pointModifierLogs, ...modifierLogs, ...logs],
+                combatEvents: [...pointModifierEvents, ...effectEvents, decreaseEvent],
             };
         }
         case 'FINISH_EXECUTION': {
@@ -192,27 +166,4 @@ export const dungeonCrawlerReducer = (
         default:
             return state;
     }
-};
-
-const updateFormation = (
-    formation: Formation,
-    combatantDictionary: { [key: string]: Combatant },
-): Formation => {
-    const newFormation: Formation = {
-        ...formation,
-        combatants: formation.combatants.map((combatant) => combatant.clone()),
-        gridDimensions: structuredClone(formation.gridDimensions),
-    };
-
-    const updatedCombatants = newFormation.combatants.map((combatant) => {
-        const associatedCombatant = combatantDictionary[combatant.id];
-        if (!associatedCombatant) {
-            return combatant;
-        }
-
-        return associatedCombatant;
-    });
-    newFormation.combatants = updatedCombatants;
-
-    return newFormation;
 };

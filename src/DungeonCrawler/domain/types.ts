@@ -156,6 +156,7 @@ export enum AbilityTarget {
 }
 
 export interface AbilityEffect {
+    id: string;
     name: string;
     target: TargetScope;
     duration: number;
@@ -167,7 +168,6 @@ export interface PointEffect extends AbilityEffect {
 }
 
 export interface StatusEffect extends AbilityEffect {
-    id: string;
     stat: keyof BaseStats;
     value: number;
     damageScaleType: DamageScaleMethod;
@@ -201,12 +201,13 @@ export type CombatEvent =
       }
     | {
           type: 'APPLY_DAMAGE';
-          pointModifierID: string;
+          sourceName: string;
           targets: CombatEventDamageTarget[];
       }
     | {
           type: 'APPLY_POINT_EFFECT';
           casterCombatantID: string;
+          casterStatValue: number;
           pointEffectID: string;
           targetCombatantIDs: string[];
       }
@@ -215,7 +216,8 @@ export type CombatEvent =
           casterCombatantID: string;
           statusEffectID: string;
           targetCombatantIDs: string[];
-      };
+      }
+    | { type: 'DECREASE_MODIFIERS'; combatantID: string };
 
 export interface CombatEventDamageTarget {
     targetCombatantID: string;

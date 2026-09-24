@@ -3,12 +3,11 @@ import {
     BaseStatNames,
     Character,
     DamageType,
-    LogMessage,
     PointModifier,
-    DynamicStatModifier,
     Combatant,
     Formation,
     CombatEvent,
+    CombatEventDamageTarget,
 } from '../types';
 
 import { damageCharacter } from './damageCharacter';
@@ -50,7 +49,7 @@ export const applyAbilityEffects = (
     ability: Ability,
     initialTarget: Combatant,
     formationOfTarget: Formation,
-): { updatedCombatants: { [key: string]: Combatant }; logs: LogMessage[] } => {
+): CombatEvent[] => {
     const caster: Combatant = initialCaster.cloneWith({
         character: {
             ...initialCaster.character,
@@ -67,7 +66,7 @@ export const applyAbilityEffects = (
     }, {});
     combatantDictionary[caster.id] = caster.clone();
 
-    const logs: LogMessage[] = [];
+    const combatEvents: CombatEvent[] = [];
 
     for (const statusEffect of ability.statusEffects) {
         const targets = getValidTargets(
@@ -77,28 +76,13 @@ export const applyAbilityEffects = (
             statusEffect.target,
         );
 
-        const instantiatedModifier: DynamicStatModifier = {
-            id: crypto.randomUUID(), // Give each applied modifier a fresh ID so effects can stack
-            name: statusEffect.name,
-            duration: statusEffect.duration,
-            stat: statusEffect.stat,
-            value: statusEffect.value,
-            type: statusEffect.damageScaleType,
+        const combatEvent: CombatEvent = {
+            type: 'APPLY_STATUS_EFFECT',
+            casterCombatantID: caster.id,
+            statusEffectID: statusEffect.id,
+            targetCombatantIDs: targets.map((target) => target.id),
         };
-
-        targets.forEach((target) => {
-            const targetToUpdate = combatantDictionary[target.id];
-            if (!targetToUpdate) {
-                return;
-            }
-
-            targetToUpdate.character.modifiers.push(instantiatedModifier);
-
-            logs.push({
-                id: crypto.randomUUID(),
-                message: `${targetToUpdate.character.name} received stat modifiers from ${ability.name}.`,
-            });
-        });
+        combatEvents.push(combatEvent);
     }
 
     for (const pointEffect of ability.pointEffects) {
@@ -113,60 +97,43 @@ export const applyAbilityEffects = (
             const handler = STATUS_EFFECT_HANDLERS[pointEffect.damageType];
             const casterStatValue = handler ? handler.getStat(caster.character) : 0;
 
-            const newPointModifier: PointModifier = {
-                id: crypto.randomUUID(),
-                name: pointEffect.name,
+            const combatEvent: CombatEvent = {
+                type: 'APPLY_POINT_EFFECT',
+                casterCombatantID: caster.id,
                 casterStatValue,
-                damageType: pointEffect.damageType,
-                power: pointEffect.power,
-                duration: pointEffect.duration,
+                pointEffectID: pointEffect.id,
+                targetCombatantIDs: targets.map((target) => target.id),
             };
-
-            targets.forEach((target) => {
-                const targetToUpdate = combatantDictionary[target.id];
-                if (!targetToUpdate) {
-                    return;
-                }
-
-                targetToUpdate.character.pointModifiers.push(newPointModifier);
-
-                logs.push({
-                    id: crypto.randomUUID(),
-                    message: `${target.character.name} is afflicted with a lingering effect: ${pointEffect.name}`,
-                });
-            });
+            combatEvents.push(combatEvent);
         }
 
         const handler = STATUS_EFFECT_HANDLERS[pointEffect.damageType];
 
         // Only apply immediate damage if the effect is NOT a DoT.
-        if (handler && !pointEffect.duration) {
+        if (handler && pointEffect.duration <= 0) {
             const baseStat = handler.getStat(caster.character);
             const calculatedValue = baseStat * pointEffect.power;
 
-            targets.forEach((target) => {
-                const targetToUpdate = combatantDictionary[target.id];
-                if (!targetToUpdate) {
-                    return;
-                }
+            const combatEventTargets: CombatEventDamageTarget[] = targets.map((target) => {
+                const { statChange } = handler.apply(target.character, calculatedValue);
 
-                const { updatedTarget, statChange } = handler.apply(
-                    targetToUpdate.character,
-                    calculatedValue,
-                );
-                combatantDictionary[targetToUpdate.id] = targetToUpdate.cloneWith({
-                    character: updatedTarget,
-                });
-
-                logs.push({
-                    id: crypto.randomUUID(),
-                    message: `${caster.character.name} used ${ability.name} on ${targetToUpdate.character.name} for ${statChange} ${pointEffect.damageType}!`,
-                });
+                return {
+                    targetCombatantID: target.id,
+                    amount: statChange,
+                    damageType: pointEffect.damageType,
+                };
             });
+
+            const combatEvent: CombatEvent = {
+                type: 'APPLY_DAMAGE',
+                sourceName: pointEffect.name,
+                targets: combatEventTargets,
+            };
+            combatEvents.push(combatEvent);
         }
     }
 
-    return { updatedCombatants: combatantDictionary, logs };
+    return combatEvents;
 };
 
 export const applyPointModifierEffects = (
@@ -184,7 +151,7 @@ export const applyPointModifierEffects = (
 
         const damageEvent: CombatEvent = {
             type: 'APPLY_DAMAGE',
-            pointModifierID: pointModifier.id,
+            sourceName: pointModifier.name,
             targets: [
                 {
                     targetCombatantID: combatantID,

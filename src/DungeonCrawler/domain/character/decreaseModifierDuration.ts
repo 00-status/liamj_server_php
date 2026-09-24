@@ -7,7 +7,11 @@ export const decreaseModifierDuration = (
 
     const remainingPointModifiers = character.pointModifiers
         .map((pointModifier) => {
-            return { ...pointModifier, duration: pointModifier.duration - 1 };
+            const newPointModifier: PointModifier = {
+                ...pointModifier,
+                duration: pointModifier.duration - 1,
+            };
+            return newPointModifier;
         })
         .filter((pointModifier: PointModifier) => {
             const isExpired = pointModifier.duration <= 0;
