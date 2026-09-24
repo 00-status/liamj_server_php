@@ -3,13 +3,23 @@ import { examplePlayerFormation } from './constants';
 import { pickMonsterAbility } from './monster/pickMonsterAbility';
 import { buildNewMonsterFormation } from './monster/buildNewMonsterFormation';
 import { exampleMonsters } from './monsters';
-import { Ability, Combatant, CombatEvent, Formation, LogMessage, MonsterCombatant } from './types';
+import {
+    Ability,
+    Character,
+    Combatant,
+    CombatEvent,
+    Formation,
+    LogMessage,
+    MonsterCombatant,
+} from './types';
 import { selectTargetForMonster } from './monster/selectTargetForMonster';
 import { resetTurnsUntilAction } from './monster/turnsUntilAction';
+import { changeHealthPoints } from './character/changePoints';
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability; caster: Combatant; target: Combatant }
     | { type: 'ENEMY_USES_ABILITY' }
+    | { type: 'PROCESS_NEXT_EVENT' }
     | { type: 'FINISH_EXECUTION' }
     | { type: 'PLAYER_TOGGLES_EQUIPMENT'; combatantID: string; equippableName: string };
 
@@ -64,6 +74,7 @@ export const dungeonCrawlerReducer = (
             // Decrease modifier durations
             const decreaseEvent: CombatEvent = {
                 type: 'DECREASE_MODIFIERS',
+                isProcessed: false,
                 combatantID: caster.id,
             };
 
@@ -114,6 +125,7 @@ export const dungeonCrawlerReducer = (
             // Decrease modifier durations
             const decreaseEvent: CombatEvent = {
                 type: 'DECREASE_MODIFIERS',
+                isProcessed: false,
                 combatantID: actingMonster.id,
             };
 
@@ -122,6 +134,47 @@ export const dungeonCrawlerReducer = (
                 phase: GamePhase.ENEMY_EXECUTES,
                 combatEvents: [...pointModifierEvents, ...effectEvents, decreaseEvent],
             };
+        }
+        case 'PROCESS_NEXT_EVENT': {
+            const currentEvent = state.combatEvents.find((event) => !event.isProcessed);
+
+            if (!currentEvent) {
+                return state;
+            }
+
+            const allCombatants: { [key: string]: Combatant } = [
+                ...state.monsterFormation.combatants,
+                ...state.playerFormation.combatants,
+            ].reduce<{
+                [key: string]: Combatant;
+            }>((acc, combatant) => {
+                acc[combatant.id] = combatant.clone();
+                return acc;
+            }, {});
+
+            if (currentEvent.type === 'APPLY_DAMAGE') {
+                for (const target of currentEvent.targets) {
+                    const targetToUpdate = allCombatants[target.targetCombatantID];
+
+                    if (!targetToUpdate) {
+                        continue;
+                    }
+
+                    const newCharacter: Character = changeHealthPoints(
+                        targetToUpdate.character,
+                        target.amount,
+                        target.damageType,
+                    );
+                    targetToUpdate.character = newCharacter;
+                }
+            }
+
+            // TODO:
+            //      Add other event types
+            //      Update formations with updated combatants.
+            //      Update state with updated formations.
+
+            return state;
         }
         case 'FINISH_EXECUTION': {
             const areAllPlayerCharactersDefeated = state.playerFormation.combatants.every(

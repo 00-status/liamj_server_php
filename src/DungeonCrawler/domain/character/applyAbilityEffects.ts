@@ -42,6 +42,10 @@ const STATUS_EFFECT_HANDLERS: Record<
         getStat: (caster) => getCharacterStat(caster, BaseStatNames.magicPoints),
         apply: (target, value) => restoreMagicForCharacter(target, value),
     },
+    [DamageType.magic_drain]: {
+        getStat: (caster) => getCharacterStat(caster, BaseStatNames.magicPoints),
+        apply: (target, value) => restoreMagicForCharacter(target, value), // TODO: Update this to drain properly.
+    },
 };
 
 export const applyAbilityEffects = (
@@ -68,6 +72,19 @@ export const applyAbilityEffects = (
 
     const combatEvents: CombatEvent[] = [];
 
+    combatEvents.push({
+        type: 'APPLY_DAMAGE',
+        isProcessed: false,
+        sourceName: 'Ability Cost',
+        targets: [
+            {
+                targetCombatantID: caster.id,
+                amount: ability.cost,
+                damageType: DamageType.magic_drain,
+            },
+        ],
+    });
+
     for (const statusEffect of ability.statusEffects) {
         const targets = getValidTargets(
             caster,
@@ -78,6 +95,7 @@ export const applyAbilityEffects = (
 
         const combatEvent: CombatEvent = {
             type: 'APPLY_STATUS_EFFECT',
+            isProcessed: false,
             casterCombatantID: caster.id,
             statusEffectID: statusEffect.id,
             targetCombatantIDs: targets.map((target) => target.id),
@@ -99,6 +117,7 @@ export const applyAbilityEffects = (
 
             const combatEvent: CombatEvent = {
                 type: 'APPLY_POINT_EFFECT',
+                isProcessed: false,
                 casterCombatantID: caster.id,
                 casterStatValue,
                 pointEffectID: pointEffect.id,
@@ -126,6 +145,7 @@ export const applyAbilityEffects = (
 
             const combatEvent: CombatEvent = {
                 type: 'APPLY_DAMAGE',
+                isProcessed: false,
                 sourceName: pointEffect.name,
                 targets: combatEventTargets,
             };
@@ -151,6 +171,7 @@ export const applyPointModifierEffects = (
 
         const damageEvent: CombatEvent = {
             type: 'APPLY_DAMAGE',
+            isProcessed: false,
             sourceName: pointModifier.name,
             targets: [
                 {

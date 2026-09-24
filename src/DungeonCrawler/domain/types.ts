@@ -178,6 +178,7 @@ export enum DamageType {
     magic = 'magic',
     healing = 'healing',
     magic_restore = 'magic_restore',
+    magic_drain = 'magic_drain',
 }
 
 export enum TargetScope {
@@ -195,17 +196,20 @@ export type LogMessage = { id: string; message: string };
 export type CombatEvent =
     | {
           type: 'CAST_ABILITY';
+          isProcessed: boolean;
           casterCombatantID: string;
           targetCombatantID: string;
           abilityID: string;
       }
     | {
           type: 'APPLY_DAMAGE';
+          isProcessed: boolean;
           sourceName: string;
           targets: CombatEventDamageTarget[];
       }
     | {
           type: 'APPLY_POINT_EFFECT';
+          isProcessed: boolean;
           casterCombatantID: string;
           casterStatValue: number;
           pointEffectID: string;
@@ -213,11 +217,12 @@ export type CombatEvent =
       }
     | {
           type: 'APPLY_STATUS_EFFECT';
+          isProcessed: boolean;
           casterCombatantID: string;
           statusEffectID: string;
           targetCombatantIDs: string[];
       }
-    | { type: 'DECREASE_MODIFIERS'; combatantID: string };
+    | { type: 'DECREASE_MODIFIERS'; isProcessed: boolean; combatantID: string };
 
 export interface CombatEventDamageTarget {
     targetCombatantID: string;
