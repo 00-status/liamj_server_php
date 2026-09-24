@@ -95,7 +95,7 @@ export interface BaseStats {
 }
 
 export enum DamageScaleMethod {
-    FLAT = 'FLATE',
+    FLAT = 'FLAT',
     PERCENT = 'PERCENT',
 }
 
@@ -191,3 +191,29 @@ export enum TargetScope {
 }
 
 export type LogMessage = { id: string; message: string };
+
+export type CombatEvent =
+    | {
+          type: 'CAST_ABILITY';
+          casterCombatantID: string;
+          targetCombatantID: string;
+          abilityID: string;
+      }
+    | {
+          type: 'APPLY_DAMAGE';
+          casterCombatantID: string;
+          pointModifierID: string;
+          targets: CombatEventDamageTarget[];
+      }
+    | {
+          type: 'APPLY_STATUS_EFFECT';
+          casterCombatantID: string;
+          statusEffectID: string;
+          targets: { targetCombatantID: string }[];
+      };
+
+export interface CombatEventDamageTarget {
+    targetCombatantID: string;
+    amount: number;
+    damageType: DamageType;
+}
