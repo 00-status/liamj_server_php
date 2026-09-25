@@ -20,6 +20,7 @@ import {
 } from './monster/turnsUntilAction';
 import { changeHealthPoints } from './character/changePoints';
 import { decreaseModifierDuration } from './character/decreaseModifierDuration';
+import { isFormationDefeated } from './formation/isFormationDefeated';
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability; caster: Combatant; target: Combatant }
@@ -270,9 +271,10 @@ export const dungeonCrawlerReducer = (
             const areAllPlayerCharactersDefeated = updatedPlayerFormation.combatants.every(
                 (combatant) => combatant.character.currentHP <= 0,
             );
-            const monsters = updatedMonsterFormation.combatants.filter(
-                (combatant) => combatant instanceof MonsterCombatant,
-            );
+            const canAnyMonstersAct = updatedMonsterFormation.combatants
+                .filter((combatant) => combatant instanceof MonsterCombatant)
+                .some((monster) => monster.turnsUntilAction <= 0);
+            const isMonsterFormationDefeated = isFormationDefeated(updatedMonsterFormation);
 
             if (areAllPlayerCharactersDefeated) {
                 return {
@@ -284,7 +286,7 @@ export const dungeonCrawlerReducer = (
                 };
             }
 
-            if (monsters.some((monster) => monster.turnsUntilAction <= 0)) {
+            if (canAnyMonstersAct) {
                 return {
                     ...state,
                     phase: GamePhase.ENEMY_TURN,
@@ -294,11 +296,14 @@ export const dungeonCrawlerReducer = (
                 };
             }
 
+            const chosenMonsterFormation = isMonsterFormationDefeated
+                ? buildNewMonsterFormation(exampleMonsters)
+                : updatedMonsterFormation;
             return {
                 ...state,
                 phase: GamePhase.PLAYER_TURN,
                 playerFormation: updatedPlayerFormation,
-                monsterFormation: updatedMonsterFormation,
+                monsterFormation: chosenMonsterFormation,
                 combatEvents: updatedEvents,
             };
         }

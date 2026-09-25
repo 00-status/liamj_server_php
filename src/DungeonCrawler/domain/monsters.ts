@@ -34,6 +34,7 @@ export const exampleMonsters: Character[] = [
                 abilityTarget: AbilityTarget.OPPONENT_FORMATION,
                 pointEffects: [
                     {
+                        id: crypto.randomUUID(),
                         name: 'Bone Bonk',
                         target: TargetScope.target,
                         damageType: DamageType.magic,
@@ -69,6 +70,7 @@ export const exampleMonsters: Character[] = [
                 abilityTarget: AbilityTarget.OPPONENT_FORMATION,
                 pointEffects: [
                     {
+                        id: crypto.randomUUID(),
                         name: 'Bone Bonk',
                         target: TargetScope.target,
                         damageType: DamageType.magic,
@@ -104,6 +106,7 @@ export const exampleMonsters: Character[] = [
                 abilityTarget: AbilityTarget.OPPONENT_FORMATION,
                 pointEffects: [
                     {
+                        id: crypto.randomUUID(),
                         name: 'Bite',
                         target: TargetScope.target,
                         damageType: DamageType.magic,
@@ -111,6 +114,7 @@ export const exampleMonsters: Character[] = [
                         duration: 0,
                     },
                     {
+                        id: crypto.randomUUID(),
                         name: 'Rot Poison',
                         target: TargetScope.target,
                         damageType: DamageType.magic,

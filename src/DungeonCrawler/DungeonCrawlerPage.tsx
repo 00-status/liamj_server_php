@@ -12,7 +12,8 @@ import { PlayerFormation } from './components/PlayerFormation/PlayerFormation';
 
 const DungeonCrawlerPage = () => {
     const [state, dispatch] = useReducer(dungeonCrawlerReducer, dungeonCrawlerInitialState);
-    const { phase, roomsClearedCount, playerFormation, monsterFormation, combatLog } = state;
+    const { phase, roomsClearedCount, playerFormation, monsterFormation, combatLog, combatEvents } =
+        state;
 
     const [selectedPlayerCharacterID, setSelectedPlayerCharacterID] = useState<string | null>(null);
     const [selectedAbility, setSelectedAbility] = useState<Ability | null>(null);
@@ -21,12 +22,14 @@ const DungeonCrawlerPage = () => {
         (combatant) => combatant.id === selectedPlayerCharacterID,
     );
 
+    console.log(combatEvents);
+
     useEffect(() => {
-        if (phase === GamePhase.ENEMY_EXECUTES) {
+        if (phase === GamePhase.ENEMY_EXECUTES || phase === GamePhase.PLAYER_EXECUTES) {
             const timer = setTimeout(() => {
                 // TODO: Replace with individual animations per each action taken on the enemy's turn.
-                dispatch({ type: 'FINISH_EXECUTION' });
-            }, 1000);
+                dispatch({ type: 'PROCESS_NEXT_EVENT' });
+            }, 200);
 
             return () => clearTimeout(timer);
         }
@@ -37,7 +40,7 @@ const DungeonCrawlerPage = () => {
         }
 
         return;
-    }, [phase]);
+    }, [phase, combatEvents]);
 
     useEffect(() => {}, [state.phase]);
 
