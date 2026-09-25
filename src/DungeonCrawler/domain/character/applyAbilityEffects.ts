@@ -8,6 +8,8 @@ import {
     Formation,
     CombatEvents,
     CombatEventDamageTarget,
+    CombatEventType,
+    DynamicStatModifier,
 } from '../types';
 
 import { damageCharacter } from './damageCharacter';
@@ -73,7 +75,8 @@ export const applyAbilityEffects = (
     const combatEvents: CombatEvents[] = [];
 
     combatEvents.push({
-        type: 'APPLY_DAMAGE',
+        id: crypto.randomUUID(),
+        type: CombatEventType.APPLY_DAMAGE,
         isProcessed: false,
         sourceName: 'Ability Cost',
         targets: [
@@ -93,11 +96,21 @@ export const applyAbilityEffects = (
             statusEffect.target,
         );
 
+        const statusModifier: DynamicStatModifier = {
+            id: crypto.randomUUID(),
+            stat: statusEffect.stat,
+            value: statusEffect.value,
+            type: statusEffect.damageScaleType,
+            name: statusEffect.name,
+            duration: statusEffect.duration,
+        };
+
         const combatEvent: CombatEvents = {
-            type: 'APPLY_STATUS_EFFECT',
+            id: crypto.randomUUID(),
+            type: CombatEventType.APPLY_STATUS_EFFECT,
             isProcessed: false,
             casterCombatantID: caster.id,
-            statusEffectID: statusEffect.id,
+            statModifier: statusModifier,
             targetCombatantIDs: targets.map((target) => target.id),
         };
         combatEvents.push(combatEvent);
@@ -115,12 +128,21 @@ export const applyAbilityEffects = (
             const handler = STATUS_EFFECT_HANDLERS[pointEffect.damageType];
             const casterStatValue = handler ? handler.getStat(caster.character) : 0;
 
+            const pointModifier: PointModifier = {
+                id: crypto.randomUUID(),
+                name: pointEffect.name,
+                casterStatValue: casterStatValue,
+                damageType: pointEffect.damageType,
+                power: pointEffect.power,
+                duration: pointEffect.duration,
+            };
+
             const combatEvent: CombatEvents = {
-                type: 'APPLY_POINT_EFFECT',
+                id: crypto.randomUUID(),
+                type: CombatEventType.APPLY_POINT_EFFECT,
                 isProcessed: false,
                 casterCombatantID: caster.id,
-                casterStatValue,
-                pointEffectID: pointEffect.id,
+                pointModifier,
                 targetCombatantIDs: targets.map((target) => target.id),
             };
             combatEvents.push(combatEvent);
@@ -144,7 +166,8 @@ export const applyAbilityEffects = (
             });
 
             const combatEvent: CombatEvents = {
-                type: 'APPLY_DAMAGE',
+                id: crypto.randomUUID(),
+                type: CombatEventType.APPLY_DAMAGE,
                 isProcessed: false,
                 sourceName: pointEffect.name,
                 targets: combatEventTargets,
@@ -170,7 +193,8 @@ export const applyPointModifierEffects = (
         const { statChange } = handler.apply(target, calculatedValue);
 
         const damageEvent: CombatEvents = {
-            type: 'APPLY_DAMAGE',
+            id: crypto.randomUUID(),
+            type: CombatEventType.APPLY_DAMAGE,
             isProcessed: false,
             sourceName: pointModifier.name,
             targets: [

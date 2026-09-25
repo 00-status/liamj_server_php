@@ -223,7 +223,6 @@ interface ApplyDamageEvent extends CombatEvent {
 interface ApplyPointEffectEvent extends CombatEvent {
     type: CombatEventType.APPLY_POINT_EFFECT;
     casterCombatantID: string;
-    casterStatValue: number;
     pointModifier: PointModifier;
     targetCombatantIDs: string[];
 }
@@ -231,7 +230,7 @@ interface ApplyPointEffectEvent extends CombatEvent {
 interface ApplyStatusEffectEvent extends CombatEvent {
     type: CombatEventType.APPLY_STATUS_EFFECT;
     casterCombatantID: string;
-    statusEffect: DynamicStatModifier;
+    statModifier: DynamicStatModifier;
     targetCombatantIDs: string[];
 }
 

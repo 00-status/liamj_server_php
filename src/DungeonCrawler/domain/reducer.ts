@@ -202,7 +202,7 @@ export const dungeonCrawlerReducer = (
                             ...targetToUpdate.character,
                             modifiers: [
                                 ...targetToUpdate.character.modifiers,
-                                currentEvent.statusEffect,
+                                currentEvent.statModifier,
                             ],
                         };
                         targetToUpdate.character = newCharacter;
