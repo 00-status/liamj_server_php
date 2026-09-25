@@ -22,7 +22,7 @@ const DungeonCrawlerPage = () => {
         (combatant) => combatant.id === selectedPlayerCharacterID,
     );
 
-    // console.log(combatEvents);
+    console.log(combatEvents);
 
     useEffect(() => {
         if (phase === GamePhase.ENEMY_EXECUTES || phase === GamePhase.PLAYER_EXECUTES) {

@@ -314,6 +314,16 @@ export const dungeonCrawlerReducer = (
                 };
             }
 
+            if (isMonsterFormationDefeated) {
+                return {
+                    ...state,
+                    phase: GamePhase.PLAYER_TURN,
+                    playerFormation: updatedPlayerFormation,
+                    monsterFormation: buildNewMonsterFormation(exampleMonsters),
+                    combatEvents: updatedEvents,
+                };
+            }
+
             if (canAnyMonstersAct) {
                 return {
                     ...state,
@@ -324,14 +334,11 @@ export const dungeonCrawlerReducer = (
                 };
             }
 
-            const chosenMonsterFormation = isMonsterFormationDefeated
-                ? buildNewMonsterFormation(exampleMonsters)
-                : updatedMonsterFormation;
             return {
                 ...state,
                 phase: GamePhase.PLAYER_TURN,
                 playerFormation: updatedPlayerFormation,
-                monsterFormation: chosenMonsterFormation,
+                monsterFormation: updatedMonsterFormation,
                 combatEvents: updatedEvents,
             };
         }
