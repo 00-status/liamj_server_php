@@ -14,7 +14,10 @@ import {
     MonsterCombatant,
 } from './types';
 import { selectTargetForMonster } from './monster/selectTargetForMonster';
-import { resetTurnsUntilAction } from './monster/turnsUntilAction';
+import {
+    decreaseTurnsForMonsterCombatantList,
+    resetTurnsUntilAction,
+} from './monster/turnsUntilAction';
 import { changeHealthPoints } from './character/changePoints';
 import { decreaseModifierDuration } from './character/decreaseModifierDuration';
 
@@ -73,7 +76,6 @@ export const dungeonCrawlerReducer = (
                 isTargetInMonsterFormation ? state.monsterFormation : state.playerFormation,
             );
 
-            // Decrease modifier durations
             const decreaseEvent: CombatEvents = {
                 id: crypto.randomUUID(),
                 type: CombatEventType.DECREASE_MODIFIERS,
@@ -81,10 +83,21 @@ export const dungeonCrawlerReducer = (
                 combatantID: caster.id,
             };
 
+            const decreaseTurnTimers: CombatEvents = {
+                id: crypto.randomUUID(),
+                type: CombatEventType.DECREASE_TURNS_UNTIL_ACTION,
+                isProcessed: false,
+            };
+
             return {
                 ...state,
                 phase: GamePhase.PLAYER_EXECUTES,
-                combatEvents: [...pointModifierEvents, ...effectEvents, decreaseEvent],
+                combatEvents: [
+                    ...pointModifierEvents,
+                    ...effectEvents,
+                    decreaseEvent,
+                    decreaseTurnTimers,
+                ],
             };
         }
         case 'ENEMY_USES_ABILITY': {
@@ -217,6 +230,16 @@ export const dungeonCrawlerReducer = (
 
                     const { newCharacter } = decreaseModifierDuration(targetToUpdate.character);
                     targetToUpdate.character = newCharacter;
+                    break;
+                }
+                case CombatEventType.DECREASE_TURNS_UNTIL_ACTION: {
+                    const updatedCombatants = decreaseTurnsForMonsterCombatantList(
+                        Object.values(allCombatants),
+                    );
+
+                    for (const updatedCombatant of updatedCombatants) {
+                        allCombatants[updatedCombatant.id] = updatedCombatant;
+                    }
                     break;
                 }
                 default:

@@ -199,6 +199,7 @@ export enum CombatEventType {
     APPLY_POINT_EFFECT = 'APPLY_POINT_EFFECT',
     APPLY_STATUS_EFFECT = 'APPLY_STATUS_EFFECT',
     DECREASE_MODIFIERS = 'DECREASE_MODIFIERS',
+    DECREASE_TURNS_UNTIL_ACTION = 'DECREASE_TURNS_UNTIL_ACTION',
 }
 
 interface CombatEvent {
@@ -220,6 +221,12 @@ interface ApplyDamageEvent extends CombatEvent {
     targets: CombatEventDamageTarget[];
 }
 
+export interface CombatEventDamageTarget {
+    targetCombatantID: string;
+    amount: number;
+    damageType: DamageType;
+}
+
 interface ApplyPointEffectEvent extends CombatEvent {
     type: CombatEventType.APPLY_POINT_EFFECT;
     casterCombatantID: string;
@@ -238,16 +245,14 @@ interface DecreaseModifiersEvent extends CombatEvent {
     type: CombatEventType.DECREASE_MODIFIERS;
     combatantID: string;
 }
+interface DecreaseTurnsUntilActionEvent extends CombatEvent {
+    type: CombatEventType.DECREASE_TURNS_UNTIL_ACTION;
+}
 
 export type CombatEvents =
     | CastAbilityEvent
     | ApplyDamageEvent
     | ApplyPointEffectEvent
     | ApplyStatusEffectEvent
-    | DecreaseModifiersEvent;
-
-export interface CombatEventDamageTarget {
-    targetCombatantID: string;
-    amount: number;
-    damageType: DamageType;
-}
+    | DecreaseModifiersEvent
+    | DecreaseTurnsUntilActionEvent;
