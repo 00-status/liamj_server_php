@@ -6,7 +6,7 @@ import {
     PointModifier,
     Combatant,
     Formation,
-    CombatEvent,
+    CombatEvents,
     CombatEventDamageTarget,
 } from '../types';
 
@@ -53,7 +53,7 @@ export const applyAbilityEffects = (
     ability: Ability,
     initialTarget: Combatant,
     formationOfTarget: Formation,
-): CombatEvent[] => {
+): CombatEvents[] => {
     const caster: Combatant = initialCaster.cloneWith({
         character: {
             ...initialCaster.character,
@@ -70,7 +70,7 @@ export const applyAbilityEffects = (
     }, {});
     combatantDictionary[caster.id] = caster.clone();
 
-    const combatEvents: CombatEvent[] = [];
+    const combatEvents: CombatEvents[] = [];
 
     combatEvents.push({
         type: 'APPLY_DAMAGE',
@@ -93,7 +93,7 @@ export const applyAbilityEffects = (
             statusEffect.target,
         );
 
-        const combatEvent: CombatEvent = {
+        const combatEvent: CombatEvents = {
             type: 'APPLY_STATUS_EFFECT',
             isProcessed: false,
             casterCombatantID: caster.id,
@@ -115,7 +115,7 @@ export const applyAbilityEffects = (
             const handler = STATUS_EFFECT_HANDLERS[pointEffect.damageType];
             const casterStatValue = handler ? handler.getStat(caster.character) : 0;
 
-            const combatEvent: CombatEvent = {
+            const combatEvent: CombatEvents = {
                 type: 'APPLY_POINT_EFFECT',
                 isProcessed: false,
                 casterCombatantID: caster.id,
@@ -143,7 +143,7 @@ export const applyAbilityEffects = (
                 };
             });
 
-            const combatEvent: CombatEvent = {
+            const combatEvent: CombatEvents = {
                 type: 'APPLY_DAMAGE',
                 isProcessed: false,
                 sourceName: pointEffect.name,
@@ -159,9 +159,9 @@ export const applyAbilityEffects = (
 export const applyPointModifierEffects = (
     combatantID: string,
     character: Character,
-): CombatEvent[] => {
+): CombatEvents[] => {
     const target: Character = { ...character };
-    const combatEvents: CombatEvent[] = [];
+    const combatEvents: CombatEvents[] = [];
 
     character.pointModifiers.forEach((pointModifier: PointModifier) => {
         const calculatedValue = pointModifier.casterStatValue * pointModifier.power;
@@ -169,7 +169,7 @@ export const applyPointModifierEffects = (
         const handler = STATUS_EFFECT_HANDLERS[pointModifier.damageType];
         const { statChange } = handler.apply(target, calculatedValue);
 
-        const damageEvent: CombatEvent = {
+        const damageEvent: CombatEvents = {
             type: 'APPLY_DAMAGE',
             isProcessed: false,
             sourceName: pointModifier.name,

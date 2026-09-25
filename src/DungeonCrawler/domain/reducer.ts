@@ -7,7 +7,8 @@ import {
     Ability,
     Character,
     Combatant,
-    CombatEvent,
+    CombatEvents,
+    CombatEventType,
     Formation,
     LogMessage,
     MonsterCombatant,
@@ -15,6 +16,7 @@ import {
 import { selectTargetForMonster } from './monster/selectTargetForMonster';
 import { resetTurnsUntilAction } from './monster/turnsUntilAction';
 import { changeHealthPoints } from './character/changePoints';
+import { decreaseModifierDuration } from './character/decreaseModifierDuration';
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability; caster: Combatant; target: Combatant }
@@ -37,7 +39,7 @@ type DungeonCrawlerState = {
     monsterFormation: Formation;
     playerFormation: Formation;
     combatLog: LogMessage[];
-    combatEvents: CombatEvent[];
+    combatEvents: CombatEvents[];
 };
 
 export const dungeonCrawlerInitialState: DungeonCrawlerState = {
@@ -72,8 +74,9 @@ export const dungeonCrawlerReducer = (
             );
 
             // Decrease modifier durations
-            const decreaseEvent: CombatEvent = {
-                type: 'DECREASE_MODIFIERS',
+            const decreaseEvent: CombatEvents = {
+                id: crypto.randomUUID(),
+                type: CombatEventType.DECREASE_MODIFIERS,
                 isProcessed: false,
                 combatantID: caster.id,
             };
@@ -123,8 +126,9 @@ export const dungeonCrawlerReducer = (
             );
 
             // Decrease modifier durations
-            const decreaseEvent: CombatEvent = {
-                type: 'DECREASE_MODIFIERS',
+            const decreaseEvent: CombatEvents = {
+                id: crypto.randomUUID(),
+                type: CombatEventType.DECREASE_MODIFIERS,
                 isProcessed: false,
                 combatantID: actingMonster.id,
             };
@@ -152,29 +156,90 @@ export const dungeonCrawlerReducer = (
                 return acc;
             }, {});
 
-            if (currentEvent.type === 'APPLY_DAMAGE') {
-                for (const target of currentEvent.targets) {
-                    const targetToUpdate = allCombatants[target.targetCombatantID];
+            switch (currentEvent.type) {
+                case CombatEventType.APPLY_DAMAGE: {
+                    for (const target of currentEvent.targets) {
+                        const targetToUpdate = allCombatants[target.targetCombatantID];
+                        if (!targetToUpdate) {
+                            continue;
+                        }
 
+                        const newCharacter: Character = changeHealthPoints(
+                            targetToUpdate.character,
+                            target.amount,
+                            target.damageType,
+                        );
+                        targetToUpdate.character = newCharacter;
+                    }
+                    break;
+                }
+                case CombatEventType.APPLY_POINT_EFFECT: {
+                    for (const targetID of currentEvent.targetCombatantIDs) {
+                        const targetToUpdate = allCombatants[targetID];
+                        if (!targetToUpdate) {
+                            continue;
+                        }
+
+                        const newCharacter: Character = {
+                            ...targetToUpdate.character,
+                            pointModifiers: [
+                                ...targetToUpdate.character.pointModifiers,
+                                currentEvent.pointModifier,
+                            ],
+                        };
+                        targetToUpdate.character = newCharacter;
+                    }
+                    break;
+                }
+                case CombatEventType.APPLY_STATUS_EFFECT: {
+                    for (const targetID of currentEvent.targetCombatantIDs) {
+                        const targetToUpdate = allCombatants[targetID];
+                        if (!targetToUpdate) {
+                            continue;
+                        }
+
+                        const newCharacter: Character = {
+                            ...targetToUpdate.character,
+                            modifiers: [
+                                ...targetToUpdate.character.modifiers,
+                                currentEvent.statusEffect,
+                            ],
+                        };
+                        targetToUpdate.character = newCharacter;
+                    }
+                    break;
+                }
+                case CombatEventType.DECREASE_MODIFIERS: {
+                    const targetToUpdate = allCombatants[currentEvent.combatantID];
                     if (!targetToUpdate) {
-                        continue;
+                        break;
                     }
 
-                    const newCharacter: Character = changeHealthPoints(
-                        targetToUpdate.character,
-                        target.amount,
-                        target.damageType,
-                    );
+                    const { newCharacter } = decreaseModifierDuration(targetToUpdate.character);
                     targetToUpdate.character = newCharacter;
+                    break;
                 }
+                default:
+                    break;
             }
 
-            // TODO:
-            //      Add other event types
-            //      Update formations with updated combatants.
-            //      Update state with updated formations.
+            const updatedPlayerFormation = updateFormation(state.playerFormation, allCombatants);
+            const updatedMonsterFormation = updateFormation(state.monsterFormation, allCombatants);
 
-            return state;
+            const updatedEvents = state.combatEvents.map((event) => {
+                if (event.id !== currentEvent.id) {
+                    return event;
+                }
+
+                return { ...event, isProcessed: true };
+            });
+
+            return {
+                ...state,
+                playerFormation: updatedPlayerFormation,
+                monsterFormation: updatedMonsterFormation,
+                combatEvents: updatedEvents,
+            };
         }
         case 'FINISH_EXECUTION': {
             const areAllPlayerCharactersDefeated = state.playerFormation.combatants.every(
@@ -219,4 +284,27 @@ export const dungeonCrawlerReducer = (
         default:
             return state;
     }
+};
+
+const updateFormation = (
+    formation: Formation,
+    combatantDictionary: { [key: string]: Combatant },
+): Formation => {
+    const newFormation: Formation = {
+        ...formation,
+        combatants: formation.combatants.map((combatant) => combatant.clone()),
+        gridDimensions: structuredClone(formation.gridDimensions),
+    };
+
+    const updatedCombatants = newFormation.combatants.map((combatant) => {
+        const associatedCombatant = combatantDictionary[combatant.id];
+        if (!associatedCombatant) {
+            return combatant;
+        }
+
+        return associatedCombatant;
+    });
+    newFormation.combatants = updatedCombatants;
+
+    return newFormation;
 };

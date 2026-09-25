@@ -193,36 +193,59 @@ export enum TargetScope {
 
 export type LogMessage = { id: string; message: string };
 
-export type CombatEvent =
-    | {
-          type: 'CAST_ABILITY';
-          isProcessed: boolean;
-          casterCombatantID: string;
-          targetCombatantID: string;
-          abilityID: string;
-      }
-    | {
-          type: 'APPLY_DAMAGE';
-          isProcessed: boolean;
-          sourceName: string;
-          targets: CombatEventDamageTarget[];
-      }
-    | {
-          type: 'APPLY_POINT_EFFECT';
-          isProcessed: boolean;
-          casterCombatantID: string;
-          casterStatValue: number;
-          pointEffectID: string;
-          targetCombatantIDs: string[];
-      }
-    | {
-          type: 'APPLY_STATUS_EFFECT';
-          isProcessed: boolean;
-          casterCombatantID: string;
-          statusEffectID: string;
-          targetCombatantIDs: string[];
-      }
-    | { type: 'DECREASE_MODIFIERS'; isProcessed: boolean; combatantID: string };
+export enum CombatEventType {
+    CAST_ABILITY = 'CAST_ABILITY',
+    APPLY_DAMAGE = 'APPLY_DAMAGE',
+    APPLY_POINT_EFFECT = 'APPLY_POINT_EFFECT',
+    APPLY_STATUS_EFFECT = 'APPLY_STATUS_EFFECT',
+    DECREASE_MODIFIERS = 'DECREASE_MODIFIERS',
+}
+
+interface CombatEvent {
+    id: string;
+    type: CombatEventType;
+    isProcessed: boolean;
+}
+
+interface CastAbilityEvent extends CombatEvent {
+    type: CombatEventType.CAST_ABILITY;
+    casterCombatantID: string;
+    targetCombatantID: string;
+    abilityID: string;
+}
+
+interface ApplyDamageEvent extends CombatEvent {
+    type: CombatEventType.APPLY_DAMAGE;
+    sourceName: string;
+    targets: CombatEventDamageTarget[];
+}
+
+interface ApplyPointEffectEvent extends CombatEvent {
+    type: CombatEventType.APPLY_POINT_EFFECT;
+    casterCombatantID: string;
+    casterStatValue: number;
+    pointModifier: PointModifier;
+    targetCombatantIDs: string[];
+}
+
+interface ApplyStatusEffectEvent extends CombatEvent {
+    type: CombatEventType.APPLY_STATUS_EFFECT;
+    casterCombatantID: string;
+    statusEffect: DynamicStatModifier;
+    targetCombatantIDs: string[];
+}
+
+interface DecreaseModifiersEvent extends CombatEvent {
+    type: CombatEventType.DECREASE_MODIFIERS;
+    combatantID: string;
+}
+
+export type CombatEvents =
+    | CastAbilityEvent
+    | ApplyDamageEvent
+    | ApplyPointEffectEvent
+    | ApplyStatusEffectEvent
+    | DecreaseModifiersEvent;
 
 export interface CombatEventDamageTarget {
     targetCombatantID: string;

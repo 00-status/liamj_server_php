@@ -32,7 +32,7 @@ export const changeHealthPoints = (
         }
         case DamageType.magic_drain: {
             const newHealthPoints = Math.min(
-                Math.max(character.currentMP + pointChange, MINIMUM_POINTS),
+                Math.max(character.currentMP - pointChange, MINIMUM_POINTS),
                 character.stats.magicPoints,
             );
             return { ...character, currentMP: newHealthPoints };
