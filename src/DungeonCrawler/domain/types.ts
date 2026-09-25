@@ -200,6 +200,7 @@ export enum CombatEventType {
     APPLY_STATUS_EFFECT = 'APPLY_STATUS_EFFECT',
     DECREASE_MODIFIERS = 'DECREASE_MODIFIERS',
     DECREASE_TURNS_UNTIL_ACTION = 'DECREASE_TURNS_UNTIL_ACTION',
+    RESET_TURN_TIMER = 'RESET_TURN_TIMER',
 }
 
 interface CombatEvent {
@@ -245,8 +246,14 @@ interface DecreaseModifiersEvent extends CombatEvent {
     type: CombatEventType.DECREASE_MODIFIERS;
     combatantID: string;
 }
+
 interface DecreaseTurnsUntilActionEvent extends CombatEvent {
     type: CombatEventType.DECREASE_TURNS_UNTIL_ACTION;
+}
+
+interface ResetTurnTimerEvent extends CombatEvent {
+    type: CombatEventType.RESET_TURN_TIMER;
+    combatantID: string;
 }
 
 export type CombatEvents =
@@ -255,4 +262,5 @@ export type CombatEvents =
     | ApplyPointEffectEvent
     | ApplyStatusEffectEvent
     | DecreaseModifiersEvent
-    | DecreaseTurnsUntilActionEvent;
+    | DecreaseTurnsUntilActionEvent
+    | ResetTurnTimerEvent;

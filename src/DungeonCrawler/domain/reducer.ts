@@ -94,6 +94,7 @@ export const dungeonCrawlerReducer = (
                 ...state,
                 phase: GamePhase.PLAYER_EXECUTES,
                 combatEvents: [
+                    ...state.combatEvents,
                     ...pointModifierEvents,
                     ...effectEvents,
                     decreaseEvent,
@@ -123,11 +124,14 @@ export const dungeonCrawlerReducer = (
                 actingMonster.character.abilities,
             );
 
+            const combatEvents: CombatEvents[] = [];
+
             // Apply DoTs
             const pointModifierEvents = applyPointModifierEffects(
                 actingMonster.id,
                 actingMonster.character,
             );
+            combatEvents.push(...pointModifierEvents);
 
             const updatedActingMonster = actingMonster.cloneWith({
                 turnsUntilAction: resetTurnsUntilAction(),
@@ -138,6 +142,7 @@ export const dungeonCrawlerReducer = (
                 targetCombatant,
                 isTargetInPlayerFormation ? state.playerFormation : state.monsterFormation,
             );
+            combatEvents.push(...effectEvents);
 
             // Decrease modifier durations
             const decreaseEvent: CombatEvents = {
@@ -146,11 +151,21 @@ export const dungeonCrawlerReducer = (
                 isProcessed: false,
                 combatantID: actingMonster.id,
             };
+            combatEvents.push(decreaseEvent);
+
+            if (actingMonster.turnsUntilAction <= 0) {
+                combatEvents.push({
+                    id: crypto.randomUUID(),
+                    type: CombatEventType.RESET_TURN_TIMER,
+                    isProcessed: false,
+                    combatantID: actingMonster.id,
+                });
+            }
 
             return {
                 ...state,
                 phase: GamePhase.ENEMY_EXECUTES,
-                combatEvents: [...pointModifierEvents, ...effectEvents, decreaseEvent],
+                combatEvents: [...state.combatEvents, ...combatEvents],
             };
         }
         case 'PROCESS_NEXT_EVENT': {
@@ -241,6 +256,19 @@ export const dungeonCrawlerReducer = (
                     for (const updatedCombatant of updatedCombatants) {
                         allCombatants[updatedCombatant.id] = updatedCombatant;
                     }
+                    break;
+                }
+                case CombatEventType.RESET_TURN_TIMER: {
+                    const targetToUpdate = allCombatants[currentEvent.combatantID];
+                    if (!targetToUpdate) {
+                        break;
+                    }
+
+                    if (!(targetToUpdate instanceof MonsterCombatant)) {
+                        break;
+                    }
+
+                    targetToUpdate.turnsUntilAction = resetTurnsUntilAction();
                     break;
                 }
                 default:
