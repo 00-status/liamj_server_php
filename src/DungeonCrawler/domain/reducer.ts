@@ -257,30 +257,50 @@ export const dungeonCrawlerReducer = (
                 return { ...event, isProcessed: true };
             });
 
-            return {
-                ...state,
-                playerFormation: updatedPlayerFormation,
-                monsterFormation: updatedMonsterFormation,
-                combatEvents: updatedEvents,
-            };
-        }
-        case 'FINISH_EXECUTION': {
-            const areAllPlayerCharactersDefeated = state.playerFormation.combatants.every(
+            // If any events are not processed, remain in the EXECUTION phase.
+            if (updatedEvents.some((event) => !event.isProcessed)) {
+                return {
+                    ...state,
+                    playerFormation: updatedPlayerFormation,
+                    monsterFormation: updatedMonsterFormation,
+                    combatEvents: updatedEvents,
+                };
+            }
+
+            const areAllPlayerCharactersDefeated = updatedPlayerFormation.combatants.every(
                 (combatant) => combatant.character.currentHP <= 0,
             );
-            const monsters = state.monsterFormation.combatants.filter(
+            const monsters = updatedMonsterFormation.combatants.filter(
                 (combatant) => combatant instanceof MonsterCombatant,
             );
 
             if (areAllPlayerCharactersDefeated) {
-                return { ...state, phase: GamePhase.GAME_OVER };
+                return {
+                    ...state,
+                    phase: GamePhase.GAME_OVER,
+                    playerFormation: updatedPlayerFormation,
+                    monsterFormation: updatedMonsterFormation,
+                    combatEvents: updatedEvents,
+                };
             }
 
             if (monsters.some((monster) => monster.turnsUntilAction <= 0)) {
-                return { ...state, phase: GamePhase.ENEMY_TURN };
+                return {
+                    ...state,
+                    phase: GamePhase.ENEMY_TURN,
+                    playerFormation: updatedPlayerFormation,
+                    monsterFormation: updatedMonsterFormation,
+                    combatEvents: updatedEvents,
+                };
             }
 
-            return { ...state, phase: GamePhase.PLAYER_TURN };
+            return {
+                ...state,
+                phase: GamePhase.PLAYER_TURN,
+                playerFormation: updatedPlayerFormation,
+                monsterFormation: updatedMonsterFormation,
+                combatEvents: updatedEvents,
+            };
         }
         case 'PLAYER_TOGGLES_EQUIPMENT': {
             const targetCombatant = state.playerFormation.combatants.find(
