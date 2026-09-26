@@ -203,20 +203,20 @@ export enum CombatEventType {
     RESET_TURN_TIMER = 'RESET_TURN_TIMER',
 }
 
-interface CombatEvent {
+interface BaseCombatEvent {
     id: string;
     type: CombatEventType;
     isProcessed: boolean;
 }
 
-interface CastAbilityEvent extends CombatEvent {
+interface CastAbilityEvent extends BaseCombatEvent {
     type: CombatEventType.CAST_ABILITY;
     casterCombatantID: string;
     targetCombatantID: string;
     abilityID: string;
 }
 
-interface ApplyDamageEvent extends CombatEvent {
+interface ApplyDamageEvent extends BaseCombatEvent {
     type: CombatEventType.APPLY_DAMAGE;
     sourceName: string;
     targets: CombatEventDamageTarget[];
@@ -228,35 +228,35 @@ export interface CombatEventDamageTarget {
     damageType: DamageType;
 }
 
-interface ApplyPointEffectEvent extends CombatEvent {
+interface ApplyPointEffectEvent extends BaseCombatEvent {
     type: CombatEventType.APPLY_POINT_EFFECT;
     casterCombatantID: string;
     pointModifier: PointModifier;
     targetCombatantIDs: string[];
 }
 
-interface ApplyStatusEffectEvent extends CombatEvent {
+interface ApplyStatusEffectEvent extends BaseCombatEvent {
     type: CombatEventType.APPLY_STATUS_EFFECT;
     casterCombatantID: string;
     statModifier: DynamicStatModifier;
     targetCombatantIDs: string[];
 }
 
-interface DecreaseModifiersEvent extends CombatEvent {
+interface DecreaseModifiersEvent extends BaseCombatEvent {
     type: CombatEventType.DECREASE_MODIFIERS;
     combatantID: string;
 }
 
-interface DecreaseTurnsUntilActionEvent extends CombatEvent {
+interface DecreaseTurnsUntilActionEvent extends BaseCombatEvent {
     type: CombatEventType.DECREASE_TURNS_UNTIL_ACTION;
 }
 
-interface ResetTurnTimerEvent extends CombatEvent {
+interface ResetTurnTimerEvent extends BaseCombatEvent {
     type: CombatEventType.RESET_TURN_TIMER;
     combatantID: string;
 }
 
-export type CombatEvents =
+export type CombatEvent =
     | CastAbilityEvent
     | ApplyDamageEvent
     | ApplyPointEffectEvent

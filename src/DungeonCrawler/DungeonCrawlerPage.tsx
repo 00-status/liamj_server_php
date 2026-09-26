@@ -42,8 +42,6 @@ const DungeonCrawlerPage = () => {
         return;
     }, [phase, combatEvents]);
 
-    useEffect(() => {}, [state.phase]);
-
     const onPlayerAbilitySelect = (ability: Ability) => {
         if (ability.name === selectedAbility?.name) {
             setSelectedAbility(null);

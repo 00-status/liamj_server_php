@@ -6,7 +6,7 @@ import {
     PointModifier,
     Combatant,
     Formation,
-    CombatEvents,
+    CombatEvent,
     CombatEventDamageTarget,
     CombatEventType,
     DynamicStatModifier,
@@ -50,8 +50,8 @@ export const applyAbilityEffects = (
     ability: Ability,
     initialTarget: Combatant,
     formationOfTarget: Formation,
-): CombatEvents[] => {
-    const combatEvents: CombatEvents[] = [];
+): CombatEvent[] => {
+    const combatEvents: CombatEvent[] = [];
 
     combatEvents.push({
         id: crypto.randomUUID(),
@@ -84,7 +84,7 @@ export const applyAbilityEffects = (
             duration: statusEffect.duration,
         };
 
-        const combatEvent: CombatEvents = {
+        const combatEvent: CombatEvent = {
             id: crypto.randomUUID(),
             type: CombatEventType.APPLY_STATUS_EFFECT,
             isProcessed: false,
@@ -116,7 +116,7 @@ export const applyAbilityEffects = (
                 duration: pointEffect.duration,
             };
 
-            const combatEvent: CombatEvents = {
+            const combatEvent: CombatEvent = {
                 id: crypto.randomUUID(),
                 type: CombatEventType.APPLY_POINT_EFFECT,
                 isProcessed: false,
@@ -144,7 +144,7 @@ export const applyAbilityEffects = (
                 };
             });
 
-            const combatEvent: CombatEvents = {
+            const combatEvent: CombatEvent = {
                 id: crypto.randomUUID(),
                 type: CombatEventType.APPLY_DAMAGE,
                 isProcessed: false,
@@ -161,9 +161,9 @@ export const applyAbilityEffects = (
 export const applyPointModifierEffects = (
     combatantID: string,
     character: Character,
-): CombatEvents[] => {
+): CombatEvent[] => {
     const target: Character = { ...character };
-    const combatEvents: CombatEvents[] = [];
+    const combatEvents: CombatEvent[] = [];
 
     character.pointModifiers.forEach((pointModifier: PointModifier) => {
         const calculatedValue = pointModifier.casterStatValue * pointModifier.power;
@@ -171,7 +171,7 @@ export const applyPointModifierEffects = (
         const handler = STATUS_EFFECT_HANDLERS[pointModifier.damageType];
         const statChange = handler.apply(target, calculatedValue);
 
-        const damageEvent: CombatEvents = {
+        const damageEvent: CombatEvent = {
             id: crypto.randomUUID(),
             type: CombatEventType.APPLY_DAMAGE,
             isProcessed: false,

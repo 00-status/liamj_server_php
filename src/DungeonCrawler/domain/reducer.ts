@@ -6,7 +6,7 @@ import { exampleMonsters } from './monsters';
 import {
     Ability,
     Combatant,
-    CombatEvents,
+    CombatEvent,
     CombatEventType,
     Formation,
     LogMessage,
@@ -38,7 +38,7 @@ type DungeonCrawlerState = {
     monsterFormation: Formation;
     playerFormation: Formation;
     combatLog: LogMessage[];
-    combatEvents: CombatEvents[];
+    combatEvents: CombatEvent[];
 };
 
 export const dungeonCrawlerInitialState: DungeonCrawlerState = {
@@ -72,14 +72,14 @@ export const dungeonCrawlerReducer = (
                 isTargetInMonsterFormation ? state.monsterFormation : state.playerFormation,
             );
 
-            const decreaseEvent: CombatEvents = {
+            const decreaseEvent: CombatEvent = {
                 id: crypto.randomUUID(),
                 type: CombatEventType.DECREASE_MODIFIERS,
                 isProcessed: false,
                 combatantID: caster.id,
             };
 
-            const decreaseTurnTimers: CombatEvents = {
+            const decreaseTurnTimers: CombatEvent = {
                 id: crypto.randomUUID(),
                 type: CombatEventType.DECREASE_TURNS_UNTIL_ACTION,
                 isProcessed: false,
@@ -120,7 +120,7 @@ export const dungeonCrawlerReducer = (
                 actingMonster.character.abilities,
             );
 
-            const combatEvents: CombatEvents[] = [];
+            const combatEvents: CombatEvent[] = [];
 
             // Apply DoTs
             const pointModifierEvents = applyPointModifierEffects(
@@ -141,7 +141,7 @@ export const dungeonCrawlerReducer = (
             combatEvents.push(...effectEvents);
 
             // Decrease modifier durations
-            const decreaseEvent: CombatEvents = {
+            const decreaseEvent: CombatEvent = {
                 id: crypto.randomUUID(),
                 type: CombatEventType.DECREASE_MODIFIERS,
                 isProcessed: false,
@@ -174,10 +174,11 @@ export const dungeonCrawlerReducer = (
             }
 
             const allCombatants = [...monsterFormation.combatants, ...playerFormation.combatants];
-            const updatedCombatants = combatEventHandlers[currentEvent.type](
-                currentEvent,
-                allCombatants,
-            );
+            const handler = combatEventHandlers[currentEvent.type] as (
+                event: CombatEvent,
+                combatants: Combatant[],
+            ) => { [combatantID: string]: Combatant };
+            const updatedCombatants = handler(currentEvent, allCombatants);
 
             const updatedPlayerFormation = updateFormation(playerFormation, updatedCombatants);
             const updatedMonsterFormation = updateFormation(monsterFormation, updatedCombatants);
