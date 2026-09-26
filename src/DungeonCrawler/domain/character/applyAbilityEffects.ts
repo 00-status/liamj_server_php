@@ -33,15 +33,15 @@ const STATUS_EFFECT_HANDLERS: Record<
     },
     [DamageType.healing]: {
         getStat: (caster) => getCharacterStat(caster, BaseStatNames.healthPoints),
-        apply: (target, value) => value,
+        apply: (target, value) => Math.round(value),
     },
     [DamageType.magic_restore]: {
         getStat: (caster) => getCharacterStat(caster, BaseStatNames.magicPoints),
-        apply: (target, value) => value,
+        apply: (target, value) => Math.round(value),
     },
     [DamageType.magic_drain]: {
         getStat: (caster) => getCharacterStat(caster, BaseStatNames.magicPoints),
-        apply: (target, value) => value,
+        apply: (target, value) => Math.round(value),
     },
 };
 
