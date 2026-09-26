@@ -4,7 +4,7 @@ import { getCharacterStat } from './getCharacterStat';
 
 const MINIMUM_POINTS = 0;
 
-export const changeHealthPoints = (
+export const changePoints = (
     character: Character,
     pointChange: number,
     damageType: DamageType,

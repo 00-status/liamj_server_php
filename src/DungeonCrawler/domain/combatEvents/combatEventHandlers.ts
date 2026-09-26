@@ -1,4 +1,4 @@
-import { changeHealthPoints } from '../character/changePoints';
+import { changePoints } from '../character/changePoints';
 import { decreaseModifierDuration } from '../character/decreaseModifierDuration';
 import {
     decreaseTurnsForMonsterCombatantList,
@@ -27,7 +27,7 @@ export const combatEventHandlers: CombatEventHandlers = {
                 continue;
             }
 
-            const newCharacter: Character = changeHealthPoints(
+            const newCharacter: Character = changePoints(
                 targetToUpdate.character,
                 target.amount,
                 target.damageType,
