@@ -172,16 +172,7 @@ export const dungeonCrawlerReducer = (
                 return state;
             }
 
-            const allCombatants: { [key: string]: Combatant } = [
-                ...monsterFormation.combatants,
-                ...playerFormation.combatants,
-            ].reduce<{
-                [key: string]: Combatant;
-            }>((acc, combatant) => {
-                acc[combatant.id] = combatant.clone();
-                return acc;
-            }, {});
-
+            const allCombatants = [...monsterFormation.combatants, ...playerFormation.combatants];
             const updatedCombatants = combatEventHandlers[currentEvent.type](
                 currentEvent,
                 allCombatants,

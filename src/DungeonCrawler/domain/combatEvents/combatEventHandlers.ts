@@ -10,14 +10,13 @@ type CombatantDictionary = { [combatantID: string]: Combatant };
 
 type CombatEventHandlers = Record<
     CombatEventType,
-    (event: CombatEvents, combatantDictionary: CombatantDictionary) => CombatantDictionary
+    (event: CombatEvents, combatants: Combatant[]) => CombatantDictionary
 >;
 
 export const combatEventHandlers: CombatEventHandlers = {
-    [CombatEventType.APPLY_DAMAGE]: (
-        event: CombatEvents,
-        combatantDictionary: CombatantDictionary,
-    ) => {
+    [CombatEventType.APPLY_DAMAGE]: (event: CombatEvents, combatants: Combatant[]) => {
+        const combatantDictionary = keyCombatantsByID(combatants);
+
         if (event.type !== CombatEventType.APPLY_DAMAGE) {
             return combatantDictionary;
         }
@@ -38,10 +37,9 @@ export const combatEventHandlers: CombatEventHandlers = {
 
         return combatantDictionary;
     },
-    [CombatEventType.APPLY_POINT_EFFECT]: (
-        event: CombatEvents,
-        combatantDictionary: CombatantDictionary,
-    ) => {
+    [CombatEventType.APPLY_POINT_EFFECT]: (event: CombatEvents, combatants: Combatant[]) => {
+        const combatantDictionary = keyCombatantsByID(combatants);
+
         if (event.type !== CombatEventType.APPLY_POINT_EFFECT) {
             return combatantDictionary;
         }
@@ -61,10 +59,9 @@ export const combatEventHandlers: CombatEventHandlers = {
 
         return combatantDictionary;
     },
-    [CombatEventType.APPLY_STATUS_EFFECT]: (
-        event: CombatEvents,
-        combatantDictionary: CombatantDictionary,
-    ) => {
+    [CombatEventType.APPLY_STATUS_EFFECT]: (event: CombatEvents, combatants: Combatant[]) => {
+        const combatantDictionary = keyCombatantsByID(combatants);
+
         if (event.type !== CombatEventType.APPLY_STATUS_EFFECT) {
             return combatantDictionary;
         }
@@ -84,16 +81,12 @@ export const combatEventHandlers: CombatEventHandlers = {
 
         return combatantDictionary;
     },
-    [CombatEventType.CAST_ABILITY]: (
-        event: CombatEvents,
-        combatantDictionary: CombatantDictionary,
-    ) => {
-        return combatantDictionary;
+    [CombatEventType.CAST_ABILITY]: (event: CombatEvents, combatants: Combatant[]) => {
+        return keyCombatantsByID(combatants);
     },
-    [CombatEventType.DECREASE_MODIFIERS]: (
-        event: CombatEvents,
-        combatantDictionary: CombatantDictionary,
-    ) => {
+    [CombatEventType.DECREASE_MODIFIERS]: (event: CombatEvents, combatants: Combatant[]) => {
+        const combatantDictionary = keyCombatantsByID(combatants);
+
         if (event.type !== CombatEventType.DECREASE_MODIFIERS) {
             return combatantDictionary;
         }
@@ -110,8 +103,10 @@ export const combatEventHandlers: CombatEventHandlers = {
     },
     [CombatEventType.DECREASE_TURNS_UNTIL_ACTION]: (
         event: CombatEvents,
-        combatantDictionary: CombatantDictionary,
+        combatants: Combatant[],
     ) => {
+        const combatantDictionary = keyCombatantsByID(combatants);
+
         if (event.type !== CombatEventType.DECREASE_TURNS_UNTIL_ACTION) {
             return combatantDictionary;
         }
@@ -126,10 +121,9 @@ export const combatEventHandlers: CombatEventHandlers = {
 
         return combatantDictionary;
     },
-    [CombatEventType.RESET_TURN_TIMER]: (
-        event: CombatEvents,
-        combatantDictionary: CombatantDictionary,
-    ) => {
+    [CombatEventType.RESET_TURN_TIMER]: (event: CombatEvents, combatants: Combatant[]) => {
+        const combatantDictionary = keyCombatantsByID(combatants);
+
         if (event.type !== CombatEventType.RESET_TURN_TIMER) {
             return combatantDictionary;
         }
@@ -147,4 +141,15 @@ export const combatEventHandlers: CombatEventHandlers = {
 
         return combatantDictionary;
     },
+};
+
+const keyCombatantsByID = (combatants: Combatant[]): CombatantDictionary => {
+    const combatantsByID: { [key: string]: Combatant } = combatants.reduce<{
+        [key: string]: Combatant;
+    }>((acc, combatant) => {
+        acc[combatant.id] = combatant.clone();
+        return acc;
+    }, {});
+
+    return combatantsByID;
 };
