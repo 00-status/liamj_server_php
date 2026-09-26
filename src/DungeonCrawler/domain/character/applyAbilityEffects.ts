@@ -12,11 +12,9 @@ import {
     DynamicStatModifier,
 } from '../types';
 
-import { damageCharacter } from './damageCharacter';
+import { calculateMitigatedDamage } from './calculateMitigatedDamage';
 import { getCharacterStat } from './getCharacterStat';
 import { getValidTargets } from './getValidTargets';
-import { healCharacter } from './healCharacter';
-import { changeCharacterMP } from './changeCharacterMP';
 
 const STATUS_EFFECT_HANDLERS: Record<
     DamageType,
@@ -27,48 +25,32 @@ const STATUS_EFFECT_HANDLERS: Record<
 > = {
     [DamageType.physical]: {
         getStat: (caster) => getCharacterStat(caster, BaseStatNames.attack),
-        apply: (target, value) => damageCharacter(target, value, DamageType.physical),
+        apply: (target, value) => calculateMitigatedDamage(target, value, DamageType.physical),
     },
     [DamageType.magic]: {
         getStat: (caster) => getCharacterStat(caster, BaseStatNames.magicAttack),
-        apply: (target, value) => damageCharacter(target, value, DamageType.magic),
+        apply: (target, value) => calculateMitigatedDamage(target, value, DamageType.magic),
     },
     [DamageType.healing]: {
         getStat: (caster) => getCharacterStat(caster, BaseStatNames.healthPoints),
-        apply: (target, value) => healCharacter(value),
+        apply: (target, value) => value,
     },
     [DamageType.magic_restore]: {
         getStat: (caster) => getCharacterStat(caster, BaseStatNames.magicPoints),
-        apply: (target, value) => changeCharacterMP(value),
+        apply: (target, value) => value,
     },
     [DamageType.magic_drain]: {
         getStat: (caster) => getCharacterStat(caster, BaseStatNames.magicPoints),
-        apply: (target, value) => changeCharacterMP(value),
+        apply: (target, value) => value,
     },
 };
 
 export const applyAbilityEffects = (
-    initialCaster: Combatant,
+    caster: Combatant,
     ability: Ability,
     initialTarget: Combatant,
     formationOfTarget: Formation,
 ): CombatEvents[] => {
-    const caster: Combatant = initialCaster.cloneWith({
-        character: {
-            ...initialCaster.character,
-            currentMP: Math.max(0, initialCaster.character.currentMP - ability.cost),
-        },
-    });
-
-    // Clone each class instance so we don't mess anything up in the calling code.
-    const combatantDictionary: { [key: string]: Combatant } = formationOfTarget.combatants.reduce<{
-        [key: string]: Combatant;
-    }>((acc, combatant) => {
-        acc[combatant.id] = combatant.clone();
-        return acc;
-    }, {});
-    combatantDictionary[caster.id] = caster.clone();
-
     const combatEvents: CombatEvents[] = [];
 
     combatEvents.push({

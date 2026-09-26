@@ -98,12 +98,13 @@ export const dungeonCrawlerReducer = (
             };
         }
         case 'ENEMY_USES_ABILITY': {
-            const monsterCombatants = state.monsterFormation.combatants
+            const actingMonster = state.monsterFormation.combatants
                 .filter((combatant) => combatant instanceof MonsterCombatant)
-                .filter((monsterCombatant) => monsterCombatant.character.currentHP > 0);
-            const actingMonster = monsterCombatants.find(
-                (combatant) => combatant.turnsUntilAction <= 0,
-            );
+                .find(
+                    (monsterCombatant) =>
+                        monsterCombatant.character.currentHP > 0 &&
+                        monsterCombatant.turnsUntilAction <= 0,
+                );
 
             if (!actingMonster) {
                 return { ...state, phase: GamePhase.PLAYER_TURN };
@@ -205,7 +206,9 @@ export const dungeonCrawlerReducer = (
             );
             const canAnyMonstersAct = updatedMonsterFormation.combatants
                 .filter((combatant) => combatant instanceof MonsterCombatant)
-                .some((monster) => monster.turnsUntilAction <= 0);
+                .some(
+                    (monster) => monster.turnsUntilAction <= 0 && monster.character.currentHP > 0,
+                );
             const isMonsterFormationDefeated = isFormationDefeated(updatedMonsterFormation);
 
             if (areAllPlayerCharactersDefeated) {
@@ -214,7 +217,8 @@ export const dungeonCrawlerReducer = (
                     phase: GamePhase.GAME_OVER,
                     playerFormation: updatedPlayerFormation,
                     monsterFormation: updatedMonsterFormation,
-                    combatEvents: updatedEvents,
+                    combatEvents: [],
+                    combatLog: [],
                 };
             }
 
@@ -222,9 +226,11 @@ export const dungeonCrawlerReducer = (
                 return {
                     ...state,
                     phase: GamePhase.PLAYER_TURN,
+                    roomsClearedCount: state.roomsClearedCount + 1,
                     playerFormation: updatedPlayerFormation,
                     monsterFormation: buildNewMonsterFormation(exampleMonsters),
-                    combatEvents: updatedEvents,
+                    combatEvents: [],
+                    combatLog: [],
                 };
             }
 
@@ -275,23 +281,13 @@ export const dungeonCrawlerReducer = (
 
 const updateFormation = (
     formation: Formation,
-    combatantDictionary: { [key: string]: Combatant },
+    combatantDictionary: Record<string, Combatant>,
 ): Formation => {
-    const newFormation: Formation = {
+    return {
         ...formation,
-        combatants: formation.combatants.map((combatant) => combatant.clone()),
+        combatants: formation.combatants.map((combatant) => {
+            return combatantDictionary[combatant.id] ?? combatant;
+        }),
         gridDimensions: structuredClone(formation.gridDimensions),
     };
-
-    const updatedCombatants = newFormation.combatants.map((combatant) => {
-        const associatedCombatant = combatantDictionary[combatant.id];
-        if (!associatedCombatant) {
-            return combatant;
-        }
-
-        return associatedCombatant;
-    });
-    newFormation.combatants = updatedCombatants;
-
-    return newFormation;
 };
