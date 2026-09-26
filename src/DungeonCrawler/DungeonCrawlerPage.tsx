@@ -10,6 +10,10 @@ import { dungeonCrawlerInitialState, dungeonCrawlerReducer, GamePhase } from './
 import { Ability, Combatant } from './domain/types';
 import { PlayerFormation } from './components/PlayerFormation/PlayerFormation';
 
+// TODO: Refactor reducer to have handlers separate from the main reducer.
+// TODO: Refactor EventHandlers to be in a separate file/files.
+// TODO in #64: Add animations.
+// TODO in #51: Add Log Messages back in.
 const DungeonCrawlerPage = () => {
     const [state, dispatch] = useReducer(dungeonCrawlerReducer, dungeonCrawlerInitialState);
     const { phase, roomsClearedCount, playerFormation, monsterFormation, combatLog, combatEvents } =
@@ -21,8 +25,6 @@ const DungeonCrawlerPage = () => {
     const selectedPlayerCharacter = playerFormation.combatants.find(
         (combatant) => combatant.id === selectedPlayerCharacterID,
     );
-
-    console.log(combatEvents);
 
     useEffect(() => {
         if (phase === GamePhase.ENEMY_EXECUTES || phase === GamePhase.PLAYER_EXECUTES) {

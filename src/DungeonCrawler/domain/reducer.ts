@@ -5,7 +5,6 @@ import { buildNewMonsterFormation } from './monster/buildNewMonsterFormation';
 import { exampleMonsters } from './monsters';
 import {
     Ability,
-    Character,
     Combatant,
     CombatEvents,
     CombatEventType,
@@ -14,13 +13,9 @@ import {
     MonsterCombatant,
 } from './types';
 import { selectTargetForMonster } from './monster/selectTargetForMonster';
-import {
-    decreaseTurnsForMonsterCombatantList,
-    resetTurnsUntilAction,
-} from './monster/turnsUntilAction';
-import { changeHealthPoints } from './character/changePoints';
-import { decreaseModifierDuration } from './character/decreaseModifierDuration';
+import { resetTurnsUntilAction } from './monster/turnsUntilAction';
 import { isFormationDefeated } from './formation/isFormationDefeated';
+import { combatEventHandlers } from './combatEvents/combatEventHandlers';
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability; caster: Combatant; target: Combatant }
@@ -170,14 +165,16 @@ export const dungeonCrawlerReducer = (
         }
         case 'PROCESS_NEXT_EVENT': {
             const currentEvent = state.combatEvents.find((event) => !event.isProcessed);
+            const playerFormation = state.playerFormation;
+            const monsterFormation = state.monsterFormation;
 
             if (!currentEvent) {
                 return state;
             }
 
             const allCombatants: { [key: string]: Combatant } = [
-                ...state.monsterFormation.combatants,
-                ...state.playerFormation.combatants,
+                ...monsterFormation.combatants,
+                ...playerFormation.combatants,
             ].reduce<{
                 [key: string]: Combatant;
             }>((acc, combatant) => {
@@ -185,99 +182,15 @@ export const dungeonCrawlerReducer = (
                 return acc;
             }, {});
 
-            switch (currentEvent.type) {
-                case CombatEventType.APPLY_DAMAGE: {
-                    for (const target of currentEvent.targets) {
-                        const targetToUpdate = allCombatants[target.targetCombatantID];
-                        if (!targetToUpdate) {
-                            continue;
-                        }
+            const updatedCombatants = combatEventHandlers[currentEvent.type](
+                currentEvent,
+                allCombatants,
+            );
 
-                        const newCharacter: Character = changeHealthPoints(
-                            targetToUpdate.character,
-                            target.amount,
-                            target.damageType,
-                        );
-                        targetToUpdate.character = newCharacter;
-                    }
-                    break;
-                }
-                case CombatEventType.APPLY_POINT_EFFECT: {
-                    for (const targetID of currentEvent.targetCombatantIDs) {
-                        const targetToUpdate = allCombatants[targetID];
-                        if (!targetToUpdate) {
-                            continue;
-                        }
+            const updatedPlayerFormation = updateFormation(playerFormation, updatedCombatants);
+            const updatedMonsterFormation = updateFormation(monsterFormation, updatedCombatants);
 
-                        const newCharacter: Character = {
-                            ...targetToUpdate.character,
-                            pointModifiers: [
-                                ...targetToUpdate.character.pointModifiers,
-                                currentEvent.pointModifier,
-                            ],
-                        };
-                        targetToUpdate.character = newCharacter;
-                    }
-                    break;
-                }
-                case CombatEventType.APPLY_STATUS_EFFECT: {
-                    for (const targetID of currentEvent.targetCombatantIDs) {
-                        const targetToUpdate = allCombatants[targetID];
-                        if (!targetToUpdate) {
-                            continue;
-                        }
-
-                        const newCharacter: Character = {
-                            ...targetToUpdate.character,
-                            modifiers: [
-                                ...targetToUpdate.character.modifiers,
-                                currentEvent.statModifier,
-                            ],
-                        };
-                        targetToUpdate.character = newCharacter;
-                    }
-                    break;
-                }
-                case CombatEventType.DECREASE_MODIFIERS: {
-                    const targetToUpdate = allCombatants[currentEvent.combatantID];
-                    if (!targetToUpdate) {
-                        break;
-                    }
-
-                    const { newCharacter } = decreaseModifierDuration(targetToUpdate.character);
-                    targetToUpdate.character = newCharacter;
-                    break;
-                }
-                case CombatEventType.DECREASE_TURNS_UNTIL_ACTION: {
-                    const updatedCombatants = decreaseTurnsForMonsterCombatantList(
-                        Object.values(allCombatants),
-                    );
-
-                    for (const updatedCombatant of updatedCombatants) {
-                        allCombatants[updatedCombatant.id] = updatedCombatant;
-                    }
-                    break;
-                }
-                case CombatEventType.RESET_TURN_TIMER: {
-                    const targetToUpdate = allCombatants[currentEvent.combatantID];
-                    if (!targetToUpdate) {
-                        break;
-                    }
-
-                    if (!(targetToUpdate instanceof MonsterCombatant)) {
-                        break;
-                    }
-
-                    targetToUpdate.turnsUntilAction = resetTurnsUntilAction();
-                    break;
-                }
-                default:
-                    break;
-            }
-
-            const updatedPlayerFormation = updateFormation(state.playerFormation, allCombatants);
-            const updatedMonsterFormation = updateFormation(state.monsterFormation, allCombatants);
-
+            // Mark the current event as processed.
             const updatedEvents = state.combatEvents.map((event) => {
                 if (event.id !== currentEvent.id) {
                     return event;
