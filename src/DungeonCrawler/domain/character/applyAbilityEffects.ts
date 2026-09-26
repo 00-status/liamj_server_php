@@ -16,16 +16,13 @@ import { damageCharacter } from './damageCharacter';
 import { getCharacterStat } from './getCharacterStat';
 import { getValidTargets } from './getValidTargets';
 import { healCharacter } from './healCharacter';
-import { restoreMagicForCharacter } from './restoreMagicForCharacter';
+import { changeCharacterMP } from './changeCharacterMP';
 
 const STATUS_EFFECT_HANDLERS: Record<
     DamageType,
     {
         getStat: (caster: Character) => number;
-        apply: (
-            target: Character,
-            value: number,
-        ) => { updatedTarget: Character; statChange: number };
+        apply: (target: Character, value: number) => number;
     }
 > = {
     [DamageType.physical]: {
@@ -38,15 +35,15 @@ const STATUS_EFFECT_HANDLERS: Record<
     },
     [DamageType.healing]: {
         getStat: (caster) => getCharacterStat(caster, BaseStatNames.healthPoints),
-        apply: (target, value) => healCharacter(target, value),
+        apply: (target, value) => healCharacter(value),
     },
     [DamageType.magic_restore]: {
         getStat: (caster) => getCharacterStat(caster, BaseStatNames.magicPoints),
-        apply: (target, value) => restoreMagicForCharacter(target, value),
+        apply: (target, value) => changeCharacterMP(value),
     },
     [DamageType.magic_drain]: {
         getStat: (caster) => getCharacterStat(caster, BaseStatNames.magicPoints),
-        apply: (target, value) => restoreMagicForCharacter(target, value), // TODO: Update this to drain properly.
+        apply: (target, value) => changeCharacterMP(value),
     },
 };
 
@@ -156,7 +153,7 @@ export const applyAbilityEffects = (
             const calculatedValue = baseStat * pointEffect.power;
 
             const combatEventTargets: CombatEventDamageTarget[] = targets.map((target) => {
-                const { statChange } = handler.apply(target.character, calculatedValue);
+                const statChange = handler.apply(target.character, calculatedValue);
 
                 return {
                     targetCombatantID: target.id,
@@ -190,7 +187,7 @@ export const applyPointModifierEffects = (
         const calculatedValue = pointModifier.casterStatValue * pointModifier.power;
 
         const handler = STATUS_EFFECT_HANDLERS[pointModifier.damageType];
-        const { statChange } = handler.apply(target, calculatedValue);
+        const statChange = handler.apply(target, calculatedValue);
 
         const damageEvent: CombatEvents = {
             id: crypto.randomUUID(),

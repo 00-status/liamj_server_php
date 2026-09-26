@@ -1,4 +1,6 @@
-import { Character, DamageType } from '../types';
+import { BaseStatNames, Character, DamageType } from '../types';
+
+import { getCharacterStat } from './getCharacterStat';
 
 const MINIMUM_POINTS = 0;
 
@@ -12,30 +14,30 @@ export const changeHealthPoints = (
         case DamageType.physical: {
             const newHealthPoints = Math.min(
                 Math.max(character.currentHP - pointChange, MINIMUM_POINTS),
-                character.stats.healthPoints,
+                getCharacterStat(character, BaseStatNames.healthPoints),
             );
             return { ...character, currentHP: newHealthPoints };
         }
         case DamageType.healing: {
             const newHealthPoints = Math.min(
                 Math.max(character.currentHP + pointChange, MINIMUM_POINTS),
-                character.stats.healthPoints,
+                getCharacterStat(character, BaseStatNames.healthPoints),
             );
             return { ...character, currentHP: newHealthPoints };
         }
         case DamageType.magic_restore: {
-            const newHealthPoints = Math.min(
+            const newMagicPoints = Math.min(
                 Math.max(character.currentMP + pointChange, MINIMUM_POINTS),
-                character.stats.magicPoints,
+                getCharacterStat(character, BaseStatNames.magicPoints),
             );
-            return { ...character, currentMP: newHealthPoints };
+            return { ...character, currentMP: newMagicPoints };
         }
         case DamageType.magic_drain: {
-            const newHealthPoints = Math.min(
+            const newMagicPoints = Math.min(
                 Math.max(character.currentMP - pointChange, MINIMUM_POINTS),
-                character.stats.magicPoints,
+                getCharacterStat(character, BaseStatNames.magicPoints),
             );
-            return { ...character, currentMP: newHealthPoints };
+            return { ...character, currentMP: newMagicPoints };
         }
         default:
             return { ...character };

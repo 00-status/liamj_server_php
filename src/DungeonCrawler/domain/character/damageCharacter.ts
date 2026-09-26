@@ -8,13 +8,9 @@ export const damageCharacter = (
     targetCharacter: Character,
     damageValue: number,
     damageType: DamageType,
-): { updatedTarget: Character; statChange: number } => {
+): number => {
     const actualDamageValue = calculateDamage(damageType, targetCharacter, damageValue);
-
-    const newHealth = Math.max(0, targetCharacter.currentHP - actualDamageValue);
-
-    const updatedTarget: Character = { ...targetCharacter, currentHP: newHealth };
-    return { updatedTarget, statChange: actualDamageValue };
+    return actualDamageValue;
 };
 
 const calculateDamage = (

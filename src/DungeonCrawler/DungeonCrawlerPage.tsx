@@ -10,8 +10,6 @@ import { dungeonCrawlerInitialState, dungeonCrawlerReducer, GamePhase } from './
 import { Ability, Combatant } from './domain/types';
 import { PlayerFormation } from './components/PlayerFormation/PlayerFormation';
 
-// TODO: Refactor reducer to have handlers separate from the main reducer.
-// TODO: Refactor EventHandlers to be in a separate file/files.
 // TODO in #64: Add animations.
 // TODO in #51: Add Log Messages back in.
 const DungeonCrawlerPage = () => {
