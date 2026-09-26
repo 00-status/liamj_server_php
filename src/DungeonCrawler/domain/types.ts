@@ -95,7 +95,7 @@ export interface BaseStats {
 }
 
 export enum DamageScaleMethod {
-    FLAT = 'FLATE',
+    FLAT = 'FLAT',
     PERCENT = 'PERCENT',
 }
 
@@ -156,6 +156,7 @@ export enum AbilityTarget {
 }
 
 export interface AbilityEffect {
+    id: string;
     name: string;
     target: TargetScope;
     duration: number;
@@ -167,7 +168,6 @@ export interface PointEffect extends AbilityEffect {
 }
 
 export interface StatusEffect extends AbilityEffect {
-    id: string;
     stat: keyof BaseStats;
     value: number;
     damageScaleType: DamageScaleMethod;
@@ -178,6 +178,7 @@ export enum DamageType {
     magic = 'magic',
     healing = 'healing',
     magic_restore = 'magic_restore',
+    magic_drain = 'magic_drain',
 }
 
 export enum TargetScope {
@@ -191,3 +192,75 @@ export enum TargetScope {
 }
 
 export type LogMessage = { id: string; message: string };
+
+export enum CombatEventType {
+    CAST_ABILITY = 'CAST_ABILITY',
+    APPLY_DAMAGE = 'APPLY_DAMAGE',
+    APPLY_POINT_EFFECT = 'APPLY_POINT_EFFECT',
+    APPLY_STATUS_EFFECT = 'APPLY_STATUS_EFFECT',
+    DECREASE_MODIFIERS = 'DECREASE_MODIFIERS',
+    DECREASE_TURNS_UNTIL_ACTION = 'DECREASE_TURNS_UNTIL_ACTION',
+    RESET_TURN_TIMER = 'RESET_TURN_TIMER',
+}
+
+interface BaseCombatEvent {
+    id: string;
+    type: CombatEventType;
+    isProcessed: boolean;
+}
+
+interface CastAbilityEvent extends BaseCombatEvent {
+    type: CombatEventType.CAST_ABILITY;
+    casterCombatantID: string;
+    targetCombatantID: string;
+    abilityID: string;
+}
+
+interface ApplyDamageEvent extends BaseCombatEvent {
+    type: CombatEventType.APPLY_DAMAGE;
+    sourceName: string;
+    targets: CombatEventDamageTarget[];
+}
+
+export interface CombatEventDamageTarget {
+    targetCombatantID: string;
+    amount: number;
+    damageType: DamageType;
+}
+
+interface ApplyPointEffectEvent extends BaseCombatEvent {
+    type: CombatEventType.APPLY_POINT_EFFECT;
+    casterCombatantID: string;
+    pointModifier: PointModifier;
+    targetCombatantIDs: string[];
+}
+
+interface ApplyStatusEffectEvent extends BaseCombatEvent {
+    type: CombatEventType.APPLY_STATUS_EFFECT;
+    casterCombatantID: string;
+    statModifier: DynamicStatModifier;
+    targetCombatantIDs: string[];
+}
+
+interface DecreaseModifiersEvent extends BaseCombatEvent {
+    type: CombatEventType.DECREASE_MODIFIERS;
+    combatantID: string;
+}
+
+interface DecreaseTurnsUntilActionEvent extends BaseCombatEvent {
+    type: CombatEventType.DECREASE_TURNS_UNTIL_ACTION;
+}
+
+interface ResetTurnTimerEvent extends BaseCombatEvent {
+    type: CombatEventType.RESET_TURN_TIMER;
+    combatantID: string;
+}
+
+export type CombatEvent =
+    | CastAbilityEvent
+    | ApplyDamageEvent
+    | ApplyPointEffectEvent
+    | ApplyStatusEffectEvent
+    | DecreaseModifiersEvent
+    | DecreaseTurnsUntilActionEvent
+    | ResetTurnTimerEvent;

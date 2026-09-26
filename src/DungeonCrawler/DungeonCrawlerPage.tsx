@@ -10,9 +10,12 @@ import { dungeonCrawlerInitialState, dungeonCrawlerReducer, GamePhase } from './
 import { Ability, Combatant } from './domain/types';
 import { PlayerFormation } from './components/PlayerFormation/PlayerFormation';
 
+// TODO in #64: Add animations.
+// TODO in #51: Add Log Messages back in.
 const DungeonCrawlerPage = () => {
     const [state, dispatch] = useReducer(dungeonCrawlerReducer, dungeonCrawlerInitialState);
-    const { phase, roomsClearedCount, playerFormation, monsterFormation, combatLog } = state;
+    const { phase, roomsClearedCount, playerFormation, monsterFormation, combatLog, combatEvents } =
+        state;
 
     const [selectedPlayerCharacterID, setSelectedPlayerCharacterID] = useState<string | null>(null);
     const [selectedAbility, setSelectedAbility] = useState<Ability | null>(null);
@@ -22,11 +25,11 @@ const DungeonCrawlerPage = () => {
     );
 
     useEffect(() => {
-        if (phase === GamePhase.ENEMY_EXECUTES) {
+        if (phase === GamePhase.ENEMY_EXECUTES || phase === GamePhase.PLAYER_EXECUTES) {
             const timer = setTimeout(() => {
                 // TODO: Replace with individual animations per each action taken on the enemy's turn.
-                dispatch({ type: 'FINISH_EXECUTION' });
-            }, 1000);
+                dispatch({ type: 'PROCESS_NEXT_EVENT' });
+            }, 200);
 
             return () => clearTimeout(timer);
         }
@@ -37,9 +40,7 @@ const DungeonCrawlerPage = () => {
         }
 
         return;
-    }, [phase]);
-
-    useEffect(() => {}, [state.phase]);
+    }, [phase, combatEvents]);
 
     const onPlayerAbilitySelect = (ability: Ability) => {
         if (ability.name === selectedAbility?.name) {

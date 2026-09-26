@@ -20,6 +20,7 @@ export const attackAbility: Ability = {
     abilityTarget: AbilityTarget.OPPONENT_FORMATION,
     pointEffects: [
         {
+            id: crypto.randomUUID(),
             name: 'Attack',
             target: TargetScope.target,
             damageType: DamageType.physical,
@@ -27,6 +28,7 @@ export const attackAbility: Ability = {
             duration: 0,
         },
         {
+            id: crypto.randomUUID(),
             name: 'MP Restore',
             target: TargetScope.self,
             damageType: DamageType.magic_restore,
@@ -61,6 +63,7 @@ const examplePlayer: Character = {
             abilityTarget: AbilityTarget.OPPONENT_FORMATION,
             pointEffects: [
                 {
+                    id: crypto.randomUUID(),
                     name: 'YEET!',
                     target: TargetScope.target,
                     damageType: DamageType.magic,
@@ -77,6 +80,7 @@ const examplePlayer: Character = {
             abilityTarget: AbilityTarget.OPPONENT_FORMATION,
             pointEffects: [
                 {
+                    id: crypto.randomUUID(),
                     name: 'Sweep the Leg!',
                     target: TargetScope.target_and_adjacent,
                     damageType: DamageType.magic,
@@ -93,6 +97,7 @@ const examplePlayer: Character = {
             abilityTarget: AbilityTarget.SELF,
             pointEffects: [
                 {
+                    id: crypto.randomUUID(),
                     name: 'HP Restore',
                     target: TargetScope.self,
                     damageType: DamageType.healing,
@@ -129,6 +134,7 @@ const examplePlayer2: Character = {
             abilityTarget: AbilityTarget.ALLY_FORMATION,
             pointEffects: [
                 {
+                    id: crypto.randomUUID(),
                     name: 'Heal',
                     target: TargetScope.target,
                     damageType: DamageType.healing,

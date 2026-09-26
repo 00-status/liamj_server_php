@@ -1,0 +1,44 @@
+import { BaseStatNames, Character, DamageType } from '../types';
+
+import { getCharacterStat } from './getCharacterStat';
+
+const MAX_DAMAGE_REDUCTION = 0.8;
+
+export const calculateMitigatedDamage = (
+    targetCharacter: Character,
+    damageValue: number,
+    damageType: DamageType,
+): number => {
+    switch (damageType) {
+        case DamageType.magic: {
+            const magicDefence = calculateMagicDefence(targetCharacter);
+            const damageMultiplier = Math.max(magicDefence, 1.0 - MAX_DAMAGE_REDUCTION);
+
+            return Math.max(1, Math.round(damageValue * damageMultiplier));
+        }
+        case DamageType.physical:
+        default: {
+            const defence = calculateDefence(targetCharacter);
+            const damageMultiplier = Math.max(defence, 1.0 - MAX_DAMAGE_REDUCTION);
+
+            return Math.max(1, Math.round(damageValue * damageMultiplier));
+        }
+    }
+};
+
+const DEFENCE_SCALING_FACTOR = 100;
+const MAGIC_DEFENCE_SCALING_FACTOR = 100;
+
+const calculateDefence = (character: Character): number => {
+    return (
+        DEFENCE_SCALING_FACTOR /
+        (DEFENCE_SCALING_FACTOR + getCharacterStat(character, BaseStatNames.defence))
+    );
+};
+
+const calculateMagicDefence = (character: Character): number => {
+    return (
+        MAGIC_DEFENCE_SCALING_FACTOR /
+        (MAGIC_DEFENCE_SCALING_FACTOR + getCharacterStat(character, BaseStatNames.magicDefence))
+    );
+};
