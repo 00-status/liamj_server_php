@@ -150,7 +150,7 @@ export const applyAbilityEffects = (
                 isProcessed: false,
                 targetCombatantIDs: targets.map((target) => target.id),
                 sourceName: pointEffect.name,
-                damageType: DamageType.magic_drain,
+                damageType: pointEffect.damageType,
                 damageTargets: combatEventTargets,
             };
             combatEvents.push(combatEvent);

@@ -268,6 +268,7 @@ export interface CombatAnimation {
     container: 'container' | 'child';
     durationMilliseconds: number;
     color: DamageColor;
+    text: string;
 }
 
 export enum DamageColor {

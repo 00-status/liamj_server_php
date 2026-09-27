@@ -30,15 +30,6 @@ const DungeonCrawlerPage = () => {
     }, [combatEvents]);
 
     useEffect(() => {
-        if (phase === GamePhase.ENEMY_EXECUTES || phase === GamePhase.PLAYER_EXECUTES) {
-            const timer = setTimeout(() => {
-                // TODO: Play animation associated with currentEvent and currentEvent's target.
-                dispatch({ type: 'PROCESS_NEXT_EVENT' });
-            }, 200);
-
-            return () => clearTimeout(timer);
-        }
-
         if (phase === GamePhase.ENEMY_TURN) {
             dispatch({ type: 'ENEMY_USES_ABILITY' });
             return;
@@ -55,12 +46,16 @@ const DungeonCrawlerPage = () => {
             return;
         }
 
-        if (activeCombatEvent.targetCombatantIDs.length <= 0) {
+        const isPlayerEvent = playerFormation.combatants.some((combatant) =>
+            // TODO: listen for, and update, player-targeted events
+            activeCombatEvent.targetCombatantIDs.includes(combatant.id),
+        );
+        if (isPlayerEvent || activeCombatEvent.targetCombatantIDs.length <= 0) {
             dispatch({ type: 'PROCESS_NEXT_EVENT' });
             return;
         }
 
-        pendingAnimationsRef.current = new Set({ ...activeCombatEvent.targetCombatantIDs });
+        pendingAnimationsRef.current = new Set([...activeCombatEvent.targetCombatantIDs]);
     }, [phase, activeCombatEvent]);
 
     const onPlayerAbilitySelect = (ability: Ability) => {

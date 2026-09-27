@@ -1,16 +1,21 @@
 import { CombatAnimation, CombatEvent, CombatEventType, DamageColor, DamageType } from '../types';
 
-export const getAnimationData = (event: CombatEvent): CombatAnimation | null => {
+export const getAnimationData = (event: CombatEvent, targetID: string): CombatAnimation | null => {
     switch (event.type) {
-        case CombatEventType.APPLY_DAMAGE:
+        case CombatEventType.APPLY_DAMAGE: {
+            const damageTarget = event.damageTargets.find(
+                (event) => event.targetCombatantID === targetID,
+            );
+
             return {
-                name: 'character-damage-number',
+                name: 'damage-number',
                 container: 'child',
-                durationMilliseconds: 100,
+                durationMilliseconds: 2000,
                 combatEventType: CombatEventType.APPLY_DAMAGE,
                 color: getColor(event.damageType),
+                text: damageTarget ? String(damageTarget.amount) : '',
             };
-
+        }
         default:
             return null;
     }
