@@ -76,13 +76,14 @@ export const dungeonCrawlerReducer = (
                 id: crypto.randomUUID(),
                 type: CombatEventType.DECREASE_MODIFIERS,
                 isProcessed: false,
-                combatantID: caster.id,
+                targetCombatantIDs: [caster.id],
             };
 
             const decreaseTurnTimers: CombatEvent = {
                 id: crypto.randomUUID(),
                 type: CombatEventType.DECREASE_TURNS_UNTIL_ACTION,
                 isProcessed: false,
+                targetCombatantIDs: [],
             };
 
             return {
@@ -145,7 +146,7 @@ export const dungeonCrawlerReducer = (
                 id: crypto.randomUUID(),
                 type: CombatEventType.DECREASE_MODIFIERS,
                 isProcessed: false,
-                combatantID: actingMonster.id,
+                targetCombatantIDs: [actingMonster.id],
             };
             combatEvents.push(decreaseEvent);
 
@@ -154,7 +155,7 @@ export const dungeonCrawlerReducer = (
                     id: crypto.randomUUID(),
                     type: CombatEventType.RESET_TURN_TIMER,
                     isProcessed: false,
-                    combatantID: actingMonster.id,
+                    targetCombatantIDs: [actingMonster.id],
                 });
             }
 

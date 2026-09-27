@@ -27,7 +27,7 @@ const DungeonCrawlerPage = () => {
     useEffect(() => {
         if (phase === GamePhase.ENEMY_EXECUTES || phase === GamePhase.PLAYER_EXECUTES) {
             const timer = setTimeout(() => {
-                // TODO: Replace with individual animations per each action taken on the enemy's turn.
+                // TODO: Play animation associated with currentEvent and currentEvent's target.
                 dispatch({ type: 'PROCESS_NEXT_EVENT' });
             }, 200);
 

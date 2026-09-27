@@ -58,7 +58,8 @@ export const applyAbilityEffects = (
         type: CombatEventType.APPLY_DAMAGE,
         isProcessed: false,
         sourceName: 'Ability Cost',
-        targets: [
+        targetCombatantIDs: [caster.id],
+        damageTargets: [
             {
                 targetCombatantID: caster.id,
                 amount: ability.cost,
@@ -120,9 +121,9 @@ export const applyAbilityEffects = (
                 id: crypto.randomUUID(),
                 type: CombatEventType.APPLY_POINT_EFFECT,
                 isProcessed: false,
+                targetCombatantIDs: targets.map((target) => target.id),
                 casterCombatantID: caster.id,
                 pointModifier,
-                targetCombatantIDs: targets.map((target) => target.id),
             };
             combatEvents.push(combatEvent);
         }
@@ -148,8 +149,9 @@ export const applyAbilityEffects = (
                 id: crypto.randomUUID(),
                 type: CombatEventType.APPLY_DAMAGE,
                 isProcessed: false,
+                targetCombatantIDs: targets.map((target) => target.id),
                 sourceName: pointEffect.name,
-                targets: combatEventTargets,
+                damageTargets: combatEventTargets,
             };
             combatEvents.push(combatEvent);
         }
@@ -176,7 +178,8 @@ export const applyPointModifierEffects = (
             type: CombatEventType.APPLY_DAMAGE,
             isProcessed: false,
             sourceName: pointModifier.name,
-            targets: [
+            targetCombatantIDs: [combatantID],
+            damageTargets: [
                 {
                     targetCombatantID: combatantID,
                     amount: statChange,

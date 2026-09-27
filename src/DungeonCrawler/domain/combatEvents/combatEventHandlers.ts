@@ -19,7 +19,7 @@ export const combatEventHandlers: CombatEventHandlerMap = {
     [CombatEventType.APPLY_DAMAGE]: (event, combatants) => {
         const combatantDictionary = keyCombatantsByID(combatants);
 
-        for (const target of event.targets) {
+        for (const target of event.damageTargets) {
             const targetToUpdate = combatantDictionary[target.targetCombatantID];
             if (!targetToUpdate) {
                 continue;
@@ -77,13 +77,15 @@ export const combatEventHandlers: CombatEventHandlerMap = {
     [CombatEventType.DECREASE_MODIFIERS]: (event, combatants) => {
         const combatantDictionary = keyCombatantsByID(combatants);
 
-        const targetToUpdate = combatantDictionary[event.combatantID];
-        if (!targetToUpdate) {
-            return combatantDictionary;
-        }
+        for (const targetID of event.targetCombatantIDs) {
+            const targetToUpdate = combatantDictionary[targetID];
+            if (!targetToUpdate) {
+                return combatantDictionary;
+            }
 
-        const { newCharacter } = decreaseModifierDuration(targetToUpdate.character);
-        targetToUpdate.character = newCharacter;
+            const { newCharacter } = decreaseModifierDuration(targetToUpdate.character);
+            targetToUpdate.character = newCharacter;
+        }
 
         return combatantDictionary;
     },
@@ -106,16 +108,18 @@ export const combatEventHandlers: CombatEventHandlerMap = {
     [CombatEventType.RESET_TURN_TIMER]: (event, combatants) => {
         const combatantDictionary = keyCombatantsByID(combatants);
 
-        const targetToUpdate = combatantDictionary[event.combatantID];
-        if (!targetToUpdate) {
-            return combatantDictionary;
-        }
+        for (const targetID of event.targetCombatantIDs) {
+            const targetToUpdate = combatantDictionary[targetID];
+            if (!targetToUpdate) {
+                return combatantDictionary;
+            }
 
-        if (!(targetToUpdate instanceof MonsterCombatant)) {
-            return combatantDictionary;
-        }
+            if (!(targetToUpdate instanceof MonsterCombatant)) {
+                return combatantDictionary;
+            }
 
-        targetToUpdate.turnsUntilAction = resetTurnsUntilAction();
+            targetToUpdate.turnsUntilAction = resetTurnsUntilAction();
+        }
 
         return combatantDictionary;
     },
