@@ -28,7 +28,7 @@ export const combatEventHandlers: CombatEventHandlerMap = {
             const newCharacter: Character = changePoints(
                 targetToUpdate.character,
                 target.amount,
-                target.damageType,
+                event.damageType,
             );
             targetToUpdate.character = newCharacter;
         }

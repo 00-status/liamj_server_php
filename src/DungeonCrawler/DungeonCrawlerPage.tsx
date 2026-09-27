@@ -47,6 +47,22 @@ const DungeonCrawlerPage = () => {
         return;
     }, [phase, combatEvents]);
 
+    useEffect(() => {
+        if (
+            (phase !== GamePhase.ENEMY_EXECUTES && phase !== GamePhase.PLAYER_EXECUTES) ||
+            !activeCombatEvent
+        ) {
+            return;
+        }
+
+        if (activeCombatEvent.targetCombatantIDs.length <= 0) {
+            dispatch({ type: 'PROCESS_NEXT_EVENT' });
+            return;
+        }
+
+        pendingAnimationsRef.current = new Set({ ...activeCombatEvent.targetCombatantIDs });
+    }, [phase, activeCombatEvent]);
+
     const onPlayerAbilitySelect = (ability: Ability) => {
         if (ability.name === selectedAbility?.name) {
             setSelectedAbility(null);

@@ -220,13 +220,13 @@ interface CastAbilityEvent extends BaseCombatEvent {
 interface ApplyDamageEvent extends BaseCombatEvent {
     type: CombatEventType.APPLY_DAMAGE;
     sourceName: string;
+    damageType: DamageType;
     damageTargets: CombatEventDamageTarget[];
 }
 
 export interface CombatEventDamageTarget {
     targetCombatantID: string;
     amount: number;
-    damageType: DamageType;
 }
 
 interface ApplyPointEffectEvent extends BaseCombatEvent {
@@ -261,3 +261,18 @@ export type CombatEvent =
     | DecreaseModifiersEvent
     | DecreaseTurnsUntilActionEvent
     | ResetTurnTimerEvent;
+
+export interface CombatAnimation {
+    combatEventType: CombatEventType;
+    name: string;
+    container: 'container' | 'child';
+    durationMilliseconds: number;
+    color: DamageColor;
+}
+
+export enum DamageColor {
+    PHYSICAL = '#000000',
+    MAGIC = '#000001',
+    HEALIING = '#000002',
+    MAGIC_DRAIN = '#900003',
+}

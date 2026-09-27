@@ -59,11 +59,11 @@ export const applyAbilityEffects = (
         isProcessed: false,
         sourceName: 'Ability Cost',
         targetCombatantIDs: [caster.id],
+        damageType: DamageType.magic_drain,
         damageTargets: [
             {
                 targetCombatantID: caster.id,
                 amount: ability.cost,
-                damageType: DamageType.magic_drain,
             },
         ],
     });
@@ -141,7 +141,6 @@ export const applyAbilityEffects = (
                 return {
                     targetCombatantID: target.id,
                     amount: statChange,
-                    damageType: pointEffect.damageType,
                 };
             });
 
@@ -151,6 +150,7 @@ export const applyAbilityEffects = (
                 isProcessed: false,
                 targetCombatantIDs: targets.map((target) => target.id),
                 sourceName: pointEffect.name,
+                damageType: DamageType.magic_drain,
                 damageTargets: combatEventTargets,
             };
             combatEvents.push(combatEvent);
@@ -179,11 +179,11 @@ export const applyPointModifierEffects = (
             isProcessed: false,
             sourceName: pointModifier.name,
             targetCombatantIDs: [combatantID],
+            damageType: pointModifier.damageType,
             damageTargets: [
                 {
                     targetCombatantID: combatantID,
                     amount: statChange,
-                    damageType: pointModifier.damageType,
                 },
             ],
         };
