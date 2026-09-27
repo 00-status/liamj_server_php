@@ -1,13 +1,13 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useMemo, useReducer, useRef, useState } from 'react';
 
 import { Page } from '../SharedComponents/Page/Page';
 import { Card } from '../SharedComponents/Card/Card';
 
 import './dungeon-crawler-page.css';
-import { MonsterStats } from './components/MonsterStats';
+import { MonsterStats } from './components/MonsterFormation/MonsterStats';
 import { CharacterEquipment } from './components/CharacterEquipment';
 import { dungeonCrawlerInitialState, dungeonCrawlerReducer, GamePhase } from './domain/reducer';
-import { Ability, Combatant } from './domain/types';
+import { Ability, Combatant, CombatEvent } from './domain/types';
 import { PlayerFormation } from './components/PlayerFormation/PlayerFormation';
 
 // TODO in #64: Add animations.
@@ -19,10 +19,15 @@ const DungeonCrawlerPage = () => {
 
     const [selectedPlayerCharacterID, setSelectedPlayerCharacterID] = useState<string | null>(null);
     const [selectedAbility, setSelectedAbility] = useState<Ability | null>(null);
+    const pendingAnimationsRef = useRef<Set<string>>(new Set());
 
     const selectedPlayerCharacter = playerFormation.combatants.find(
         (combatant) => combatant.id === selectedPlayerCharacterID,
     );
+
+    const activeCombatEvent: CombatEvent | undefined = useMemo(() => {
+        return combatEvents.find((event) => !event.isProcessed);
+    }, [combatEvents]);
 
     useEffect(() => {
         if (phase === GamePhase.ENEMY_EXECUTES || phase === GamePhase.PLAYER_EXECUTES) {
@@ -77,6 +82,14 @@ const DungeonCrawlerPage = () => {
         });
     };
 
+    const onAnimationComplete = (combatantID: string) => {
+        pendingAnimationsRef.current.delete(combatantID);
+
+        if (pendingAnimationsRef.current.size <= 0) {
+            dispatch({ type: 'PROCESS_NEXT_EVENT' });
+        }
+    };
+
     return (
         <Page title="Dungeons of Galericca" routes={[]}>
             {phase === GamePhase.GAME_OVER && <div>Game Over!</div>}
@@ -87,6 +100,8 @@ const DungeonCrawlerPage = () => {
                         formation={monsterFormation}
                         currentAbility={selectedAbility}
                         currentPlayer={selectedPlayerCharacter || null}
+                        activeCombatEvent={activeCombatEvent}
+                        onAnimationComplete={onAnimationComplete}
                         onEnemySelect={onTargetSelect}
                     />
                     <PlayerFormation

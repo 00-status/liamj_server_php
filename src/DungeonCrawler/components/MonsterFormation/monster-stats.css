@@ -1,0 +1,4 @@
+.monster-stats {
+    display: grid;
+    gap: 12px;
+}
