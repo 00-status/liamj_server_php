@@ -102,10 +102,7 @@ export const PlayerGridButton = ({
             }}
         >
             {shouldPlayAnimation && combatAnimation && combatAnimation.container === 'child' && (
-                <div
-                    className={`${BASE_CLASS}__${combatAnimation.name}`}
-                    data-theme={getDamageType(activeCombatEvent)}
-                >
+                <div className={combatAnimation.name} data-theme={getDamageType(activeCombatEvent)}>
                     {combatAnimation.text}
                 </div>
             )}

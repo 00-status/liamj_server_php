@@ -91,7 +91,7 @@ export const MonsterItem = ({
                     combatAnimation &&
                     combatAnimation.container === 'child' && (
                         <div
-                            className={`monster-item__${combatAnimation.name}`}
+                            className={combatAnimation.name}
                             data-theme={getDamageType(activeCombatEvent)}
                         >
                             {combatAnimation.text}

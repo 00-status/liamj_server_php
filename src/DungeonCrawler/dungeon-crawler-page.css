@@ -1,3 +1,22 @@
+[data-theme='PHYSICAL'] {
+    --damage-text-color: red;
+}
+[data-theme='MAGIC'] {
+    --damage-text-color: blue;
+}
+[data-theme='HEALING'] {
+    --damage-text-color: green;
+}
+[data-theme='MAGIC_RESTORE'] {
+    --damage-text-color: teal;
+}
+[data-theme='MAGIC_DRAIN'] {
+    --damage-text-color: darkblue;
+}
+[data-theme='DEFAULT'] {
+    --damage-text-color: purple;
+}
+
 .dungeon-crawler-page {
     display: flex;
     flex-direction: column;
@@ -14,4 +33,30 @@
     border-radius: 8px;
     background-color: #3b3b40;
     box-shadow: 1px 1px 4px #1f2028;
+}
+
+.character-damage-number {
+    position: absolute;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--damage-text-color);
+    text-shadow: 1px black;
+    animation: character-damage-number 600ms infinite ease-in-out;
+}
+
+@keyframes character-damage-number {
+    0% {
+        transform: translateY(0) scale(0.5);
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-5px) scale(1.2);
+    }
+    100% {
+        opacity: 0;
+    }
 }

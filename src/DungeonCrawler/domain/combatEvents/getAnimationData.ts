@@ -8,7 +8,7 @@ export const getAnimationData = (event: CombatEvent, targetID: string): CombatAn
             );
 
             return {
-                name: 'damage-number',
+                name: 'character-damage-number',
                 container: 'child',
                 durationMilliseconds: 600,
                 combatEventType: CombatEventType.APPLY_DAMAGE,
