@@ -53,20 +53,22 @@ export const applyAbilityEffects = (
 ): CombatEvent[] => {
     const combatEvents: CombatEvent[] = [];
 
-    combatEvents.push({
-        id: crypto.randomUUID(),
-        type: CombatEventType.APPLY_DAMAGE,
-        isProcessed: false,
-        sourceName: 'Ability Cost',
-        targetCombatantIDs: [caster.id],
-        damageType: DamageType.magic_drain,
-        damageTargets: [
-            {
-                targetCombatantID: caster.id,
-                amount: ability.cost,
-            },
-        ],
-    });
+    if (ability.cost > 0) {
+        combatEvents.push({
+            id: crypto.randomUUID(),
+            type: CombatEventType.APPLY_DAMAGE,
+            isProcessed: false,
+            sourceName: 'Ability Cost',
+            targetCombatantIDs: [caster.id],
+            damageType: DamageType.magic_drain,
+            damageTargets: [
+                {
+                    targetCombatantID: caster.id,
+                    amount: ability.cost,
+                },
+            ],
+        });
+    }
 
     for (const statusEffect of ability.statusEffects) {
         const targets = getValidTargets(
