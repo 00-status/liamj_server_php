@@ -1,4 +1,4 @@
-import { CombatAnimation, CombatEvent, CombatEventType, DamageColor, DamageType } from '../types';
+import { CombatAnimation, CombatEvent, CombatEventType } from '../types';
 
 export const getAnimationData = (event: CombatEvent, targetID: string): CombatAnimation | null => {
     switch (event.type) {
@@ -12,26 +12,10 @@ export const getAnimationData = (event: CombatEvent, targetID: string): CombatAn
                 container: 'child',
                 durationMilliseconds: 600,
                 combatEventType: CombatEventType.APPLY_DAMAGE,
-                color: getColor(event.damageType),
                 text: damageTarget ? String(damageTarget.amount) : '',
             };
         }
         default:
             return null;
-    }
-};
-
-const getColor = (damageType: DamageType): DamageColor => {
-    switch (damageType) {
-        case DamageType.PHYSICAL:
-            return DamageColor.PHYSICAL;
-        case DamageType.MAGIC_RESTORE:
-        case DamageType.MAGIC:
-            return DamageColor.MAGIC;
-        case DamageType.HEALING:
-            return DamageColor.HEALIING;
-        case DamageType.MAGIC_DRAIN:
-        default:
-            return DamageColor.MAGIC_DRAIN;
     }
 };

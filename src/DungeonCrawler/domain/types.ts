@@ -267,13 +267,5 @@ export interface CombatAnimation {
     name: string;
     container: 'container' | 'child';
     durationMilliseconds: number;
-    color: DamageColor;
     text: string;
-}
-
-export enum DamageColor {
-    PHYSICAL = '#000000',
-    MAGIC = '#000001',
-    HEALIING = '#000002',
-    MAGIC_DRAIN = '#900003',
 }
