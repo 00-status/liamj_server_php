@@ -30,9 +30,11 @@
 
 .player-grid-button__damage-number {
     position: absolute;
+    font-size: 20px;
     font-weight: bold;
     color: red;
-    animation: player-grid-button-damage-number 500ms infinite ease-in-out;
+    text-shadow: 1px black;
+    animation: player-grid-button-damage-number 600ms infinite ease-in-out;
 }
 
 @keyframes player-grid-button-damage-number {
@@ -41,10 +43,13 @@
         opacity: 0;
     }
     20% {
+        opacity: 0.8;
+    }
+    50% {
         opacity: 1;
+        transform: translateY(-5px) scale(1.2);
     }
     100% {
-        transform: translateY(-5px) scale(1.2);
         opacity: 0;
     }
 }
