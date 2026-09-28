@@ -1,11 +1,16 @@
 import './player-grid-button.css';
-import { isTargetValid } from '../../domain/character/isTargetValid';
-import { Ability, Combatant, FormationTeam } from '../../domain/types';
+import { useEffect, useState } from 'react';
 
-interface CombatantGridButtonProps {
+import { isTargetValid } from '../../domain/character/isTargetValid';
+import { Ability, Combatant, CombatEvent, FormationTeam } from '../../domain/types';
+import { getAnimationData } from '../../domain/combatEvents/getAnimationData';
+
+interface Props {
     combatant: Combatant;
     currentAbility: Ability | null;
     currentPlayer: Combatant | null;
+    activeCombatEvent?: CombatEvent;
+    onAnimationComplete: (combatantID: string) => void;
     onTarget: (combatant: Combatant) => void;
     onSelect: (id: string) => void;
 }
@@ -16,9 +21,13 @@ export const PlayerGridButton = ({
     combatant,
     currentAbility,
     currentPlayer,
+    activeCombatEvent,
+    onAnimationComplete,
     onTarget,
     onSelect,
-}: CombatantGridButtonProps) => {
+}: Props) => {
+    const [completedEventId, setCompletedEventId] = useState<string | null>(null);
+
     const isTargetable =
         currentAbility &&
         currentPlayer &&
@@ -30,6 +39,41 @@ export const PlayerGridButton = ({
         );
 
     const isSelectable = !currentAbility;
+
+    const shouldPlayAnimation =
+        activeCombatEvent?.targetCombatantIDs.includes(combatant.id) &&
+        activeCombatEvent?.id !== completedEventId;
+    const combatAnimation = activeCombatEvent
+        ? getAnimationData(activeCombatEvent, combatant.id)
+        : null;
+
+    useEffect(() => {
+        if (shouldPlayAnimation && combatAnimation && activeCombatEvent) {
+            const timer = setTimeout(() => {
+                setCompletedEventId(activeCombatEvent.id);
+                onAnimationComplete(combatant.id);
+            }, combatAnimation.durationMilliseconds);
+
+            return () => clearTimeout(timer);
+        }
+
+        if (shouldPlayAnimation) {
+            const timer = setTimeout(() => {
+                setCompletedEventId(null);
+                onAnimationComplete(combatant.id);
+            }, 0);
+
+            return () => clearTimeout(timer);
+        }
+
+        return;
+    }, [
+        shouldPlayAnimation,
+        combatAnimation,
+        activeCombatEvent,
+        combatant.id,
+        onAnimationComplete,
+    ]);
 
     let modifier = '';
     let handleClick: (() => void) | undefined;
@@ -51,6 +95,11 @@ export const PlayerGridButton = ({
                 gridRowStart: combatant.position.y,
             }}
         >
+            {shouldPlayAnimation && combatAnimation && combatAnimation.container === 'child' && (
+                <div className={`${BASE_CLASS}__${combatAnimation.name}`}>
+                    {combatAnimation.text}
+                </div>
+            )}
             <b>{combatant.character.name}</b>
             <p>
                 HP: {combatant.character.currentHP}/{combatant.character.stats.healthPoints}

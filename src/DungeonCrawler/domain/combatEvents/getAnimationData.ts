@@ -10,7 +10,7 @@ export const getAnimationData = (event: CombatEvent, targetID: string): CombatAn
             return {
                 name: 'damage-number',
                 container: 'child',
-                durationMilliseconds: 2000,
+                durationMilliseconds: 500,
                 combatEventType: CombatEventType.APPLY_DAMAGE,
                 color: getColor(event.damageType),
                 text: damageTarget ? String(damageTarget.amount) : '',

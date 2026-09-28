@@ -41,16 +41,15 @@ export const MonsterItem = ({
             FormationTeam.MONSTER,
         );
 
-    const shouldPlayAnimation = activeCombatEvent?.targetCombatantIDs.includes(combatant.id);
+    const shouldPlayAnimation =
+        activeCombatEvent?.targetCombatantIDs.includes(combatant.id) &&
+        activeCombatEvent?.id !== completedEventId;
     const combatAnimation = activeCombatEvent
         ? getAnimationData(activeCombatEvent, combatant.id)
         : null;
 
-    const isCurrentlyAnimating = shouldPlayAnimation && activeCombatEvent?.id !== completedEventId;
-
     useEffect(() => {
-        if (isCurrentlyAnimating && combatAnimation && activeCombatEvent) {
-            console.log(combatAnimation.durationMilliseconds);
+        if (shouldPlayAnimation && combatAnimation && activeCombatEvent) {
             const timer = setTimeout(() => {
                 setCompletedEventId(activeCombatEvent.id);
                 onAnimationComplete(combatant.id);
@@ -59,9 +58,18 @@ export const MonsterItem = ({
             return () => clearTimeout(timer);
         }
 
+        if (shouldPlayAnimation) {
+            const timer = setTimeout(() => {
+                setCompletedEventId(null);
+                onAnimationComplete(combatant.id);
+            }, 0);
+
+            return () => clearTimeout(timer);
+        }
+
         return;
     }, [
-        isCurrentlyAnimating,
+        shouldPlayAnimation,
         combatAnimation,
         activeCombatEvent,
         combatant.id,
@@ -78,7 +86,7 @@ export const MonsterItem = ({
                     gridRowStart: combatant.position.y,
                 }}
             >
-                {isCurrentlyAnimating &&
+                {shouldPlayAnimation &&
                     combatAnimation &&
                     combatAnimation.container === 'child' && (
                         <div className={`monster-item__${combatAnimation.name}`}>

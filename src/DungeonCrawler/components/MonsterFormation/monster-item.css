@@ -29,7 +29,7 @@
     position: absolute;
     font-weight: bold;
     color: red;
-    animation: monster-item-damage-number 2000ms infinite ease-in-out;
+    animation: monster-item-damage-number 500ms infinite ease-in-out;
 }
 
 @keyframes monster-item-damage-number {

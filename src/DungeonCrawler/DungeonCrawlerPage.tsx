@@ -46,11 +46,7 @@ const DungeonCrawlerPage = () => {
             return;
         }
 
-        const isPlayerEvent = playerFormation.combatants.some((combatant) =>
-            // TODO: listen for, and update, player-targeted events
-            activeCombatEvent.targetCombatantIDs.includes(combatant.id),
-        );
-        if (isPlayerEvent || activeCombatEvent.targetCombatantIDs.length <= 0) {
+        if (activeCombatEvent.targetCombatantIDs.length <= 0) {
             dispatch({ type: 'PROCESS_NEXT_EVENT' });
             return;
         }
@@ -124,6 +120,8 @@ const DungeonCrawlerPage = () => {
                         }
                         currentPlayer={selectedPlayerCharacter || null}
                         currentAbility={selectedAbility}
+                        activeCombatEvent={activeCombatEvent}
+                        onAnimationComplete={onAnimationComplete}
                         onPlayerSelect={(combatantID: string) =>
                             setSelectedPlayerCharacterID(combatantID)
                         }
