@@ -23,23 +23,23 @@ const STATUS_EFFECT_HANDLERS: Record<
         apply: (target: Character, value: number) => number;
     }
 > = {
-    [DamageType.physical]: {
+    [DamageType.PHYSICAL]: {
         getStat: (caster) => getCharacterStat(caster, BaseStatNames.attack),
-        apply: (target, value) => calculateMitigatedDamage(target, value, DamageType.physical),
+        apply: (target, value) => calculateMitigatedDamage(target, value, DamageType.PHYSICAL),
     },
-    [DamageType.magic]: {
+    [DamageType.MAGIC]: {
         getStat: (caster) => getCharacterStat(caster, BaseStatNames.magicAttack),
-        apply: (target, value) => calculateMitigatedDamage(target, value, DamageType.magic),
+        apply: (target, value) => calculateMitigatedDamage(target, value, DamageType.MAGIC),
     },
-    [DamageType.healing]: {
+    [DamageType.HEALING]: {
         getStat: (caster) => getCharacterStat(caster, BaseStatNames.healthPoints),
         apply: (target, value) => Math.round(value),
     },
-    [DamageType.magic_restore]: {
+    [DamageType.MAGIC_RESTORE]: {
         getStat: (caster) => getCharacterStat(caster, BaseStatNames.magicPoints),
         apply: (target, value) => Math.round(value),
     },
-    [DamageType.magic_drain]: {
+    [DamageType.MAGIC_DRAIN]: {
         getStat: (caster) => getCharacterStat(caster, BaseStatNames.magicPoints),
         apply: (target, value) => Math.round(value),
     },
@@ -60,7 +60,7 @@ export const applyAbilityEffects = (
             isProcessed: false,
             sourceName: 'Ability Cost',
             targetCombatantIDs: [caster.id],
-            damageType: DamageType.magic_drain,
+            damageType: DamageType.MAGIC_DRAIN,
             damageTargets: [
                 {
                     targetCombatantID: caster.id,

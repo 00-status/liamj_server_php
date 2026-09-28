@@ -1,3 +1,22 @@
+[data-theme='PHYSICAL'] {
+    --damage-text-color: red;
+}
+[data-theme='MAGIC'] {
+    --damage-text-color: blue;
+}
+[data-theme='HEALING'] {
+    --damage-text-color: green;
+}
+[data-theme='MAGIC_RESTORE'] {
+    --damage-text-color: teal;
+}
+[data-theme='MAGIC_DRAIN'] {
+    --damage-text-color: darkblue;
+}
+[data-theme='DEFAULT'] {
+    --damage-text-color: purple;
+}
+
 .player-grid-button {
     position: relative;
     text-align: center;
@@ -32,7 +51,7 @@
     position: absolute;
     font-size: 20px;
     font-weight: bold;
-    color: red;
+    color: var(--damage-text-color);
     text-shadow: 1px black;
     animation: player-grid-button-damage-number 600ms infinite ease-in-out;
 }

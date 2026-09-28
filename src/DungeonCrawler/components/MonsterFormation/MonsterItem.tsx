@@ -7,6 +7,7 @@ import {
     Ability,
     Combatant,
     CombatEvent,
+    CombatEventType,
     FormationTeam,
     MonsterCombatant,
 } from '../../domain/types';
@@ -89,7 +90,10 @@ export const MonsterItem = ({
                 {shouldPlayAnimation &&
                     combatAnimation &&
                     combatAnimation.container === 'child' && (
-                        <div className={`monster-item__${combatAnimation.name}`}>
+                        <div
+                            className={`monster-item__${combatAnimation.name}`}
+                            data-theme={getDamageType(activeCombatEvent)}
+                        >
                             {combatAnimation.text}
                         </div>
                     )}
@@ -99,4 +103,12 @@ export const MonsterItem = ({
             </div>
         </>
     );
+};
+
+const getDamageType = (combatEvent?: CombatEvent): string => {
+    if (!combatEvent || combatEvent.type !== CombatEventType.APPLY_DAMAGE) {
+        return 'PURPLE';
+    }
+
+    return combatEvent.damageType;
 };

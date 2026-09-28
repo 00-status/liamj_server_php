@@ -174,11 +174,11 @@ export interface StatusEffect extends AbilityEffect {
 }
 
 export enum DamageType {
-    physical = 'physical',
-    magic = 'magic',
-    healing = 'healing',
-    magic_restore = 'magic_restore',
-    magic_drain = 'magic_drain',
+    PHYSICAL = 'PHYSICAL',
+    MAGIC = 'MAGIC',
+    HEALING = 'HEALING',
+    MAGIC_RESTORE = 'MAGIC_RESTORE',
+    MAGIC_DRAIN = 'MAGIC_DRAIN',
 }
 
 export enum TargetScope {

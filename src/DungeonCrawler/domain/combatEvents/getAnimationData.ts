@@ -23,14 +23,14 @@ export const getAnimationData = (event: CombatEvent, targetID: string): CombatAn
 
 const getColor = (damageType: DamageType): DamageColor => {
     switch (damageType) {
-        case DamageType.physical:
+        case DamageType.PHYSICAL:
             return DamageColor.PHYSICAL;
-        case DamageType.magic_restore:
-        case DamageType.magic:
+        case DamageType.MAGIC_RESTORE:
+        case DamageType.MAGIC:
             return DamageColor.MAGIC;
-        case DamageType.healing:
+        case DamageType.HEALING:
             return DamageColor.HEALIING;
-        case DamageType.magic_drain:
+        case DamageType.MAGIC_DRAIN:
         default:
             return DamageColor.MAGIC_DRAIN;
     }

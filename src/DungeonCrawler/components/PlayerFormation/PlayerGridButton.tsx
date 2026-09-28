@@ -2,7 +2,13 @@ import './player-grid-button.css';
 import { useEffect, useState } from 'react';
 
 import { isTargetValid } from '../../domain/character/isTargetValid';
-import { Ability, Combatant, CombatEvent, FormationTeam } from '../../domain/types';
+import {
+    Ability,
+    Combatant,
+    CombatEvent,
+    CombatEventType,
+    FormationTeam,
+} from '../../domain/types';
 import { getAnimationData } from '../../domain/combatEvents/getAnimationData';
 
 interface Props {
@@ -96,7 +102,10 @@ export const PlayerGridButton = ({
             }}
         >
             {shouldPlayAnimation && combatAnimation && combatAnimation.container === 'child' && (
-                <div className={`${BASE_CLASS}__${combatAnimation.name}`}>
+                <div
+                    className={`${BASE_CLASS}__${combatAnimation.name}`}
+                    data-theme={getDamageType(activeCombatEvent)}
+                >
                     {combatAnimation.text}
                 </div>
             )}
@@ -106,4 +115,12 @@ export const PlayerGridButton = ({
             </p>
         </div>
     );
+};
+
+const getDamageType = (combatEvent?: CombatEvent): string => {
+    if (!combatEvent || combatEvent.type !== CombatEventType.APPLY_DAMAGE) {
+        return 'PURPLE';
+    }
+
+    return combatEvent.damageType;
 };
