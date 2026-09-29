@@ -261,6 +261,5 @@ export interface CombatAnimation {
     combatEventType: CombatEventType;
     name: string;
     container: 'container' | 'child';
-    durationMilliseconds: number;
     text: string;
 }

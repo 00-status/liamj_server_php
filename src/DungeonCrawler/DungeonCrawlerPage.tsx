@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useReducer, useRef, useState } from 'react';
+import { useEffect, useMemo, useReducer, useState } from 'react';
 
 import { Page } from '../SharedComponents/Page/Page';
 import { Card } from '../SharedComponents/Card/Card';
@@ -9,6 +9,7 @@ import { CharacterEquipment } from './components/CharacterEquipment';
 import { dungeonCrawlerInitialState, dungeonCrawlerReducer, GamePhase } from './domain/reducer';
 import { Ability, Combatant, CombatEvent } from './domain/types';
 import { PlayerFormation } from './components/PlayerFormation/PlayerFormation';
+import { getCombatEventDuration } from './domain/combatEvents/getAnimationData';
 
 // TODO in #51: Add Log Messages back in.
 const DungeonCrawlerPage = () => {
@@ -18,7 +19,6 @@ const DungeonCrawlerPage = () => {
 
     const [selectedPlayerCharacterID, setSelectedPlayerCharacterID] = useState<string | null>(null);
     const [selectedAbility, setSelectedAbility] = useState<Ability | null>(null);
-    const pendingAnimationsRef = useRef<Set<string>>(new Set());
 
     const selectedPlayerCharacter = playerFormation.combatants.find(
         (combatant) => combatant.id === selectedPlayerCharacterID,
@@ -45,12 +45,13 @@ const DungeonCrawlerPage = () => {
             return;
         }
 
-        if (activeCombatEvent.targetCombatantIDs.length <= 0) {
-            dispatch({ type: 'PROCESS_NEXT_EVENT' });
-            return;
-        }
+        const durationMilliseconds = getCombatEventDuration(activeCombatEvent);
 
-        pendingAnimationsRef.current = new Set([...activeCombatEvent.targetCombatantIDs]);
+        const timer = setTimeout(() => {
+            dispatch({ type: 'PROCESS_NEXT_EVENT' });
+        }, durationMilliseconds);
+
+        return () => clearTimeout(timer);
     }, [phase, activeCombatEvent]);
 
     const onPlayerAbilitySelect = (ability: Ability) => {
@@ -88,14 +89,6 @@ const DungeonCrawlerPage = () => {
         });
     };
 
-    const onAnimationComplete = (combatantID: string) => {
-        pendingAnimationsRef.current.delete(combatantID);
-
-        if (pendingAnimationsRef.current.size <= 0) {
-            dispatch({ type: 'PROCESS_NEXT_EVENT' });
-        }
-    };
-
     return (
         <Page title="Dungeons of Galericca" routes={[]}>
             {phase === GamePhase.GAME_OVER && <div>Game Over!</div>}
@@ -107,7 +100,6 @@ const DungeonCrawlerPage = () => {
                         currentAbility={selectedAbility}
                         currentPlayer={selectedPlayerCharacter || null}
                         activeCombatEvent={activeCombatEvent}
-                        onAnimationComplete={onAnimationComplete}
                         onEnemySelect={onTargetSelect}
                     />
                     <PlayerFormation
@@ -120,7 +112,6 @@ const DungeonCrawlerPage = () => {
                         currentPlayer={selectedPlayerCharacter || null}
                         currentAbility={selectedAbility}
                         activeCombatEvent={activeCombatEvent}
-                        onAnimationComplete={onAnimationComplete}
                         onPlayerSelect={(combatantID: string) =>
                             setSelectedPlayerCharacterID(combatantID)
                         }

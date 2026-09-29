@@ -1,5 +1,4 @@
 import './player-grid-button.css';
-import { useEffect, useState } from 'react';
 
 import { isTargetValid } from '../../domain/character/isTargetValid';
 import {
@@ -16,7 +15,6 @@ interface Props {
     currentAbility: Ability | null;
     currentPlayer: Combatant | null;
     activeCombatEvent?: CombatEvent;
-    onAnimationComplete: (combatantID: string) => void;
     onTarget: (combatant: Combatant) => void;
     onSelect: (id: string) => void;
 }
@@ -28,12 +26,9 @@ export const PlayerGridButton = ({
     currentAbility,
     currentPlayer,
     activeCombatEvent,
-    onAnimationComplete,
     onTarget,
     onSelect,
 }: Props) => {
-    const [completedEventId, setCompletedEventId] = useState<string | null>(null);
-
     const isTargetable =
         currentAbility &&
         currentPlayer &&
@@ -46,40 +41,10 @@ export const PlayerGridButton = ({
 
     const isSelectable = !currentAbility;
 
-    const shouldPlayAnimation =
-        activeCombatEvent?.targetCombatantIDs.includes(combatant.id) &&
-        activeCombatEvent?.id !== completedEventId;
+    const shouldPlayAnimation = activeCombatEvent?.targetCombatantIDs.includes(combatant.id);
     const combatAnimation = activeCombatEvent
         ? getAnimationData(activeCombatEvent, combatant.id)
         : null;
-
-    useEffect(() => {
-        if (shouldPlayAnimation && combatAnimation && activeCombatEvent) {
-            const timer = setTimeout(() => {
-                setCompletedEventId(activeCombatEvent.id);
-                onAnimationComplete(combatant.id);
-            }, combatAnimation.durationMilliseconds);
-
-            return () => clearTimeout(timer);
-        }
-
-        if (shouldPlayAnimation) {
-            const timer = setTimeout(() => {
-                setCompletedEventId(null);
-                onAnimationComplete(combatant.id);
-            }, 0);
-
-            return () => clearTimeout(timer);
-        }
-
-        return;
-    }, [
-        shouldPlayAnimation,
-        combatAnimation,
-        activeCombatEvent,
-        combatant.id,
-        onAnimationComplete,
-    ]);
 
     let modifier = '';
     let handleClick: (() => void) | undefined;

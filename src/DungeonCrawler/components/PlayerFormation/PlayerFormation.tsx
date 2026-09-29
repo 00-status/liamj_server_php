@@ -12,7 +12,6 @@ type Props = {
     currentPlayer: Combatant | null;
     currentAbility: Ability | null;
     activeCombatEvent?: CombatEvent;
-    onAnimationComplete: (combatantID: string) => void;
     onPlayerSelect: (combatantID: string) => void;
     onPlayerAbility: (ability: Ability) => void;
     onTargetCombatant: (target: Combatant) => void;
@@ -24,7 +23,6 @@ export const PlayerFormation = ({
     currentPlayer,
     currentAbility,
     activeCombatEvent,
-    onAnimationComplete,
     onPlayerSelect,
     onPlayerAbility,
     onTargetCombatant,
@@ -46,7 +44,6 @@ export const PlayerFormation = ({
                                 currentAbility={currentAbility}
                                 currentPlayer={currentPlayer}
                                 activeCombatEvent={activeCombatEvent}
-                                onAnimationComplete={onAnimationComplete}
                                 onTarget={onTargetCombatant}
                                 onSelect={onPlayerSelect}
                             />

@@ -1,7 +1,5 @@
 import './monster-item.css';
 
-import { useEffect, useState } from 'react';
-
 import { isTargetValid } from '../../domain/character/isTargetValid';
 import {
     Ability,
@@ -18,7 +16,6 @@ type Props = {
     currentAbility: Ability | null;
     currentPlayer: Combatant | null;
     activeCombatEvent?: CombatEvent;
-    onAnimationComplete: (combatantID: string) => void;
     onEnemySelect: (target: Combatant) => void;
 };
 
@@ -27,11 +24,8 @@ export const MonsterItem = ({
     currentAbility,
     currentPlayer,
     activeCombatEvent,
-    onAnimationComplete,
     onEnemySelect,
 }: Props) => {
-    const [completedEventId, setCompletedEventId] = useState<string | null>(null);
-
     const isTargetable =
         currentAbility &&
         currentPlayer &&
@@ -42,40 +36,10 @@ export const MonsterItem = ({
             FormationTeam.MONSTER,
         );
 
-    const shouldPlayAnimation =
-        activeCombatEvent?.targetCombatantIDs.includes(combatant.id) &&
-        activeCombatEvent?.id !== completedEventId;
+    const shouldPlayAnimation = activeCombatEvent?.targetCombatantIDs.includes(combatant.id);
     const combatAnimation = activeCombatEvent
         ? getAnimationData(activeCombatEvent, combatant.id)
         : null;
-
-    useEffect(() => {
-        if (shouldPlayAnimation && combatAnimation && activeCombatEvent) {
-            const timer = setTimeout(() => {
-                setCompletedEventId(activeCombatEvent.id);
-                onAnimationComplete(combatant.id);
-            }, combatAnimation.durationMilliseconds);
-
-            return () => clearTimeout(timer);
-        }
-
-        if (shouldPlayAnimation) {
-            const timer = setTimeout(() => {
-                setCompletedEventId(null);
-                onAnimationComplete(combatant.id);
-            }, 0);
-
-            return () => clearTimeout(timer);
-        }
-
-        return;
-    }, [
-        shouldPlayAnimation,
-        combatAnimation,
-        activeCombatEvent,
-        combatant.id,
-        onAnimationComplete,
-    ]);
 
     const shouldAnimateContainer =
         shouldPlayAnimation && combatAnimation && combatAnimation.container === 'container';

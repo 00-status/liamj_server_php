@@ -9,7 +9,6 @@ type Props = {
     currentAbility: Ability | null;
     currentPlayer: Combatant | null;
     activeCombatEvent?: CombatEvent;
-    onAnimationComplete: (combatantID: string) => void;
     onEnemySelect: (target: Combatant) => void;
 };
 
@@ -18,7 +17,6 @@ export const MonsterStats = ({
     currentAbility,
     currentPlayer,
     activeCombatEvent,
-    onAnimationComplete,
     onEnemySelect,
 }: Props) => {
     const monsters = formation.combatants.filter(
@@ -40,7 +38,6 @@ export const MonsterStats = ({
                         currentAbility={currentAbility}
                         currentPlayer={currentPlayer}
                         activeCombatEvent={activeCombatEvent}
-                        onAnimationComplete={onAnimationComplete}
                         onEnemySelect={onEnemySelect}
                     />
                 ))}

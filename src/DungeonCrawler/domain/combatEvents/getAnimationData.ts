@@ -10,7 +10,6 @@ export const getAnimationData = (event: CombatEvent, targetID: string): CombatAn
             return {
                 name: 'character-damage-number',
                 container: 'child',
-                durationMilliseconds: 600,
                 combatEventType: CombatEventType.APPLY_DAMAGE,
                 text: damageTarget ? String(damageTarget.amount) : '',
             };
@@ -19,12 +18,22 @@ export const getAnimationData = (event: CombatEvent, targetID: string): CombatAn
             return {
                 name: 'character-attack',
                 container: 'container',
-                durationMilliseconds: 300,
                 combatEventType: CombatEventType.CAST_ABILITY,
                 text: '',
             };
         }
         default:
             return null;
+    }
+};
+
+export const getCombatEventDuration = (event: CombatEvent): number => {
+    switch (event.type) {
+        case CombatEventType.APPLY_DAMAGE:
+            return 600;
+        case CombatEventType.CAST_ABILITY:
+            return 300;
+        default:
+            return 0;
     }
 };

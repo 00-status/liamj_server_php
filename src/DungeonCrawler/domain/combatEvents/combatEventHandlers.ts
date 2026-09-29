@@ -80,7 +80,7 @@ export const combatEventHandlers: CombatEventHandlerMap = {
         for (const targetID of event.targetCombatantIDs) {
             const targetToUpdate = combatantDictionary[targetID];
             if (!targetToUpdate) {
-                return combatantDictionary;
+                continue;
             }
 
             const { newCharacter } = decreaseModifierDuration(targetToUpdate.character);
@@ -111,11 +111,11 @@ export const combatEventHandlers: CombatEventHandlerMap = {
         for (const targetID of event.targetCombatantIDs) {
             const targetToUpdate = combatantDictionary[targetID];
             if (!targetToUpdate) {
-                return combatantDictionary;
+                continue;
             }
 
             if (!(targetToUpdate instanceof MonsterCombatant)) {
-                return combatantDictionary;
+                continue;
             }
 
             targetToUpdate.turnsUntilAction = resetTurnsUntilAction();
