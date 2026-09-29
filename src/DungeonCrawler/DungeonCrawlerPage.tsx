@@ -10,8 +10,6 @@ import { dungeonCrawlerInitialState, dungeonCrawlerReducer, GamePhase } from './
 import { Ability, Combatant, CombatEvent } from './domain/types';
 import { PlayerFormation } from './components/PlayerFormation/PlayerFormation';
 
-// TODO in #64: Add animations.
-//      Create an "attack" animation, which nudges characters forward when they deal magic or physical damage.
 // TODO in #51: Add Log Messages back in.
 const DungeonCrawlerPage = () => {
     const [state, dispatch] = useReducer(dungeonCrawlerReducer, dungeonCrawlerInitialState);
