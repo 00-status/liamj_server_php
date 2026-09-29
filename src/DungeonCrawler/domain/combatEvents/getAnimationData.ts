@@ -37,3 +37,19 @@ export const getCombatEventDuration = (event: CombatEvent): number => {
             return 0;
     }
 };
+
+export const getEventAnimationTargetIDs = (event: CombatEvent): string[] => {
+    switch (event.type) {
+        case CombatEventType.APPLY_DAMAGE:
+            return event.damageTargets.map((target) => target.targetCombatantID);
+        case CombatEventType.CAST_ABILITY:
+            return [event.casterCombatantID];
+        case CombatEventType.APPLY_POINT_EFFECT:
+        case CombatEventType.APPLY_STATUS_EFFECT:
+        case CombatEventType.DECREASE_MODIFIERS:
+        case CombatEventType.RESET_TURN_TIMER:
+            return [...event.targetCombatantIDs];
+        default:
+            return [];
+    }
+};

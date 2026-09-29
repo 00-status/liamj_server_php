@@ -207,11 +207,12 @@ interface BaseCombatEvent {
     id: string;
     type: CombatEventType;
     isProcessed: boolean;
-    targetCombatantIDs: string[];
 }
 
 interface CastAbilityEvent extends BaseCombatEvent {
     type: CombatEventType.CAST_ABILITY;
+    casterCombatantID: string;
+    abilityID: string;
 }
 
 interface ApplyDamageEvent extends BaseCombatEvent {
@@ -229,15 +230,18 @@ export interface CombatEventDamageTarget {
 interface ApplyPointEffectEvent extends BaseCombatEvent {
     type: CombatEventType.APPLY_POINT_EFFECT;
     pointModifier: PointModifier;
+    targetCombatantIDs: string[];
 }
 
 interface ApplyStatusEffectEvent extends BaseCombatEvent {
     type: CombatEventType.APPLY_STATUS_EFFECT;
     statModifier: DynamicStatModifier;
+    targetCombatantIDs: string[];
 }
 
 interface DecreaseModifiersEvent extends BaseCombatEvent {
     type: CombatEventType.DECREASE_MODIFIERS;
+    targetCombatantIDs: string[];
 }
 
 interface DecreaseTurnsUntilActionEvent extends BaseCombatEvent {
@@ -246,6 +250,7 @@ interface DecreaseTurnsUntilActionEvent extends BaseCombatEvent {
 
 interface ResetTurnTimerEvent extends BaseCombatEvent {
     type: CombatEventType.RESET_TURN_TIMER;
+    targetCombatantIDs: string[];
 }
 
 export type CombatEvent =

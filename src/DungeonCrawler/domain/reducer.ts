@@ -83,7 +83,6 @@ export const dungeonCrawlerReducer = (
                 id: crypto.randomUUID(),
                 type: CombatEventType.DECREASE_TURNS_UNTIL_ACTION,
                 isProcessed: false,
-                targetCombatantIDs: [],
             };
 
             return {

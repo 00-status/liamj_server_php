@@ -57,7 +57,8 @@ export const applyAbilityEffects = (
         id: crypto.randomUUID(),
         type: CombatEventType.CAST_ABILITY,
         isProcessed: false,
-        targetCombatantIDs: [caster.id],
+        casterCombatantID: caster.id,
+        abilityID: ability.name,
     });
 
     if (ability.cost > 0) {
@@ -66,7 +67,6 @@ export const applyAbilityEffects = (
             type: CombatEventType.APPLY_DAMAGE,
             isProcessed: false,
             sourceName: 'Ability Cost',
-            targetCombatantIDs: [caster.id],
             damageType: DamageType.MAGIC_DRAIN,
             damageTargets: [
                 {
@@ -155,7 +155,6 @@ export const applyAbilityEffects = (
                 id: crypto.randomUUID(),
                 type: CombatEventType.APPLY_DAMAGE,
                 isProcessed: false,
-                targetCombatantIDs: targets.map((target) => target.id),
                 sourceName: pointEffect.name,
                 damageType: pointEffect.damageType,
                 damageTargets: combatEventTargets,
@@ -185,7 +184,6 @@ export const applyPointModifierEffects = (
             type: CombatEventType.APPLY_DAMAGE,
             isProcessed: false,
             sourceName: pointModifier.name,
-            targetCombatantIDs: [combatantID],
             damageType: pointModifier.damageType,
             damageTargets: [
                 {

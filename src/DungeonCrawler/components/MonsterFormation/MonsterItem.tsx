@@ -9,7 +9,10 @@ import {
     FormationTeam,
     MonsterCombatant,
 } from '../../domain/types';
-import { getAnimationData } from '../../domain/combatEvents/getAnimationData';
+import {
+    getAnimationData,
+    getEventAnimationTargetIDs,
+} from '../../domain/combatEvents/getAnimationData';
 
 type Props = {
     combatant: MonsterCombatant;
@@ -36,7 +39,9 @@ export const MonsterItem = ({
             FormationTeam.MONSTER,
         );
 
-    const shouldPlayAnimation = activeCombatEvent?.targetCombatantIDs.includes(combatant.id);
+    const shouldPlayAnimation = activeCombatEvent
+        ? getEventAnimationTargetIDs(activeCombatEvent).includes(combatant.id)
+        : false;
     const combatAnimation = activeCombatEvent
         ? getAnimationData(activeCombatEvent, combatant.id)
         : null;
