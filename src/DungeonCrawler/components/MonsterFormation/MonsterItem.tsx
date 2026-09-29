@@ -77,15 +77,21 @@ export const MonsterItem = ({
         onAnimationComplete,
     ]);
 
+    const shouldAnimateContainer =
+        shouldPlayAnimation && combatAnimation && combatAnimation.container === 'container';
+
+    const animationClassName = shouldAnimateContainer ? combatAnimation.name : '';
+
     return (
         <>
             <div
                 onClick={() => (isTargetable ? onEnemySelect(combatant) : null)}
-                className={'monster-item ' + (isTargetable ? 'monster-item--selecting' : '')}
+                className={`monster-item ${isTargetable ? 'monster-item--selecting' : ''} ${animationClassName} `}
                 style={{
                     gridColumnStart: combatant.position.x,
                     gridRowStart: combatant.position.y,
                 }}
+                data-formation={'MONSTER'}
             >
                 {shouldPlayAnimation &&
                     combatAnimation &&

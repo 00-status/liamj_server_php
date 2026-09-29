@@ -17,6 +17,13 @@
     --damage-text-color: purple;
 }
 
+[data-formation='PLAYER'] {
+    --attack-translate-y: -12px;
+}
+[data-formation='MONSTER'] {
+    --attack-translate-y: 12px;
+}
+
 .dungeon-crawler-page {
     display: flex;
     flex-direction: column;
@@ -68,7 +75,7 @@
         transform: translateY(0);
     }
     20% {
-        transform: translateY(-12px);
+        transform: translateY(var(--attack-translate-y));
     }
     100% {
         transform: translateY(0);

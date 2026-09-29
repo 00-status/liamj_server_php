@@ -53,6 +53,13 @@ export const applyAbilityEffects = (
 ): CombatEvent[] => {
     const combatEvents: CombatEvent[] = [];
 
+    combatEvents.push({
+        id: crypto.randomUUID(),
+        type: CombatEventType.CAST_ABILITY,
+        isProcessed: false,
+        targetCombatantIDs: [caster.id],
+    });
+
     if (ability.cost > 0) {
         combatEvents.push({
             id: crypto.randomUUID(),

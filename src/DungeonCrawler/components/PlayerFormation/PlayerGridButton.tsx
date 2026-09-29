@@ -91,15 +91,21 @@ export const PlayerGridButton = ({
         handleClick = () => onSelect(combatant.id);
     }
 
+    const shouldAnimateContainer =
+        shouldPlayAnimation && combatAnimation && combatAnimation.container === 'container';
+
+    const animationClassName = shouldAnimateContainer ? combatAnimation.name : '';
+
     return (
         <div
-            className={`${BASE_CLASS} ${BASE_CLASS}${modifier}`}
+            className={`${BASE_CLASS} ${BASE_CLASS}${modifier} ${animationClassName}`}
             onClick={handleClick}
             role="button"
             style={{
                 gridColumnStart: combatant.position.x,
                 gridRowStart: combatant.position.y,
             }}
+            data-formation={'PLAYER'}
         >
             {shouldPlayAnimation && combatAnimation && combatAnimation.container === 'child' && (
                 <div className={combatAnimation.name} data-theme={getDamageType(activeCombatEvent)}>
