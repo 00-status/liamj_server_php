@@ -1,6 +1,6 @@
 import './player-formation.css';
 import { Card } from '../../../SharedComponents/Card/Card';
-import { Ability, Combatant, Formation } from '../../domain/types';
+import { Ability, Combatant, CombatEvent, Formation } from '../../domain/types';
 
 import { PlayerStats } from './PlayerStats';
 import { PlayerActions } from './PlayerActions';
@@ -11,6 +11,7 @@ type Props = {
     canPlayerTakeActions: boolean;
     currentPlayer: Combatant | null;
     currentAbility: Ability | null;
+    activeCombatEvent?: CombatEvent;
     onPlayerSelect: (combatantID: string) => void;
     onPlayerAbility: (ability: Ability) => void;
     onTargetCombatant: (target: Combatant) => void;
@@ -21,6 +22,7 @@ export const PlayerFormation = ({
     canPlayerTakeActions,
     currentPlayer,
     currentAbility,
+    activeCombatEvent,
     onPlayerSelect,
     onPlayerAbility,
     onTargetCombatant,
@@ -41,6 +43,7 @@ export const PlayerFormation = ({
                                 combatant={combatant}
                                 currentAbility={currentAbility}
                                 currentPlayer={currentPlayer}
+                                activeCombatEvent={activeCombatEvent}
                                 onTarget={onTargetCombatant}
                                 onSelect={onPlayerSelect}
                             />

@@ -1,9 +1,5 @@
-.monster-stats {
-    display: grid;
-    gap: 12px;
-}
-
-.monster-stats__item {
+.monster-item {
+    position: relative;
     text-align: center;
     padding: 8px;
 
@@ -12,15 +8,15 @@
     box-shadow: 1px 1px 4px #1f2028;
 }
 
-.monster-stats__item--selecting {
+.monster-item--selecting {
     border: 1px solid #fcfeff;
-    animation: smooth-flash 1.5s ease-in-out infinite alternate;
+    animation: monster-item-smooth-flash 1.5s ease-in-out infinite alternate;
 }
-.monster-stats__item--selecting:hover {
+.monster-item--selecting:hover {
     background-color: #49494e;
 }
 
-@keyframes smooth-flash {
+@keyframes monster-item-smooth-flash {
     0% {
         opacity: 1;
     }

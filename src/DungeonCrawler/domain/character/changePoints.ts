@@ -10,29 +10,29 @@ export const changePoints = (
     damageType: DamageType,
 ): Character => {
     switch (damageType) {
-        case DamageType.magic:
-        case DamageType.physical: {
+        case DamageType.MAGIC:
+        case DamageType.PHYSICAL: {
             const newHealthPoints = Math.min(
                 Math.max(character.currentHP - pointChange, MINIMUM_POINTS),
                 getCharacterStat(character, BaseStatNames.healthPoints),
             );
             return { ...character, currentHP: newHealthPoints };
         }
-        case DamageType.healing: {
+        case DamageType.HEALING: {
             const newHealthPoints = Math.min(
                 Math.max(character.currentHP + pointChange, MINIMUM_POINTS),
                 getCharacterStat(character, BaseStatNames.healthPoints),
             );
             return { ...character, currentHP: newHealthPoints };
         }
-        case DamageType.magic_restore: {
+        case DamageType.MAGIC_RESTORE: {
             const newMagicPoints = Math.min(
                 Math.max(character.currentMP + pointChange, MINIMUM_POINTS),
                 getCharacterStat(character, BaseStatNames.magicPoints),
             );
             return { ...character, currentMP: newMagicPoints };
         }
-        case DamageType.magic_drain: {
+        case DamageType.MAGIC_DRAIN: {
             const newMagicPoints = Math.min(
                 Math.max(character.currentMP - pointChange, MINIMUM_POINTS),
                 getCharacterStat(character, BaseStatNames.magicPoints),

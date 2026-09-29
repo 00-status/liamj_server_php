@@ -1,16 +1,16 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useMemo, useReducer, useState } from 'react';
 
 import { Page } from '../SharedComponents/Page/Page';
 import { Card } from '../SharedComponents/Card/Card';
 
 import './dungeon-crawler-page.css';
-import { MonsterStats } from './components/MonsterStats';
+import { MonsterStats } from './components/MonsterFormation/MonsterStats';
 import { CharacterEquipment } from './components/CharacterEquipment';
 import { dungeonCrawlerInitialState, dungeonCrawlerReducer, GamePhase } from './domain/reducer';
-import { Ability, Combatant } from './domain/types';
+import { Ability, Combatant, CombatEvent } from './domain/types';
 import { PlayerFormation } from './components/PlayerFormation/PlayerFormation';
+import { getCombatEventDuration } from './domain/combatEvents/getAnimationData';
 
-// TODO in #64: Add animations.
 // TODO in #51: Add Log Messages back in.
 const DungeonCrawlerPage = () => {
     const [state, dispatch] = useReducer(dungeonCrawlerReducer, dungeonCrawlerInitialState);
@@ -24,16 +24,11 @@ const DungeonCrawlerPage = () => {
         (combatant) => combatant.id === selectedPlayerCharacterID,
     );
 
+    const activeCombatEvent: CombatEvent | undefined = useMemo(() => {
+        return combatEvents.find((event) => !event.isProcessed);
+    }, [combatEvents]);
+
     useEffect(() => {
-        if (phase === GamePhase.ENEMY_EXECUTES || phase === GamePhase.PLAYER_EXECUTES) {
-            const timer = setTimeout(() => {
-                // TODO: Replace with individual animations per each action taken on the enemy's turn.
-                dispatch({ type: 'PROCESS_NEXT_EVENT' });
-            }, 200);
-
-            return () => clearTimeout(timer);
-        }
-
         if (phase === GamePhase.ENEMY_TURN) {
             dispatch({ type: 'ENEMY_USES_ABILITY' });
             return;
@@ -41,6 +36,23 @@ const DungeonCrawlerPage = () => {
 
         return;
     }, [phase, combatEvents]);
+
+    useEffect(() => {
+        if (
+            (phase !== GamePhase.ENEMY_EXECUTES && phase !== GamePhase.PLAYER_EXECUTES) ||
+            !activeCombatEvent
+        ) {
+            return;
+        }
+
+        const durationMilliseconds = getCombatEventDuration(activeCombatEvent);
+
+        const timer = setTimeout(() => {
+            dispatch({ type: 'PROCESS_NEXT_EVENT' });
+        }, durationMilliseconds);
+
+        return () => clearTimeout(timer);
+    }, [phase, activeCombatEvent]);
 
     const onPlayerAbilitySelect = (ability: Ability) => {
         if (ability.name === selectedAbility?.name) {
@@ -87,6 +99,7 @@ const DungeonCrawlerPage = () => {
                         formation={monsterFormation}
                         currentAbility={selectedAbility}
                         currentPlayer={selectedPlayerCharacter || null}
+                        activeCombatEvent={activeCombatEvent}
                         onEnemySelect={onTargetSelect}
                     />
                     <PlayerFormation
@@ -98,6 +111,7 @@ const DungeonCrawlerPage = () => {
                         }
                         currentPlayer={selectedPlayerCharacter || null}
                         currentAbility={selectedAbility}
+                        activeCombatEvent={activeCombatEvent}
                         onPlayerSelect={(combatantID: string) =>
                             setSelectedPlayerCharacterID(combatantID)
                         }

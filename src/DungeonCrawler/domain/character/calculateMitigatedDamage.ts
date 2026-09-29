@@ -10,13 +10,13 @@ export const calculateMitigatedDamage = (
     damageType: DamageType,
 ): number => {
     switch (damageType) {
-        case DamageType.magic: {
+        case DamageType.MAGIC: {
             const magicDefence = calculateMagicDefence(targetCharacter);
             const damageMultiplier = Math.max(magicDefence, 1.0 - MAX_DAMAGE_REDUCTION);
 
             return Math.max(1, Math.round(damageValue * damageMultiplier));
         }
-        case DamageType.physical:
+        case DamageType.PHYSICAL:
         default: {
             const defence = calculateDefence(targetCharacter);
             const damageMultiplier = Math.max(defence, 1.0 - MAX_DAMAGE_REDUCTION);

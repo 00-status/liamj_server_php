@@ -1,3 +1,10 @@
+[data-formation='PLAYER'] {
+    --attack-translate-y: -12px;
+}
+[data-formation='MONSTER'] {
+    --attack-translate-y: 12px;
+}
+
 .dungeon-crawler-page {
     display: flex;
     flex-direction: column;
@@ -14,4 +21,19 @@
     border-radius: 8px;
     background-color: #3b3b40;
     box-shadow: 1px 1px 4px #1f2028;
+}
+
+.character-attack {
+    animation: character-attack 300ms ease-in-out forwards;
+}
+@keyframes character-attack {
+    0% {
+        transform: translateY(0);
+    }
+    20% {
+        transform: translateY(var(--attack-translate-y));
+    }
+    100% {
+        transform: translateY(0);
+    }
 }

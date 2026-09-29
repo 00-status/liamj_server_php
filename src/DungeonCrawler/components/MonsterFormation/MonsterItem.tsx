@@ -1,4 +1,4 @@
-import './player-grid-button.css';
+import './monster-item.css';
 
 import { isTargetValid } from '../../domain/character/isTargetValid';
 import {
@@ -7,6 +7,7 @@ import {
     CombatEvent,
     CombatEventType,
     FormationTeam,
+    MonsterCombatant,
 } from '../../domain/types';
 import {
     getAnimationData,
@@ -14,24 +15,20 @@ import {
 } from '../../domain/combatEvents/getAnimationData';
 import { DamageNumberOverlay } from '../DamageNumberOverlay';
 
-interface Props {
-    combatant: Combatant;
+type Props = {
+    combatant: MonsterCombatant;
     currentAbility: Ability | null;
     currentPlayer: Combatant | null;
     activeCombatEvent?: CombatEvent;
-    onTarget: (combatant: Combatant) => void;
-    onSelect: (id: string) => void;
-}
+    onEnemySelect: (target: Combatant) => void;
+};
 
-const BASE_CLASS = 'player-grid-button';
-
-export const PlayerGridButton = ({
+export const MonsterItem = ({
     combatant,
     currentAbility,
     currentPlayer,
     activeCombatEvent,
-    onTarget,
-    onSelect,
+    onEnemySelect,
 }: Props) => {
     const isTargetable =
         currentAbility &&
@@ -40,10 +37,8 @@ export const PlayerGridButton = ({
             currentAbility.abilityTarget,
             currentPlayer.id,
             combatant,
-            FormationTeam.PLAYER,
+            FormationTeam.MONSTER,
         );
-
-    const isSelectable = !currentAbility;
 
     const shouldPlayAnimation = activeCombatEvent
         ? getEventAnimationTargetIDs(activeCombatEvent).includes(combatant.id)
@@ -52,16 +47,6 @@ export const PlayerGridButton = ({
         ? getAnimationData(activeCombatEvent, combatant.id)
         : null;
 
-    let modifier = '';
-    let handleClick: (() => void) | undefined;
-    if (isTargetable) {
-        modifier = '--targetable';
-        handleClick = () => onTarget(combatant);
-    } else if (isSelectable) {
-        modifier = '--selectable';
-        handleClick = () => onSelect(combatant.id);
-    }
-
     const shouldAnimateContainer =
         shouldPlayAnimation && combatAnimation && combatAnimation.container === 'container';
 
@@ -69,14 +54,13 @@ export const PlayerGridButton = ({
 
     return (
         <div
-            className={`${BASE_CLASS} ${BASE_CLASS}${modifier} ${animationClassName}`}
-            onClick={handleClick}
-            role="button"
+            onClick={() => (isTargetable ? onEnemySelect(combatant) : null)}
+            className={`monster-item ${isTargetable ? 'monster-item--selecting' : ''} ${animationClassName} `}
             style={{
                 gridColumnStart: combatant.position.x,
                 gridRowStart: combatant.position.y,
             }}
-            data-formation={'PLAYER'}
+            data-formation={'MONSTER'}
         >
             {shouldPlayAnimation && combatAnimation && combatAnimation.container === 'child' && (
                 <DamageNumberOverlay
@@ -85,9 +69,8 @@ export const PlayerGridButton = ({
                 />
             )}
             <b>{combatant.character.name}</b>
-            <p>
-                HP: {combatant.character.currentHP}/{combatant.character.stats.healthPoints}
-            </p>
+            <div>{`HP: ${combatant.character.currentHP}/${combatant.character.stats.healthPoints}`}</div>
+            <div>{`Next Action: ${combatant.turnsUntilAction}`}</div>
         </div>
     );
 };

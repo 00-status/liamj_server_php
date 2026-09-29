@@ -174,11 +174,11 @@ export interface StatusEffect extends AbilityEffect {
 }
 
 export enum DamageType {
-    physical = 'physical',
-    magic = 'magic',
-    healing = 'healing',
-    magic_restore = 'magic_restore',
-    magic_drain = 'magic_drain',
+    PHYSICAL = 'PHYSICAL',
+    MAGIC = 'MAGIC',
+    HEALING = 'HEALING',
+    MAGIC_RESTORE = 'MAGIC_RESTORE',
+    MAGIC_DRAIN = 'MAGIC_DRAIN',
 }
 
 export enum TargetScope {
@@ -212,39 +212,36 @@ interface BaseCombatEvent {
 interface CastAbilityEvent extends BaseCombatEvent {
     type: CombatEventType.CAST_ABILITY;
     casterCombatantID: string;
-    targetCombatantID: string;
     abilityID: string;
 }
 
 interface ApplyDamageEvent extends BaseCombatEvent {
     type: CombatEventType.APPLY_DAMAGE;
     sourceName: string;
-    targets: CombatEventDamageTarget[];
+    damageType: DamageType;
+    damageTargets: CombatEventDamageTarget[];
 }
 
 export interface CombatEventDamageTarget {
     targetCombatantID: string;
     amount: number;
-    damageType: DamageType;
 }
 
 interface ApplyPointEffectEvent extends BaseCombatEvent {
     type: CombatEventType.APPLY_POINT_EFFECT;
-    casterCombatantID: string;
     pointModifier: PointModifier;
     targetCombatantIDs: string[];
 }
 
 interface ApplyStatusEffectEvent extends BaseCombatEvent {
     type: CombatEventType.APPLY_STATUS_EFFECT;
-    casterCombatantID: string;
     statModifier: DynamicStatModifier;
     targetCombatantIDs: string[];
 }
 
 interface DecreaseModifiersEvent extends BaseCombatEvent {
     type: CombatEventType.DECREASE_MODIFIERS;
-    combatantID: string;
+    targetCombatantIDs: string[];
 }
 
 interface DecreaseTurnsUntilActionEvent extends BaseCombatEvent {
@@ -253,7 +250,7 @@ interface DecreaseTurnsUntilActionEvent extends BaseCombatEvent {
 
 interface ResetTurnTimerEvent extends BaseCombatEvent {
     type: CombatEventType.RESET_TURN_TIMER;
-    combatantID: string;
+    targetCombatantIDs: string[];
 }
 
 export type CombatEvent =
@@ -264,3 +261,10 @@ export type CombatEvent =
     | DecreaseModifiersEvent
     | DecreaseTurnsUntilActionEvent
     | ResetTurnTimerEvent;
+
+export interface CombatAnimation {
+    combatEventType: CombatEventType;
+    name: string;
+    container: 'container' | 'child';
+    text: string;
+}

@@ -23,23 +23,23 @@ const STATUS_EFFECT_HANDLERS: Record<
         apply: (target: Character, value: number) => number;
     }
 > = {
-    [DamageType.physical]: {
+    [DamageType.PHYSICAL]: {
         getStat: (caster) => getCharacterStat(caster, BaseStatNames.attack),
-        apply: (target, value) => calculateMitigatedDamage(target, value, DamageType.physical),
+        apply: (target, value) => calculateMitigatedDamage(target, value, DamageType.PHYSICAL),
     },
-    [DamageType.magic]: {
+    [DamageType.MAGIC]: {
         getStat: (caster) => getCharacterStat(caster, BaseStatNames.magicAttack),
-        apply: (target, value) => calculateMitigatedDamage(target, value, DamageType.magic),
+        apply: (target, value) => calculateMitigatedDamage(target, value, DamageType.MAGIC),
     },
-    [DamageType.healing]: {
+    [DamageType.HEALING]: {
         getStat: (caster) => getCharacterStat(caster, BaseStatNames.healthPoints),
         apply: (target, value) => Math.round(value),
     },
-    [DamageType.magic_restore]: {
+    [DamageType.MAGIC_RESTORE]: {
         getStat: (caster) => getCharacterStat(caster, BaseStatNames.magicPoints),
         apply: (target, value) => Math.round(value),
     },
-    [DamageType.magic_drain]: {
+    [DamageType.MAGIC_DRAIN]: {
         getStat: (caster) => getCharacterStat(caster, BaseStatNames.magicPoints),
         apply: (target, value) => Math.round(value),
     },
@@ -55,17 +55,27 @@ export const applyAbilityEffects = (
 
     combatEvents.push({
         id: crypto.randomUUID(),
-        type: CombatEventType.APPLY_DAMAGE,
+        type: CombatEventType.CAST_ABILITY,
         isProcessed: false,
-        sourceName: 'Ability Cost',
-        targets: [
-            {
-                targetCombatantID: caster.id,
-                amount: ability.cost,
-                damageType: DamageType.magic_drain,
-            },
-        ],
+        casterCombatantID: caster.id,
+        abilityID: ability.name,
     });
+
+    if (ability.cost > 0) {
+        combatEvents.push({
+            id: crypto.randomUUID(),
+            type: CombatEventType.APPLY_DAMAGE,
+            isProcessed: false,
+            sourceName: 'Ability Cost',
+            damageType: DamageType.MAGIC_DRAIN,
+            damageTargets: [
+                {
+                    targetCombatantID: caster.id,
+                    amount: ability.cost,
+                },
+            ],
+        });
+    }
 
     for (const statusEffect of ability.statusEffects) {
         const targets = getValidTargets(
@@ -88,7 +98,6 @@ export const applyAbilityEffects = (
             id: crypto.randomUUID(),
             type: CombatEventType.APPLY_STATUS_EFFECT,
             isProcessed: false,
-            casterCombatantID: caster.id,
             statModifier: statusModifier,
             targetCombatantIDs: targets.map((target) => target.id),
         };
@@ -120,9 +129,8 @@ export const applyAbilityEffects = (
                 id: crypto.randomUUID(),
                 type: CombatEventType.APPLY_POINT_EFFECT,
                 isProcessed: false,
-                casterCombatantID: caster.id,
-                pointModifier,
                 targetCombatantIDs: targets.map((target) => target.id),
+                pointModifier,
             };
             combatEvents.push(combatEvent);
         }
@@ -140,7 +148,6 @@ export const applyAbilityEffects = (
                 return {
                     targetCombatantID: target.id,
                     amount: statChange,
-                    damageType: pointEffect.damageType,
                 };
             });
 
@@ -149,7 +156,8 @@ export const applyAbilityEffects = (
                 type: CombatEventType.APPLY_DAMAGE,
                 isProcessed: false,
                 sourceName: pointEffect.name,
-                targets: combatEventTargets,
+                damageType: pointEffect.damageType,
+                damageTargets: combatEventTargets,
             };
             combatEvents.push(combatEvent);
         }
@@ -176,11 +184,11 @@ export const applyPointModifierEffects = (
             type: CombatEventType.APPLY_DAMAGE,
             isProcessed: false,
             sourceName: pointModifier.name,
-            targets: [
+            damageType: pointModifier.damageType,
+            damageTargets: [
                 {
                     targetCombatantID: combatantID,
                     amount: statChange,
-                    damageType: pointModifier.damageType,
                 },
             ],
         };
