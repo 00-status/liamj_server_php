@@ -12,6 +12,7 @@ export const getAnimationData = (event: CombatEvent, targetID: string): CombatAn
             }
 
             return {
+                id: crypto.randomUUID(),
                 name: 'character-damage-number',
                 container: 'child',
                 combatEventType: CombatEventType.APPLY_DAMAGE,
@@ -20,6 +21,7 @@ export const getAnimationData = (event: CombatEvent, targetID: string): CombatAn
         }
         case CombatEventType.CAST_ABILITY: {
             return {
+                id: crypto.randomUUID(),
                 name: 'character-attack',
                 container: 'container',
                 combatEventType: CombatEventType.CAST_ABILITY,

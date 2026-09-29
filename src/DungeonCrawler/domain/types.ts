@@ -263,6 +263,7 @@ export type CombatEvent =
     | ResetTurnTimerEvent;
 
 export interface CombatAnimation {
+    id: string;
     combatEventType: CombatEventType;
     name: string;
     container: 'container' | 'child';

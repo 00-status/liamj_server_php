@@ -64,6 +64,7 @@ export const MonsterItem = ({
         >
             {shouldPlayAnimation && combatAnimation && combatAnimation.container === 'child' && (
                 <DamageNumberOverlay
+                    key={combatAnimation.id}
                     text={combatAnimation.text}
                     damageTypeTheme={getDamageType(activeCombatEvent)}
                 />
