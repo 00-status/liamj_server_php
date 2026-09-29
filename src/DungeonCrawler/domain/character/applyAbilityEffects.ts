@@ -91,7 +91,6 @@ export const applyAbilityEffects = (
             id: crypto.randomUUID(),
             type: CombatEventType.APPLY_STATUS_EFFECT,
             isProcessed: false,
-            casterCombatantID: caster.id,
             statModifier: statusModifier,
             targetCombatantIDs: targets.map((target) => target.id),
         };
@@ -124,7 +123,6 @@ export const applyAbilityEffects = (
                 type: CombatEventType.APPLY_POINT_EFFECT,
                 isProcessed: false,
                 targetCombatantIDs: targets.map((target) => target.id),
-                casterCombatantID: caster.id,
                 pointModifier,
             };
             combatEvents.push(combatEvent);

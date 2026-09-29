@@ -212,9 +212,6 @@ interface BaseCombatEvent {
 
 interface CastAbilityEvent extends BaseCombatEvent {
     type: CombatEventType.CAST_ABILITY;
-    casterCombatantID: string;
-    targetCombatantID: string;
-    abilityID: string;
 }
 
 interface ApplyDamageEvent extends BaseCombatEvent {
@@ -231,13 +228,11 @@ export interface CombatEventDamageTarget {
 
 interface ApplyPointEffectEvent extends BaseCombatEvent {
     type: CombatEventType.APPLY_POINT_EFFECT;
-    casterCombatantID: string;
     pointModifier: PointModifier;
 }
 
 interface ApplyStatusEffectEvent extends BaseCombatEvent {
     type: CombatEventType.APPLY_STATUS_EFFECT;
-    casterCombatantID: string;
     statModifier: DynamicStatModifier;
 }
 
