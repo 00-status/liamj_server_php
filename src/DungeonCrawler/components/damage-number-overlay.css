@@ -1,0 +1,43 @@
+[data-theme='PHYSICAL'] {
+    --damage-text-color: red;
+}
+[data-theme='MAGIC'] {
+    --damage-text-color: blue;
+}
+[data-theme='HEALING'] {
+    --damage-text-color: green;
+}
+[data-theme='MAGIC_RESTORE'] {
+    --damage-text-color: teal;
+}
+[data-theme='MAGIC_DRAIN'] {
+    --damage-text-color: darkblue;
+}
+[data-theme='DEFAULT'] {
+    --damage-text-color: purple;
+}
+
+.damage-number-overlay {
+    position: absolute;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--damage-text-color);
+    text-shadow: 1px black;
+    animation: damage-number-overlay 600ms ease-in-out forwards;
+}
+@keyframes damage-number-overlay {
+    0% {
+        transform: translateY(0) scale(0.8);
+        opacity: 0.2;
+    }
+    20% {
+        opacity: 0.8;
+        transform: translateY(-5px) scale(1.2);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

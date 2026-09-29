@@ -4,14 +4,18 @@ export const getAnimationData = (event: CombatEvent, targetID: string): CombatAn
     switch (event.type) {
         case CombatEventType.APPLY_DAMAGE: {
             const damageTarget = event.damageTargets.find(
-                (event) => event.targetCombatantID === targetID,
+                (target) => target.targetCombatantID === targetID,
             );
+
+            if (!damageTarget) {
+                return null;
+            }
 
             return {
                 name: 'character-damage-number',
                 container: 'child',
                 combatEventType: CombatEventType.APPLY_DAMAGE,
-                text: damageTarget ? String(damageTarget.amount) : '',
+                text: String(damageTarget.amount),
             };
         }
         case CombatEventType.CAST_ABILITY: {

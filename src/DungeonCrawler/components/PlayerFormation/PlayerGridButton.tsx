@@ -12,6 +12,7 @@ import {
     getAnimationData,
     getEventAnimationTargetIDs,
 } from '../../domain/combatEvents/getAnimationData';
+import { DamageNumberOverlay } from '../DamageNumberOverlay';
 
 interface Props {
     combatant: Combatant;
@@ -78,9 +79,10 @@ export const PlayerGridButton = ({
             data-formation={'PLAYER'}
         >
             {shouldPlayAnimation && combatAnimation && combatAnimation.container === 'child' && (
-                <div className={combatAnimation.name} data-theme={getDamageType(activeCombatEvent)}>
-                    {combatAnimation.text}
-                </div>
+                <DamageNumberOverlay
+                    text={combatAnimation.text}
+                    damageTypeTheme={getDamageType(activeCombatEvent)}
+                />
             )}
             <b>{combatant.character.name}</b>
             <p>
@@ -92,7 +94,7 @@ export const PlayerGridButton = ({
 
 const getDamageType = (combatEvent?: CombatEvent): string => {
     if (!combatEvent || combatEvent.type !== CombatEventType.APPLY_DAMAGE) {
-        return 'PURPLE';
+        return 'DEFAULT';
     }
 
     return combatEvent.damageType;
