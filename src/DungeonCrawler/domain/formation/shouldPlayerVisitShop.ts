@@ -3,7 +3,7 @@ export const shouldPlayerVisitShop = (roomsClearedCount: number): boolean => {
         return roomsClearedCount % 3 === 0;
     }
 
-    if (roomsClearedCount <= 24) {
+    if (roomsClearedCount <= 20) {
         return roomsClearedCount % 4 === 0;
     }
 
