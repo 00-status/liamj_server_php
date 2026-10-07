@@ -10,11 +10,12 @@ import { dungeonCrawlerInitialState, dungeonCrawlerReducer, GamePhase } from './
 import { Ability, Combatant, CombatEvent } from './domain/types';
 import { PlayerFormation } from './components/PlayerFormation/PlayerFormation';
 import { getCombatEventDuration } from './domain/combatEvents/getAnimationData';
+import { DungeonShop } from './components/DungeonShop';
 
-// Shop component
-//      List of purchasable Equipment.
-//      When an item is purchased, it is added to the player's inventory.
-//      Pressing a "Continue Journey" button will load up the next room.
+// Shop component 🟡
+//      List of purchasable Equipment. ✅
+//      When an item is purchased, it is added to the player's inventory. 🟡
+//      Pressing a "Continue Journey" button will load up the next room. 🟡
 // PlayerEquipment component
 //      Positioned below the player's stats
 //      Three dropdowns (armour, weapon, trinket).
@@ -28,8 +29,16 @@ import { getCombatEventDuration } from './domain/combatEvents/getAnimationData';
 // TODO in #51: Add Log Messages back in.
 const DungeonCrawlerPage = () => {
     const [state, dispatch] = useReducer(dungeonCrawlerReducer, dungeonCrawlerInitialState);
-    const { phase, roomsClearedCount, playerFormation, monsterFormation, combatLog, combatEvents } =
-        state;
+    const {
+        phase,
+        roomsClearedCount,
+        playerFormation,
+        monsterFormation,
+        playerInventory,
+        playerWealth,
+        combatLog,
+        combatEvents,
+    } = state;
 
     const [selectedPlayerCharacterID, setSelectedPlayerCharacterID] = useState<string | null>(null);
     const [selectedAbility, setSelectedAbility] = useState<Ability | null>(null);
@@ -103,19 +112,37 @@ const DungeonCrawlerPage = () => {
         });
     };
 
+    const onPlayerPurchase = (equippableID: string) => {
+        dispatch({ type: 'PURCHASE_ITEM', itemID: equippableID });
+    };
+
+    const onPlayerLeaveShop = () => {
+        dispatch({ type: 'LEAVE_SHOP' });
+    };
+
     return (
         <Page title="Dungeons of Galericca" routes={[]}>
             {phase === GamePhase.GAME_OVER && <div>Game Over!</div>}
             {phase !== GamePhase.GAME_OVER && (
                 <div className="dungeon-crawler-page">
                     <div className="dungeon-crawler-page__room_count">{roomsClearedCount}</div>
-                    <MonsterStats
-                        formation={monsterFormation}
-                        currentAbility={selectedAbility}
-                        currentPlayer={selectedPlayerCharacter || null}
-                        activeCombatEvent={activeCombatEvent}
-                        onEnemySelect={onTargetSelect}
-                    />
+                    {phase === GamePhase.SHOPPING && (
+                        <DungeonShop
+                            purchasedItems={playerInventory}
+                            playerWealth={playerWealth}
+                            onPlayerPurchase={onPlayerPurchase}
+                            onPlayerContinue={onPlayerLeaveShop}
+                        />
+                    )}
+                    {phase !== GamePhase.SHOPPING && (
+                        <MonsterStats
+                            formation={monsterFormation}
+                            currentAbility={selectedAbility}
+                            currentPlayer={selectedPlayerCharacter || null}
+                            activeCombatEvent={activeCombatEvent}
+                            onEnemySelect={onTargetSelect}
+                        />
+                    )}
                     <PlayerFormation
                         formation={playerFormation}
                         canPlayerTakeActions={
