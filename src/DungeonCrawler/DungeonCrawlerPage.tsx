@@ -17,10 +17,10 @@ import { DungeonShop } from './components/DungeonShop';
 //      When an item is purchased, it is added to the player's inventory. ✅
 //      Pressing a "Continue Journey" button will load up the next room. ✅
 // PlayerEquipment component
-//      Positioned below the player's stats
-//      Three dropdowns (armour, weapon, trinket).
-//      The player can equip any non-equipped item from the inventory.
-// Equipment -> Inventory
+//      Positioned below the player's stats ✅
+//      Three dropdowns (armour, weapon, trinket). ✅
+//      The player can equip any non-equipped item from the inventory. 🟡
+// Equipment -> Inventory 🔴
 //      Contains a list of all acquired equipment.
 //      Says who has equipped which item.
 // wealth: number;
@@ -145,6 +145,7 @@ const DungeonCrawlerPage = () => {
                     )}
                     <PlayerFormation
                         formation={playerFormation}
+                        purchasedEquipment={playerInventory}
                         canPlayerTakeActions={
                             phase === GamePhase.PLAYER_TURN &&
                             !!selectedPlayerCharacter &&
