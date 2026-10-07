@@ -8,6 +8,7 @@ import {
     Combatant,
     CombatEvent,
     CombatEventType,
+    DamageType,
     Equipment,
     Formation,
     LogMessage,
@@ -17,6 +18,8 @@ import { selectTargetForMonster } from './monster/selectTargetForMonster';
 import { resetTurnsUntilAction } from './monster/turnsUntilAction';
 import { isFormationDefeated } from './formation/isFormationDefeated';
 import { combatEventHandlers } from './combatEvents/combatEventHandlers';
+import { changePoints } from './character/changePoints';
+import { exampleEquippables } from './equippables';
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability; caster: Combatant; target: Combatant }
@@ -260,6 +263,45 @@ export const dungeonCrawlerReducer = (
                 monsterFormation: updatedMonsterFormation,
                 combatEvents: updatedEvents,
             };
+        }
+        case 'LEAVE_SHOP': {
+            const healedCombatants = state.playerFormation.combatants.map((combatant) => {
+                const healAmount = combatant.character.stats.healthPoints / 2;
+                const newCharacter = changePoints(
+                    combatant.character,
+                    healAmount,
+                    DamageType.HEALING,
+                );
+
+                return combatant.cloneWith({ character: newCharacter });
+            });
+
+            return {
+                ...state,
+                phase: GamePhase.PLAYER_TURN,
+                playerFormation: { ...state.playerFormation, combatants: healedCombatants },
+            };
+        }
+        case 'PURCHASE_ITEM': {
+            const chosenItem = exampleEquippables.find((item) => item.id === action.itemID);
+            const playerWealth = state.playerWealth;
+
+            if (!chosenItem || chosenItem.cost < playerWealth) {
+                return state;
+            }
+
+            const newWealth = playerWealth - chosenItem.cost;
+
+            const newInventory = [...state.playerInventory, chosenItem];
+            newInventory.sort((a, b) => {
+                if (a.name === b.name) {
+                    return 0;
+                }
+
+                return a.name < b.name ? 1 : 0;
+            });
+
+            return { ...state, playerInventory: newInventory, playerWealth: newWealth };
         }
         case 'PLAYER_TOGGLES_EQUIPMENT': {
             const targetCombatant = state.playerFormation.combatants.find(
