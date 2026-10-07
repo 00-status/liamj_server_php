@@ -11,6 +11,21 @@ import { Ability, Combatant, CombatEvent } from './domain/types';
 import { PlayerFormation } from './components/PlayerFormation/PlayerFormation';
 import { getCombatEventDuration } from './domain/combatEvents/getAnimationData';
 
+// Shop component
+//      List of purchasable Equipment.
+//      When an item is purchased, it is added to the player's inventory.
+//      Pressing a "Continue Journey" button will load up the next room.
+// PlayerEquipment component
+//      Positioned below the player's stats
+//      Three dropdowns (armour, weapon, trinket).
+//      The player can equip any non-equipped item from the inventory.
+// Equipment -> Inventory
+//      Contains a list of all acquired equipment.
+//      Says who has equipped which item.
+// Character
+//      wealth: number;
+// Inventory: Equipment[];
+
 // TODO in #51: Add Log Messages back in.
 const DungeonCrawlerPage = () => {
     const [state, dispatch] = useReducer(dungeonCrawlerReducer, dungeonCrawlerInitialState);
