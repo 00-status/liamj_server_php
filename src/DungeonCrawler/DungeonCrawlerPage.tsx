@@ -14,8 +14,8 @@ import { DungeonShop } from './components/DungeonShop';
 
 // Shop component 🟡
 //      List of purchasable Equipment. ✅
-//      When an item is purchased, it is added to the player's inventory. 🟡
-//      Pressing a "Continue Journey" button will load up the next room. 🟡
+//      When an item is purchased, it is added to the player's inventory. ✅
+//      Pressing a "Continue Journey" button will load up the next room. ✅
 // PlayerEquipment component
 //      Positioned below the player's stats
 //      Three dropdowns (armour, weapon, trinket).

@@ -20,6 +20,7 @@ import { isFormationDefeated } from './formation/isFormationDefeated';
 import { combatEventHandlers } from './combatEvents/combatEventHandlers';
 import { changePoints } from './character/changePoints';
 import { exampleEquippables } from './equippables';
+import { shouldPlayerVisitShop } from './formation/shouldPlayerVisitShop';
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability; caster: Combatant; target: Combatant }
@@ -235,10 +236,13 @@ export const dungeonCrawlerReducer = (
             }
 
             if (isMonsterFormationDefeated) {
+                const newRoomsClearedCount = state.roomsClearedCount + 1;
+                const shouldVisitShop = shouldPlayerVisitShop(newRoomsClearedCount);
+
                 return {
                     ...state,
-                    phase: GamePhase.PLAYER_TURN,
-                    roomsClearedCount: state.roomsClearedCount + 1,
+                    phase: shouldVisitShop ? GamePhase.SHOPPING : GamePhase.PLAYER_TURN,
+                    roomsClearedCount: newRoomsClearedCount,
                     playerFormation: updatedPlayerFormation,
                     monsterFormation: buildNewMonsterFormation(exampleMonsters),
                     combatEvents: [],
