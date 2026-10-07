@@ -121,7 +121,9 @@ export interface PointModifier {
 }
 
 export interface Equipment {
+    id: string;
     name: string;
+    cost: number;
     slot: EquipmentSlot;
     active: boolean;
     modifiers: BaseStatModifier[];

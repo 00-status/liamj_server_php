@@ -22,8 +22,7 @@ import { getCombatEventDuration } from './domain/combatEvents/getAnimationData';
 // Equipment -> Inventory
 //      Contains a list of all acquired equipment.
 //      Says who has equipped which item.
-// Character
-//      wealth: number;
+// wealth: number;
 // Inventory: Equipment[];
 
 // TODO in #51: Add Log Messages back in.

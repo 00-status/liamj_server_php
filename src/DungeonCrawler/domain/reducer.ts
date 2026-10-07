@@ -8,6 +8,7 @@ import {
     Combatant,
     CombatEvent,
     CombatEventType,
+    Equipment,
     Formation,
     LogMessage,
     MonsterCombatant,
@@ -22,7 +23,9 @@ type Actions =
     | { type: 'ENEMY_USES_ABILITY' }
     | { type: 'PROCESS_NEXT_EVENT' }
     | { type: 'FINISH_EXECUTION' }
-    | { type: 'PLAYER_TOGGLES_EQUIPMENT'; combatantID: string; equippableName: string };
+    | { type: 'PLAYER_TOGGLES_EQUIPMENT'; combatantID: string; equippableName: string }
+    | { type: 'PURCHASE_ITEM'; itemID: string }
+    | { type: 'LEAVE_SHOP' };
 
 export enum GamePhase {
     GAME_OVER = 'GAME_OVER',
@@ -30,6 +33,7 @@ export enum GamePhase {
     PLAYER_EXECUTES = 'PLAYER_EXECUTES',
     ENEMY_TURN = 'ENEMY_TURN',
     ENEMY_EXECUTES = 'ENEMY_EXECUTES',
+    SHOPPING = 'SHOPPING',
 }
 
 type DungeonCrawlerState = {
@@ -37,6 +41,8 @@ type DungeonCrawlerState = {
     roomsClearedCount: number;
     monsterFormation: Formation;
     playerFormation: Formation;
+    playerInventory: Equipment[];
+    playerWealth: number;
     combatLog: LogMessage[];
     combatEvents: CombatEvent[];
 };
@@ -46,6 +52,8 @@ export const dungeonCrawlerInitialState: DungeonCrawlerState = {
     roomsClearedCount: 0,
     monsterFormation: buildNewMonsterFormation(exampleMonsters),
     playerFormation: examplePlayerFormation,
+    playerInventory: [],
+    playerWealth: 0,
     combatLog: [],
     combatEvents: [],
 };
