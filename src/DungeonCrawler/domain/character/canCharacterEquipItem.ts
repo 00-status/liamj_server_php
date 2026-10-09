@@ -3,6 +3,7 @@ import { Equipment } from '../types';
 export const canCharacterEquipItem = (
     purchasedEquipables: Equipment[],
     newEquippableID: string,
+    characterID: string,
 ): boolean => {
     const targetEquippable = purchasedEquipables.find(
         (equippable) => equippable.id === newEquippableID,
@@ -12,8 +13,8 @@ export const canCharacterEquipItem = (
         return false;
     }
 
-    const unassignedEquippablesInSlot = purchasedEquipables.filter((equipment) => {
-        return equipment.slot === targetEquippable.slot;
+    const equippablesInSlot = purchasedEquipables.filter((equipment) => {
+        return equipment.characterID === characterID && equipment.slot === targetEquippable.slot;
     });
-    return unassignedEquippablesInSlot.length < 1;
+    return equippablesInSlot.length < 1;
 };

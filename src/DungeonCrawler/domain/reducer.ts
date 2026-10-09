@@ -32,7 +32,7 @@ type Actions =
           type: 'PLAYER_TOGGLES_EQUIPMENT';
           characterID: string;
           previousEquippableID: string | null;
-          newEquippableID: string;
+          newEquippableID: string | null;
       }
     | { type: 'PURCHASE_ITEM'; itemID: string }
     | { type: 'LEAVE_SHOP' };
@@ -58,12 +58,12 @@ type DungeonCrawlerState = {
 };
 
 export const dungeonCrawlerInitialState: DungeonCrawlerState = {
-    phase: GamePhase.PLAYER_TURN,
+    phase: GamePhase.SHOPPING,
     roomsClearedCount: 0,
     monsterFormation: buildNewMonsterFormation(exampleMonsters),
     playerFormation: examplePlayerFormation,
     playerInventory: [],
-    playerWealth: 0,
+    playerWealth: 1000,
     combatLog: [],
     combatEvents: [],
 };
@@ -202,8 +202,9 @@ export const dungeonCrawlerReducer = (
             const handler = combatEventHandlers[currentEvent.type] as (
                 event: CombatEvent,
                 combatants: Combatant[],
+                purchasedEquippables: Equipment[],
             ) => { [combatantID: string]: Combatant };
-            const updatedCombatants = handler(currentEvent, allCombatants);
+            const updatedCombatants = handler(currentEvent, allCombatants, state.playerInventory);
 
             const updatedPlayerFormation = updateFormation(playerFormation, updatedCombatants);
             const updatedMonsterFormation = updateFormation(monsterFormation, updatedCombatants);
@@ -304,7 +305,7 @@ export const dungeonCrawlerReducer = (
             const chosenItem = exampleEquippables.find((item) => item.id === action.itemID);
             const playerWealth = state.playerWealth;
 
-            if (!chosenItem || chosenItem.cost < playerWealth) {
+            if (!chosenItem || playerWealth < chosenItem.cost) {
                 return state;
             }
 
@@ -322,30 +323,56 @@ export const dungeonCrawlerReducer = (
             return { ...state, playerInventory: newInventory, playerWealth: newWealth };
         }
         case 'PLAYER_TOGGLES_EQUIPMENT': {
+            const newEquippableID = action.newEquippableID;
+            const previousEquippableID = action.previousEquippableID;
             const targetCombatant = state.playerFormation.combatants.find(
                 (combatant) => combatant.character.id === action.characterID,
             );
 
-            if (!targetCombatant || !action.newEquippableID) {
+            if (!targetCombatant) {
                 return state;
             }
 
-            if (!canCharacterEquipItem(state.playerInventory, action.newEquippableID)) {
+            if (!previousEquippableID && !newEquippableID) {
+                return state;
+            }
+
+            if (!newEquippableID) {
+                const equippables = state.playerInventory.map((equippable) => {
+                    const equippableCopy = { ...equippable };
+
+                    if (equippableCopy.id === action.previousEquippableID) {
+                        equippableCopy.characterID = null;
+                    }
+
+                    return equippableCopy;
+                });
+
+                return { ...state, playerInventory: equippables };
+            }
+
+            if (
+                !canCharacterEquipItem(
+                    state.playerInventory,
+                    newEquippableID,
+                    targetCombatant.character.id,
+                )
+            ) {
                 return state;
             }
 
             const equippables = state.playerInventory.map((equippable) => {
-                const newEquippable = { ...equippable };
+                const equippableCopy = { ...equippable };
 
-                if (newEquippable.characterID === action.previousEquippableID) {
-                    newEquippable.characterID = null;
+                if (equippableCopy.id === previousEquippableID) {
+                    equippableCopy.characterID = null;
                 }
 
-                if (newEquippable.id === action.newEquippableID) {
-                    newEquippable.characterID = action.characterID;
+                if (equippableCopy.id === newEquippableID) {
+                    equippableCopy.characterID = action.characterID;
                 }
 
-                return newEquippable;
+                return equippableCopy;
             });
 
             return { ...state, playerInventory: equippables };

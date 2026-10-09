@@ -19,7 +19,7 @@ type Props = {
     onTargetCombatant: (target: Combatant) => void;
     onEquipmentSelect: (
         previousEquippableID: string | null,
-        newEquippableID: string,
+        newEquippableID: string | null,
         combatantID: string,
     ) => void;
 };

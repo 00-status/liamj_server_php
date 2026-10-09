@@ -102,7 +102,7 @@ const DungeonCrawlerPage = () => {
 
     const onEquipmentSelect = (
         previousEquippableID: string | null,
-        newEquippableID: string,
+        newEquippableID: string | null,
         characterID: string,
     ) => {
         dispatch({

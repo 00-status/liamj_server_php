@@ -20,11 +20,14 @@ export const DungeonShop = ({
     onPlayerContinue,
 }: Props) => {
     const items = useMemo(() => {
-        const nonPurchasedItems = exampleEquippables.filter((item) =>
-            purchasedItems.find((purchasedItem) => purchasedItem.id !== item.id),
-        );
+        const nonPurchasedItems = exampleEquippables.filter((item) => {
+            const isItemPurchased = purchasedItems.find(
+                (purchasedItem) => purchasedItem.id === item.id,
+            );
+            return !isItemPurchased;
+        });
 
-        return randomizeArray<Equipment>(nonPurchasedItems).slice(0, 2);
+        return randomizeArray<Equipment>(nonPurchasedItems).slice(0, 3);
     }, [purchasedItems]);
 
     return (
@@ -41,7 +44,11 @@ export const DungeonShop = ({
                         }
                     >
                         {`${item.name} | ${item.cost} coins`}
-                        <Button buttonTheme={ButtonTheme.Subtle} onClick={action}>
+                        <Button
+                            buttonTheme={ButtonTheme.Subtle}
+                            onClick={action}
+                            disabled={!isPurchaseable}
+                        >
                             Purchase
                         </Button>
                     </div>
