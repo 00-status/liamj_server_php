@@ -16,15 +16,16 @@ import { DungeonShop } from './components/DungeonShop';
 //      List of purchasable Equipment. ✅
 //      When an item is purchased, it is added to the player's inventory. ✅
 //      Pressing a "Continue Journey" button will load up the next room. ✅
+//      Equippables show how they modify one's stats.
 // PlayerEquipment component
 //      Positioned below the player's stats ✅
 //      Three dropdowns (armour, weapon, trinket). ✅
-//      The player can equip any non-equipped item from the inventory. 🟡
-// Equipment -> Inventory 🔴
-//      Contains a list of all acquired equipment.
-//      Says who has equipped which item.
-// wealth: number;
-// Inventory: Equipment[];
+//      The player can equip any non-equipped item from the inventory. ✅
+// Equipment -> Inventory 🟡
+//      Contains a list of all acquired equipment. ✅
+//      Says who has equipped which item. 🔴
+// Monster formations grant wealth upon clearing a room. 🔴
+// Display wealth to the player somewhere. 🔴
 
 // TODO in #51: Add Log Messages back in.
 const DungeonCrawlerPage = () => {
