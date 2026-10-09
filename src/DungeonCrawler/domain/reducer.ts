@@ -27,7 +27,12 @@ type Actions =
     | { type: 'ENEMY_USES_ABILITY' }
     | { type: 'PROCESS_NEXT_EVENT' }
     | { type: 'FINISH_EXECUTION' }
-    | { type: 'PLAYER_TOGGLES_EQUIPMENT'; combatantID: string; equippableName: string }
+    | {
+          type: 'PLAYER_TOGGLES_EQUIPMENT';
+          combatantID: string;
+          previousEquippableID: string;
+          newEquippableID: string;
+      }
     | { type: 'PURCHASE_ITEM'; itemID: string }
     | { type: 'LEAVE_SHOP' };
 
@@ -312,22 +317,25 @@ export const dungeonCrawlerReducer = (
                 (combatant) => combatant.id === action.combatantID,
             );
 
-            if (!targetCombatant) {
+            if (!targetCombatant || !action.newEquippableID) {
                 return state;
             }
 
-            const equipables = targetCombatant.character.equipables.map((item) =>
-                item.name === action.equippableName ? { ...item, active: !item.active } : item,
-            );
-            const combatants: Combatant[] = state.playerFormation.combatants.map((combatant) => {
-                return combatant.id === targetCombatant.id
-                    ? targetCombatant.cloneWith({
-                          character: { ...targetCombatant.character, equipables },
-                      })
-                    : combatant;
+            const equippables = state.playerInventory.map((equippable) => {
+                const newEquippable = { ...equippable };
+
+                if (newEquippable.characterID === action.previousEquippableID) {
+                    newEquippable.characterID = null;
+                }
+
+                if (newEquippable.characterID === action.newEquippableID) {
+                    newEquippable.characterID = action.combatantID;
+                }
+
+                return newEquippable;
             });
 
-            return { ...state, playerFormation: { ...state.playerFormation, combatants } };
+            return { ...state, playerInventory: equippables };
         }
         default:
             return state;

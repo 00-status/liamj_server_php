@@ -12,43 +12,49 @@ const EQUIPMENT_CONFIG = [
 type Props = {
     purchasedEquipment: Equipment[];
     combatant: Combatant;
-    onSelectEquipment: (item: Equipment, combatantID: string) => void;
+    onSelectEquipment: (
+        previousEquippableID: string | null,
+        newEquippableID: string,
+        combatantID: string,
+    ) => void;
 };
 
 export const PlayerEquipment = ({ purchasedEquipment, combatant, onSelectEquipment }: Props) => {
     const handleSelectEquipment = useCallback(
-        (id: string) => {
-            if (!id) {
+        (previousEquippableID: string | null, newEquippableID: string) => {
+            if (!newEquippableID) {
                 return;
             }
 
-            const chosenEquipment = purchasedEquipment.find((item) => item.id === id);
-            if (chosenEquipment) {
-                onSelectEquipment(chosenEquipment, combatant.id);
-            }
+            onSelectEquipment(previousEquippableID, newEquippableID, combatant.id);
         },
-        [purchasedEquipment, combatant.id, onSelectEquipment],
+        [combatant.id, onSelectEquipment],
     );
 
     return (
         <div>
             <div>
                 {EQUIPMENT_CONFIG.map(({ label, slot }) => {
-                    const selectedItem = combatant.character.equipables.find(
-                        (item) => item.slot === slot,
+                    const selectedEquippable = purchasedEquipment.find(
+                        (item) => item.characterID === combatant.character.id,
                     );
 
                     const options = purchasedEquipment
-                        .filter((item) => item.slot === slot && !item.active)
+                        .filter((item) => item.slot === slot && !!item.characterID)
                         .map((item) => ({ label: item.name, value: item.id }));
 
                     return (
                         <Dropdown
                             key={slot}
                             label={label}
-                            defaultValue={selectedItem?.id || ''}
+                            defaultValue={selectedEquippable?.id || ''}
                             options={[...options, { label: '', value: '' }]}
-                            onOptionSelect={handleSelectEquipment}
+                            onOptionSelect={(newEquippableID) =>
+                                handleSelectEquipment(
+                                    selectedEquippable?.id || null,
+                                    newEquippableID,
+                                )
+                            }
                         />
                     );
                 })}

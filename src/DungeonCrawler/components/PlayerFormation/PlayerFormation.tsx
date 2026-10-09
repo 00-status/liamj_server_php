@@ -17,7 +17,11 @@ type Props = {
     onPlayerSelect: (combatantID: string) => void;
     onPlayerAbility: (ability: Ability) => void;
     onTargetCombatant: (target: Combatant) => void;
-    onEquipmentSelect: (equipment: Equipment, combatantID: string) => void;
+    onEquipmentSelect: (
+        previousEquippableID: string | null,
+        newEquippableID: string,
+        combatantID: string,
+    ) => void;
 };
 
 export const PlayerFormation = ({

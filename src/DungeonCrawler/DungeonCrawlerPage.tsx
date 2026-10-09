@@ -112,6 +112,19 @@ const DungeonCrawlerPage = () => {
         });
     };
 
+    const onEquipmentSelect = (
+        previousEquippableID: string | null,
+        newEquippableID: string,
+        combatantID: string,
+    ) => {
+        dispatch({
+            type: 'PLAYER_TOGGLES_EQUIPMENT',
+            combatantID: combatantID,
+            previousEquippableID,
+            newEquippableID,
+        });
+    };
+
     const onPlayerPurchase = (equippableID: string) => {
         dispatch({ type: 'PURCHASE_ITEM', itemID: equippableID });
     };

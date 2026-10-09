@@ -66,13 +66,13 @@ export interface Position {
 }
 
 export interface Character {
+    id: string;
     name: string;
     stats: BaseStats;
     currentHP: number;
     currentMP: number;
     modifiers: DynamicStatModifier[];
     pointModifiers: PointModifier[];
-    equipables: Equipment[];
     abilities: Ability[];
 }
 
@@ -122,10 +122,10 @@ export interface PointModifier {
 
 export interface Equipment {
     id: string;
+    characterID: string | null;
     name: string;
     cost: number;
     slot: EquipmentSlot;
-    active: boolean;
     modifiers: BaseStatModifier[];
 }
 
