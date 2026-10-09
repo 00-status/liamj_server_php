@@ -100,26 +100,14 @@ const DungeonCrawlerPage = () => {
         setSelectedAbility(null);
     };
 
-    const toggleEquipmentActive = (equippableName: string) => {
-        if (!selectedPlayerCharacter) {
-            return;
-        }
-
-        dispatch({
-            type: 'PLAYER_TOGGLES_EQUIPMENT',
-            combatantID: selectedPlayerCharacter.id,
-            equippableName,
-        });
-    };
-
     const onEquipmentSelect = (
         previousEquippableID: string | null,
         newEquippableID: string,
-        combatantID: string,
+        characterID: string,
     ) => {
         dispatch({
             type: 'PLAYER_TOGGLES_EQUIPMENT',
-            combatantID: combatantID,
+            characterID,
             previousEquippableID,
             newEquippableID,
         });
@@ -172,6 +160,7 @@ const DungeonCrawlerPage = () => {
                         }
                         onPlayerAbility={onPlayerAbilitySelect}
                         onTargetCombatant={onTargetSelect}
+                        onEquipmentSelect={onEquipmentSelect}
                     />
                     <Card title="Log">
                         <div>
@@ -180,13 +169,7 @@ const DungeonCrawlerPage = () => {
                             ))}
                         </div>
                     </Card>
-                    {!!selectedPlayerCharacter &&
-                        !!selectedPlayerCharacter.character.equipables.length && (
-                            <CharacterEquipment
-                                equippables={selectedPlayerCharacter.character.equipables}
-                                toggleEquipmentActive={toggleEquipmentActive}
-                            />
-                        )}
+                    <CharacterEquipment equippables={playerInventory} />
                 </div>
             )}
         </Page>

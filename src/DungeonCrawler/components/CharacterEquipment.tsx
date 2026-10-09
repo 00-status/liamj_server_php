@@ -1,33 +1,23 @@
 import './character-equipment.css';
-import { Button, ButtonTheme } from '../../SharedComponents/Button/Button';
 import { Card } from '../../SharedComponents/Card/Card';
 import { Equipment, BaseStatModifier, DamageScaleMethod } from '../domain/types';
 import { BaseStatDisplayNames } from '../domain/constants';
-import { canCharacterEquipItem } from '../domain/character/canCharacterEquipItem';
 
-type Props = { equippables: Equipment[]; toggleEquipmentActive: (name: string) => void };
+type Props = { equippables: Equipment[] };
 
-export const CharacterEquipment = ({ equippables, toggleEquipmentActive }: Props) => {
+export const CharacterEquipment = ({ equippables }: Props) => {
     return (
         <Card title="Equipment">
             <div className="character-equipment">
                 {equippables.map((equippable) => {
-                    const canThePlayerEquipItem = canCharacterEquipItem(equippables, equippable);
                     return (
                         <div key={equippable.name}>
                             <div className="character-equipment__item-header">
                                 <h3>
                                     {equippable.name} | {equippable.slot}
                                 </h3>
-                                <Button
-                                    onClick={() => toggleEquipmentActive(equippable.name)}
-                                    buttonTheme={ButtonTheme.Subtle}
-                                    disabled={!equippable.active && !canThePlayerEquipItem}
-                                >
-                                    {equippable.active ? 'Un-Equip' : 'Equip'}
-                                </Button>
                             </div>
-                            <div>{equippable.active ? 'Equipped' : 'Unequipped'}</div>
+                            <div>{equippable.characterID}</div>
                             <div>
                                 {equippable.modifiers.map((modifier) => (
                                     <div key={modifier.id}>{formatEquipmentModifier(modifier)}</div>

@@ -29,8 +29,8 @@ type Actions =
     | { type: 'FINISH_EXECUTION' }
     | {
           type: 'PLAYER_TOGGLES_EQUIPMENT';
-          combatantID: string;
-          previousEquippableID: string;
+          characterID: string;
+          previousEquippableID: string | null;
           newEquippableID: string;
       }
     | { type: 'PURCHASE_ITEM'; itemID: string }
@@ -314,7 +314,7 @@ export const dungeonCrawlerReducer = (
         }
         case 'PLAYER_TOGGLES_EQUIPMENT': {
             const targetCombatant = state.playerFormation.combatants.find(
-                (combatant) => combatant.id === action.combatantID,
+                (combatant) => combatant.character.id === action.characterID,
             );
 
             if (!targetCombatant || !action.newEquippableID) {
@@ -329,7 +329,7 @@ export const dungeonCrawlerReducer = (
                 }
 
                 if (newEquippable.characterID === action.newEquippableID) {
-                    newEquippable.characterID = action.combatantID;
+                    newEquippable.characterID = action.characterID;
                 }
 
                 return newEquippable;
