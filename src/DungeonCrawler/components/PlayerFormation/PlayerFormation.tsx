@@ -70,7 +70,10 @@ export const PlayerFormation = ({
                             onPlayerAbility={onPlayerAbility}
                         />
                         <div>
-                            <PlayerStats player={currentPlayer.character} />
+                            <PlayerStats
+                                character={currentPlayer.character}
+                                purchasedEquipment={purchasedEquipment}
+                            />
                             <PlayerEquipment
                                 purchasedEquipment={purchasedEquipment}
                                 combatant={currentPlayer}

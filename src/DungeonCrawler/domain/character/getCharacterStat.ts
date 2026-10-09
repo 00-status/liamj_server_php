@@ -1,14 +1,19 @@
-import { BaseStatModifier, BaseStatNames, Character, DamageScaleMethod } from '../types';
+import { BaseStatModifier, BaseStatNames, Character, DamageScaleMethod, Equipment } from '../types';
 
-export const getCharacterStat = (character: Character, stat: BaseStatNames): number => {
-    const equipableModifiers = character.equipables.reduce<BaseStatModifier[]>((acc, equipment) => {
-        if (equipment.active) {
+export const getCharacterStat = (
+    character: Character,
+    characterEquippables: Equipment[],
+    stat: BaseStatNames,
+): number => {
+    const equippableModifiers = characterEquippables.reduce<BaseStatModifier[]>(
+        (acc, equipment) => {
             acc = [...acc, ...equipment.modifiers];
-        }
-        return acc;
-    }, []);
+            return acc;
+        },
+        [],
+    );
 
-    const modifiers: BaseStatModifier[] = [...character.modifiers, ...equipableModifiers].filter(
+    const modifiers: BaseStatModifier[] = [...character.modifiers, ...equippableModifiers].filter(
         (modifier) => modifier.stat === stat,
     );
 

@@ -3,10 +3,10 @@ import { BaseStatNames, DamageScaleMethod, Equipment, EquipmentSlot } from './ty
 export const exampleEquippables: Equipment[] = [
     {
         id: crypto.randomUUID(),
+        characterID: null,
         name: 'Cape of Daring',
         cost: 250,
         slot: EquipmentSlot.trinket,
-        active: true,
         modifiers: [
             {
                 id: crypto.randomUUID(),
@@ -24,10 +24,10 @@ export const exampleEquippables: Equipment[] = [
     },
     {
         id: crypto.randomUUID(),
+        characterID: null,
         name: 'Armour of the Valiant Knight',
         cost: 500,
         slot: EquipmentSlot.armour,
-        active: true,
         modifiers: [
             {
                 id: crypto.randomUUID(),
@@ -45,10 +45,10 @@ export const exampleEquippables: Equipment[] = [
     },
     {
         id: crypto.randomUUID(),
+        characterID: null,
         name: 'Hellblade',
         cost: 800,
         slot: EquipmentSlot.weapon,
-        active: true,
         modifiers: [
             {
                 id: crypto.randomUUID(),
@@ -66,10 +66,10 @@ export const exampleEquippables: Equipment[] = [
     },
     {
         id: crypto.randomUUID(),
+        characterID: null,
         name: 'Phial of Light',
         cost: 100,
         slot: EquipmentSlot.trinket,
-        active: false,
         modifiers: [
             {
                 id: crypto.randomUUID(),
@@ -87,10 +87,10 @@ export const exampleEquippables: Equipment[] = [
     },
     {
         id: crypto.randomUUID(),
+        characterID: null,
         name: "Captain's Helm",
         cost: 400,
         slot: EquipmentSlot.trinket,
-        active: false,
         modifiers: [
             {
                 id: crypto.randomUUID(),
@@ -102,10 +102,10 @@ export const exampleEquippables: Equipment[] = [
     },
     {
         id: crypto.randomUUID(),
+        characterID: null,
         name: 'Armour of the Bulwark',
         cost: 800,
         slot: EquipmentSlot.armour,
-        active: false,
         modifiers: [
             {
                 id: crypto.randomUUID(),

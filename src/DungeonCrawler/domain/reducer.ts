@@ -21,6 +21,7 @@ import { combatEventHandlers } from './combatEvents/combatEventHandlers';
 import { changePoints } from './character/changePoints';
 import { exampleEquippables } from './equippables';
 import { shouldPlayerVisitShop } from './formation/shouldPlayerVisitShop';
+import { canCharacterEquipItem } from './character/canCharacterEquipItem';
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability; caster: Combatant; target: Combatant }
@@ -80,13 +81,18 @@ export const dungeonCrawlerReducer = (
             );
 
             // Apply DoTs.
-            const pointModifierEvents = applyPointModifierEffects(caster.id, caster.character);
+            const pointModifierEvents = applyPointModifierEffects(
+                caster.id,
+                state.playerInventory,
+                caster.character,
+            );
 
             const effectEvents = applyAbilityEffects(
                 caster,
                 action.ability,
                 action.target,
                 isTargetInMonsterFormation ? state.monsterFormation : state.playerFormation,
+                state.playerInventory,
             );
 
             const decreaseEvent: CombatEvent = {
@@ -142,6 +148,7 @@ export const dungeonCrawlerReducer = (
             // Apply DoTs
             const pointModifierEvents = applyPointModifierEffects(
                 actingMonster.id,
+                state.playerInventory,
                 actingMonster.character,
             );
             combatEvents.push(...pointModifierEvents);
@@ -154,6 +161,7 @@ export const dungeonCrawlerReducer = (
                 chosenAbility,
                 targetCombatant,
                 isTargetInPlayerFormation ? state.playerFormation : state.monsterFormation,
+                state.playerInventory,
             );
             combatEvents.push(...effectEvents);
 
@@ -278,6 +286,7 @@ export const dungeonCrawlerReducer = (
                 const healAmount = combatant.character.stats.healthPoints / 2;
                 const newCharacter = changePoints(
                     combatant.character,
+                    state.playerInventory,
                     healAmount,
                     DamageType.HEALING,
                 );
@@ -321,6 +330,10 @@ export const dungeonCrawlerReducer = (
                 return state;
             }
 
+            if (!canCharacterEquipItem(state.playerInventory, action.newEquippableID)) {
+                return state;
+            }
+
             const equippables = state.playerInventory.map((equippable) => {
                 const newEquippable = { ...equippable };
 
@@ -328,7 +341,7 @@ export const dungeonCrawlerReducer = (
                     newEquippable.characterID = null;
                 }
 
-                if (newEquippable.characterID === action.newEquippableID) {
+                if (newEquippable.id === action.newEquippableID) {
                     newEquippable.characterID = action.characterID;
                 }
 

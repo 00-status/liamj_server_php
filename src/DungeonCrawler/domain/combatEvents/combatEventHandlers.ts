@@ -4,7 +4,14 @@ import {
     decreaseTurnsForMonsterCombatantList,
     resetTurnsUntilAction,
 } from '../monster/turnsUntilAction';
-import { Character, Combatant, CombatEvent, CombatEventType, MonsterCombatant } from '../types';
+import {
+    Character,
+    Combatant,
+    CombatEvent,
+    CombatEventType,
+    Equipment,
+    MonsterCombatant,
+} from '../types';
 
 type CombatantDictionary = { [combatantID: string]: Combatant };
 
@@ -12,11 +19,12 @@ type CombatEventHandlerMap = {
     [K in CombatEventType]: (
         event: Extract<CombatEvent, { type: K }>,
         combatants: Combatant[],
+        purchasedEquippables: Equipment[],
     ) => CombatantDictionary;
 };
 
 export const combatEventHandlers: CombatEventHandlerMap = {
-    [CombatEventType.APPLY_DAMAGE]: (event, combatants) => {
+    [CombatEventType.APPLY_DAMAGE]: (event, combatants, purchasedEquippables) => {
         const combatantDictionary = keyCombatantsByID(combatants);
 
         for (const target of event.damageTargets) {
@@ -25,8 +33,13 @@ export const combatEventHandlers: CombatEventHandlerMap = {
                 continue;
             }
 
+            const characterEquippables = purchasedEquippables.filter(
+                (equippable) => equippable.characterID === targetToUpdate.character.id,
+            );
+
             const newCharacter: Character = changePoints(
                 targetToUpdate.character,
+                characterEquippables,
                 target.amount,
                 event.damageType,
             );

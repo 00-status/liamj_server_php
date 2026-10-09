@@ -11,6 +11,7 @@ import {
 
 export const exampleMonsters: Character[] = [
     {
+        id: crypto.randomUUID(),
         name: 'Skeleton',
         currentHP: 50,
         currentMP: 0,
@@ -24,7 +25,6 @@ export const exampleMonsters: Character[] = [
         },
         modifiers: [],
         pointModifiers: [],
-        equipables: [],
         abilities: [
             attackAbility,
             {
@@ -47,6 +47,7 @@ export const exampleMonsters: Character[] = [
         ],
     },
     {
+        id: crypto.randomUUID(),
         name: 'Armoured Skeleton',
         currentHP: 50,
         currentMP: 0,
@@ -60,7 +61,6 @@ export const exampleMonsters: Character[] = [
         },
         modifiers: [],
         pointModifiers: [],
-        equipables: [],
         abilities: [
             attackAbility,
             {
@@ -83,6 +83,7 @@ export const exampleMonsters: Character[] = [
         ],
     },
     {
+        id: crypto.randomUUID(),
         name: 'Zombie',
         currentHP: 120,
         currentMP: 0,
@@ -96,7 +97,6 @@ export const exampleMonsters: Character[] = [
         },
         modifiers: [],
         pointModifiers: [],
-        equipables: [],
         abilities: [
             attackAbility,
             {
