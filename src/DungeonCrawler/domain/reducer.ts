@@ -5,6 +5,7 @@ import { buildNewMonsterFormation } from './monster/buildNewMonsterFormation';
 import { exampleMonsters } from './monsters';
 import {
     Ability,
+    BaseStatNames,
     Combatant,
     CombatEvent,
     CombatEventType,
@@ -23,6 +24,7 @@ import { exampleEquippables } from './equippables';
 import { shouldPlayerVisitShop } from './formation/shouldPlayerVisitShop';
 import { canCharacterEquipItem } from './character/canCharacterEquipItem';
 import { calculateValueOfCharacters } from './character/calculateValueOfCharacters';
+import { getCharacterStat } from './character/getCharacterStat';
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability; caster: Combatant; target: Combatant }
@@ -291,7 +293,17 @@ export const dungeonCrawlerReducer = (
         }
         case 'LEAVE_SHOP': {
             const healedCombatants = state.playerFormation.combatants.map((combatant) => {
-                const healAmount = Math.round(combatant.character.stats.healthPoints / 2);
+                const characterEquippables = state.playerInventory.filter(
+                    (equippable) => equippable.characterID === combatant.character.id,
+                );
+
+                const healAmount = Math.round(
+                    getCharacterStat(
+                        combatant.character,
+                        characterEquippables,
+                        BaseStatNames.healthPoints,
+                    ) / 2,
+                );
                 const newCharacter = changePoints(
                     combatant.character,
                     state.playerInventory,

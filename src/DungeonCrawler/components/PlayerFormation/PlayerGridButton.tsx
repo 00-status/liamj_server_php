@@ -3,9 +3,11 @@ import './player-grid-button.css';
 import { isTargetValid } from '../../domain/character/isTargetValid';
 import {
     Ability,
+    BaseStatNames,
     Combatant,
     CombatEvent,
     CombatEventType,
+    Equipment,
     FormationTeam,
 } from '../../domain/types';
 import {
@@ -13,9 +15,11 @@ import {
     getEventAnimationTargetIDs,
 } from '../../domain/combatEvents/getAnimationData';
 import { DamageNumberOverlay } from '../DamageNumberOverlay';
+import { getCharacterStat } from '../../domain/character/getCharacterStat';
 
 interface Props {
     combatant: Combatant;
+    purchasedEquipment: Equipment[];
     currentAbility: Ability | null;
     currentPlayer: Combatant | null;
     activeCombatEvent?: CombatEvent;
@@ -27,12 +31,17 @@ const BASE_CLASS = 'player-grid-button';
 
 export const PlayerGridButton = ({
     combatant,
+    purchasedEquipment,
     currentAbility,
     currentPlayer,
     activeCombatEvent,
     onTarget,
     onSelect,
 }: Props) => {
+    const characterItems = purchasedEquipment.filter(
+        (equippable) => equippable.characterID === combatant.character.id,
+    );
+
     const isTargetable =
         currentAbility &&
         currentPlayer &&
@@ -87,7 +96,8 @@ export const PlayerGridButton = ({
             )}
             <b>{combatant.character.name}</b>
             <p>
-                HP: {combatant.character.currentHP}/{combatant.character.stats.healthPoints}
+                HP: {combatant.character.currentHP}/
+                {getCharacterStat(combatant.character, characterItems, BaseStatNames.healthPoints)}
             </p>
         </div>
     );

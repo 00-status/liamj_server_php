@@ -50,6 +50,7 @@ export const PlayerFormation = ({
                             <PlayerGridButton
                                 key={combatant.id}
                                 combatant={combatant}
+                                purchasedEquipment={purchasedEquipment}
                                 currentAbility={currentAbility}
                                 currentPlayer={currentPlayer}
                                 activeCombatEvent={activeCombatEvent}
