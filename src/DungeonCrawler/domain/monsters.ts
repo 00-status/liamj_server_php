@@ -4,6 +4,7 @@ import {
     AbilityType,
     BaseStatNames,
     Character,
+    CharacterTier,
     DamageScaleMethod,
     DamageType,
     TargetScope,
@@ -13,6 +14,7 @@ export const exampleMonsters: Character[] = [
     {
         id: crypto.randomUUID(),
         name: 'Skeleton',
+        characterTier: CharacterTier.ONE,
         currentHP: 50,
         currentMP: 0,
         stats: {
@@ -49,6 +51,7 @@ export const exampleMonsters: Character[] = [
     {
         id: crypto.randomUUID(),
         name: 'Armoured Skeleton',
+        characterTier: CharacterTier.ONE,
         currentHP: 50,
         currentMP: 0,
         stats: {
@@ -85,6 +88,7 @@ export const exampleMonsters: Character[] = [
     {
         id: crypto.randomUUID(),
         name: 'Zombie',
+        characterTier: CharacterTier.ONE,
         currentHP: 120,
         currentMP: 0,
         stats: {

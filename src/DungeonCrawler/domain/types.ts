@@ -17,10 +17,6 @@ export class Combatant {
         public position: Position,
     ) {}
 
-    public createCombatant(args: Combatant) {
-        return new Combatant(args.id, args.character, args.position);
-    }
-
     public clone(): Combatant {
         const characterClone = structuredClone(this.character);
         const positionClone = structuredClone(this.position);
@@ -54,10 +50,6 @@ export class MonsterCombatant extends Combatant {
         super(id, character, position);
         this.turnsUntilAction = turnsUntilAction;
     }
-
-    public override createCombatant(args: Combatant): Combatant {
-        return new MonsterCombatant(args.id, args.character, args.position, 0);
-    }
 }
 
 export interface Position {
@@ -68,12 +60,20 @@ export interface Position {
 export interface Character {
     id: string;
     name: string;
+    characterTier: CharacterTier;
     stats: BaseStats;
     currentHP: number;
     currentMP: number;
     modifiers: DynamicStatModifier[];
     pointModifiers: PointModifier[];
     abilities: Ability[];
+}
+
+export enum CharacterTier {
+    ONE = 1,
+    TWO = 2,
+    THREE = 3,
+    FOUR = 4,
 }
 
 export enum BaseStatNames {
