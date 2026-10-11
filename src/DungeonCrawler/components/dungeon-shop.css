@@ -1,0 +1,28 @@
+.dungeon-shop {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.dungeon-shop__item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    gap: 16px;
+}
+
+.dungeon-shop__item--disabled {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    gap: 16px;
+    opacity: 0.6;
+}

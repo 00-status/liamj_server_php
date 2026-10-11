@@ -5,9 +5,12 @@ import { buildNewMonsterFormation } from './monster/buildNewMonsterFormation';
 import { exampleMonsters } from './monsters';
 import {
     Ability,
+    BaseStatNames,
     Combatant,
     CombatEvent,
     CombatEventType,
+    DamageType,
+    Equipment,
     Formation,
     LogMessage,
     MonsterCombatant,
@@ -16,13 +19,26 @@ import { selectTargetForMonster } from './monster/selectTargetForMonster';
 import { resetTurnsUntilAction } from './monster/turnsUntilAction';
 import { isFormationDefeated } from './formation/isFormationDefeated';
 import { combatEventHandlers } from './combatEvents/combatEventHandlers';
+import { changePoints } from './character/changePoints';
+import { exampleEquippables } from './equippables';
+import { shouldPlayerVisitShop } from './formation/shouldPlayerVisitShop';
+import { canCharacterEquipItem } from './character/canCharacterEquipItem';
+import { calculateValueOfCharacters } from './character/calculateValueOfCharacters';
+import { getCharacterStat } from './character/getCharacterStat';
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability; caster: Combatant; target: Combatant }
     | { type: 'ENEMY_USES_ABILITY' }
     | { type: 'PROCESS_NEXT_EVENT' }
     | { type: 'FINISH_EXECUTION' }
-    | { type: 'PLAYER_TOGGLES_EQUIPMENT'; combatantID: string; equippableName: string };
+    | {
+          type: 'PLAYER_TOGGLES_EQUIPMENT';
+          characterID: string;
+          previousEquippableID: string | null;
+          newEquippableID: string | null;
+      }
+    | { type: 'PURCHASE_ITEM'; itemID: string }
+    | { type: 'LEAVE_SHOP' };
 
 export enum GamePhase {
     GAME_OVER = 'GAME_OVER',
@@ -30,6 +46,7 @@ export enum GamePhase {
     PLAYER_EXECUTES = 'PLAYER_EXECUTES',
     ENEMY_TURN = 'ENEMY_TURN',
     ENEMY_EXECUTES = 'ENEMY_EXECUTES',
+    SHOPPING = 'SHOPPING',
 }
 
 type DungeonCrawlerState = {
@@ -37,15 +54,19 @@ type DungeonCrawlerState = {
     roomsClearedCount: number;
     monsterFormation: Formation;
     playerFormation: Formation;
+    playerInventory: Equipment[];
+    playerWealth: number;
     combatLog: LogMessage[];
     combatEvents: CombatEvent[];
 };
 
 export const dungeonCrawlerInitialState: DungeonCrawlerState = {
-    phase: GamePhase.PLAYER_TURN,
+    phase: GamePhase.SHOPPING,
     roomsClearedCount: 0,
     monsterFormation: buildNewMonsterFormation(exampleMonsters),
     playerFormation: examplePlayerFormation,
+    playerInventory: [],
+    playerWealth: 1000,
     combatLog: [],
     combatEvents: [],
 };
@@ -63,13 +84,18 @@ export const dungeonCrawlerReducer = (
             );
 
             // Apply DoTs.
-            const pointModifierEvents = applyPointModifierEffects(caster.id, caster.character);
+            const pointModifierEvents = applyPointModifierEffects(
+                caster.id,
+                state.playerInventory,
+                caster.character,
+            );
 
             const effectEvents = applyAbilityEffects(
                 caster,
                 action.ability,
                 action.target,
                 isTargetInMonsterFormation ? state.monsterFormation : state.playerFormation,
+                state.playerInventory,
             );
 
             const decreaseEvent: CombatEvent = {
@@ -125,6 +151,7 @@ export const dungeonCrawlerReducer = (
             // Apply DoTs
             const pointModifierEvents = applyPointModifierEffects(
                 actingMonster.id,
+                state.playerInventory,
                 actingMonster.character,
             );
             combatEvents.push(...pointModifierEvents);
@@ -137,6 +164,7 @@ export const dungeonCrawlerReducer = (
                 chosenAbility,
                 targetCombatant,
                 isTargetInPlayerFormation ? state.playerFormation : state.monsterFormation,
+                state.playerInventory,
             );
             combatEvents.push(...effectEvents);
 
@@ -177,8 +205,9 @@ export const dungeonCrawlerReducer = (
             const handler = combatEventHandlers[currentEvent.type] as (
                 event: CombatEvent,
                 combatants: Combatant[],
+                purchasedEquippables: Equipment[],
             ) => { [combatantID: string]: Combatant };
-            const updatedCombatants = handler(currentEvent, allCombatants);
+            const updatedCombatants = handler(currentEvent, allCombatants, state.playerInventory);
 
             const updatedPlayerFormation = updateFormation(playerFormation, updatedCombatants);
             const updatedMonsterFormation = updateFormation(monsterFormation, updatedCombatants);
@@ -224,14 +253,23 @@ export const dungeonCrawlerReducer = (
             }
 
             if (isMonsterFormationDefeated) {
+                const newRoomsClearedCount = state.roomsClearedCount + 1;
+                const shouldVisitShop = shouldPlayerVisitShop(newRoomsClearedCount);
+
+                const monsterFormationValue = calculateValueOfCharacters(
+                    updatedMonsterFormation.combatants.map((combatant) => combatant.character),
+                );
+                const newPlayerWealth = state.playerWealth + monsterFormationValue;
+
                 return {
                     ...state,
-                    phase: GamePhase.PLAYER_TURN,
-                    roomsClearedCount: state.roomsClearedCount + 1,
+                    phase: shouldVisitShop ? GamePhase.SHOPPING : GamePhase.PLAYER_TURN,
+                    roomsClearedCount: newRoomsClearedCount,
                     playerFormation: updatedPlayerFormation,
                     monsterFormation: buildNewMonsterFormation(exampleMonsters),
                     combatEvents: [],
                     combatLog: [],
+                    playerWealth: newPlayerWealth,
                 };
             }
 
@@ -253,27 +291,107 @@ export const dungeonCrawlerReducer = (
                 combatEvents: updatedEvents,
             };
         }
+        case 'LEAVE_SHOP': {
+            const healedCombatants = state.playerFormation.combatants.map((combatant) => {
+                const characterEquippables = state.playerInventory.filter(
+                    (equippable) => equippable.characterID === combatant.character.id,
+                );
+
+                const healAmount = Math.round(
+                    getCharacterStat(
+                        combatant.character,
+                        characterEquippables,
+                        BaseStatNames.healthPoints,
+                    ) / 2,
+                );
+                const newCharacter = changePoints(
+                    combatant.character,
+                    state.playerInventory,
+                    healAmount,
+                    DamageType.HEALING,
+                );
+
+                return combatant.cloneWith({ character: newCharacter });
+            });
+
+            return {
+                ...state,
+                phase: GamePhase.PLAYER_TURN,
+                playerFormation: { ...state.playerFormation, combatants: healedCombatants },
+            };
+        }
+        case 'PURCHASE_ITEM': {
+            const chosenItem = exampleEquippables.find((item) => item.id === action.itemID);
+            const playerWealth = state.playerWealth;
+
+            if (!chosenItem || playerWealth < chosenItem.cost) {
+                return state;
+            }
+
+            const newWealth = playerWealth - chosenItem.cost;
+
+            const newInventory = [...state.playerInventory, { ...chosenItem }];
+            newInventory.sort((firstItem, secondItem) =>
+                firstItem.name.localeCompare(secondItem.name),
+            );
+
+            return { ...state, playerInventory: newInventory, playerWealth: newWealth };
+        }
         case 'PLAYER_TOGGLES_EQUIPMENT': {
+            const newEquippableID = action.newEquippableID;
+            const previousEquippableID = action.previousEquippableID;
             const targetCombatant = state.playerFormation.combatants.find(
-                (combatant) => combatant.id === action.combatantID,
+                (combatant) => combatant.character.id === action.characterID,
             );
 
             if (!targetCombatant) {
                 return state;
             }
 
-            const equipables = targetCombatant.character.equipables.map((item) =>
-                item.name === action.equippableName ? { ...item, active: !item.active } : item,
-            );
-            const combatants: Combatant[] = state.playerFormation.combatants.map((combatant) => {
-                return combatant.id === targetCombatant.id
-                    ? targetCombatant.cloneWith({
-                          character: { ...targetCombatant.character, equipables },
-                      })
-                    : combatant;
+            if (!previousEquippableID && !newEquippableID) {
+                return state;
+            }
+
+            if (!newEquippableID) {
+                const equippables = state.playerInventory.map((equippable) => {
+                    const equippableCopy = { ...equippable };
+
+                    if (equippableCopy.id === previousEquippableID) {
+                        equippableCopy.characterID = null;
+                    }
+
+                    return equippableCopy;
+                });
+
+                return { ...state, playerInventory: equippables };
+            }
+
+            if (
+                !canCharacterEquipItem(
+                    state.playerInventory,
+                    newEquippableID,
+                    targetCombatant.character.id,
+                    previousEquippableID,
+                )
+            ) {
+                return state;
+            }
+
+            const equippables = state.playerInventory.map((equippable) => {
+                const equippableCopy = { ...equippable };
+
+                if (equippableCopy.id === previousEquippableID) {
+                    equippableCopy.characterID = null;
+                }
+
+                if (equippableCopy.id === newEquippableID) {
+                    equippableCopy.characterID = action.characterID;
+                }
+
+                return equippableCopy;
             });
 
-            return { ...state, playerFormation: { ...state.playerFormation, combatants } };
+            return { ...state, playerInventory: equippables };
         }
         default:
             return state;

@@ -1,10 +1,10 @@
-import { exampleEquippables } from './equippables';
 import {
     Ability,
     AbilityTarget,
     AbilityType,
     BaseStatNames,
     Character,
+    CharacterTier,
     Combatant,
     DamageScaleMethod,
     DamageType,
@@ -40,7 +40,9 @@ export const attackAbility: Ability = {
 };
 
 const examplePlayer: Character = {
+    id: crypto.randomUUID(),
     name: 'Jimothy the Jacked',
+    tier: CharacterTier.ONE,
     currentHP: 100,
     currentMP: 6,
     stats: {
@@ -53,7 +55,6 @@ const examplePlayer: Character = {
     },
     modifiers: [],
     pointModifiers: [],
-    equipables: exampleEquippables,
     abilities: [
         attackAbility,
         {
@@ -111,7 +112,9 @@ const examplePlayer: Character = {
 };
 
 const examplePlayer2: Character = {
+    id: crypto.randomUUID(),
     name: 'Barry the Built',
+    tier: CharacterTier.ONE,
     currentHP: 120,
     currentMP: 10,
     stats: {
@@ -124,7 +127,6 @@ const examplePlayer2: Character = {
     },
     modifiers: [],
     pointModifiers: [],
-    equipables: [],
     abilities: [
         attackAbility,
         {

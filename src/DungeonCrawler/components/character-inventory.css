@@ -1,10 +1,10 @@
-.character-equipment {
+.character-inventory {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.character-equipment__item-header {
+.character-inventory__item-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;

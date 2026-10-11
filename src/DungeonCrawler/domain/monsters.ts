@@ -4,6 +4,7 @@ import {
     AbilityType,
     BaseStatNames,
     Character,
+    CharacterTier,
     DamageScaleMethod,
     DamageType,
     TargetScope,
@@ -11,7 +12,9 @@ import {
 
 export const exampleMonsters: Character[] = [
     {
+        id: crypto.randomUUID(),
         name: 'Skeleton',
+        tier: CharacterTier.ONE,
         currentHP: 50,
         currentMP: 0,
         stats: {
@@ -24,7 +27,6 @@ export const exampleMonsters: Character[] = [
         },
         modifiers: [],
         pointModifiers: [],
-        equipables: [],
         abilities: [
             attackAbility,
             {
@@ -47,7 +49,9 @@ export const exampleMonsters: Character[] = [
         ],
     },
     {
+        id: crypto.randomUUID(),
         name: 'Armoured Skeleton',
+        tier: CharacterTier.ONE,
         currentHP: 50,
         currentMP: 0,
         stats: {
@@ -60,7 +64,6 @@ export const exampleMonsters: Character[] = [
         },
         modifiers: [],
         pointModifiers: [],
-        equipables: [],
         abilities: [
             attackAbility,
             {
@@ -83,7 +86,9 @@ export const exampleMonsters: Character[] = [
         ],
     },
     {
+        id: crypto.randomUUID(),
         name: 'Zombie',
+        tier: CharacterTier.ONE,
         currentHP: 120,
         currentMP: 0,
         stats: {
@@ -96,7 +101,6 @@ export const exampleMonsters: Character[] = [
         },
         modifiers: [],
         pointModifiers: [],
-        equipables: [],
         abilities: [
             attackAbility,
             {

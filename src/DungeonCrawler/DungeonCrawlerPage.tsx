@@ -5,17 +5,26 @@ import { Card } from '../SharedComponents/Card/Card';
 
 import './dungeon-crawler-page.css';
 import { MonsterStats } from './components/MonsterFormation/MonsterStats';
-import { CharacterEquipment } from './components/CharacterEquipment';
+import { PlayerInventory } from './components/PlayerInventory';
 import { dungeonCrawlerInitialState, dungeonCrawlerReducer, GamePhase } from './domain/reducer';
 import { Ability, Combatant, CombatEvent } from './domain/types';
 import { PlayerFormation } from './components/PlayerFormation/PlayerFormation';
 import { getCombatEventDuration } from './domain/combatEvents/getAnimationData';
+import { DungeonShop } from './components/DungeonShop';
 
 // TODO in #51: Add Log Messages back in.
 const DungeonCrawlerPage = () => {
     const [state, dispatch] = useReducer(dungeonCrawlerReducer, dungeonCrawlerInitialState);
-    const { phase, roomsClearedCount, playerFormation, monsterFormation, combatLog, combatEvents } =
-        state;
+    const {
+        phase,
+        roomsClearedCount,
+        playerFormation,
+        monsterFormation,
+        playerInventory,
+        playerWealth,
+        combatLog,
+        combatEvents,
+    } = state;
 
     const [selectedPlayerCharacterID, setSelectedPlayerCharacterID] = useState<string | null>(null);
     const [selectedAbility, setSelectedAbility] = useState<Ability | null>(null);
@@ -77,16 +86,25 @@ const DungeonCrawlerPage = () => {
         setSelectedAbility(null);
     };
 
-    const toggleEquipmentActive = (equippableName: string) => {
-        if (!selectedPlayerCharacter) {
-            return;
-        }
-
+    const onEquipmentSelect = (
+        previousEquippableID: string | null,
+        newEquippableID: string | null,
+        characterID: string,
+    ) => {
         dispatch({
             type: 'PLAYER_TOGGLES_EQUIPMENT',
-            combatantID: selectedPlayerCharacter.id,
-            equippableName,
+            characterID,
+            previousEquippableID,
+            newEquippableID,
         });
+    };
+
+    const onPlayerPurchase = (equippableID: string) => {
+        dispatch({ type: 'PURCHASE_ITEM', itemID: equippableID });
+    };
+
+    const onPlayerLeaveShop = () => {
+        dispatch({ type: 'LEAVE_SHOP' });
     };
 
     return (
@@ -95,15 +113,26 @@ const DungeonCrawlerPage = () => {
             {phase !== GamePhase.GAME_OVER && (
                 <div className="dungeon-crawler-page">
                     <div className="dungeon-crawler-page__room_count">{roomsClearedCount}</div>
-                    <MonsterStats
-                        formation={monsterFormation}
-                        currentAbility={selectedAbility}
-                        currentPlayer={selectedPlayerCharacter || null}
-                        activeCombatEvent={activeCombatEvent}
-                        onEnemySelect={onTargetSelect}
-                    />
+                    {phase === GamePhase.SHOPPING && (
+                        <DungeonShop
+                            purchasedItems={playerInventory}
+                            playerWealth={playerWealth}
+                            onPlayerPurchase={onPlayerPurchase}
+                            onPlayerContinue={onPlayerLeaveShop}
+                        />
+                    )}
+                    {phase !== GamePhase.SHOPPING && (
+                        <MonsterStats
+                            formation={monsterFormation}
+                            currentAbility={selectedAbility}
+                            currentPlayer={selectedPlayerCharacter || null}
+                            activeCombatEvent={activeCombatEvent}
+                            onEnemySelect={onTargetSelect}
+                        />
+                    )}
                     <PlayerFormation
                         formation={playerFormation}
+                        purchasedEquipment={playerInventory}
                         canPlayerTakeActions={
                             phase === GamePhase.PLAYER_TURN &&
                             !!selectedPlayerCharacter &&
@@ -117,6 +146,7 @@ const DungeonCrawlerPage = () => {
                         }
                         onPlayerAbility={onPlayerAbilitySelect}
                         onTargetCombatant={onTargetSelect}
+                        onEquipmentSelect={onEquipmentSelect}
                     />
                     <Card title="Log">
                         <div>
@@ -125,13 +155,13 @@ const DungeonCrawlerPage = () => {
                             ))}
                         </div>
                     </Card>
-                    {!!selectedPlayerCharacter &&
-                        !!selectedPlayerCharacter.character.equipables.length && (
-                            <CharacterEquipment
-                                equippables={selectedPlayerCharacter.character.equipables}
-                                toggleEquipmentActive={toggleEquipmentActive}
-                            />
+                    <PlayerInventory
+                        equippables={playerInventory}
+                        wealth={playerWealth}
+                        playerCharacters={playerFormation.combatants.map(
+                            (combatant) => combatant.character,
                         )}
+                    />
                 </div>
             )}
         </Page>
