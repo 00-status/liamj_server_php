@@ -1,5 +1,5 @@
 import { Combatant, MonsterCombatant } from '../types';
-import { getRandomInt } from '../utiils';
+import { getRandomInt } from '../utils';
 
 /**
  * Decrements the turn timers for all active monsters. NOT guaranteed to return the entire list of Combatants.

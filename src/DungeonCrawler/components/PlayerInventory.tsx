@@ -9,9 +9,9 @@ type Props = { equippables: Equipment[]; wealth: number; playerCharacters: Chara
 
 export const PlayerInventory = ({ equippables, wealth, playerCharacters }: Props) => {
     const charactersByID = useMemo(() => {
-        return playerCharacters.reduce<{ [key: string]: Character }>((acc, character) => {
-            acc[character.id] = character;
-            return acc;
+        return playerCharacters.reduce<{ [key: string]: Character }>((characterMap, character) => {
+            characterMap[character.id] = character;
+            return characterMap;
         }, {});
     }, [playerCharacters]);
 
@@ -26,7 +26,7 @@ export const PlayerInventory = ({ equippables, wealth, playerCharacters }: Props
                         ? charactersByID[equippable.characterID]
                         : null;
                     return (
-                        <div key={equippable.name}>
+                        <div key={equippable.id}>
                             <div className="character-inventory__item-header">
                                 <h3>
                                     {equippable.name} | {equippable.slot}

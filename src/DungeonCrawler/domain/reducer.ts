@@ -291,7 +291,7 @@ export const dungeonCrawlerReducer = (
         }
         case 'LEAVE_SHOP': {
             const healedCombatants = state.playerFormation.combatants.map((combatant) => {
-                const healAmount = combatant.character.stats.healthPoints / 2;
+                const healAmount = Math.round(combatant.character.stats.healthPoints / 2);
                 const newCharacter = changePoints(
                     combatant.character,
                     state.playerInventory,
@@ -318,14 +318,10 @@ export const dungeonCrawlerReducer = (
 
             const newWealth = playerWealth - chosenItem.cost;
 
-            const newInventory = [...state.playerInventory, chosenItem];
-            newInventory.sort((a, b) => {
-                if (a.name === b.name) {
-                    return 0;
-                }
-
-                return a.name < b.name ? 1 : 0;
-            });
+            const newInventory = [...state.playerInventory, { ...chosenItem }];
+            newInventory.sort((firstItem, secondItem) =>
+                firstItem.name.localeCompare(secondItem.name),
+            );
 
             return { ...state, playerInventory: newInventory, playerWealth: newWealth };
         }
@@ -348,7 +344,7 @@ export const dungeonCrawlerReducer = (
                 const equippables = state.playerInventory.map((equippable) => {
                     const equippableCopy = { ...equippable };
 
-                    if (equippableCopy.id === action.previousEquippableID) {
+                    if (equippableCopy.id === previousEquippableID) {
                         equippableCopy.characterID = null;
                     }
 
@@ -363,6 +359,7 @@ export const dungeonCrawlerReducer = (
                     state.playerInventory,
                     newEquippableID,
                     targetCombatant.character.id,
+                    previousEquippableID,
                 )
             ) {
                 return state;

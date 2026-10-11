@@ -1,4 +1,8 @@
 export const shouldPlayerVisitShop = (roomsClearedCount: number): boolean => {
+    if (roomsClearedCount <= 0) {
+        return false;
+    }
+
     if (roomsClearedCount <= 9) {
         return roomsClearedCount % 3 === 0;
     }

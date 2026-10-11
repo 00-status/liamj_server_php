@@ -1,11 +1,12 @@
 import { Equipment } from '../types';
 
 export const canCharacterEquipItem = (
-    purchasedEquipables: Equipment[],
+    purchasedEquippables: Equipment[],
     newEquippableID: string,
     characterID: string,
+    previousEquippableID?: string | null,
 ): boolean => {
-    const targetEquippable = purchasedEquipables.find(
+    const targetEquippable = purchasedEquippables.find(
         (equippable) => equippable.id === newEquippableID,
     );
 
@@ -13,8 +14,12 @@ export const canCharacterEquipItem = (
         return false;
     }
 
-    const equippablesInSlot = purchasedEquipables.filter((equipment) => {
-        return equipment.characterID === characterID && equipment.slot === targetEquippable.slot;
+    const equippablesInSlot = purchasedEquippables.filter((equipment) => {
+        return (
+            equipment.characterID === characterID &&
+            equipment.slot === targetEquippable.slot &&
+            equipment.id !== previousEquippableID
+        );
     });
     return equippablesInSlot.length < 1;
 };

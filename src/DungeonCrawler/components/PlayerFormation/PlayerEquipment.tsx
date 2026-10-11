@@ -15,7 +15,7 @@ type Props = {
     onSelectEquipment: (
         previousEquippableID: string | null,
         newEquippableID: string | null,
-        combatantID: string,
+        characterID: string,
     ) => void;
 };
 
@@ -48,7 +48,7 @@ export const PlayerEquipment = ({ purchasedEquipment, combatant, onSelectEquipme
                             key={slot}
                             label={label}
                             defaultValue={selectedEquippable?.id || ''}
-                            options={[...options, { label: '', value: '' }]}
+                            options={[{ label: 'None', value: '' }, ...options]}
                             onOptionSelect={(newEquippableID) =>
                                 handleSelectEquipment(
                                     selectedEquippable?.id || null,

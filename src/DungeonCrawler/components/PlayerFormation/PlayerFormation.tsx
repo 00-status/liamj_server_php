@@ -20,7 +20,7 @@ type Props = {
     onEquipmentSelect: (
         previousEquippableID: string | null,
         newEquippableID: string | null,
-        combatantID: string,
+        characterID: string,
     ) => void;
 };
 

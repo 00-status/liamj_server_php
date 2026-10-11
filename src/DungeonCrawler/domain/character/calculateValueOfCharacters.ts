@@ -1,13 +1,13 @@
 import { Character, CharacterTier } from '../types';
-import { getRandomInt } from '../utiils';
+import { getRandomInt } from '../utils';
 
-export const calculateValueOfCharacters = (characters: Character[]) => {
+export const calculateValueOfCharacters = (characters: Character[]): number => {
     return characters
         .map((character) => {
             return getCharacterWealth(character.tier);
         })
-        .reduce((acc, wealth) => {
-            return acc + wealth;
+        .reduce((totalWealth, wealth) => {
+            return totalWealth + wealth;
         }, 0);
 };
 

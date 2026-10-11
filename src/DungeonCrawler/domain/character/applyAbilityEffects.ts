@@ -158,7 +158,7 @@ export const applyAbilityEffects = (
 
             const combatEventTargets: CombatEventDamageTarget[] = targets.map((target) => {
                 const targetEquippables = purchasedEquippables.filter(
-                    (equippable) => equippable.characterID === target.id,
+                    (equippable) => equippable.characterID === target.character.id,
                 );
                 const statChange = handler.apply(
                     target.character,
