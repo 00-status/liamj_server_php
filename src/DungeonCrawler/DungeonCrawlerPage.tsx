@@ -5,7 +5,7 @@ import { Card } from '../SharedComponents/Card/Card';
 
 import './dungeon-crawler-page.css';
 import { MonsterStats } from './components/MonsterFormation/MonsterStats';
-import { CharacterEquipment } from './components/CharacterEquipment';
+import { PlayerInventory } from './components/PlayerInventory';
 import { dungeonCrawlerInitialState, dungeonCrawlerReducer, GamePhase } from './domain/reducer';
 import { Ability, Combatant, CombatEvent } from './domain/types';
 import { PlayerFormation } from './components/PlayerFormation/PlayerFormation';
@@ -170,7 +170,7 @@ const DungeonCrawlerPage = () => {
                             ))}
                         </div>
                     </Card>
-                    <CharacterEquipment equippables={playerInventory} />
+                    <PlayerInventory equippables={playerInventory} wealth={playerWealth} />
                 </div>
             )}
         </Page>

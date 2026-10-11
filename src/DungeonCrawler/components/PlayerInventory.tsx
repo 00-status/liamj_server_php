@@ -1,18 +1,21 @@
-import './character-equipment.css';
+import './character-inventory.css';
 import { Card } from '../../SharedComponents/Card/Card';
 import { Equipment, BaseStatModifier, DamageScaleMethod } from '../domain/types';
 import { BaseStatDisplayNames } from '../domain/constants';
 
-type Props = { equippables: Equipment[] };
+type Props = { equippables: Equipment[]; wealth: number };
 
-export const CharacterEquipment = ({ equippables }: Props) => {
+export const PlayerInventory = ({ equippables, wealth }: Props) => {
     return (
-        <Card title="Equipment">
-            <div className="character-equipment">
+        <Card title="Inventory">
+            <div className="character-inventory">
+                <div>
+                    <h3>Gold: {wealth}</h3>
+                </div>
                 {equippables.map((equippable) => {
                     return (
                         <div key={equippable.name}>
-                            <div className="character-equipment__item-header">
+                            <div className="character-inventory__item-header">
                                 <h3>
                                     {equippable.name} | {equippable.slot}
                                 </h3>
