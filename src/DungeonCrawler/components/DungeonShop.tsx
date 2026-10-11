@@ -5,6 +5,7 @@ import { Card } from '../../SharedComponents/Card/Card';
 import { exampleEquippables } from '../domain/equippables';
 import { Equipment } from '../domain/types';
 import { randomizeArray } from '../domain/utiils';
+import { formatModifier } from '../domain/items/formatModifier';
 
 type Props = {
     purchasedItems: Equipment[];
@@ -43,7 +44,17 @@ export const DungeonShop = ({
                             isPurchaseable ? 'dungeon-shop__item' : 'dungeon-shop__item--disabled'
                         }
                     >
-                        {`${item.name} | ${item.cost} coins`}
+                        <div>
+                            <h3>
+                                {item.name} | {item.slot}
+                            </h3>
+                            {`Costs ${item.cost} coins.`}
+                            <div>
+                                {item.modifiers.map((modifier) => (
+                                    <div key={modifier.id}>{formatModifier(modifier)}</div>
+                                ))}
+                            </div>
+                        </div>
                         <Button
                             buttonTheme={ButtonTheme.Subtle}
                             onClick={action}

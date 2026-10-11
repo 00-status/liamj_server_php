@@ -1,11 +1,20 @@
+import { useMemo } from 'react';
+
 import './character-inventory.css';
 import { Card } from '../../SharedComponents/Card/Card';
-import { Equipment, BaseStatModifier, DamageScaleMethod } from '../domain/types';
-import { BaseStatDisplayNames } from '../domain/constants';
+import { Equipment, Character } from '../domain/types';
+import { formatModifier } from '../domain/items/formatModifier';
 
-type Props = { equippables: Equipment[]; wealth: number };
+type Props = { equippables: Equipment[]; wealth: number; playerCharacters: Character[] };
 
-export const PlayerInventory = ({ equippables, wealth }: Props) => {
+export const PlayerInventory = ({ equippables, wealth, playerCharacters }: Props) => {
+    const charactersByID = useMemo(() => {
+        return playerCharacters.reduce<{ [key: string]: Character }>((acc, character) => {
+            acc[character.id] = character;
+            return acc;
+        }, {});
+    }, [playerCharacters]);
+
     return (
         <Card title="Inventory">
             <div className="character-inventory">
@@ -13,6 +22,9 @@ export const PlayerInventory = ({ equippables, wealth }: Props) => {
                     <h3>Gold: {wealth}</h3>
                 </div>
                 {equippables.map((equippable) => {
+                    const equippedCharacter = equippable.characterID
+                        ? charactersByID[equippable.characterID]
+                        : null;
                     return (
                         <div key={equippable.name}>
                             <div className="character-inventory__item-header">
@@ -20,10 +32,10 @@ export const PlayerInventory = ({ equippables, wealth }: Props) => {
                                     {equippable.name} | {equippable.slot}
                                 </h3>
                             </div>
-                            <div>{equippable.characterID}</div>
+                            {equippedCharacter && <div>{equippedCharacter.name}</div>}
                             <div>
                                 {equippable.modifiers.map((modifier) => (
-                                    <div key={modifier.id}>{formatEquipmentModifier(modifier)}</div>
+                                    <div key={modifier.id}>{formatModifier(modifier)}</div>
                                 ))}
                             </div>
                         </div>
@@ -32,24 +44,4 @@ export const PlayerInventory = ({ equippables, wealth }: Props) => {
             </div>
         </Card>
     );
-};
-
-const formatEquipmentModifier = (modifier: BaseStatModifier): string => {
-    const formattedValue = formatModifierValue(modifier);
-    const statName = BaseStatDisplayNames[modifier.stat] ?? modifier.stat;
-
-    return `${formattedValue} ${statName}`;
-};
-
-const formatModifierValue = (modifier: BaseStatModifier): string => {
-    const { value, type } = modifier;
-
-    if (type === DamageScaleMethod.PERCENT) {
-        const delta = Math.round((value - 1) * 100);
-        const sign = delta >= 0 ? '+' : '';
-        return `${sign}${delta}%`;
-    }
-
-    const sign = value >= 0 ? '+' : '';
-    return `${sign}${value}`;
 };
