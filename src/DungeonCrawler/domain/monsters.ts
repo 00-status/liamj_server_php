@@ -14,7 +14,7 @@ export const exampleMonsters: Character[] = [
     {
         id: crypto.randomUUID(),
         name: 'Skeleton',
-        characterTier: CharacterTier.ONE,
+        tier: CharacterTier.ONE,
         currentHP: 50,
         currentMP: 0,
         stats: {
@@ -51,7 +51,7 @@ export const exampleMonsters: Character[] = [
     {
         id: crypto.randomUUID(),
         name: 'Armoured Skeleton',
-        characterTier: CharacterTier.ONE,
+        tier: CharacterTier.ONE,
         currentHP: 50,
         currentMP: 0,
         stats: {
@@ -88,7 +88,7 @@ export const exampleMonsters: Character[] = [
     {
         id: crypto.randomUUID(),
         name: 'Zombie',
-        characterTier: CharacterTier.ONE,
+        tier: CharacterTier.ONE,
         currentHP: 120,
         currentMP: 0,
         stats: {

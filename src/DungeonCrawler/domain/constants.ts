@@ -42,7 +42,7 @@ export const attackAbility: Ability = {
 const examplePlayer: Character = {
     id: crypto.randomUUID(),
     name: 'Jimothy the Jacked',
-    characterTier: CharacterTier.ONE,
+    tier: CharacterTier.ONE,
     currentHP: 100,
     currentMP: 6,
     stats: {
@@ -114,7 +114,7 @@ const examplePlayer: Character = {
 const examplePlayer2: Character = {
     id: crypto.randomUUID(),
     name: 'Barry the Built',
-    characterTier: CharacterTier.ONE,
+    tier: CharacterTier.ONE,
     currentHP: 120,
     currentMP: 10,
     stats: {

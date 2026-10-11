@@ -60,7 +60,7 @@ export interface Position {
 export interface Character {
     id: string;
     name: string;
-    characterTier: CharacterTier;
+    tier: CharacterTier;
     stats: BaseStats;
     currentHP: number;
     currentMP: number;
