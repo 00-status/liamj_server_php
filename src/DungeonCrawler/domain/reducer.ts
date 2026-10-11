@@ -22,6 +22,7 @@ import { changePoints } from './character/changePoints';
 import { exampleEquippables } from './equippables';
 import { shouldPlayerVisitShop } from './formation/shouldPlayerVisitShop';
 import { canCharacterEquipItem } from './character/canCharacterEquipItem';
+import { calculateValueOfCharacters } from './character/calculateValueOfCharacters';
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability; caster: Combatant; target: Combatant }
@@ -253,6 +254,11 @@ export const dungeonCrawlerReducer = (
                 const newRoomsClearedCount = state.roomsClearedCount + 1;
                 const shouldVisitShop = shouldPlayerVisitShop(newRoomsClearedCount);
 
+                const monsterFormationValue = calculateValueOfCharacters(
+                    updatedMonsterFormation.combatants.map((combatant) => combatant.character),
+                );
+                const newPlayerWealth = state.playerWealth + monsterFormationValue;
+
                 return {
                     ...state,
                     phase: shouldVisitShop ? GamePhase.SHOPPING : GamePhase.PLAYER_TURN,
@@ -261,6 +267,7 @@ export const dungeonCrawlerReducer = (
                     monsterFormation: buildNewMonsterFormation(exampleMonsters),
                     combatEvents: [],
                     combatLog: [],
+                    playerWealth: newPlayerWealth,
                 };
             }
 
