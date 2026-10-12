@@ -8,7 +8,14 @@ import tseslint, { configs as tseslintConfig } from 'typescript-eslint';
 
 export default tseslint.config(
     {
-        ignores: ['public/**', 'node_modules/**', '*.config.js', '*.config.cjs', 'webpack.*.js'],
+        ignores: [
+            'public/**',
+            'node_modules/**',
+            '*.config.js',
+            '*.config.cjs',
+            'webpack.*.js',
+            'setupTests.js',
+        ],
     },
 
     js.configs.recommended,
