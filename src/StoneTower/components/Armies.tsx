@@ -4,18 +4,17 @@ import './armies.css';
 type Props = { armyCount: number; maxArmyCount: number };
 
 export const Armies = ({ armyCount, maxArmyCount }: Props) => {
-    const missingArmyCount = maxArmyCount - armyCount;
-
-    const armyArray = Array(armyCount).fill(0);
-    const missingArmyArray = Array(missingArmyCount).fill(0);
+    const slots = Array.from({ length: maxArmyCount }, (_, slotIndex) => {
+        return {
+            id: `army-slot-${slotIndex}`,
+            isActive: slotIndex < armyCount,
+        };
+    });
 
     return (
         <div className="armies">
-            {armyArray.map((value, index) => (
-                <ArmyToken key={`army-token-${index}`} />
-            ))}
-            {missingArmyArray.map((value, index) => (
-                <ArmyToken key={`disabled-army-token-${index}`} isDisabled />
+            {slots.map((slot) => (
+                <ArmyToken key={slot.id} isDisabled={!slot.isActive} />
             ))}
         </div>
     );
