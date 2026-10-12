@@ -6,9 +6,9 @@ export const navigateDirectories = (
     directories: Array<Directory>,
     currentDirectory: Directory,
 ): Directory | null => {
-    var chainBrokenAt: string | null = null;
+    let chainBrokenAt: string | null = null;
 
-    var carry: Directory = currentDirectory;
+    let carry: Directory = currentDirectory;
     directoryGroups.forEach((group: string, index: number) => {
         switch (group) {
             case '.':

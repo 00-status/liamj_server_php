@@ -16,7 +16,7 @@ export const createWeapon = (selectedRarity: Rarity): Weapon => {
     // TODO: Randomly select a couple actions based on rarity.
     //      Pick 0-2 actions based ono rarity
 
-    let rarities: Rarity[] = getRarities(selectedRarity);
+    const rarities: Rarity[] = getRarities(selectedRarity);
 
     const baseWeapon = baseWeapons[Math.floor(Math.random() * baseWeapons.length)];
     const weaponBuilder = new WeaponBuilder();
