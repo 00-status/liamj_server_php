@@ -8,17 +8,20 @@ type UseCharacters = {
 };
 
 export const useCharacters = (): UseCharacters => {
-    const [characters, setCharacters] = useState<Array<Character>>([]);
-
-    useEffect(() => {
+    const [characters, setCharacters] = useState<Array<Character>>(() => {
         const charactersString = localStorage.getItem('characters');
 
         if (charactersString) {
-            const parsedCharacters: Array<Character> = JSON.parse(charactersString);
-
-            setCharacters(parsedCharacters);
+            try {
+                const parsedCharacters: Array<Character> = JSON.parse(charactersString);
+                return parsedCharacters;
+            } catch {
+                return [];
+            }
         }
-    }, [setCharacters]);
+
+        return [];
+    });
 
     useEffect(() => {
         const charactersJson = JSON.stringify(characters);

@@ -26,7 +26,7 @@ export const useUpdateFile = (fetchFiles: (directoryId: number) => void): UseUpd
             body: fileJson,
             headers: { 'Content-type': 'application/json; charset=UTF-8' },
         }).then(() => fetchFiles(file.directoryId));
-    }, []);
+    }, [fetchFiles]);
 
     return {
         updateFile,

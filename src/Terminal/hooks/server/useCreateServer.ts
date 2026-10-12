@@ -22,7 +22,7 @@ export const useCreateServer = (fetchServers: () => void): UseCreateServer => {
                 console.log(json);
                 fetchServers();
             });
-    }, []);
+    }, [fetchServers]);
 
     return { createServer };
 };

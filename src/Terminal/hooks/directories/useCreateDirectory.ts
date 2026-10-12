@@ -27,7 +27,7 @@ export const useCreateDirectory = (
             body: directoryJson,
             headers: { 'Content-type': 'application/json; charset=UTF-8' },
         }).then(() => fetchDirectories(directory.serverId));
-    }, []);
+    }, [fetchDirectories]);
 
     return {
         createDirectory,

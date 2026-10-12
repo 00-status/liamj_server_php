@@ -16,33 +16,37 @@ type UseDialogueTree = {
     setDialogueCoordinates: (nodeCoordinates: NodeCoordinate) => void;
 };
 
-export const useDialogueTree = (): UseDialogueTree => {
-    const [dialogueTreeID, setDialogueTreeID] = useState<string>('tree_1');
-    const [dialogueTreeName, setDialogueTreeName] = useState<string>('Tree 1');
-    const [dialogues, setDialogues] = useState<Array<Dialogue>>([]);
-    const [skillTests, setSkillTests] = useState<Array<SkillTest>>([]);
-    const [nodeCoordinates, setDialogueCoordinates] = useState<NodeCoordinate>(new Map());
+const loadSavedDialogueTree = (): DialogueTree | null => {
+    const dialogueTreeJson = localStorage.getItem('dialogueTree');
 
-    useEffect(() => {
-        const dialogueTreeJson = localStorage.getItem('dialogueTree');
+    if (!dialogueTreeJson) {
+        return null;
+    }
 
-        if (!dialogueTreeJson) {
-            return;
-        }
-
+    try {
         const dialogueTreeParsed: DialogueTree = JSON.parse(dialogueTreeJson);
         const validTree = validateDialogueTree(dialogueTreeParsed);
 
-        if (!validTree) {
-            return;
-        }
+        return validTree;
+    } catch {
+        return null;
+    }
+};
 
-        setDialogueTreeID(validTree.id);
-        setDialogueTreeName(validTree.name);
-        setDialogues(validTree.dialogues);
-        setSkillTests(validTree.skillTests ?? []);
-        setDialogueCoordinates(validTree.nodeCoordinates);
-    }, []);
+export const useDialogueTree = (): UseDialogueTree => {
+    const [savedTree] = useState<DialogueTree | null>(() => loadSavedDialogueTree());
+
+    const [dialogueTreeID, setDialogueTreeID] = useState<string>(() => savedTree?.id ?? 'tree_1');
+    const [dialogueTreeName, setDialogueTreeName] = useState<string>(
+        () => savedTree?.name ?? 'Tree 1',
+    );
+    const [dialogues, setDialogues] = useState<Array<Dialogue>>(() => savedTree?.dialogues ?? []);
+    const [skillTests, setSkillTests] = useState<Array<SkillTest>>(
+        () => savedTree?.skillTests ?? [],
+    );
+    const [nodeCoordinates, setNodeCoordinates] = useState<NodeCoordinate>(
+        () => savedTree?.nodeCoordinates ?? new Map(),
+    );
 
     useEffect(() => {
         const dialogueTree = {
@@ -67,6 +71,6 @@ export const useDialogueTree = (): UseDialogueTree => {
         setSkillTests,
         setDialogueTreeID,
         setDialogueTreeName,
-        setDialogueCoordinates,
+        setDialogueCoordinates: setNodeCoordinates,
     };
 };

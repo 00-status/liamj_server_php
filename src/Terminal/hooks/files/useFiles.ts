@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 
 import { useCreateFile } from './useCreateFile';
-import { usedeleteFile } from './useDeleteFile';
+import { useDeleteFile } from './useDeleteFile';
 import { useUpdateFile } from './useUpdateFile';
 
 export type File = {
@@ -40,7 +40,7 @@ export const useFiles = (): UseFiles => {
     );
 
     const { createFile } = useCreateFile(fetchFiles);
-    const { deleteFile } = usedeleteFile(fetchFiles);
+    const { deleteFile } = useDeleteFile(fetchFiles);
     const { updateFile } = useUpdateFile(fetchFiles);
 
     return {

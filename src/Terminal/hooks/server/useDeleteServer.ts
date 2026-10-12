@@ -15,7 +15,7 @@ export const useDeleteServer = (fetchServers: () => void): UseCreateServer => {
                 console.log(json);
                 fetchServers();
             });
-    }, []);
+    }, [fetchServers]);
 
     return { deleteServer };
 };

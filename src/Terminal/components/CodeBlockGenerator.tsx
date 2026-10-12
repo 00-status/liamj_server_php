@@ -1,15 +1,28 @@
 import { useState } from 'react';
 import './code-block-generator.css';
 
-export const CodeBlockGenerator = () => {
-    const [uniqueID] = useState<string>(crypto.randomUUID());
-    const [snippet] = useState(getSnippet());
+type CharacterToken = {
+    id: string;
+    character: string;
+    animationDelay: string;
+};
 
-    const result = snippet.split('').map((character, index) => {
-        const style = { animationDelay: 0.2 + index / 10 + 's' };
+export const CodeBlockGenerator = () => {
+    const [characterTokens] = useState<Array<CharacterToken>>(() => {
+        const uniqueId = crypto.randomUUID();
+        const snippet = getSnippet();
+        return snippet.split('').map((character, index) => ({
+            id: `${uniqueId}-${index}`,
+            character,
+            animationDelay: `${0.2 + index / 10}s`,
+        }));
+    });
+
+    const result = characterTokens.map((token) => {
+        const style = { animationDelay: token.animationDelay };
         return (
-            <span className="character-span" aria-hidden key={uniqueID + '|' + index} style={style}>
-                {character}
+            <span className="character-span" aria-hidden key={token.id} style={style}>
+                {token.character}
             </span>
         );
     });

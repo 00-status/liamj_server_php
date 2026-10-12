@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import './skill-test-difficulty-modal.css';
 import { Modal } from '../../../SharedComponents/Modal/Modal';
@@ -27,6 +27,9 @@ export const SkillTestDifficultyModal = (props: Props) => {
 
     const inputRef = useRef<HTMLInputElement>(null);
 
+    const [previousDifficulty, setPreviousDifficulty] = useState<SkillTestDifficulty | null>(
+        difficulty ?? null,
+    );
     const [threshold, setThreshold] = useState<number | null>(difficulty?.threshold ?? null);
     const [conditionOutcomes, setConditionOutcomes] = useState<Array<ConditionOutcome>>(
         difficulty?.conditionOutcomes ?? [],
@@ -36,10 +39,11 @@ export const SkillTestDifficultyModal = (props: Props) => {
     const [currentConditionName, setCurrentConditionName] = useState<string | null>(null);
     const [addingOrRemoving, setAddingOrRemoving] = useState<string>('adding');
 
-    useEffect(() => {
+    if (difficulty !== previousDifficulty) {
+        setPreviousDifficulty(difficulty ?? null);
         setThreshold(difficulty?.threshold ?? null);
         setConditionOutcomes(difficulty?.conditionOutcomes ?? []);
-    }, [difficulty]);
+    }
 
     const onAddConditionOutcome = () => {
         if (!currentConditionID || !currentConditionName) {

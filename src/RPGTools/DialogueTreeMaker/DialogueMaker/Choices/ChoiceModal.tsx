@@ -1,4 +1,4 @@
-import { useEffect, useState, Fragment } from 'react';
+import { useState, Fragment } from 'react';
 
 import './choice-modal.css';
 import { Modal } from '../../../../SharedComponents/Modal/Modal';
@@ -25,6 +25,7 @@ type Props = {
 export const ChoiceModal = (props: Props) => {
     const { choice, isOpen, onClose, onSave } = props;
 
+    const [previousChoice, setPreviousChoice] = useState<Choice | null>(choice ?? null);
     const [conditionID, setConditionID] = useState<string | null>(choice?.conditionID ?? null);
     const [nextDialogueID, setNextDialogueID] = useState<string | null>(
         choice?.nextDialogueID ?? null,
@@ -41,13 +42,14 @@ export const ChoiceModal = (props: Props) => {
     const [conditionName, setConditionName] = useState<string | null>(null);
     const [addingOrRemoving, setAddingOrRemoving] = useState<string>('adding');
 
-    useEffect(() => {
+    if (choice !== previousChoice) {
+        setPreviousChoice(choice ?? null);
         setConditionID(choice?.conditionID ?? null);
         setNextDialogueID(choice?.nextDialogueID ?? null);
         setShortDescription(choice?.shortDescription ?? null);
         setConditionOutcomes(choice?.conditionOutcomes ?? []);
         setAddToHistory(choice?.addToHistory ?? false);
-    }, [choice]);
+    }
 
     const addConditionOutcome = () => {
         if (!conditionOutcomeID || !conditionName || !addingOrRemoving) {
