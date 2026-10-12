@@ -30,13 +30,13 @@ const TerminalEditorPage = () => {
 
     useEffect(() => {
         fetchServers();
-    }, []);
+    }, [fetchServers]);
 
     useEffect(() => {
         if (selectedServerId) {
             fetchDirectories(selectedServerId);
         }
-    }, [selectedServerId]);
+    }, [selectedServerId, fetchDirectories]);
 
     const onServerClick = (serverId: number) => {
         setSelectedDirectory(null);
@@ -127,6 +127,7 @@ const TerminalEditorPage = () => {
                 <div className="terminal-editor-page__directory-editor">
                     {selectedDirectory && (
                         <DirectoryEditor
+                            key={selectedDirectory.id}
                             directory={selectedDirectory}
                             updateDirectory={updateDirectory}
                         />

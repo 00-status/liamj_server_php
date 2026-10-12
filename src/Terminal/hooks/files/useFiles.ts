@@ -32,8 +32,8 @@ export const useFiles = (): UseFiles => {
         (directoryId: number) => {
             setIsLoadingFiles(true);
             fetch('/api/1/terminal_files?directory_id=' + directoryId)
-                .then((response) => response.json())
-                .then((json) => setFiles(json))
+                .then((response) => response.text())
+                .then((text) => (text ? setFiles(JSON.parse(text)) : setFiles([])))
                 .finally(() => setIsLoadingFiles(false));
         },
         [setFiles, setIsLoadingFiles],

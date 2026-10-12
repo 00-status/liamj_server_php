@@ -34,8 +34,8 @@ export const useDirectories = (): UseDirectories => {
         (serverId: number) => {
             setIsLoadingDirectories(true);
             fetch('/api/1/terminal_directories?server_id=' + serverId)
-                .then((response) => response.json())
-                .then((json) => setDirectories(json))
+                .then((response) => response.text())
+                .then((text) => (text ? setDirectories(JSON.parse(text)) : setDirectories([])))
                 .finally(() => setIsLoadingDirectories(false));
         },
         [setDirectories],
