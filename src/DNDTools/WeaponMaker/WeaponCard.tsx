@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { use } from 'react';
 
 import { Button, ButtonTheme } from '../../SharedComponents/Button/Button';
 import { Card } from '../../SharedComponents/Card/Card';
@@ -18,7 +18,7 @@ type Props = {
 export const WeaponCard = (props: Props) => {
     const { weapon } = props;
 
-    const messageContext = useContext(ToastMessageContext);
+    const messageContext = use(ToastMessageContext);
 
     const hasRange = !!weapon.effectiveRange && !!weapon.ineffectiveRange;
     const formattedWeaponProperties = formatWeaponProperties(weapon.properties);
@@ -115,5 +115,5 @@ Damage: ${formattedDamage}
 `;
     }
 
-    return (weaponCopy += `${weapon.weaponEffect.name}: ${weapon.weaponEffect.description}`);
+    return `${weaponCopy} ${weapon.weaponEffect.name}: ${weapon.weaponEffect.description}`;
 };

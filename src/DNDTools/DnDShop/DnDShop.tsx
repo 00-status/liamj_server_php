@@ -22,7 +22,7 @@ const DndShop = () => {
         silver: 0,
         copper: 0,
     });
-    const [cartSlots, setCartSlots] = useState<CartSlot[]>(generateEmptyCartSlots(0, 3));
+    const [cartSlots, setCartSlots] = useState<CartSlot[]>(() => generateEmptyCartSlots(0, 3));
     const [currentItem, setCurrentItem] = useState<{
         name: string;
         cost: number;
