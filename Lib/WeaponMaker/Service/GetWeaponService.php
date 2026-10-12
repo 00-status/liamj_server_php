@@ -6,10 +6,13 @@ use PDO;
 
 class GetWeaponService
 {
+    public function __construct(
+        private WeaponEffectDbContext $db
+    ) {
+    }
+
     public function getWeapons(): array
     {
-        $db = new WeaponEffectDbContext();
-
-        return $db->fetchWeaponEffects();
+        return $this->db->fetchWeaponEffects();
     }
 }
