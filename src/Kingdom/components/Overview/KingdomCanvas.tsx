@@ -59,22 +59,6 @@ export const KingdomCanvas = ({ kingdom, containerRef, setSelectedRegion }: Prop
         return map;
     }, [kingdom]);
 
-    // Center map on initial load or resize
-    useEffect(() => {
-        if (!kingdom || !canvasRef.current || !containerRef.current) {
-            return;
-        }
-
-        const rect = containerRef.current.getBoundingClientRect();
-        const mapWidth = kingdom.grid_width * TILE_SIZE;
-        const mapHeight = kingdom.grid_height * TILE_SIZE;
-
-        cameraRef.current.offsetX = Math.floor((rect.width - mapWidth) / 2);
-        cameraRef.current.offsetY = Math.floor((rect.height - mapHeight) / 2);
-
-        draw();
-    }, [kingdom]);
-
     // Trigger canvas redraw on dependency updates (like selected/hover changes)
     const draw = useCallback(() => {
         const canvas = canvasRef.current;
@@ -188,6 +172,22 @@ export const KingdomCanvas = ({ kingdom, containerRef, setSelectedRegion }: Prop
         }
     }, [canvasRef, kingdom, tilesMap, regionsMap]);
 
+    // Center map on initial load or resize
+    useEffect(() => {
+        if (!kingdom || !canvasRef.current || !containerRef.current) {
+            return;
+        }
+
+        const rect = containerRef.current.getBoundingClientRect();
+        const mapWidth = kingdom.grid_width * TILE_SIZE;
+        const mapHeight = kingdom.grid_height * TILE_SIZE;
+
+        cameraRef.current.offsetX = Math.floor((rect.width - mapWidth) / 2);
+        cameraRef.current.offsetY = Math.floor((rect.height - mapHeight) / 2);
+
+        draw();
+    }, [kingdom, containerRef, draw]);
+
     // Redraw on window resize
     useEffect(() => {
         const handleResize = () => {
@@ -202,7 +202,7 @@ export const KingdomCanvas = ({ kingdom, containerRef, setSelectedRegion }: Prop
         if (kingdom) {
             draw();
         }
-    }, [draw]);
+    }, [draw, kingdom]);
 
     // Handle interactions
     const getMouseCoords = (e: MouseEvent<HTMLCanvasElement> | TouchEvent<HTMLCanvasElement>) => {

@@ -2,47 +2,88 @@ import { useEffect, useState, useCallback } from 'react';
 
 import { Kingdom } from '../domain/types';
 
+const fetchKingdomData = async (kingdomId: number, abortSignal?: AbortSignal): Promise<Kingdom> => {
+    const response = await fetch(`/api/1/kingdoms/${kingdomId}`, { signal: abortSignal });
+    if (!response.ok) {
+        throw new Error(`Failed to fetch Kingdom (Status: ${response.status})`);
+    }
+    const data = await response.json();
+    if (data && data.id) {
+        return data;
+    }
+    throw new Error('Invalid Kingdom response data');
+};
+
 export const useKingdom = (id: number | null) => {
+    const [previousId, setPreviousId] = useState<number | null>(id);
     const [kingdom, setKingdom] = useState<Kingdom | null>(null);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(() => id !== null && !isNaN(id));
     const [error, setError] = useState<string | null>(null);
 
-    const fetchKingdom = useCallback((kingdomId: number, abortSignal?: AbortSignal) => {
-        setIsLoading(true);
-        setError(null);
-        fetch(`/api/1/kingdoms/${kingdomId}`, { signal: abortSignal })
-            .then((res) => {
-                if (!res.ok) {
-                    throw new Error(`Failed to fetch Kingdom (Status: ${res.status})`);
-                }
-                return res.json();
-            })
-            .then((data) => {
-                if (data && data.id) {
-                    setKingdom(data);
-                } else {
-                    throw new Error('Invalid Kingdom response data');
-                }
-            })
-            .catch((err) => {
-                setError(err instanceof Error ? err.message : 'Unknown error occurred');
-                setKingdom(null);
-            })
-            .finally(() => setIsLoading(false));
-    }, []);
-
-    useEffect(() => {
-        const controller = new AbortController();
+    if (id !== previousId) {
+        setPreviousId(id);
         if (id !== null && !isNaN(id)) {
-            fetchKingdom(id, controller.signal);
+            setIsLoading(true);
+            setError(null);
         } else {
             setKingdom(null);
+            setIsLoading(false);
+            setError(null);
         }
+    }
+
+    useEffect(() => {
+        if (id === null || isNaN(id)) {
+            return;
+        }
+
+        const controller = new AbortController();
+
+        fetchKingdomData(id, controller.signal)
+            .then((data) => {
+                setKingdom(data);
+                setError(null);
+            })
+            .catch((fetchError) => {
+                if (controller.signal.aborted) {
+                    return;
+                }
+                setError(
+                    fetchError instanceof Error ? fetchError.message : 'Unknown error occurred',
+                );
+                setKingdom(null);
+            })
+            .finally(() => {
+                if (!controller.signal.aborted) {
+                    setIsLoading(false);
+                }
+            });
 
         return () => {
             controller.abort();
         };
-    }, [id, fetchKingdom]);
+    }, [id]);
 
-    return { kingdom, isLoading, error, refetch: () => id && fetchKingdom(id) };
+    const refetch = useCallback(() => {
+        if (id !== null && !isNaN(id)) {
+            setIsLoading(true);
+            setError(null);
+            fetchKingdomData(id)
+                .then((data) => {
+                    setKingdom(data);
+                    setError(null);
+                })
+                .catch((fetchError) => {
+                    setError(
+                        fetchError instanceof Error ? fetchError.message : 'Unknown error occurred',
+                    );
+                    setKingdom(null);
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                });
+        }
+    }, [id]);
+
+    return { kingdom, isLoading, error, refetch };
 };

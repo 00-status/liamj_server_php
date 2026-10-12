@@ -28,32 +28,39 @@ export const RegionTemplateEditorPage = () => {
         fetchTemplates();
     }, [fetchTemplates]);
 
-    useEffect(() => {
+    const [previousEditingState, setPreviousEditingState] = useState<{
+        editingId: number | null;
+        templatesLength: number;
+    }>({ editingId: null, templatesLength: 0 });
+
+    if (
+        editingId !== previousEditingState.editingId ||
+        templates.length !== previousEditingState.templatesLength
+    ) {
+        setPreviousEditingState({ editingId, templatesLength: templates.length });
         if (editingId !== null && templates.length > 0) {
-            const template = templates.find((template) => template.id === editingId);
+            const template = templates.find((currentTemplate) => currentTemplate.id === editingId);
 
-            if (!template) {
-                return;
+            if (template) {
+                setTemplateName(template.name);
+
+                // Determine maximum coordinates to auto-resize canvas
+                let maximumX = 9; // default 10 columns
+                let maximumY = 9; // default 10 rows
+                const loadedTiles: { [key: string]: string } = {};
+
+                template.tile_templates.forEach((tile) => {
+                    loadedTiles[`${tile.x}-${tile.y}`] = tile.type;
+                    if (tile.x > maximumX) maximumX = tile.x;
+                    if (tile.y > maximumY) maximumY = tile.y;
+                });
+
+                setGridWidth(maximumX + 1);
+                setGridHeight(maximumY + 1);
+                setPaintedTiles(loadedTiles);
             }
-
-            setTemplateName(template.name);
-
-            // Determine maximum coordinates to auto-resize canvas
-            let maxX = 9; // default 10 columns
-            let maxY = 9; // default 10 rows
-            const loadedTiles: { [key: string]: string } = {};
-
-            template.tile_templates.forEach((tile) => {
-                loadedTiles[`${tile.x}-${tile.y}`] = tile.type;
-                if (tile.x > maxX) maxX = tile.x;
-                if (tile.y > maxY) maxY = tile.y;
-            });
-
-            setGridWidth(maxX + 1);
-            setGridHeight(maxY + 1);
-            setPaintedTiles(loadedTiles);
         }
-    }, [editingId, templates]);
+    }
 
     const handleCellPaint = useCallback((x: number, y: number, type: string) => {
         setPaintedTiles((previous) => {

@@ -4,7 +4,7 @@ import { Channel } from 'pusher-js';
 import { pusherClient, setAuthLobbyCode, setAuthzToken } from '../pusher';
 
 import { KingdomEmptyLobby } from './components/EmptyLobby/KingdomEmptyLobby';
-import KingdomOverviewPage from './components/Overview/KingdomOverviewPage';
+import { KingdomOverviewPage } from './components/Overview/KingdomOverviewPage';
 import { useKingdomLocalStorage } from './hooks/useKingdomLocalStorage';
 import { KingdomLobby } from './components/Lobby/KingdomLobby';
 import { useChannelEvents } from './hooks/useChannelEvents';
@@ -37,7 +37,7 @@ const KingdomPage = () => {
         pusherClient.connection.bind('failed', () =>
             console.log('Failed to connect to socket server!'),
         );
-    }, []);
+    }, [cullPlayersFromLocalStorage]);
 
     useChannelEvents(channel, {
         'kingdom-generated': (value) => setKingdomId(value.kingdomId),

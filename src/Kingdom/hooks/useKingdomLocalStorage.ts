@@ -1,54 +1,48 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import { LocalKingdomPlayer } from '../domain/types';
 
 const LOCAL_STORAGE_KEY = 'lobbyAuthzTokens';
 
 export const useKingdomLocalStorage = () => {
-    const [localKingdomPlayer, setLocalKingdomPlayer] = useState<Array<LocalKingdomPlayer>>([]);
-    const [localKingdomPlayerMap, setLocalKingdomPlayerMap] = useState<
-        Record<string, LocalKingdomPlayer | null>
-    >({});
-
-    useEffect(() => {
+    const [localKingdomPlayer, setLocalKingdomPlayer] = useState<Array<LocalKingdomPlayer>>(() => {
         const rawData = localStorage.getItem(LOCAL_STORAGE_KEY);
-        const lobbyAuthzTokensArray: Array<LocalKingdomPlayer> | null = rawData
-            ? JSON.parse(rawData)
-            : null;
-
-        if (!lobbyAuthzTokensArray) {
-            return;
+        if (!rawData) {
+            return [];
         }
 
-        setLocalKingdomPlayer(lobbyAuthzTokensArray);
-    }, []);
+        try {
+            const lobbyAuthzTokensArray: Array<LocalKingdomPlayer> | null = JSON.parse(rawData);
+            return lobbyAuthzTokensArray ?? [];
+        } catch {
+            return [];
+        }
+    });
 
-    useEffect(() => {
-        const map = localKingdomPlayer.reduce<Record<string, LocalKingdomPlayer>>(
-            (acc, lobbyAuthzToken) => {
-                acc[lobbyAuthzToken.lobbyCode] = lobbyAuthzToken;
-                return acc;
+    const localKingdomPlayerMap = useMemo(() => {
+        return localKingdomPlayer.reduce<Record<string, LocalKingdomPlayer>>(
+            (accumulator, lobbyAuthzToken) => {
+                accumulator[lobbyAuthzToken.lobbyCode] = lobbyAuthzToken;
+                return accumulator;
             },
             {},
         );
-
-        setLocalKingdomPlayerMap(map);
     }, [localKingdomPlayer]);
 
     const savePlayerToLocalStorage = useCallback((lobbyAuthzToken: LocalKingdomPlayer) => {
-        setLocalKingdomPlayer((prev) => {
-            const next = [...prev, lobbyAuthzToken];
-            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(next));
-            return next;
+        setLocalKingdomPlayer((previousPlayers) => {
+            const nextPlayers = [...previousPlayers, lobbyAuthzToken];
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(nextPlayers));
+            return nextPlayers;
         });
     }, []);
 
     const cullPlayersFromLocalStorage = useCallback(() => {
-        setLocalKingdomPlayer((prev) => {
+        setLocalKingdomPlayer((previousPlayers) => {
             const nowUTC = new Date().toISOString();
-            const next = prev.filter((token) => token.timeToDie >= nowUTC);
-            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(next));
-            return next;
+            const nextPlayers = previousPlayers.filter((token) => token.timeToDie >= nowUTC);
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(nextPlayers));
+            return nextPlayers;
         });
     }, []);
 
