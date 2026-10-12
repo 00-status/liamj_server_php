@@ -21,20 +21,22 @@ export const StoryBook = ({
 }: Props) => {
     const rawStory = useFetchStoryJSON(storyFileName);
 
+    const [previousRawStory, setPreviousRawStory] = useState<null | string>(null);
     const [inkStory, setInkStory] = useState<null | Story>(null);
     const [log, setLog] = useState<string>('');
-    const logReference = useRef<HTMLDivElement>(null);
+    const logRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        if (!rawStory) {
-            return;
+    if (rawStory !== previousRawStory) {
+        setPreviousRawStory(rawStory);
+        if (rawStory) {
+            const newInkStory = new Story(rawStory);
+            setInkStory(newInkStory);
+            setLog(newInkStory.ContinueMaximally());
+        } else {
+            setInkStory(null);
+            setLog('');
         }
-
-        const newInkStory = new Story(rawStory);
-        setLog((state) => state + newInkStory.ContinueMaximally());
-
-        setInkStory(newInkStory);
-    }, [rawStory]);
+    }
 
     useEffect(() => {
         if (!inkStory) {
@@ -66,13 +68,13 @@ export const StoryBook = ({
                 inkStory.RemoveVariableObserver(observerFunction, name);
             });
         };
-    }, [inkStory, variablesNamesToObserve]);
+    }, [inkStory, variablesNamesToObserve, setGameState]);
 
     useEffect(() => {
-        if (logReference.current) {
-            logReference.current.scrollTop = logReference.current.scrollHeight;
+        if (logRef.current) {
+            logRef.current.scrollTop = logRef.current.scrollHeight;
         }
-    }, [logReference, log]);
+    }, [log]);
 
     if (!inkStory) {
         return;
@@ -90,7 +92,7 @@ export const StoryBook = ({
 
     return (
         <div className="story-book">
-            <div ref={logReference} className="story-book__log">
+            <div ref={logRef} className="story-book__log">
                 <h2>{storyFileName}</h2>
                 {log}
             </div>

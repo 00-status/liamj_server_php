@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './dropdown.css';
 
 type Props = {
@@ -12,11 +12,13 @@ type Props = {
 
 export const Dropdown = (props: Props) => {
     const { id, label, defaultValue, options, onOptionSelect, isDisabled } = props;
-    const [selectedValue, setSelectedValue] = useState(defaultValue);
+    const [previousDefaultValue, setPreviousDefaultValue] = useState<string>(defaultValue);
+    const [selectedValue, setSelectedValue] = useState<string>(defaultValue);
 
-    useEffect(() => {
+    if (defaultValue !== previousDefaultValue) {
+        setPreviousDefaultValue(defaultValue);
         setSelectedValue(defaultValue);
-    }, [defaultValue]);
+    }
 
     return (
         <div className="dropdown">

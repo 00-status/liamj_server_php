@@ -14,24 +14,43 @@ import { Condition, DialogueHistory, PreviewChoice } from './domain/types';
 const TreePreviewPage = () => {
     const { dialogues, skillTests } = useDialogueTree();
 
-    const [histories, setHistories] = useState<Array<DialogueHistory>>([]);
-    const [currentChoices, setCurrentChoices] = useState<Array<PreviewChoice>>([]);
+    const startingDialogue = dialogues.find((dialogue) => dialogue.id === 1);
+
+    const [hasInitializedHistory, setHasInitializedHistory] = useState<boolean>(() => {
+        return startingDialogue !== undefined;
+    });
+    const [histories, setHistories] = useState<Array<DialogueHistory>>(() => {
+        if (!startingDialogue) {
+            return [];
+        }
+        const character = startingDialogue.character
+            ? {
+                  name: startingDialogue.character.name,
+                  nameColor: startingDialogue.character.nameColor,
+              }
+            : null;
+        return [
+            {
+                id: `initial-dialogue-${startingDialogue.id}`,
+                description: startingDialogue.description,
+                character,
+                isChoice: false,
+            },
+        ];
+    });
+    const [currentChoices, setCurrentChoices] = useState<Array<PreviewChoice>>(() => {
+        if (!startingDialogue) {
+            return [];
+        }
+        return startingDialogue.choices.map(convertChoiceToPreviewChoice);
+    });
 
     const [conditions, setConditions] = useState<Array<Condition>>([]);
 
     const historyRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        if (histories.length > 0) {
-            return;
-        }
-
-        const startingDialogue = dialogues.find((dialogue) => dialogue.id === 1);
-
-        if (!startingDialogue) {
-            return;
-        }
-
+    if (!hasInitializedHistory && startingDialogue) {
+        setHasInitializedHistory(true);
         const character = startingDialogue.character
             ? {
                   name: startingDialogue.character.name,
@@ -40,16 +59,15 @@ const TreePreviewPage = () => {
             : null;
 
         setHistories([
-            ...histories,
             {
-                id: crypto.randomUUID(),
+                id: `initial-dialogue-${startingDialogue.id}`,
                 description: startingDialogue.description,
                 character,
                 isChoice: false,
             },
         ]);
-        setCurrentChoices([...startingDialogue.choices.map(convertChoiceToPreviewChoice)]);
-    }, [dialogues, histories]);
+        setCurrentChoices(startingDialogue.choices.map(convertChoiceToPreviewChoice));
+    }
 
     const onChoiceClick = (
         nextDialogueID: number,

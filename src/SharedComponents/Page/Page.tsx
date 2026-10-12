@@ -1,4 +1,5 @@
 import { ReactElement, ReactNode, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { gtag } from 'ga-gtag';
 
 import './page.css';
@@ -26,6 +27,7 @@ type Props = {
 export const Page = (props: Props): ReactElement => {
     const { title, routes, children, footer } = props;
 
+    const location = useLocation();
     const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
 
     const [messageList, setMessageList] = useState<Array<ToastMessage>>([]);
@@ -39,7 +41,7 @@ export const Page = (props: Props): ReactElement => {
                 page_title: currentRoute.label,
             });
         }
-    }, [routes, location]);
+    }, [routes, location.pathname]);
 
     return (
         <ToastMessageContext value={{ messageList, setMessageList }}>

@@ -36,7 +36,7 @@ export const Terminal = ({ servers, directories, fetchDirectories, onEnteredComm
     const [currentCommand, setCurrentCommand] = useState<string>('');
     const outputRef = useRef<HTMLDivElement | null>(null);
 
-    const [terminal, setTerminal] = useState<TerminalState>({
+    const [terminal, setTerminal] = useState<TerminalState>(() => ({
         servers: servers,
         currentServer: servers[0],
         directories: directories,
@@ -45,15 +45,12 @@ export const Terminal = ({ servers, directories, fetchDirectories, onEnteredComm
         outputs: [
             { id: crypto.randomUUID(), output: 'Welcome. Type "help" for a list of commands' },
         ],
-    });
+    }));
 
-    useEffect(() => {
-        if (!terminal.currentDirectory) {
-            fetchDirectories(terminal.currentServer.id);
-        }
-    }, [terminal.currentDirectory]);
+    const [previousDirectories, setPreviousDirectories] = useState<Array<Directory>>(directories);
 
-    useEffect(() => {
+    if (directories !== previousDirectories) {
+        setPreviousDirectories(directories);
         const currentDirectory = directories[0];
         setTerminal((terminalState) => {
             return {
@@ -63,13 +60,19 @@ export const Terminal = ({ servers, directories, fetchDirectories, onEnteredComm
                 outputs: [
                     ...terminalState.outputs,
                     {
-                        id: crypto.randomUUID(),
+                        id: `connect-${terminalState.currentServer.id}-${terminalState.outputs.length}`,
                         output: '\nSuccessfully connected to: ' + terminalState.currentServer.name,
                     },
                 ],
             };
         });
-    }, [directories, setTerminal]);
+    }
+
+    useEffect(() => {
+        if (!terminal.currentDirectory) {
+            fetchDirectories(terminal.currentServer.id);
+        }
+    }, [terminal.currentDirectory, terminal.currentServer.id, fetchDirectories]);
 
     useEffect(() => {
         if (outputRef.current) {

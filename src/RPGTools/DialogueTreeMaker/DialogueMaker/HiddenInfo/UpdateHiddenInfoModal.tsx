@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import './update-hidden-info-modal.css';
 import { HiddenInfo, HiddenInfoCondition } from '../../domain/types';
@@ -19,6 +19,9 @@ type Props = {
 export const UpdateHiddenInfoModal = (props: Props) => {
     const { hiddenInfoToEdit, isOpen, onClose, onSave } = props;
 
+    const [previousHiddenInfoToEdit, setPreviousHiddenInfoToEdit] = useState<HiddenInfo | null>(
+        hiddenInfoToEdit ?? null,
+    );
     const [hiddenInfoID, setHiddenInfoID] = useState<string | null>(hiddenInfoToEdit?.id ?? null);
     const [conditions, setConditions] = useState<Array<HiddenInfoCondition>>(
         hiddenInfoToEdit?.conditionIDs ?? [],
@@ -32,11 +35,12 @@ export const UpdateHiddenInfoModal = (props: Props) => {
 
     const inputRef = useRef<HTMLInputElement>(null);
 
-    useEffect(() => {
+    if (hiddenInfoToEdit !== previousHiddenInfoToEdit) {
+        setPreviousHiddenInfoToEdit(hiddenInfoToEdit ?? null);
         setHiddenInfoID(hiddenInfoToEdit?.id ?? null);
         setDescription(hiddenInfoToEdit?.description ?? '');
         setConditions(hiddenInfoToEdit?.conditionIDs ?? []);
-    }, [hiddenInfoToEdit]);
+    }
 
     const addCondition = () => {
         if (!newConditionID || !newConditionName) {

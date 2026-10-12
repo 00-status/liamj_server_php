@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 
 import './directory-editor.css';
 import { Button, ButtonTheme } from '../../SharedComponents/Button/Button';
@@ -19,7 +19,7 @@ type Props = {
 };
 
 export const DirectoryEditor = (props: Props) => {
-    const { setMessageList } = useContext(ToastMessageContext);
+    const { setMessageList } = use(ToastMessageContext);
 
     const { directory, updateDirectory } = props;
 
@@ -29,7 +29,6 @@ export const DirectoryEditor = (props: Props) => {
     const [parentDirectory, setParentDirectory] = useState<number | null>(
         directory.parentDirectory,
     );
-    const [subDirectories, setSubDirectories] = useState<Array<number>>(directory.subDirectories);
 
     const [currentFileName, setCurrentFileName] = useState<string>('');
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -39,14 +38,6 @@ export const DirectoryEditor = (props: Props) => {
     useEffect(() => {
         fetchFiles(directory.id);
     }, [fetchFiles, directory]);
-
-    useEffect(() => {
-        setServerId(directory.serverId);
-        setName(directory.name);
-        setDateCreated(directory.dateCreated);
-        setParentDirectory(directory.parentDirectory);
-        setSubDirectories(directory.subDirectories);
-    }, [setServerId, setName, setDateCreated, setParentDirectory, setSubDirectories, directory]);
 
     const onCreateFile = () => {
         const newFile: File = {
@@ -77,7 +68,7 @@ export const DirectoryEditor = (props: Props) => {
             name: name,
             dateCreated: dateCreated,
             parentDirectory: parentDirectory,
-            subDirectories: subDirectories,
+            subDirectories: directory.subDirectories,
             files: directory.files,
         };
 
@@ -110,7 +101,7 @@ export const DirectoryEditor = (props: Props) => {
                     onChange={(value) => setParentDirectory(value ? Number(value) : null)}
                 />
                 <div>
-                    {subDirectories.map((directoryId: number) => (
+                    {directory.subDirectories.map((directoryId: number) => (
                         <div key={directoryId}>{directoryId}</div>
                     ))}
                 </div>

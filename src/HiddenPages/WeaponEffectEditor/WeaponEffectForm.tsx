@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import './weapon-effect-form.css';
 import { TextInput } from '../../SharedComponents/TextInput/TextInput';
@@ -29,22 +29,14 @@ export const WeaponEffectForm = (props: Props) => {
     const { saveWeaponEffect } = useSaveWeaponEffect();
     const { updateWeaponEffect } = useUpdateWeaponEffect();
 
-    const inputReference = useRef<HTMLInputElement>(null);
+    const inputReferenceRef = useRef<HTMLInputElement>(null);
 
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
+    const [name, setName] = useState(weaponEffect?.name || '');
+    const [description, setDescription] = useState(weaponEffect?.description || '');
+    const [tagList, setTagList] = useState<Array<string>>(weaponEffect?.tags || []);
+    const [rarityList, setRarityList] = useState<Array<string>>(weaponEffect?.rarities || []);
 
     const [currentTag, setCurrentTag] = useState('');
-    const [tagList, setTagList] = useState<Array<string>>([]);
-
-    const [rarityList, setRarityList] = useState<Array<string>>([]);
-
-    useEffect(() => {
-        setName(weaponEffect?.name ?? 'Weapon effect');
-        setDescription(weaponEffect?.description ?? '');
-        setTagList(weaponEffect?.tags ?? []);
-        setRarityList(weaponEffect?.rarities ?? []);
-    }, [weaponEffect, setName, setDescription, setTagList, setRarityList]);
 
     const rarityOptions = [
         { value: '', label: '' },
@@ -145,7 +137,7 @@ export const WeaponEffectForm = (props: Props) => {
                 <div>
                     <div className="weapon-effect-form__tag-form">
                         <TextInput
-                            ref={inputReference}
+                            ref={inputReferenceRef}
                             placeholder="Tag name"
                             value={currentTag}
                             onChange={(newValue) => {
@@ -161,8 +153,8 @@ export const WeaponEffectForm = (props: Props) => {
                                 setTagList((state) => [...state, currentTag]);
                                 setCurrentTag('');
 
-                                if (inputReference.current) {
-                                    inputReference.current.focus();
+                                if (inputReferenceRef.current) {
+                                    inputReferenceRef.current.focus();
                                 }
                             }}
                         >

@@ -8,7 +8,9 @@ import { convertApiCase } from '../../Common/convertApiCase';
 export const useChannelEvents = (channel: Channel | null, handlers: KingdomEventHandlers) => {
     // Store handlers in a ref so useEffect doesn't re-trigger if handlers change.
     const handlersRef = useRef(handlers);
-    handlersRef.current = handlers;
+    useEffect(() => {
+        handlersRef.current = handlers;
+    });
 
     useEffect(() => {
         if (!channel) {

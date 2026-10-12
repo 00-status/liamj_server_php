@@ -26,7 +26,7 @@ export const useCreateFile = (fetchFiles: (directoryId: number) => void): UseCre
             body: fileJson,
             headers: { 'Content-type': 'application/json; charset=UTF-8' },
         }).then(() => fetchFiles(file.directoryId));
-    }, []);
+    }, [fetchFiles]);
 
     return {
         createFile,

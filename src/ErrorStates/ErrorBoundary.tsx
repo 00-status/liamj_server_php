@@ -11,7 +11,7 @@ const RouterErrorBoundary = () => {
 
     useEffect(() => {
         console.error(error);
-    }, []);
+    }, [error]);
 
     return (
         <div className="route-error-boundary">

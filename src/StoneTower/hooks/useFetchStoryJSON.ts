@@ -7,7 +7,7 @@ export const useFetchStoryJSON = (fileName: string) => {
         import(`../../assets/${fileName}.ink.json`).then((rawStory) =>
             setRawStory(rawStory.default),
         );
-    }, []);
+    }, [fileName]);
 
     return rawStory;
 };

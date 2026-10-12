@@ -41,7 +41,7 @@ export const KingdomLobby = ({ channel, lobbyCode, currentPlayer }: Props) => {
 
             setPlayers(players);
         });
-    }, []);
+    }, [fetchPlayers, lobbyCode]);
 
     return (
         <Page title="Kingdom Lobby" routes={[]}>

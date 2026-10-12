@@ -88,7 +88,16 @@ export const DialogueTreeGraph = (props: Props) => {
                 }
             },
         });
-    }, [registerEvents, sigma, draggedNode, isDragging, setDraggedNode, setIsDragging]);
+    }, [
+        registerEvents,
+        sigma,
+        draggedNode,
+        isDragging,
+        setDraggedNode,
+        setIsDragging,
+        onDialogueClick,
+        onDialogueMoveFinish,
+    ]);
 
     return null;
 };

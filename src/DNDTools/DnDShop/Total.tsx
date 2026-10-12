@@ -28,7 +28,7 @@ export const Total = (props: Props) => {
     const normalizedTotalsByCurrency = normalizeTotals(itemTotalsByCurrency);
 
     const totalWeight = filteredCartItems.reduce((carry, item) => {
-        return (carry += item.weight ? item.weight : 0);
+        return carry + (item.weight ? item.weight : 0);
     }, 0);
 
     const playerCurrencyRemaining = getPlayerCurrencyRemaining(

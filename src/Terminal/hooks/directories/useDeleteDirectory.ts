@@ -20,7 +20,7 @@ export const useDeleteDirectory = (fetchDirectories: (id: number) => void): UseD
                 fetchDirectories(serverID);
             })
             .finally(() => setIsDeleting(false));
-    }, []);
+    }, [fetchDirectories]);
 
     return { isDeleting, deleteDirectory };
 };

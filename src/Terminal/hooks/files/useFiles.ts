@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 
 import { useCreateFile } from './useCreateFile';
-import { usedeleteFile } from './useDeleteFile';
+import { useDeleteFile } from './useDeleteFile';
 import { useUpdateFile } from './useUpdateFile';
 
 export type File = {
@@ -32,15 +32,15 @@ export const useFiles = (): UseFiles => {
         (directoryId: number) => {
             setIsLoadingFiles(true);
             fetch('/api/1/terminal_files?directory_id=' + directoryId)
-                .then((response) => response.json())
-                .then((json) => setFiles(json))
+                .then((response) => response.text())
+                .then((text) => (text ? setFiles(JSON.parse(text)) : setFiles([])))
                 .finally(() => setIsLoadingFiles(false));
         },
         [setFiles, setIsLoadingFiles],
     );
 
     const { createFile } = useCreateFile(fetchFiles);
-    const { deleteFile } = usedeleteFile(fetchFiles);
+    const { deleteFile } = useDeleteFile(fetchFiles);
     const { updateFile } = useUpdateFile(fetchFiles);
 
     return {

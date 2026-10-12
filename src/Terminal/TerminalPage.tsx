@@ -15,16 +15,16 @@ import { TerminalLoader } from './components/TerminalLoader';
 const TerminalPage = () => {
     const navigate = useNavigate();
 
-    document.title = 'Terminal';
-
     useEffect(() => {
+        document.title = 'Terminal';
+
         gtag('event', 'page_view', {
             page_location: '/terminal',
             page_title: 'Terminal',
         });
-    }, [gtag]);
+    }, []);
 
-    const [codeBlockKeys, setCodeBlockKeys] = useState<Array<number | string>>([
+    const [codeBlockKeys, setCodeBlockKeys] = useState<Array<number | string>>(() => [
         ...Array(10).keys(),
     ]);
     const { servers, fetchServers } = useServers();

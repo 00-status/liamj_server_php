@@ -13,7 +13,7 @@ const WeaponEffectList = () => {
 
     useEffect(() => {
         fetchWeaponEffects();
-    }, []);
+    }, [fetchWeaponEffects]);
 
     return (
         <Page title="Weapon Effects" routes={[{ label: 'Landing', route: '/' }]}>
@@ -33,6 +33,7 @@ const WeaponEffectList = () => {
                     </div>
                     <div className="weapon-effect-list__form">
                         <WeaponEffectForm
+                            key={currentWeaponEffect?.id}
                             weaponEffect={currentWeaponEffect ? currentWeaponEffect : undefined}
                             fetchWeaponEffects={fetchWeaponEffects}
                         />
