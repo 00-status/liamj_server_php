@@ -1,4 +1,6 @@
-import { Combatant, Formation, TargetScope } from '../types';
+import { Combatant } from '../Combatant';
+import { Formation } from '../formation/types';
+import { TargetScope } from '../types';
 
 /**
  * Gets all valid targets, given the targetScope. Returns a deep copy of each combatant.

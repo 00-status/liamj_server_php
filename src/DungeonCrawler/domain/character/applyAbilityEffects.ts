@@ -1,11 +1,11 @@
+import { Combatant } from '../Combatant';
+import { Formation } from '../formation/types';
 import {
     Ability,
     BaseStatNames,
     Character,
     DamageType,
     PointModifier,
-    Combatant,
-    Formation,
     CombatEvent,
     CombatEventDamageTarget,
     CombatEventType,

@@ -1,4 +1,6 @@
-import { AbilityTarget, Combatant, FormationTeam } from '../types';
+import { Combatant } from '../Combatant';
+import { FormationTeam } from '../formation/types';
+import { AbilityTarget } from '../types';
 
 export const isTargetValid = (
     abilityTarget: AbilityTarget,

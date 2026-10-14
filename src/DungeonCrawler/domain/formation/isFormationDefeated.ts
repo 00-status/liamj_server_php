@@ -1,4 +1,4 @@
-import { Formation } from '../types';
+import { Formation } from './types';
 
 export const isFormationDefeated = (formation: Formation): boolean => {
     const livingCombatants = formation.combatants.filter(
