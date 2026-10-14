@@ -40,21 +40,24 @@ describe('Combatant', () => {
 
             // Pick the last marble (false) each time
             const pickLast = () => 0.99;
+            const spy = jest.spyOn(Math, 'random').mockImplementation(pickLast);
 
-            expect(combatant.rollCrit(25, pickLast)).toBe(false);
+            expect(combatant.rollCrit(25)).toBe(false);
             expect(combatant.critBag.length).toBe(3);
 
-            expect(combatant.rollCrit(25, pickLast)).toBe(false);
+            expect(combatant.rollCrit(25)).toBe(false);
             expect(combatant.critBag.length).toBe(2);
 
-            expect(combatant.rollCrit(25, pickLast)).toBe(false);
+            expect(combatant.rollCrit(25)).toBe(false);
             expect(combatant.critBag.length).toBe(1);
 
             // 4th roll has only [true] remaining -> guaranteed crit
-            expect(combatant.rollCrit(25, pickLast)).toBe(true);
+            expect(combatant.rollCrit(25)).toBe(true);
 
             // Resets immediately to full bag
             expect(combatant.critBag.length).toBe(4);
+
+            spy.mockRestore();
         });
 
         it('resets the bag immediately if a crit is scored on the first roll', () => {
@@ -62,22 +65,28 @@ describe('Combatant', () => {
 
             // Pick index 0 which is `true`
             const pickFirst = () => 0;
+            const spy = jest.spyOn(Math, 'random').mockImplementation(pickFirst);
 
-            expect(combatant.rollCrit(25, pickFirst)).toBe(true);
+            expect(combatant.rollCrit(25)).toBe(true);
             // Immediately reset to 4 marbles
             expect(combatant.critBag.length).toBe(4);
+
+            spy.mockRestore();
         });
 
         it('handles 1-in-2 chance (50% critChance)', () => {
             const combatant = new Combatant('c-1', buildTestCharacter(50), { x: 1, y: 1 });
             const pickLast = () => 0.99;
+            const spy = jest.spyOn(Math, 'random').mockImplementation(pickLast);
 
-            expect(combatant.rollCrit(50, pickLast)).toBe(false);
+            expect(combatant.rollCrit(50)).toBe(false);
             expect(combatant.critBag.length).toBe(1);
 
             // 2nd roll guaranteed crit
-            expect(combatant.rollCrit(50, pickLast)).toBe(true);
+            expect(combatant.rollCrit(50)).toBe(true);
             expect(combatant.critBag.length).toBe(2);
+
+            spy.mockRestore();
         });
     });
 

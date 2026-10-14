@@ -59,7 +59,6 @@ export const applyAbilityEffects = (
     initialTarget: Combatant,
     formationOfTarget: Formation,
     purchasedEquippables: Equipment[],
-    randomFn: () => number = Math.random,
 ): CombatEvent[] => {
     const casterEquippables = purchasedEquippables.filter(
         (equippable) => equippable.characterID === caster.character.id,
@@ -165,7 +164,7 @@ export const applyAbilityEffects = (
                 const targetEquippables = purchasedEquippables.filter(
                     (equippable) => equippable.characterID === target.character.id,
                 );
-                const isCritical = isPhysical && caster.rollCrit(critChance, randomFn);
+                const isCritical = isPhysical && caster.rollCrit(critChance);
                 const effectiveValue = isCritical ? calculatedValue * 2 : calculatedValue;
                 const statChange = handler.apply(
                     target.character,

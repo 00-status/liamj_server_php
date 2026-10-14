@@ -22,7 +22,7 @@ export class Combatant {
         this.critBag = [...critBag];
     }
 
-    public rollCrit(critChance: number, randomFn: () => number = Math.random): boolean {
+    public rollCrit(critChance: number): boolean {
         if (critChance <= 0) {
             return false;
         }
@@ -35,7 +35,7 @@ export class Combatant {
             this.resetCritBag(critChance);
         }
 
-        const marbleIndex = Math.floor(randomFn() * this.critBag.length);
+        const marbleIndex = Math.floor(Math.random() * this.critBag.length);
         const [isCrit] = this.critBag.splice(marbleIndex, 1);
 
         if (isCrit) {

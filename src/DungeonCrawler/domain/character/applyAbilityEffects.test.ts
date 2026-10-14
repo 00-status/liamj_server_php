@@ -139,6 +139,7 @@ describe('applyAbilityEffects', () => {
 
         // Helper randomFn that always picks the last element (which are the 'false' marbles until only 'true' remains)
         const pickLastMarble = () => 0.99;
+        const spy = jest.spyOn(Math, 'random').mockImplementation(pickLastMarble);
 
         // Attack 1: Miss (marble drawn: false)
         const events1 = applyAbilityEffects(
@@ -147,7 +148,6 @@ describe('applyAbilityEffects', () => {
             targetCombatant,
             targetFormation,
             [],
-            pickLastMarble,
         );
         const damage1 = events1.find((e) => e.type === CombatEventType.APPLY_DAMAGE);
         expect(damage1?.damageTargets[0].isCritical).toBe(false);
@@ -161,7 +161,6 @@ describe('applyAbilityEffects', () => {
             targetCombatant,
             targetFormation,
             [],
-            pickLastMarble,
         );
         const damage2 = events2.find((e) => e.type === CombatEventType.APPLY_DAMAGE);
         expect(damage2?.damageTargets[0].isCritical).toBe(false);
@@ -175,7 +174,6 @@ describe('applyAbilityEffects', () => {
             targetCombatant,
             targetFormation,
             [],
-            pickLastMarble,
         );
         const damage3 = events3.find((e) => e.type === CombatEventType.APPLY_DAMAGE);
         expect(damage3?.damageTargets[0].isCritical).toBe(false);
@@ -189,7 +187,6 @@ describe('applyAbilityEffects', () => {
             targetCombatant,
             targetFormation,
             [],
-            pickLastMarble,
         );
         const damage4 = events4.find((e) => e.type === CombatEventType.APPLY_DAMAGE);
         expect(damage4?.damageTargets[0].isCritical).toBe(true);
@@ -197,6 +194,8 @@ describe('applyAbilityEffects', () => {
 
         // After scoring a crit, the bag is immediately reset back to 4 marbles
         expect(attackerCombatant.critBag.length).toBe(4);
+
+        spy.mockRestore();
     });
 
     it('resets the marble bag immediately upon scoring a critical hit early', () => {
@@ -211,6 +210,7 @@ describe('applyAbilityEffects', () => {
 
         // randomFn returning 0 picks index 0 (which is `true` - a crit!)
         const pickCritMarble = () => 0;
+        const spy = jest.spyOn(Math, 'random').mockImplementation(pickCritMarble);
 
         const events = applyAbilityEffects(
             attackerCombatant,
@@ -218,7 +218,6 @@ describe('applyAbilityEffects', () => {
             targetCombatant,
             targetFormation,
             [],
-            pickCritMarble,
         );
         const damage = events.find((e) => e.type === CombatEventType.APPLY_DAMAGE);
         expect(damage?.damageTargets[0].isCritical).toBe(true);
@@ -226,6 +225,8 @@ describe('applyAbilityEffects', () => {
 
         // Bag should immediately be reset to full (4 marbles)
         expect(attackerCombatant.critBag.length).toBe(4);
+
+        spy.mockRestore();
     });
 
     it('does not crit for non-physical abilities even with 100% crit chance', () => {
@@ -304,6 +305,7 @@ describe('applyAbilityEffects', () => {
             callCount++;
             return callCount === 1 ? 0.99 : 0;
         };
+        const spy = jest.spyOn(Math, 'random').mockImplementation(sequentialRandom);
 
         const events = applyAbilityEffects(
             attackerCombatant,
@@ -311,24 +313,29 @@ describe('applyAbilityEffects', () => {
             targetCombatant1,
             targetFormation,
             [],
-            sequentialRandom,
         );
         const damageEvent = events.find((e) => e.type === CombatEventType.APPLY_DAMAGE);
         expect(damageEvent).toBeDefined();
         expect(damageEvent?.damageTargets).toHaveLength(2);
 
         // Target 1 was normal hit
-        const target1Damage = damageEvent?.damageTargets.find((t) => t.targetCombatantID === 'combatant-t1');
+        const target1Damage = damageEvent?.damageTargets.find(
+            (t) => t.targetCombatantID === 'combatant-t1',
+        );
         expect(target1Damage?.isCritical).toBe(false);
         expect(target1Damage?.amount).toBe(50);
 
         // Target 2 was critical hit
-        const target2Damage = damageEvent?.damageTargets.find((t) => t.targetCombatantID === 'combatant-t2');
+        const target2Damage = damageEvent?.damageTargets.find(
+            (t) => t.targetCombatantID === 'combatant-t2',
+        );
         expect(target2Damage?.isCritical).toBe(true);
         expect(target2Damage?.amount).toBe(100);
 
         // Bag reset because target 2 scored a crit
         expect(attackerCombatant.critBag.length).toBe(4);
+
+        spy.mockRestore();
     });
 
     it('never crits when crit chance is 0%', () => {
