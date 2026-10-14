@@ -59,6 +59,7 @@ export const applyAbilityEffects = (
     initialTarget: Combatant,
     formationOfTarget: Formation,
     purchasedEquippables: Equipment[],
+    randomFn: () => number = Math.random,
 ): CombatEvent[] => {
     const casterEquippables = purchasedEquippables.filter(
         (equippable) => equippable.characterID === caster.character.id,
@@ -155,20 +156,27 @@ export const applyAbilityEffects = (
         if (handler && pointEffect.duration <= 0) {
             const baseStat = handler.getStat(caster.character, casterEquippables);
             const calculatedValue = baseStat * pointEffect.power;
+            const isPhysical = pointEffect.damageType === DamageType.PHYSICAL;
+            const critChance = isPhysical
+                ? getCharacterStat(caster.character, casterEquippables, BaseStatNames.critChance)
+                : 0;
 
             const combatEventTargets: CombatEventDamageTarget[] = targets.map((target) => {
                 const targetEquippables = purchasedEquippables.filter(
                     (equippable) => equippable.characterID === target.character.id,
                 );
+                const isCritical = isPhysical && caster.rollCrit(critChance, randomFn);
+                const effectiveValue = isCritical ? calculatedValue * 2 : calculatedValue;
                 const statChange = handler.apply(
                     target.character,
                     targetEquippables,
-                    calculatedValue,
+                    effectiveValue,
                 );
 
                 return {
                     targetCombatantID: target.id,
                     amount: statChange,
+                    isCritical,
                 };
             });
 

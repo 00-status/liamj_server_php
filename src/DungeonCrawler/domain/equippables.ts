@@ -121,4 +121,25 @@ export const exampleEquippables: Equipment[] = [
             },
         ],
     },
+    {
+        id: crypto.randomUUID(),
+        characterID: null,
+        name: "Assassin's Dagger",
+        cost: 350,
+        slot: EquipmentSlot.weapon,
+        modifiers: [
+            {
+                id: crypto.randomUUID(),
+                stat: BaseStatNames.attack,
+                value: 10,
+                type: DamageScaleMethod.FLAT,
+            },
+            {
+                id: crypto.randomUUID(),
+                stat: BaseStatNames.critChance,
+                value: 25,
+                type: DamageScaleMethod.FLAT,
+            },
+        ],
+    },
 ];

@@ -114,6 +114,7 @@ export const dungeonCrawlerReducer = (
             return {
                 ...state,
                 phase: GamePhase.PLAYER_EXECUTES,
+                playerFormation: updateFormation(state.playerFormation, { [caster.id]: caster }),
                 combatEvents: [
                     ...state.combatEvents,
                     ...pointModifierEvents,
@@ -189,6 +190,9 @@ export const dungeonCrawlerReducer = (
             return {
                 ...state,
                 phase: GamePhase.ENEMY_EXECUTES,
+                monsterFormation: updateFormation(state.monsterFormation, {
+                    [actingMonster.id]: updatedActingMonster,
+                }),
                 combatEvents: [...state.combatEvents, ...combatEvents],
             };
         }

@@ -52,6 +52,7 @@ const examplePlayer: Character = {
         magicAttack: 20,
         defence: 10,
         magicDefence: 10,
+        critChance: 0,
     },
     modifiers: [],
     pointModifiers: [],
@@ -124,6 +125,7 @@ const examplePlayer2: Character = {
         magicAttack: 25,
         defence: 15,
         magicDefence: 15,
+        critChance: 0,
     },
     modifiers: [],
     pointModifiers: [],
@@ -176,4 +178,5 @@ export const BaseStatDisplayNames = {
     magicAttack: 'Magic Attack',
     defence: 'Defence',
     magicDefence: 'Magic Defence',
+    critChance: 'Crit Chance',
 };
