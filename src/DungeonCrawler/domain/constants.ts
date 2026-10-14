@@ -75,23 +75,6 @@ const examplePlayer: Character = {
             statusEffects: [],
         },
         {
-            name: 'Sweep the Leg!',
-            cost: 2,
-            type: AbilityType.magic,
-            abilityTarget: AbilityTarget.OPPONENT_FORMATION,
-            pointEffects: [
-                {
-                    id: crypto.randomUUID(),
-                    name: 'Sweep the Leg!',
-                    target: TargetScope.target_and_adjacent,
-                    damageType: DamageType.MAGIC,
-                    power: 1.2,
-                    duration: 0,
-                },
-            ],
-            statusEffects: [],
-        },
-        {
             name: 'Get me a beer!',
             cost: 2,
             type: AbilityType.magic,
@@ -156,6 +139,23 @@ const examplePlayer2: Character = {
                     damageScaleType: DamageScaleMethod.FLAT,
                 },
             ],
+        },
+        {
+            name: 'Sweep the Leg!',
+            cost: 2,
+            type: AbilityType.magic,
+            abilityTarget: AbilityTarget.OPPONENT_FORMATION,
+            pointEffects: [
+                {
+                    id: crypto.randomUUID(),
+                    name: 'Sweep the Leg!',
+                    target: TargetScope.target_and_adjacent,
+                    damageType: DamageType.PHYSICAL,
+                    power: 1.0,
+                    duration: 0,
+                },
+            ],
+            statusEffects: [],
         },
     ],
 };

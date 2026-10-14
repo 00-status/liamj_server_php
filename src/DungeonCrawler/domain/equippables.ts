@@ -131,7 +131,7 @@ export const exampleEquippables: Equipment[] = [
             {
                 id: crypto.randomUUID(),
                 stat: BaseStatNames.attack,
-                value: 10,
+                value: 20,
                 type: DamageScaleMethod.FLAT,
             },
             {
