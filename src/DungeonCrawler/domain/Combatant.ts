@@ -36,7 +36,7 @@ export class Combatant {
         return false;
     }
 
-    public resetCritBag(critChance: number): void {
+    private resetCritBag(critChance: number): void {
         if (critChance <= 0) {
             this.critBag = [];
             return;
