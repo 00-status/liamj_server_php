@@ -1,6 +1,8 @@
 import './player-formation.css';
 import { Card } from '../../../SharedComponents/Card/Card';
-import { Ability, Combatant, CombatEvent, Equipment, Formation } from '../../domain/types';
+import { Combatant } from '../../domain/Combatant';
+import { Formation } from '../../domain/formation/types';
+import { Ability, CombatEvent, Equipment } from '../../domain/types';
 
 import { PlayerStats } from './PlayerStats';
 import { PlayerActions } from './PlayerActions';

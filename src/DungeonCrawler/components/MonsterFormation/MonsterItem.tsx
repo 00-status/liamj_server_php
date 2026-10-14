@@ -1,14 +1,9 @@
 import './monster-item.css';
 
 import { isTargetValid } from '../../domain/character/isTargetValid';
-import {
-    Ability,
-    Combatant,
-    CombatEvent,
-    CombatEventType,
-    FormationTeam,
-    MonsterCombatant,
-} from '../../domain/types';
+import { Combatant, MonsterCombatant } from '../../domain/Combatant';
+import { FormationTeam } from '../../domain/formation/types';
+import { Ability, CombatEvent, CombatEventType } from '../../domain/types';
 import {
     getAnimationData,
     getEventAnimationTargetIDs,

@@ -4,13 +4,12 @@ import {
     decreaseTurnsForMonsterCombatantList,
     resetTurnsUntilAction,
 } from '../monster/turnsUntilAction';
+import { Combatant, MonsterCombatant } from '../Combatant';
 import {
     Character,
-    Combatant,
     CombatEvent,
     CombatEventType,
     Equipment,
-    MonsterCombatant,
 } from '../types';
 
 type CombatantDictionary = { [combatantID: string]: Combatant };

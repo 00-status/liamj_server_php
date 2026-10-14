@@ -1,6 +1,8 @@
 import './monster-stats.css';
 import { Card } from '../../../SharedComponents/Card/Card';
-import { Ability, Combatant, CombatEvent, Formation, MonsterCombatant } from '../../domain/types';
+import { Combatant, MonsterCombatant } from '../../domain/Combatant';
+import { Formation } from '../../domain/formation/types';
+import { Ability, CombatEvent } from '../../domain/types';
 
 import { MonsterItem } from './MonsterItem';
 

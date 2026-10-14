@@ -1,4 +1,6 @@
-import { Character, Combatant, Formation, FormationTeam, MonsterCombatant } from '../types';
+import { Combatant, MonsterCombatant } from '../Combatant';
+import { Formation, FormationTeam } from '../formation/types';
+import { Character } from '../types';
 import { getRandomInt } from '../utils';
 
 const MIN_GRID = 1;

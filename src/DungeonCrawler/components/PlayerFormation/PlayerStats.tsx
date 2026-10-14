@@ -41,6 +41,10 @@ export const PlayerStats = ({ character, purchasedEquipment }: Props) => {
                 label="MDEF"
                 value={getCharacterStat(character, characterEquipment, BaseStatNames.magicDefence)}
             />
+            <CharacterStat
+                label="CRIT"
+                value={`${getCharacterStat(character, characterEquipment, BaseStatNames.critChance)}%`}
+            />
         </div>
     );
 };

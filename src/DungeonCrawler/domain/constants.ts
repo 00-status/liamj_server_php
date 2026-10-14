@@ -1,3 +1,5 @@
+import { Combatant } from './Combatant';
+import { Formation, FormationTeam } from './formation/types';
 import {
     Ability,
     AbilityTarget,
@@ -5,11 +7,8 @@ import {
     BaseStatNames,
     Character,
     CharacterTier,
-    Combatant,
     DamageScaleMethod,
     DamageType,
-    Formation,
-    FormationTeam,
     TargetScope,
 } from './types';
 
@@ -52,6 +51,7 @@ const examplePlayer: Character = {
         magicAttack: 20,
         defence: 10,
         magicDefence: 10,
+        critChance: 0,
     },
     modifiers: [],
     pointModifiers: [],
@@ -69,23 +69,6 @@ const examplePlayer: Character = {
                     target: TargetScope.target,
                     damageType: DamageType.MAGIC,
                     power: 1.5,
-                    duration: 0,
-                },
-            ],
-            statusEffects: [],
-        },
-        {
-            name: 'Sweep the Leg!',
-            cost: 2,
-            type: AbilityType.magic,
-            abilityTarget: AbilityTarget.OPPONENT_FORMATION,
-            pointEffects: [
-                {
-                    id: crypto.randomUUID(),
-                    name: 'Sweep the Leg!',
-                    target: TargetScope.target_and_adjacent,
-                    damageType: DamageType.MAGIC,
-                    power: 1.2,
                     duration: 0,
                 },
             ],
@@ -124,6 +107,7 @@ const examplePlayer2: Character = {
         magicAttack: 25,
         defence: 15,
         magicDefence: 15,
+        critChance: 0,
     },
     modifiers: [],
     pointModifiers: [],
@@ -156,6 +140,23 @@ const examplePlayer2: Character = {
                 },
             ],
         },
+        {
+            name: 'Sweep the Leg!',
+            cost: 2,
+            type: AbilityType.magic,
+            abilityTarget: AbilityTarget.OPPONENT_FORMATION,
+            pointEffects: [
+                {
+                    id: crypto.randomUUID(),
+                    name: 'Sweep the Leg!',
+                    target: TargetScope.target_and_adjacent,
+                    damageType: DamageType.PHYSICAL,
+                    power: 1.0,
+                    duration: 0,
+                },
+            ],
+            statusEffects: [],
+        },
     ],
 };
 
@@ -176,4 +177,5 @@ export const BaseStatDisplayNames = {
     magicAttack: 'Magic Attack',
     defence: 'Defence',
     magicDefence: 'Magic Defence',
+    critChance: 'Crit Chance',
 };

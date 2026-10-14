@@ -16,7 +16,9 @@ export const getAnimationData = (event: CombatEvent, targetID: string): CombatAn
                 name: 'character-damage-number',
                 container: 'child',
                 combatEventType: CombatEventType.APPLY_DAMAGE,
-                text: String(damageTarget.amount),
+                text: damageTarget.isCritical
+                    ? `${damageTarget.amount} CRIT!`
+                    : String(damageTarget.amount),
             };
         }
         case CombatEventType.CAST_ABILITY: {

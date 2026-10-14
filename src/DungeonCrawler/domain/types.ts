@@ -1,57 +1,3 @@
-export interface Formation {
-    id: string;
-    team: FormationTeam;
-    combatants: Combatant[];
-    gridDimensions: { x: number; y: number };
-}
-
-export enum FormationTeam {
-    PLAYER = 'PLAYER',
-    MONSTER = 'MONSTER',
-}
-
-export class Combatant {
-    constructor(
-        public id: string,
-        public character: Character,
-        public position: Position,
-    ) {}
-
-    public clone(): Combatant {
-        const characterClone = structuredClone(this.character);
-        const positionClone = structuredClone(this.position);
-
-        return Object.assign(Object.create(Object.getPrototypeOf(this)), this, {
-            character: characterClone,
-            position: positionClone,
-        });
-    }
-
-    cloneWith<T extends Combatant>(this: T, changes: Partial<T>): T {
-        const characterClone = structuredClone(this.character);
-        const positionClone = structuredClone(this.position);
-
-        return Object.assign(
-            Object.create(Object.getPrototypeOf(this)),
-            this,
-            { character: characterClone, position: positionClone },
-            changes,
-        );
-    }
-}
-
-export class MonsterCombatant extends Combatant {
-    constructor(
-        id: string,
-        character: Character,
-        position: Position,
-        public turnsUntilAction: number,
-    ) {
-        super(id, character, position);
-        this.turnsUntilAction = turnsUntilAction;
-    }
-}
-
 export interface Position {
     x: number;
     y: number;
@@ -83,6 +29,7 @@ export enum BaseStatNames {
     magicAttack = 'magicAttack',
     defence = 'defence',
     magicDefence = 'magicDefence',
+    critChance = 'critChance',
 }
 
 export interface BaseStats {
@@ -92,6 +39,7 @@ export interface BaseStats {
     [BaseStatNames.magicAttack]: number;
     [BaseStatNames.defence]: number;
     [BaseStatNames.magicDefence]: number;
+    [BaseStatNames.critChance]: number;
 }
 
 export enum DamageScaleMethod {
@@ -227,6 +175,7 @@ interface ApplyDamageEvent extends BaseCombatEvent {
 export interface CombatEventDamageTarget {
     targetCombatantID: string;
     amount: number;
+    isCritical?: boolean;
 }
 
 interface ApplyPointEffectEvent extends BaseCombatEvent {

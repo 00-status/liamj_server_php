@@ -1,14 +1,14 @@
 import './player-grid-button.css';
 
 import { isTargetValid } from '../../domain/character/isTargetValid';
+import { Combatant } from '../../domain/Combatant';
+import { FormationTeam } from '../../domain/formation/types';
 import {
     Ability,
     BaseStatNames,
-    Combatant,
     CombatEvent,
     CombatEventType,
     Equipment,
-    FormationTeam,
 } from '../../domain/types';
 import {
     getAnimationData,

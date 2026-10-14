@@ -1,7 +1,8 @@
 import { useCallback } from 'react';
 
 import { Dropdown } from '../../../SharedComponents/Dropdown/Dropdown';
-import { Combatant, Equipment, EquipmentSlot } from '../../domain/types';
+import { Combatant } from '../../domain/Combatant';
+import { Equipment, EquipmentSlot } from '../../domain/types';
 
 const EQUIPMENT_CONFIG = [
     { label: 'Armour', slot: EquipmentSlot.armour },

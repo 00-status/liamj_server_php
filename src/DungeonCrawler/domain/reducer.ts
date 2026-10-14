@@ -6,14 +6,11 @@ import { exampleMonsters } from './monsters';
 import {
     Ability,
     BaseStatNames,
-    Combatant,
     CombatEvent,
     CombatEventType,
     DamageType,
     Equipment,
-    Formation,
     LogMessage,
-    MonsterCombatant,
 } from './types';
 import { selectTargetForMonster } from './monster/selectTargetForMonster';
 import { resetTurnsUntilAction } from './monster/turnsUntilAction';
@@ -25,6 +22,8 @@ import { shouldPlayerVisitShop } from './formation/shouldPlayerVisitShop';
 import { canCharacterEquipItem } from './character/canCharacterEquipItem';
 import { calculateValueOfCharacters } from './character/calculateValueOfCharacters';
 import { getCharacterStat } from './character/getCharacterStat';
+import { Formation } from './formation/types';
+import { Combatant, MonsterCombatant } from './Combatant';
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability; caster: Combatant; target: Combatant }
@@ -114,6 +113,7 @@ export const dungeonCrawlerReducer = (
             return {
                 ...state,
                 phase: GamePhase.PLAYER_EXECUTES,
+                playerFormation: updateFormation(state.playerFormation, { [caster.id]: caster }),
                 combatEvents: [
                     ...state.combatEvents,
                     ...pointModifierEvents,
@@ -189,6 +189,9 @@ export const dungeonCrawlerReducer = (
             return {
                 ...state,
                 phase: GamePhase.ENEMY_EXECUTES,
+                monsterFormation: updateFormation(state.monsterFormation, {
+                    [actingMonster.id]: updatedActingMonster,
+                }),
                 combatEvents: [...state.combatEvents, ...combatEvents],
             };
         }
