@@ -3,14 +3,13 @@
     text-align: center;
     padding: 8px;
 
-    border-radius: 8px;
-    background-color: #3b3b40;
-    box-shadow: 1px 1px 4px #1f2028;
+    border: 2px solid #f7f7f7;
+    border-radius: 4px;
 }
 
 .monster-item--selecting {
-    border: 1px solid #fcfeff;
-    animation: monster-item-smooth-flash 1.5s ease-in-out infinite alternate;
+    border: 2px dashed #f7f7f7;
+    animation: monster-item-smooth-flash 1s ease-in-out infinite alternate;
 }
 .monster-item--selecting:hover {
     background-color: #49494e;

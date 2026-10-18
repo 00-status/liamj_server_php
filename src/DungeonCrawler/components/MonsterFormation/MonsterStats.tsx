@@ -1,5 +1,4 @@
 import './monster-stats.css';
-import { Card } from '../../../SharedComponents/Card/Card';
 import { Combatant, MonsterCombatant } from '../../domain/Combatant';
 import { Formation } from '../../domain/formation/types';
 import { Ability, CombatEvent } from '../../domain/types';
@@ -31,19 +30,17 @@ export const MonsterStats = ({
     };
 
     return (
-        <Card title={'Monsters!'} isFullWidth>
-            <div className="monster-stats" style={gridStyles}>
-                {monsters.map((combatant) => (
-                    <MonsterItem
-                        key={combatant.id}
-                        combatant={combatant}
-                        currentAbility={currentAbility}
-                        currentPlayer={currentPlayer}
-                        activeCombatEvent={activeCombatEvent}
-                        onEnemySelect={onEnemySelect}
-                    />
-                ))}
-            </div>
-        </Card>
+        <div className="monster-stats" style={gridStyles}>
+            {monsters.map((combatant) => (
+                <MonsterItem
+                    key={combatant.id}
+                    combatant={combatant}
+                    currentAbility={currentAbility}
+                    currentPlayer={currentPlayer}
+                    activeCombatEvent={activeCombatEvent}
+                    onEnemySelect={onEnemySelect}
+                />
+            ))}
+        </div>
     );
 };
