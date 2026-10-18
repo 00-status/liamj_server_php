@@ -18,32 +18,34 @@ export const CharacterStatCard = ({ character, purchasedEquipment }: Props) => {
         <div className="character-stat-card">
             {character.name}
             <div>
-                {`HP ${character.currentHP}/${getCharacterStat(character, characterEquipment, BaseStatNames.healthPoints)}`}
+                <span className="character-stat-card__hit-points">HP</span>
+                <span>{` ${character.currentHP}/${getCharacterStat(character, characterEquipment, BaseStatNames.healthPoints)}`}</span>
             </div>
             <div>
-                {`MP ${character.currentMP} / ${getCharacterStat(character, characterEquipment, BaseStatNames.magicPoints)}`}
+                <span className="character-stat-card__magic-points">MP</span>
+                <span>{` ${character.currentMP}/${getCharacterStat(character, characterEquipment, BaseStatNames.magicPoints)}`}</span>
             </div>
             <div className="character-stat-card__grid">
                 <div className="character-stat-card__grid-item">
-                    <div>ATK</div>
+                    <div className="character-stat-card__attack">ATK</div>
                     <div>
                         {getCharacterStat(character, characterEquipment, BaseStatNames.attack)}
                     </div>
                 </div>
                 <div className="character-stat-card__grid-item">
-                    <div>DEF</div>
+                    <div className="character-stat-card__defence">DEF</div>
                     <div>
                         {getCharacterStat(character, characterEquipment, BaseStatNames.defence)}
                     </div>
                 </div>
                 <div className="character-stat-card__grid-item">
-                    <div>MATK</div>
+                    <div className="character-stat-card__magic-attack">MATK</div>
                     <div>
                         {getCharacterStat(character, characterEquipment, BaseStatNames.magicAttack)}
                     </div>
                 </div>
                 <div className="character-stat-card__grid-item">
-                    <div>MDEF</div>
+                    <div className="character-stat-card__magic-defence">MDEF</div>
                     <div>
                         {getCharacterStat(
                             character,
@@ -53,7 +55,7 @@ export const CharacterStatCard = ({ character, purchasedEquipment }: Props) => {
                     </div>
                 </div>
                 <div className="character-stat-card__grid-item">
-                    <div>CRIT</div>
+                    <div className="character-stat-card__crit">CRIT</div>
                     <div>
                         {`${getCharacterStat(character, characterEquipment, BaseStatNames.critChance)}%`}
                     </div>

@@ -63,7 +63,7 @@ export const VerticalCharacterMenu = ({
                         Log
                     </button>
                 </div>
-                <div>
+                <div className="vertical-character-menu__container">
                     {currentMenuState === MenuState.STATS &&
                         playerCharacters.map((playerCharacter) => (
                             <CharacterStatCard

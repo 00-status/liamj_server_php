@@ -17,6 +17,10 @@
     background-color: transparent;
 }
 
+.vertical-character-menu__container {
+    padding: 0 20px;
+}
+
 @media only screen and (max-width: 600px) {
     .vertical-character-menu {
         position: fixed;
