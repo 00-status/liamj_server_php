@@ -1,6 +1,7 @@
 .vertical-character-menu {
     width: 400px;
     flex-shrink: 0;
+    background-color: black;
 }
 
 .vertical-character-menu__buttons {
@@ -14,4 +15,42 @@
     border: 0;
     border-radius: 0;
     background-color: transparent;
+}
+
+@media only screen and (max-width: 600px) {
+    .vertical-character-menu {
+        position: fixed;
+        z-index: 3;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 80%;
+
+        transition: transform 0.15s ease-in-out;
+        transform: translateX(-100%);
+    }
+
+    .vertical-character-menu__open {
+        transform: translateX(0);
+    }
+
+    .vertical-character-menu__overlay {
+        position: fixed;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        visibility: hidden;
+        opacity: 0;
+        transition:
+            opacity 0.3s ease-in-out,
+            visibility 0.3s ease-in-out;
+    }
+
+    .vertical-character-menu__overlay--open {
+        visibility: visible;
+        opacity: 1;
+    }
 }

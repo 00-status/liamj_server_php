@@ -14,6 +14,8 @@ enum MenuState {
 }
 
 type Props = {
+    isOpen: boolean;
+    toggleIsOpen: (value: boolean) => void;
     combatLog: LogMessage[];
     playerWealth: number;
     playerCharacters: Character[];
@@ -23,6 +25,8 @@ type Props = {
 // TODO: Change the colour of the active menu button.
 
 export const VerticalCharacterMenu = ({
+    isOpen,
+    toggleIsOpen,
     combatLog,
     playerWealth,
     playerCharacters,
@@ -31,53 +35,61 @@ export const VerticalCharacterMenu = ({
     const [currentMenuState, setCurrentMenuState] = useState<MenuState>(MenuState.STATS);
 
     return (
-        <div className="vertical-character-menu">
-            <div className="vertical-character-menu__buttons">
-                <button
-                    className="vertical-character-menu__button"
-                    onClick={() => setCurrentMenuState(MenuState.STATS)}
-                >
-                    Stats
-                </button>
-                <button
-                    className="vertical-character-menu__button"
-                    onClick={() => setCurrentMenuState(MenuState.INV)}
-                >
-                    Inv
-                </button>
-                <button
-                    className="vertical-character-menu__button"
-                    onClick={() => setCurrentMenuState(MenuState.LOG)}
-                >
-                    Log
-                </button>
-            </div>
-            <div>
-                {currentMenuState === MenuState.STATS &&
-                    playerCharacters.map((playerCharacter) => (
-                        <CharacterStatCard
-                            key={`stat-card-${playerCharacter.id}`}
-                            character={playerCharacter}
-                            purchasedEquipment={purchasedEquipment}
+        <>
+            <div
+                className={`vertical-character-menu__overlay ${isOpen ? 'vertical-character-menu__overlay--open' : ''}`}
+                onClick={() => toggleIsOpen(!isOpen)}
+            />
+            <div
+                className={`vertical-character-menu ${isOpen ? 'vertical-character-menu__open' : ''}`}
+            >
+                <div className="vertical-character-menu__buttons">
+                    <button
+                        className="vertical-character-menu__button"
+                        onClick={() => setCurrentMenuState(MenuState.STATS)}
+                    >
+                        Stats
+                    </button>
+                    <button
+                        className="vertical-character-menu__button"
+                        onClick={() => setCurrentMenuState(MenuState.INV)}
+                    >
+                        Inv
+                    </button>
+                    <button
+                        className="vertical-character-menu__button"
+                        onClick={() => setCurrentMenuState(MenuState.LOG)}
+                    >
+                        Log
+                    </button>
+                </div>
+                <div>
+                    {currentMenuState === MenuState.STATS &&
+                        playerCharacters.map((playerCharacter) => (
+                            <CharacterStatCard
+                                key={`stat-card-${playerCharacter.id}`}
+                                character={playerCharacter}
+                                purchasedEquipment={purchasedEquipment}
+                            />
+                        ))}
+                    {currentMenuState === MenuState.INV && (
+                        <PlayerInventory
+                            equippables={purchasedEquipment}
+                            wealth={playerWealth}
+                            playerCharacters={playerCharacters}
                         />
-                    ))}
-                {currentMenuState === MenuState.INV && (
-                    <PlayerInventory
-                        equippables={purchasedEquipment}
-                        wealth={playerWealth}
-                        playerCharacters={playerCharacters}
-                    />
-                )}
-                {currentMenuState === MenuState.LOG && (
-                    <Card title="Log">
-                        <div>
-                            {combatLog.map((log) => (
-                                <p key={log.id}>{log.message}</p>
-                            ))}
-                        </div>
-                    </Card>
-                )}
+                    )}
+                    {currentMenuState === MenuState.LOG && (
+                        <Card title="Log">
+                            <div>
+                                {combatLog.map((log) => (
+                                    <p key={log.id}>{log.message}</p>
+                                ))}
+                            </div>
+                        </Card>
+                    )}
+                </div>
             </div>
-        </div>
+        </>
     );
 };
