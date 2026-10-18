@@ -13,17 +13,19 @@ import { getCombatEventDuration } from './domain/combatEvents/getAnimationData';
 import { DungeonShop } from './components/DungeonShop';
 import { VerticalCharacterMenu } from './components/VerticalMenu/VerticalCharacterMenu';
 
-// Vertical Menu that holds some sub-menus
-//      Stats menu, Inventory Menu, and Log Menu
-//      Clicking on an icon navigates to a particular menu.
-//      On Mobile the menu is hidden and only pops out when a button is pressed.
-//      On Desktop the menu is always visible and takes up about 25% of the screen.
-// Stats Menu
+// Vertical Menu that holds some sub-menus 🟡
+//      Stats menu, Inventory Menu, and Log Menu ✅
+//      Clicking on an icon navigates to a particular menu. ✅
+//      On Mobile the menu is hidden and only pops out when a button is pressed. ✅
+//      On Desktop the menu is always visible and takes up about 25% of the screen. ✅
+// Stats Menu 🟡
 //      Lists each player-character in the game.
 //      Each item displays the character's Current Hit Points, Max Hit Points, Magic Points, Max Magic Points, Attack, Magic Attack, Defence, Magic Defence, Crit Chance
+//      TODO: Change the colour of modified stats.
+//      TODO: Change the colour of Attack, Magic Attack, and Crit Chance
 // Inventory Menu
-//      Displays purchased Items
-//      The Player assign Items to their character here.
+//      Displays purchased Items ✅
+//      TODO: The Player can assign Items to their character here. 🔴
 // Log Menu (To be done in #51)
 //      Displays a log of combat so far.
 
