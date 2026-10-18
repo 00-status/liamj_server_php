@@ -7,6 +7,14 @@
 
 .dungeon-crawler-page {
     display: flex;
+    flex-direction: row;
+
+    width: 100%;
+    gap: 20px;
+}
+
+.dungeon-crawler-page__dungeon {
+    display: flex;
     flex-direction: column;
 
     width: 100%;

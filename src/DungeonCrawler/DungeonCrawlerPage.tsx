@@ -124,8 +124,16 @@ const DungeonCrawlerPage = () => {
     }
 
     return (
-        <div>
-            <div className="dungeon-crawler-page">
+        <div className="dungeon-crawler-page">
+            <VerticalCharacterMenu
+                combatLog={combatLog}
+                playerWealth={playerWealth}
+                playerCharacters={playerFormation.combatants.map(
+                    (combatant) => combatant.character,
+                )}
+                purchasedEquipment={playerInventory}
+            />
+            <div className="dungeon-crawler-page__dungeon">
                 <div className="dungeon-crawler-page__room_count">{roomsClearedCount}</div>
                 {phase === GamePhase.SHOPPING && (
                     <DungeonShop
@@ -162,14 +170,6 @@ const DungeonCrawlerPage = () => {
                     onTargetCombatant={onTargetSelect}
                 />
             </div>
-            <VerticalCharacterMenu
-                combatLog={combatLog}
-                playerWealth={playerWealth}
-                playerCharacters={playerFormation.combatants.map(
-                    (combatant) => combatant.character,
-                )}
-                purchasedEquipment={playerInventory}
-            />
         </div>
     );
 };

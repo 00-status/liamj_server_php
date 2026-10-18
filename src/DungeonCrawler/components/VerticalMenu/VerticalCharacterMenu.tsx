@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import './vertical-character-menu.css';
 import { Card } from '../../../SharedComponents/Card/Card';
 import { Character, Equipment, LogMessage } from '../../domain/types';
 
@@ -19,6 +20,8 @@ type Props = {
     purchasedEquipment: Equipment[];
 };
 
+// TODO: Change the colour of the active menu button.
+
 export const VerticalCharacterMenu = ({
     combatLog,
     playerWealth,
@@ -28,11 +31,26 @@ export const VerticalCharacterMenu = ({
     const [currentMenuState, setCurrentMenuState] = useState<MenuState>(MenuState.STATS);
 
     return (
-        <div>
-            <div>
-                <button onClick={() => setCurrentMenuState(MenuState.STATS)}>Stats</button>
-                <button onClick={() => setCurrentMenuState(MenuState.INV)}>Inv</button>
-                <button onClick={() => setCurrentMenuState(MenuState.LOG)}>Log</button>
+        <div className="vertical-character-menu">
+            <div className="vertical-character-menu__buttons">
+                <button
+                    className="vertical-character-menu__button"
+                    onClick={() => setCurrentMenuState(MenuState.STATS)}
+                >
+                    Stats
+                </button>
+                <button
+                    className="vertical-character-menu__button"
+                    onClick={() => setCurrentMenuState(MenuState.INV)}
+                >
+                    Inv
+                </button>
+                <button
+                    className="vertical-character-menu__button"
+                    onClick={() => setCurrentMenuState(MenuState.LOG)}
+                >
+                    Log
+                </button>
             </div>
             <div>
                 {currentMenuState === MenuState.STATS &&
