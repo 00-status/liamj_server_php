@@ -1,0 +1,18 @@
+.character-stat-card {
+    margin-bottom: 20px;
+    width: 400px;
+}
+
+.character-stat-card__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.character-stat-card__grid-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

@@ -8,6 +8,7 @@ import { Ability, CombatEvent } from './domain/types';
 import { PlayerFormation } from './components/PlayerFormation/PlayerFormation';
 import { getCombatEventDuration } from './domain/combatEvents/getAnimationData';
 import { DungeonShop } from './components/DungeonShop';
+import { VerticalCharacterMenu } from './components/VerticalMenu/VerticalCharacterMenu';
 
 // Vertical Menu that holds some sub-menus
 //      Stats menu, Inventory Menu, and Log Menu
@@ -118,48 +119,57 @@ const DungeonCrawlerPage = () => {
         dispatch({ type: 'LEAVE_SHOP' });
     };
 
+    if (phase === GamePhase.GAME_OVER) {
+        return <div>Game Over!</div>;
+    }
+
     return (
         <div>
-            {phase === GamePhase.GAME_OVER && <div>Game Over!</div>}
-            {phase !== GamePhase.GAME_OVER && (
-                <div className="dungeon-crawler-page">
-                    <div className="dungeon-crawler-page__room_count">{roomsClearedCount}</div>
-                    {phase === GamePhase.SHOPPING && (
-                        <DungeonShop
-                            purchasedItems={playerInventory}
-                            playerWealth={playerWealth}
-                            onPlayerPurchase={onPlayerPurchase}
-                            onPlayerContinue={onPlayerLeaveShop}
-                        />
-                    )}
-                    {phase !== GamePhase.SHOPPING && (
-                        <MonsterStats
-                            formation={monsterFormation}
-                            currentAbility={selectedAbility}
-                            currentPlayer={selectedPlayerCharacter || null}
-                            activeCombatEvent={activeCombatEvent}
-                            onEnemySelect={onTargetSelect}
-                        />
-                    )}
-                    <PlayerFormation
-                        formation={playerFormation}
-                        purchasedEquipment={playerInventory}
-                        canPlayerTakeActions={
-                            phase === GamePhase.PLAYER_TURN &&
-                            !!selectedPlayerCharacter &&
-                            selectedPlayerCharacter.character.currentHP > 0
-                        }
-                        currentPlayer={selectedPlayerCharacter || null}
-                        currentAbility={selectedAbility}
-                        activeCombatEvent={activeCombatEvent}
-                        onPlayerSelect={(combatantID: string) =>
-                            setSelectedPlayerCharacterID(combatantID)
-                        }
-                        onPlayerAbility={onPlayerAbilitySelect}
-                        onTargetCombatant={onTargetSelect}
+            <div className="dungeon-crawler-page">
+                <div className="dungeon-crawler-page__room_count">{roomsClearedCount}</div>
+                {phase === GamePhase.SHOPPING && (
+                    <DungeonShop
+                        purchasedItems={playerInventory}
+                        playerWealth={playerWealth}
+                        onPlayerPurchase={onPlayerPurchase}
+                        onPlayerContinue={onPlayerLeaveShop}
                     />
-                </div>
-            )}
+                )}
+                {phase !== GamePhase.SHOPPING && (
+                    <MonsterStats
+                        formation={monsterFormation}
+                        currentAbility={selectedAbility}
+                        currentPlayer={selectedPlayerCharacter || null}
+                        activeCombatEvent={activeCombatEvent}
+                        onEnemySelect={onTargetSelect}
+                    />
+                )}
+                <PlayerFormation
+                    formation={playerFormation}
+                    purchasedEquipment={playerInventory}
+                    canPlayerTakeActions={
+                        phase === GamePhase.PLAYER_TURN &&
+                        !!selectedPlayerCharacter &&
+                        selectedPlayerCharacter.character.currentHP > 0
+                    }
+                    currentPlayer={selectedPlayerCharacter || null}
+                    currentAbility={selectedAbility}
+                    activeCombatEvent={activeCombatEvent}
+                    onPlayerSelect={(combatantID: string) =>
+                        setSelectedPlayerCharacterID(combatantID)
+                    }
+                    onPlayerAbility={onPlayerAbilitySelect}
+                    onTargetCombatant={onTargetSelect}
+                />
+            </div>
+            <VerticalCharacterMenu
+                combatLog={combatLog}
+                playerWealth={playerWealth}
+                playerCharacters={playerFormation.combatants.map(
+                    (combatant) => combatant.character,
+                )}
+                purchasedEquipment={playerInventory}
+            />
         </div>
     );
 };

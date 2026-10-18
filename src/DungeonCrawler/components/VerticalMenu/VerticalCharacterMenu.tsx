@@ -4,6 +4,7 @@ import { Card } from '../../../SharedComponents/Card/Card';
 import { Character, Equipment, LogMessage } from '../../domain/types';
 
 import { PlayerInventory } from './PlayerInventory';
+import { CharacterStatCard } from './CharacterStatCard';
 
 enum MenuState {
     STATS,
@@ -13,7 +14,6 @@ enum MenuState {
 
 type Props = {
     combatLog: LogMessage[];
-    playerInventory: Equipment[];
     playerWealth: number;
     playerCharacters: Character[];
     purchasedEquipment: Equipment[];
@@ -21,9 +21,9 @@ type Props = {
 
 export const VerticalCharacterMenu = ({
     combatLog,
-    playerInventory,
     playerWealth,
     playerCharacters,
+    purchasedEquipment,
 }: Props) => {
     const [currentMenuState, setCurrentMenuState] = useState<MenuState>(MenuState.STATS);
 
@@ -35,9 +35,17 @@ export const VerticalCharacterMenu = ({
                 <button onClick={() => setCurrentMenuState(MenuState.LOG)}>Log</button>
             </div>
             <div>
+                {currentMenuState === MenuState.STATS &&
+                    playerCharacters.map((playerCharacter) => (
+                        <CharacterStatCard
+                            key={`stat-card-${playerCharacter.id}`}
+                            character={playerCharacter}
+                            purchasedEquipment={purchasedEquipment}
+                        />
+                    ))}
                 {currentMenuState === MenuState.INV && (
                     <PlayerInventory
-                        equippables={playerInventory}
+                        equippables={purchasedEquipment}
                         wealth={playerWealth}
                         playerCharacters={playerCharacters}
                     />
