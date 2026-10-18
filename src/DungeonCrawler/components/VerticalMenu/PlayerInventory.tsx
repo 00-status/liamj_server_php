@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 
-import './character-inventory.css';
-import { Card } from '../../SharedComponents/Card/Card';
-import { Equipment, Character } from '../domain/types';
-import { formatModifier } from '../domain/items/formatModifier';
+import './player-inventory.css';
+import { Card } from '../../../SharedComponents/Card/Card';
+import { Equipment, Character } from '../../domain/types';
+import { formatModifier } from '../../domain/items/formatModifier';
 
 type Props = { equippables: Equipment[]; wealth: number; playerCharacters: Character[] };
 
@@ -17,7 +17,7 @@ export const PlayerInventory = ({ equippables, wealth, playerCharacters }: Props
 
     return (
         <Card title="Inventory">
-            <div className="character-inventory">
+            <div className="player-inventory">
                 <div>
                     <h3>Gold: {wealth}</h3>
                 </div>
@@ -27,7 +27,7 @@ export const PlayerInventory = ({ equippables, wealth, playerCharacters }: Props
                         : null;
                     return (
                         <div key={equippable.id}>
-                            <div className="character-inventory__item-header">
+                            <div className="player-inventory__item-header">
                                 <h3>
                                     {equippable.name} | {equippable.slot}
                                 </h3>

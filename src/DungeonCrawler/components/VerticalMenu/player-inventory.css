@@ -1,10 +1,10 @@
-.character-inventory {
+.player-inventory {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.character-inventory__item-header {
+.player-inventory__item-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
