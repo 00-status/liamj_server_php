@@ -1,9 +1,10 @@
 import './player-stats.css';
 import { useMemo } from 'react';
 
-import { getCharacterStat } from '../../domain/character/getCharacterStat';
-import { BaseStatNames, Character, Equipment } from '../../domain/types';
-import { CharacterStat } from '../CharacterStat';
+import { getCharacterStat } from '../domain/character/getCharacterStat';
+import { BaseStatNames, Character, Equipment } from '../domain/types';
+
+import { CharacterStat } from './CharacterStat';
 
 type Props = {
     character: Character;

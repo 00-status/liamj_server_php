@@ -1,11 +1,7 @@
 import { useEffect, useMemo, useReducer, useState } from 'react';
 
-import { Page } from '../SharedComponents/Page/Page';
-import { Card } from '../SharedComponents/Card/Card';
-
 import './dungeon-crawler-page.css';
 import { MonsterStats } from './components/MonsterFormation/MonsterStats';
-import { PlayerInventory } from './components/PlayerInventory';
 import { dungeonCrawlerInitialState, dungeonCrawlerReducer, GamePhase } from './domain/reducer';
 import { Combatant } from './domain/Combatant';
 import { Ability, CombatEvent } from './domain/types';
@@ -87,18 +83,18 @@ const DungeonCrawlerPage = () => {
         setSelectedAbility(null);
     };
 
-    const onEquipmentSelect = (
-        previousEquippableID: string | null,
-        newEquippableID: string | null,
-        characterID: string,
-    ) => {
-        dispatch({
-            type: 'PLAYER_TOGGLES_EQUIPMENT',
-            characterID,
-            previousEquippableID,
-            newEquippableID,
-        });
-    };
+    // const onEquipmentSelect = (
+    //     previousEquippableID: string | null,
+    //     newEquippableID: string | null,
+    //     characterID: string,
+    // ) => {
+    //     dispatch({
+    //         type: 'PLAYER_TOGGLES_EQUIPMENT',
+    //         characterID,
+    //         previousEquippableID,
+    //         newEquippableID,
+    //     });
+    // };
 
     const onPlayerPurchase = (equippableID: string) => {
         dispatch({ type: 'PURCHASE_ITEM', itemID: equippableID });
@@ -109,7 +105,7 @@ const DungeonCrawlerPage = () => {
     };
 
     return (
-        <Page title="Dungeons of Galericca" routes={[]}>
+        <div>
             {phase === GamePhase.GAME_OVER && <div>Game Over!</div>}
             {phase !== GamePhase.GAME_OVER && (
                 <div className="dungeon-crawler-page">
@@ -147,25 +143,10 @@ const DungeonCrawlerPage = () => {
                         }
                         onPlayerAbility={onPlayerAbilitySelect}
                         onTargetCombatant={onTargetSelect}
-                        onEquipmentSelect={onEquipmentSelect}
-                    />
-                    <Card title="Log">
-                        <div>
-                            {combatLog.map((log) => (
-                                <p key={log.id}>{log.message}</p>
-                            ))}
-                        </div>
-                    </Card>
-                    <PlayerInventory
-                        equippables={playerInventory}
-                        wealth={playerWealth}
-                        playerCharacters={playerFormation.combatants.map(
-                            (combatant) => combatant.character,
-                        )}
                     />
                 </div>
             )}
-        </Page>
+        </div>
     );
 };
 

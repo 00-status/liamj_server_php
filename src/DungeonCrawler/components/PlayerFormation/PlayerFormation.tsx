@@ -4,10 +4,8 @@ import { Combatant } from '../../domain/Combatant';
 import { Formation } from '../../domain/formation/types';
 import { Ability, CombatEvent, Equipment } from '../../domain/types';
 
-import { PlayerStats } from './PlayerStats';
 import { PlayerActions } from './PlayerActions';
 import { PlayerGridButton } from './PlayerGridButton';
-import { PlayerEquipment } from './PlayerEquipment';
 
 type Props = {
     formation: Formation;
@@ -19,11 +17,6 @@ type Props = {
     onPlayerSelect: (combatantID: string) => void;
     onPlayerAbility: (ability: Ability) => void;
     onTargetCombatant: (target: Combatant) => void;
-    onEquipmentSelect: (
-        previousEquippableID: string | null,
-        newEquippableID: string | null,
-        characterID: string,
-    ) => void;
 };
 
 export const PlayerFormation = ({
@@ -36,7 +29,6 @@ export const PlayerFormation = ({
     onPlayerSelect,
     onPlayerAbility,
     onTargetCombatant,
-    onEquipmentSelect,
 }: Props) => {
     const gridStyles = {
         gridTemplateColumns: '1fr '.repeat(formation.gridDimensions.x),
@@ -65,25 +57,12 @@ export const PlayerFormation = ({
                 <hr className="divider" />
                 <h2>{currentPlayer ? currentPlayer.character.name : 'Character'}</h2>
                 {currentPlayer && (
-                    <div className="player-formation__information">
-                        <PlayerActions
-                            player={currentPlayer.character}
-                            canPlayerTakeActions={canPlayerTakeActions}
-                            currentAbility={currentAbility}
-                            onPlayerAbility={onPlayerAbility}
-                        />
-                        <div>
-                            <PlayerStats
-                                character={currentPlayer.character}
-                                purchasedEquipment={purchasedEquipment}
-                            />
-                            <PlayerEquipment
-                                purchasedEquipment={purchasedEquipment}
-                                combatant={currentPlayer}
-                                onSelectEquipment={onEquipmentSelect}
-                            />
-                        </div>
-                    </div>
+                    <PlayerActions
+                        player={currentPlayer.character}
+                        canPlayerTakeActions={canPlayerTakeActions}
+                        currentAbility={currentAbility}
+                        onPlayerAbility={onPlayerAbility}
+                    />
                 )}
             </div>
         </Card>

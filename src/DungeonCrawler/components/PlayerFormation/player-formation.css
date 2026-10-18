@@ -3,9 +3,3 @@
     grid-template-columns: 1fr 1fr 1fr;
     gap: 12px;
 }
-
-.player-formation__information {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
