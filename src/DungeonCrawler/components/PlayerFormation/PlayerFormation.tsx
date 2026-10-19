@@ -1,5 +1,4 @@
 import './player-formation.css';
-import { Card } from '../../../SharedComponents/Card/Card';
 import { Combatant } from '../../domain/Combatant';
 import { Formation } from '../../domain/formation/types';
 import { Ability, CombatEvent, Equipment } from '../../domain/types';
@@ -31,25 +30,21 @@ export const PlayerFormation = ({
     };
 
     return (
-        <Card>
-            <div>
-                <div className="player-formation__grid" style={gridStyles}>
-                    {formation.combatants.map((combatant) => {
-                        return (
-                            <PlayerGridButton
-                                key={combatant.id}
-                                combatant={combatant}
-                                purchasedEquipment={purchasedEquipment}
-                                currentAbility={currentAbility}
-                                currentPlayer={currentPlayer}
-                                activeCombatEvent={activeCombatEvent}
-                                onTarget={onTargetCombatant}
-                                onSelect={onPlayerSelect}
-                            />
-                        );
-                    })}
-                </div>
-            </div>
-        </Card>
+        <div className="player-formation" style={gridStyles}>
+            {formation.combatants.map((combatant) => {
+                return (
+                    <PlayerGridButton
+                        key={combatant.id}
+                        combatant={combatant}
+                        purchasedEquipment={purchasedEquipment}
+                        currentAbility={currentAbility}
+                        currentPlayer={currentPlayer}
+                        activeCombatEvent={activeCombatEvent}
+                        onTarget={onTargetCombatant}
+                        onSelect={onPlayerSelect}
+                    />
+                );
+            })}
+        </div>
     );
 };

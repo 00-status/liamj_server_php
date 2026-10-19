@@ -1,5 +1,8 @@
-.player-formation__grid {
+.player-formation {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 12px;
+
+    padding: 20px;
+    background-color: black;
 }
