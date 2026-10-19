@@ -3,6 +3,7 @@ import { useEffect, useMemo, useReducer, useState } from 'react';
 import './dungeon-crawler-page.css';
 import { Icon } from '../SharedComponents/Icon/Icon';
 import { IconType } from '../SharedComponents/Icon/domain';
+import { useWindowWidth } from '../Common/hooks/useWindowWidth';
 
 import { MonsterStats } from './components/MonsterFormation/MonsterStats';
 import { dungeonCrawlerInitialState, dungeonCrawlerReducer, GamePhase } from './domain/reducer';
@@ -13,6 +14,7 @@ import { getCombatEventDuration } from './domain/combatEvents/getAnimationData';
 import { DungeonShop } from './components/DungeonShop';
 import { VerticalCharacterMenu } from './components/VerticalMenu/VerticalCharacterMenu';
 import { PlayerActions } from './components/PlayerActions';
+import { DungeonButton } from './components/DungeonButton';
 
 // Vertical Menu that holds some sub-menus 🟡
 //      Stats menu, Inventory Menu, and Log Menu ✅
@@ -38,6 +40,8 @@ import { PlayerActions } from './components/PlayerActions';
 
 // TODO in #51: Add Log Messages back in.
 const DungeonCrawlerPage = () => {
+    const windowWidth = useWindowWidth();
+
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [state, dispatch] = useReducer(dungeonCrawlerReducer, dungeonCrawlerInitialState);
     const {
@@ -143,58 +147,64 @@ const DungeonCrawlerPage = () => {
 
     return (
         <>
-            <button onClick={() => setIsMenuOpen((state) => !state)}>
-                <Icon iconType={IconType.MENU_BOOK} />
-            </button>
             <div className="dungeon-crawler-page">
-                <VerticalCharacterMenu
-                    isOpen={isMenuOpen}
-                    toggleIsOpen={(newValue) => setIsMenuOpen(newValue)}
-                    combatLog={combatLog}
-                    playerWealth={playerWealth}
-                    playerCharacters={playerFormation.combatants.map(
-                        (combatant) => combatant.character,
-                    )}
-                    purchasedEquipment={playerInventory}
-                />
-                <div className="dungeon-crawler-page__dungeon">
-                    <div className="dungeon-crawler-page__room_count">{roomsClearedCount}</div>
-                    {phase === GamePhase.SHOPPING && (
-                        <DungeonShop
-                            purchasedItems={playerInventory}
-                            playerWealth={playerWealth}
-                            onPlayerPurchase={onPlayerPurchase}
-                            onPlayerContinue={onPlayerLeaveShop}
-                        />
-                    )}
-                    {phase !== GamePhase.SHOPPING && (
-                        <MonsterStats
-                            formation={monsterFormation}
-                            currentAbility={selectedAbility}
-                            currentPlayer={selectedPlayerCharacter || null}
-                            activeCombatEvent={activeCombatEvent}
-                            onEnemySelect={onTargetSelect}
-                        />
-                    )}
-                    <PlayerFormation
-                        formation={playerFormation}
+                {windowWidth <= 600 && (
+                    <div className="dungeon-crawler-page__menu-button">
+                        <DungeonButton onClick={() => setIsMenuOpen((state) => !state)}>
+                            <Icon iconType={IconType.MENU_BOOK} />
+                        </DungeonButton>
+                    </div>
+                )}
+                <div className="dungeon-crawler-page__contents">
+                    <VerticalCharacterMenu
+                        isOpen={isMenuOpen}
+                        toggleIsOpen={(newValue) => setIsMenuOpen(newValue)}
+                        combatLog={combatLog}
+                        playerWealth={playerWealth}
+                        playerCharacters={playerFormation.combatants.map(
+                            (combatant) => combatant.character,
+                        )}
                         purchasedEquipment={playerInventory}
-                        currentPlayer={selectedPlayerCharacter || null}
-                        currentAbility={selectedAbility}
-                        activeCombatEvent={activeCombatEvent}
-                        onPlayerSelect={(combatantID: string) =>
-                            setSelectedPlayerCharacterID(combatantID)
-                        }
-                        onTargetCombatant={onTargetSelect}
                     />
-                    {selectedPlayerCharacter && (
-                        <PlayerActions
-                            player={selectedPlayerCharacter.character}
-                            canPlayerTakeActions={canPlayerTakeActions}
+                    <div className="dungeon-crawler-page__dungeon">
+                        <div className="dungeon-crawler-page__room_count">{roomsClearedCount}</div>
+                        {phase === GamePhase.SHOPPING && (
+                            <DungeonShop
+                                purchasedItems={playerInventory}
+                                playerWealth={playerWealth}
+                                onPlayerPurchase={onPlayerPurchase}
+                                onPlayerContinue={onPlayerLeaveShop}
+                            />
+                        )}
+                        {phase !== GamePhase.SHOPPING && (
+                            <MonsterStats
+                                formation={monsterFormation}
+                                currentAbility={selectedAbility}
+                                currentPlayer={selectedPlayerCharacter || null}
+                                activeCombatEvent={activeCombatEvent}
+                                onEnemySelect={onTargetSelect}
+                            />
+                        )}
+                        <PlayerFormation
+                            formation={playerFormation}
+                            purchasedEquipment={playerInventory}
+                            currentPlayer={selectedPlayerCharacter || null}
                             currentAbility={selectedAbility}
-                            onPlayerAbility={onPlayerAbilitySelect}
+                            activeCombatEvent={activeCombatEvent}
+                            onPlayerSelect={(combatantID: string) =>
+                                setSelectedPlayerCharacterID(combatantID)
+                            }
+                            onTargetCombatant={onTargetSelect}
                         />
-                    )}
+                        {selectedPlayerCharacter && (
+                            <PlayerActions
+                                player={selectedPlayerCharacter.character}
+                                canPlayerTakeActions={canPlayerTakeActions}
+                                currentAbility={selectedAbility}
+                                onPlayerAbility={onPlayerAbilitySelect}
+                            />
+                        )}
+                    </div>
                 </div>
             </div>
         </>

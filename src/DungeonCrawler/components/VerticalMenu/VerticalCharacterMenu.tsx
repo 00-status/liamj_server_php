@@ -3,6 +3,7 @@ import { useState } from 'react';
 import './vertical-character-menu.css';
 import { Card } from '../../../SharedComponents/Card/Card';
 import { Character, Equipment, LogMessage } from '../../domain/types';
+import { DungeonButton } from '../DungeonButton';
 
 import { PlayerInventory } from './PlayerInventory';
 import { CharacterStatCard } from './CharacterStatCard';
@@ -44,24 +45,15 @@ export const VerticalCharacterMenu = ({
                 className={`vertical-character-menu ${isOpen ? 'vertical-character-menu__open' : ''}`}
             >
                 <div className="vertical-character-menu__buttons">
-                    <button
-                        className="vertical-character-menu__button"
-                        onClick={() => setCurrentMenuState(MenuState.STATS)}
-                    >
+                    <DungeonButton onClick={() => setCurrentMenuState(MenuState.STATS)}>
                         Stats
-                    </button>
-                    <button
-                        className="vertical-character-menu__button"
-                        onClick={() => setCurrentMenuState(MenuState.INV)}
-                    >
+                    </DungeonButton>
+                    <DungeonButton onClick={() => setCurrentMenuState(MenuState.INV)}>
                         Inv
-                    </button>
-                    <button
-                        className="vertical-character-menu__button"
-                        onClick={() => setCurrentMenuState(MenuState.LOG)}
-                    >
+                    </DungeonButton>
+                    <DungeonButton onClick={() => setCurrentMenuState(MenuState.LOG)}>
                         Log
-                    </button>
+                    </DungeonButton>
                 </div>
                 <div className="vertical-character-menu__container">
                     {currentMenuState === MenuState.STATS &&

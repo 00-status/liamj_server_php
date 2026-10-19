@@ -22,13 +22,22 @@ magic-attack: #435abf
 */
 
 .dungeon-crawler-page {
-    display: flex;
-    flex-direction: row;
-
     width: 100%;
 
     background-color: #242424;
     background: linear-gradient(to bottom, #4a4a4a 0%, #242424 5%, black 10%);
+}
+
+.dungeon-crawler-page__menu-button {
+    width: fit-content;
+    margin: 20px;
+    background-color: #000000;
+    border: 2px solid #f7f7f7;
+}
+
+.dungeon-crawler-page__contents {
+    display: flex;
+    flex-direction: row;
 }
 
 .dungeon-crawler-page__dungeon {
