@@ -1,0 +1,38 @@
+.dungeon-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-width: 50px;
+    height: 40px;
+    border-radius: 4px;
+    transition: all 0.1s ease-in-out;
+
+    color: #f7f7f7;
+    border: none;
+
+    background-color: transparent;
+    font-weight: 700;
+    padding: 8px;
+}
+.dungeon-button:hover {
+    transform: scale(1.05);
+}
+
+.dungeon-button--selected {
+    border: 2px solid #f7f7f7;
+    border-radius: 4px;
+}
+
+.dungeon-button:disabled {
+    color: #4a4a4a;
+    transform: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .dungeon-button {
+        width: 100%;
+    }
+}

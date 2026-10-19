@@ -1,28 +1,33 @@
 .dungeon-shop {
+    height: 420px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+
+    gap: 12px;
+    padding: 20px;
+
+    background-color: black;
 }
 
 .dungeon-shop__item {
+    width: 50%;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 6px;
-    gap: 16px;
+    flex-direction: column;
+
+    padding: 8px;
+
+    border: 2px dashed #f7f7f7;
+    border-radius: 4px;
 }
 
 .dungeon-shop__item--disabled {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 6px;
-    gap: 16px;
-    opacity: 0.6;
+    color: #4a4a4a;
+    border: 2px solid #4a4a4a;
+    border-radius: 4px;
+}
+
+@media only screen and (max-width: 600px) {
+    .dungeon-shop__item {
+        width: 100%;
+    }
 }

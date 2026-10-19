@@ -171,11 +171,11 @@ export const examplePlayerFormation: Formation = {
 };
 
 export const BaseStatDisplayNames = {
-    healthPoints: 'Health Points',
-    magicPoints: 'Magic Points',
-    attack: 'Attack',
-    magicAttack: 'Magic Attack',
-    defence: 'Defence',
-    magicDefence: 'Magic Defence',
-    critChance: 'Crit Chance',
+    healthPoints: 'HP',
+    magicPoints: 'MP',
+    attack: 'ATK',
+    magicAttack: 'MATK',
+    defence: 'DEF',
+    magicDefence: 'MDEF',
+    critChance: 'CRIT',
 };

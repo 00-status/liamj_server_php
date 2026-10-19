@@ -3,6 +3,8 @@ import { useMemo, useState } from 'react';
 import './player-actions.css';
 import { Ability, AbilityType, Character } from '../domain/types';
 
+import { DungeonButton } from './DungeonButton';
+
 enum MenuState {
     base = 'Base',
     magic = 'Magic',
@@ -75,14 +77,14 @@ export const PlayerActions = ({
                     const isButtonSelected = action.isSelected;
                     const isButtonDisabled = !action.isSelected && action.isDisabled;
                     return (
-                        <button
-                            className={`player-actions__button ${isButtonSelected && 'player-actions__buttons--selected'}`}
+                        <DungeonButton
                             key={action.label}
                             onClick={action.action}
-                            disabled={isButtonDisabled}
+                            isDisabled={!!isButtonDisabled}
+                            isSelected={!!isButtonSelected}
                         >
                             {action.label}
-                        </button>
+                        </DungeonButton>
                     );
                 })}
             </div>

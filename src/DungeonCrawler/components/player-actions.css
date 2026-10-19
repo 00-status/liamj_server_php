@@ -3,18 +3,7 @@
     padding: 20px;
 }
 
-.player-actions__button {
-    background-color: transparent;
-    font-weight: 700;
-    padding: 8px;
-}
-
-.player-actions__buttons--selected {
-    border: 2px solid #f7f7f7;
-    border-radius: 4px;
-}
-
-.player-actions__button:disabled {
-    color: #4a4a4a;
-    transform: none;
+.dungeon-shop__item-modifier-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
