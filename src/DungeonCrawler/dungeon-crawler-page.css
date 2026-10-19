@@ -29,6 +29,7 @@ magic-attack: #435abf
     gap: 20px;
 
     background-color: #242424;
+    background: linear-gradient(to bottom, #4a4a4a 0%, #242424 5%, black 10%);
 }
 
 .dungeon-crawler-page__dungeon {

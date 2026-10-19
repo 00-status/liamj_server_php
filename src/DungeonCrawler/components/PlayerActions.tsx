@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 
 import './player-actions.css';
-import { Button, ButtonTheme } from '../../SharedComponents/Button/Button';
 import { Ability, AbilityType, Character } from '../domain/types';
 
 enum MenuState {
@@ -72,16 +71,20 @@ export const PlayerActions = ({
         <div className="player-actions">
             <h2>Actions</h2>
             <div>
-                {actions.map((action) => (
-                    <Button
-                        key={action.label}
-                        onClick={action.action}
-                        disabled={!action.isSelected && action.isDisabled}
-                        buttonTheme={action.isSelected ? ButtonTheme.Default : ButtonTheme.Subtle}
-                    >
-                        {action.label}
-                    </Button>
-                ))}
+                {actions.map((action) => {
+                    const isButtonSelected = action.isSelected;
+                    const isButtonDisabled = !action.isSelected && action.isDisabled;
+                    return (
+                        <button
+                            className={`player-actions__button ${isButtonSelected && 'player-actions__buttons--selected'}`}
+                            key={action.label}
+                            onClick={action.action}
+                            disabled={isButtonDisabled}
+                        >
+                            {action.label}
+                        </button>
+                    );
+                })}
             </div>
         </div>
     );
