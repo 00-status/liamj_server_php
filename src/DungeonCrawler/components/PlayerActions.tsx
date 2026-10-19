@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
 
 import './player-actions.css';
-import { Button, ButtonTheme } from '../../../SharedComponents/Button/Button';
-import { Ability, AbilityType, Character } from '../../domain/types';
+import { Button, ButtonTheme } from '../../SharedComponents/Button/Button';
+import { Ability, AbilityType, Character } from '../domain/types';
 
 enum MenuState {
     base = 'Base',

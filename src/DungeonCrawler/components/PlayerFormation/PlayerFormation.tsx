@@ -4,30 +4,25 @@ import { Combatant } from '../../domain/Combatant';
 import { Formation } from '../../domain/formation/types';
 import { Ability, CombatEvent, Equipment } from '../../domain/types';
 
-import { PlayerActions } from './PlayerActions';
 import { PlayerGridButton } from './PlayerGridButton';
 
 type Props = {
     formation: Formation;
     purchasedEquipment: Equipment[];
-    canPlayerTakeActions: boolean;
     currentPlayer: Combatant | null;
     currentAbility: Ability | null;
     activeCombatEvent?: CombatEvent;
     onPlayerSelect: (combatantID: string) => void;
-    onPlayerAbility: (ability: Ability) => void;
     onTargetCombatant: (target: Combatant) => void;
 };
 
 export const PlayerFormation = ({
     formation,
     purchasedEquipment,
-    canPlayerTakeActions,
     currentPlayer,
     currentAbility,
     activeCombatEvent,
     onPlayerSelect,
-    onPlayerAbility,
     onTargetCombatant,
 }: Props) => {
     const gridStyles = {
@@ -54,16 +49,6 @@ export const PlayerFormation = ({
                         );
                     })}
                 </div>
-                <hr className="divider" />
-                <h2>{currentPlayer ? currentPlayer.character.name : 'Character'}</h2>
-                {currentPlayer && (
-                    <PlayerActions
-                        player={currentPlayer.character}
-                        canPlayerTakeActions={canPlayerTakeActions}
-                        currentAbility={currentAbility}
-                        onPlayerAbility={onPlayerAbility}
-                    />
-                )}
             </div>
         </Card>
     );

@@ -12,6 +12,7 @@ import { PlayerFormation } from './components/PlayerFormation/PlayerFormation';
 import { getCombatEventDuration } from './domain/combatEvents/getAnimationData';
 import { DungeonShop } from './components/DungeonShop';
 import { VerticalCharacterMenu } from './components/VerticalMenu/VerticalCharacterMenu';
+import { PlayerActions } from './components/PlayerActions';
 
 // Vertical Menu that holds some sub-menus 🟡
 //      Stats menu, Inventory Menu, and Log Menu ✅
@@ -23,15 +24,15 @@ import { VerticalCharacterMenu } from './components/VerticalMenu/VerticalCharact
 //      Lists each player-character in the game. ✅
 //      Each item displays the character's Current Hit Points, Max Hit Points, Magic Points, Max Magic Points, Attack, Magic Attack, Defence, Magic Defence, Crit Chance. ✅
 //      TODO: Change the colour of modified stats. 🔴
-//      TODO: Change the colour of Attack, Magic Attack, and Crit Chance 🔴
+//      TODO: Change the colour of Attack, Magic Attack, and Crit Chance ✅
 // Inventory Menu 🟡
 //      Displays purchased Items ✅
 //      TODO: The Player can assign Items to their character here. 🔴
 // Log Menu (To be done in #51)
 //      Displays a log of combat so far.
 
-// TODO: Update the colours of the page to look more like a JRPG.
-// TODO: Display a blocky border around Character cards.
+// TODO: Update the colours of the page to look more like a JRPG. ✅
+// TODO: Display a blocky border around Character cards. ✅
 // TODO: Update Actions to be left-aligned on mobile.
 // TODO: Use a more RPG-like font for titles and headers.
 
@@ -135,6 +136,11 @@ const DungeonCrawlerPage = () => {
         return <div>Game Over!</div>;
     }
 
+    const canPlayerTakeActions =
+        phase === GamePhase.PLAYER_TURN &&
+        !!selectedPlayerCharacter &&
+        selectedPlayerCharacter.character.currentHP > 0;
+
     return (
         <>
             <button onClick={() => setIsMenuOpen((state) => !state)}>
@@ -173,20 +179,22 @@ const DungeonCrawlerPage = () => {
                     <PlayerFormation
                         formation={playerFormation}
                         purchasedEquipment={playerInventory}
-                        canPlayerTakeActions={
-                            phase === GamePhase.PLAYER_TURN &&
-                            !!selectedPlayerCharacter &&
-                            selectedPlayerCharacter.character.currentHP > 0
-                        }
                         currentPlayer={selectedPlayerCharacter || null}
                         currentAbility={selectedAbility}
                         activeCombatEvent={activeCombatEvent}
                         onPlayerSelect={(combatantID: string) =>
                             setSelectedPlayerCharacterID(combatantID)
                         }
-                        onPlayerAbility={onPlayerAbilitySelect}
                         onTargetCombatant={onTargetSelect}
                     />
+                    {selectedPlayerCharacter && (
+                        <PlayerActions
+                            player={selectedPlayerCharacter.character}
+                            canPlayerTakeActions={canPlayerTakeActions}
+                            currentAbility={selectedAbility}
+                            onPlayerAbility={onPlayerAbilitySelect}
+                        />
+                    )}
                 </div>
             </div>
         </>
