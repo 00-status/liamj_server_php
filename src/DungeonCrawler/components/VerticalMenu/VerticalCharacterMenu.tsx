@@ -20,9 +20,12 @@ type Props = {
     playerWealth: number;
     playerCharacters: Character[];
     purchasedEquipment: Equipment[];
+    onEquipmentSelect: (
+        previousEquippableID: string | null,
+        newEquippableID: string | null,
+        characterID: string,
+    ) => void;
 };
-
-// TODO: Change the colour of the active menu button.
 
 export const VerticalCharacterMenu = ({
     isOpen,
@@ -31,6 +34,7 @@ export const VerticalCharacterMenu = ({
     playerWealth,
     playerCharacters,
     purchasedEquipment,
+    onEquipmentSelect,
 }: Props) => {
     const [currentMenuState, setCurrentMenuState] = useState<MenuState>(MenuState.STATS);
 
@@ -82,6 +86,7 @@ export const VerticalCharacterMenu = ({
                                 key={`stat-card-${playerCharacter.id}`}
                                 character={playerCharacter}
                                 purchasedEquipment={purchasedEquipment}
+                                onEquipmentSelect={onEquipmentSelect}
                             />
                         ))}
                     {currentMenuState === MenuState.INV && (

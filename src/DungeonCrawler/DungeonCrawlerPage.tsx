@@ -28,14 +28,13 @@ import { DungeonButton } from './components/DungeonButton';
 //      TODO: Change the colour of modified stats. 🔴
 //      TODO: The Player can assign a weapon, armour, and up to two trinkets to their characters. 🔴
 //      TODO: Change the colour of Attack, Magic Attack, and Crit Chance ✅
-// Inventory Menu 🟡
+// Inventory Menu ✅
 //      Displays purchased Items ✅
 // Log Menu (To be done in #51)
 //      Displays a log of combat so far.
 
 // TODO: Update the colours of the page to look more like a JRPG. ✅
 // TODO: Display a blocky border around Character cards. ✅
-// TODO: Update Actions to be left-aligned on mobile.
 // TODO: Use a more RPG-like font for titles and headers.
 
 // TODO in #51: Add Log Messages back in.
@@ -115,18 +114,18 @@ const DungeonCrawlerPage = () => {
         setSelectedAbility(null);
     };
 
-    // const onEquipmentSelect = (
-    //     previousEquippableID: string | null,
-    //     newEquippableID: string | null,
-    //     characterID: string,
-    // ) => {
-    //     dispatch({
-    //         type: 'PLAYER_TOGGLES_EQUIPMENT',
-    //         characterID,
-    //         previousEquippableID,
-    //         newEquippableID,
-    //     });
-    // };
+    const onEquipmentSelect = (
+        previousEquippableID: string | null,
+        newEquippableID: string | null,
+        characterID: string,
+    ) => {
+        dispatch({
+            type: 'PLAYER_TOGGLES_EQUIPMENT',
+            characterID,
+            previousEquippableID,
+            newEquippableID,
+        });
+    };
 
     const onPlayerPurchase = (equippableID: string) => {
         dispatch({ type: 'PURCHASE_ITEM', itemID: equippableID });
@@ -165,6 +164,7 @@ const DungeonCrawlerPage = () => {
                             (combatant) => combatant.character,
                         )}
                         purchasedEquipment={playerInventory}
+                        onEquipmentSelect={onEquipmentSelect}
                     />
                     <div className="dungeon-crawler-page__dungeon">
                         <div className="dungeon-crawler-page__room_count">{roomsClearedCount}</div>

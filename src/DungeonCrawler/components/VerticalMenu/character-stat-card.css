@@ -49,3 +49,30 @@
 .character-stat-card__crit {
     color: #ff8812;
 }
+
+.character-stat-card__equipment {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 12px;
+}
+
+.character-stat-card__equipment-select {
+    width: 100%;
+    background-color: #000000;
+    color: #f7f7f7;
+    border: 1px solid #f7f7f7;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.character-stat-card__equipment-select:hover,
+.character-stat-card__equipment-select:focus {
+    border-color: #60af45;
+}

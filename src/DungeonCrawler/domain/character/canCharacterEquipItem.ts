@@ -1,4 +1,4 @@
-import { Equipment } from '../types';
+import { Equipment, EquipmentSlot } from '../types';
 
 export const canCharacterEquipItem = (
     purchasedEquippables: Equipment[],
@@ -21,5 +21,10 @@ export const canCharacterEquipItem = (
             equipment.id !== previousEquippableID
         );
     });
+
+    if (targetEquippable.slot === EquipmentSlot.trinket) {
+        return equippablesInSlot.length < 2;
+    }
+
     return equippablesInSlot.length < 1;
 };
