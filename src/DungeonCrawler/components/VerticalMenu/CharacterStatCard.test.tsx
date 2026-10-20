@@ -22,6 +22,7 @@ describe('CharacterStatCard', () => {
         },
         abilities: [],
         modifiers: [],
+        pointModifiers: [],
     };
 
     const mockPurchasedEquipment: Equipment[] = [
@@ -70,7 +71,7 @@ describe('CharacterStatCard', () => {
             />,
         );
 
-        expect(getByText('Hero')).toBeInTheDocument();
+        getByText('Hero');
 
         const weaponSelect = getByLabelText('Weapon') as HTMLSelectElement;
         const armourSelect = getByLabelText('Armour') as HTMLSelectElement;

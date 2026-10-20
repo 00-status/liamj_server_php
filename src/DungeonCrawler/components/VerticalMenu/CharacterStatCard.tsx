@@ -2,7 +2,9 @@ import './character-stat-card.css';
 import { useMemo } from 'react';
 
 import { getCharacterStat } from '../../domain/character/getCharacterStat';
-import { BaseStatNames, Character, Equipment, EquipmentSlot } from '../../domain/types';
+import { BaseStatNames, Character, Equipment } from '../../domain/types';
+
+import { CharacterEquipment } from './CharacterEquipment';
 
 type Props = {
     character: Character;
@@ -14,61 +16,10 @@ type Props = {
     ) => void;
 };
 
-export const CharacterStatCard = ({
-    character,
-    purchasedEquipment,
-    onEquipmentSelect,
-}: Props) => {
+export const CharacterStatCard = ({ character, purchasedEquipment, onEquipmentSelect }: Props) => {
     const characterEquipment = useMemo(() => {
         return purchasedEquipment.filter((equipment) => equipment.characterID === character.id);
     }, [character, purchasedEquipment]);
-
-    const equippedWeapon = useMemo(() => {
-        return characterEquipment.find((item) => item.slot === EquipmentSlot.weapon);
-    }, [characterEquipment]);
-
-    const equippedArmour = useMemo(() => {
-        return characterEquipment.find((item) => item.slot === EquipmentSlot.armour);
-    }, [characterEquipment]);
-
-    const equippedTrinkets = useMemo(() => {
-        return characterEquipment.filter((item) => item.slot === EquipmentSlot.trinket);
-    }, [characterEquipment]);
-
-    const equippedTrinket1 = equippedTrinkets[0];
-    const equippedTrinket2 = equippedTrinkets[1];
-
-    const weaponOptions = useMemo(() => {
-        return purchasedEquipment.filter(
-            (item) =>
-                item.slot === EquipmentSlot.weapon &&
-                (!item.characterID || item.id === equippedWeapon?.id),
-        );
-    }, [purchasedEquipment, equippedWeapon]);
-
-    const armourOptions = useMemo(() => {
-        return purchasedEquipment.filter(
-            (item) =>
-                item.slot === EquipmentSlot.armour &&
-                (!item.characterID || item.id === equippedArmour?.id),
-        );
-    }, [purchasedEquipment, equippedArmour]);
-
-    const trinket1Options = useMemo(() => {
-        return purchasedEquipment.filter(
-            (item) =>
-                item.slot === EquipmentSlot.trinket &&
-                (!item.characterID || item.id === equippedTrinket1?.id),
-        );
-    }, [purchasedEquipment, equippedTrinket1]);
-
-    const trinket2Options = useMemo(() => {
-        return purchasedEquipment.filter(
-            (item) =>
-                item.slot === EquipmentSlot.trinket &&
-                (!item.characterID || item.id === equippedTrinket2?.id),
-        );
-    }, [purchasedEquipment, equippedTrinket2]);
 
     return (
         <div className="character-stat-card">
@@ -117,84 +68,12 @@ export const CharacterStatCard = ({
                     </div>
                 </div>
             </div>
-            <div className="character-stat-card__equipment">
-                <select
-                    className="character-stat-card__equipment-select"
-                    value={equippedWeapon?.id || ''}
-                    aria-label="Weapon"
-                    onChange={(e) =>
-                        onEquipmentSelect(
-                            equippedWeapon?.id || null,
-                            e.target.value || null,
-                            character.id,
-                        )
-                    }
-                >
-                    <option value="">Weapon</option>
-                    {weaponOptions.map((item) => (
-                        <option key={item.id} value={item.id}>
-                            {item.name}
-                        </option>
-                    ))}
-                </select>
-                <select
-                    className="character-stat-card__equipment-select"
-                    value={equippedArmour?.id || ''}
-                    aria-label="Armour"
-                    onChange={(e) =>
-                        onEquipmentSelect(
-                            equippedArmour?.id || null,
-                            e.target.value || null,
-                            character.id,
-                        )
-                    }
-                >
-                    <option value="">Armour</option>
-                    {armourOptions.map((item) => (
-                        <option key={item.id} value={item.id}>
-                            {item.name}
-                        </option>
-                    ))}
-                </select>
-                <select
-                    className="character-stat-card__equipment-select"
-                    value={equippedTrinket1?.id || ''}
-                    aria-label="Trinket 1"
-                    onChange={(e) =>
-                        onEquipmentSelect(
-                            equippedTrinket1?.id || null,
-                            e.target.value || null,
-                            character.id,
-                        )
-                    }
-                >
-                    <option value="">Trinket</option>
-                    {trinket1Options.map((item) => (
-                        <option key={item.id} value={item.id}>
-                            {item.name}
-                        </option>
-                    ))}
-                </select>
-                <select
-                    className="character-stat-card__equipment-select"
-                    value={equippedTrinket2?.id || ''}
-                    aria-label="Trinket 2"
-                    onChange={(e) =>
-                        onEquipmentSelect(
-                            equippedTrinket2?.id || null,
-                            e.target.value || null,
-                            character.id,
-                        )
-                    }
-                >
-                    <option value="">Trinket</option>
-                    {trinket2Options.map((item) => (
-                        <option key={item.id} value={item.id}>
-                            {item.name}
-                        </option>
-                    ))}
-                </select>
-            </div>
+            <CharacterEquipment
+                characterID={character.id}
+                purchasedEquipment={purchasedEquipment}
+                characterEquipment={characterEquipment}
+                onEquipmentSelect={onEquipmentSelect}
+            />
         </div>
     );
 };

@@ -26,7 +26,7 @@ import { DungeonButton } from './components/DungeonButton';
 //      Lists each player-character in the game. ✅
 //      Each item displays the character's Current Hit Points, Max Hit Points, Magic Points, Max Magic Points, Attack, Magic Attack, Defence, Magic Defence, Crit Chance. ✅
 //      TODO: Change the colour of modified stats. 🔴
-//      TODO: The Player can assign a weapon, armour, and up to two trinkets to their characters. 🔴
+//      TODO: The Player can assign a weapon, armour, and up to two trinkets to their characters. ✅
 //      TODO: Change the colour of Attack, Magic Attack, and Crit Chance ✅
 // Inventory Menu ✅
 //      Displays purchased Items ✅
