@@ -8,6 +8,10 @@
     border-radius: 4px;
 }
 
+.player-grid-button--active {
+    border: 2px solid #60af45;
+}
+
 .player-grid-button--targetable {
     border: 2px dashed #f7f7f7;
     animation: player-grid-button-smooth-flash 1s ease-in-out infinite alternate;

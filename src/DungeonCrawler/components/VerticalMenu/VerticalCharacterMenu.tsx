@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import './vertical-character-menu.css';
 import { Character, Equipment, LogMessage } from '../../domain/types';
-import { DungeonButton } from '../DungeonButton';
+import { DungeonButton, DungeonButtonTheme } from '../DungeonButton';
 
 import { PlayerInventory } from './PlayerInventory';
 import { CharacterStatCard } from './CharacterStatCard';
@@ -44,13 +44,34 @@ export const VerticalCharacterMenu = ({
                 className={`vertical-character-menu ${isOpen ? 'vertical-character-menu__open' : ''}`}
             >
                 <div className="vertical-character-menu__buttons">
-                    <DungeonButton onClick={() => setCurrentMenuState(MenuState.STATS)}>
+                    <DungeonButton
+                        onClick={() => setCurrentMenuState(MenuState.STATS)}
+                        buttonTheme={
+                            currentMenuState === MenuState.STATS
+                                ? DungeonButtonTheme.ACTIVE
+                                : DungeonButtonTheme.DEFAULT
+                        }
+                    >
                         Stats
                     </DungeonButton>
-                    <DungeonButton onClick={() => setCurrentMenuState(MenuState.INV)}>
+                    <DungeonButton
+                        onClick={() => setCurrentMenuState(MenuState.INV)}
+                        buttonTheme={
+                            currentMenuState === MenuState.INV
+                                ? DungeonButtonTheme.ACTIVE
+                                : DungeonButtonTheme.DEFAULT
+                        }
+                    >
                         Inv
                     </DungeonButton>
-                    <DungeonButton onClick={() => setCurrentMenuState(MenuState.LOG)}>
+                    <DungeonButton
+                        onClick={() => setCurrentMenuState(MenuState.LOG)}
+                        buttonTheme={
+                            currentMenuState === MenuState.LOG
+                                ? DungeonButtonTheme.ACTIVE
+                                : DungeonButtonTheme.DEFAULT
+                        }
+                    >
                         Log
                     </DungeonButton>
                 </div>
