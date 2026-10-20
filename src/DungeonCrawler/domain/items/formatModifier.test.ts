@@ -11,7 +11,7 @@ describe('formatModifier', () => {
                 value: 50,
                 type: DamageScaleMethod.FLAT,
             }),
-        ).toBe('+50 Defence');
+        ).toBe('+50 DEF');
     });
 
     it('formats flat negative modifiers without extra plus sign', () => {
@@ -22,7 +22,7 @@ describe('formatModifier', () => {
                 value: -15,
                 type: DamageScaleMethod.FLAT,
             }),
-        ).toBe('-15 Attack');
+        ).toBe('-15 ATK');
     });
 
     it('formats percent increase modifiers correctly', () => {
@@ -33,7 +33,7 @@ describe('formatModifier', () => {
                 value: 1.15,
                 type: DamageScaleMethod.PERCENT,
             }),
-        ).toBe('+15% Magic Attack');
+        ).toBe('+15% MATK');
     });
 
     it('formats percent decrease modifiers correctly', () => {
@@ -44,6 +44,6 @@ describe('formatModifier', () => {
                 value: 0.9,
                 type: DamageScaleMethod.PERCENT,
             }),
-        ).toBe('-10% Defence');
+        ).toBe('-10% DEF');
     });
 });

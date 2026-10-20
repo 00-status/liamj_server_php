@@ -1,17 +1,17 @@
 [data-theme='PHYSICAL'] {
-    --damage-text-color: red;
+    --damage-text-color: #de1b1b;
 }
 [data-theme='MAGIC'] {
-    --damage-text-color: blue;
+    --damage-text-color: #435abf;
 }
 [data-theme='HEALING'] {
-    --damage-text-color: green;
+    --damage-text-color: #d64d4d;
 }
 [data-theme='MAGIC_RESTORE'] {
-    --damage-text-color: teal;
+    --damage-text-color: #80c5e8;
 }
 [data-theme='MAGIC_DRAIN'] {
-    --damage-text-color: darkblue;
+    --damage-text-color: purple;
 }
 [data-theme='DEFAULT'] {
     --damage-text-color: purple;

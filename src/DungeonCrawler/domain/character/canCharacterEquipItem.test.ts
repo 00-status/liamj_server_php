@@ -81,4 +81,64 @@ describe('canCharacterEquipItem', () => {
         );
         expect(canEquip).toBe(true);
     });
+
+    it('allows equipping a second trinket when one is already equipped', () => {
+        const equippedTrinket1: Equipment = {
+            id: 'trinket-1',
+            characterID: 'char-1',
+            name: 'Ring of Health',
+            cost: 50,
+            slot: EquipmentSlot.trinket,
+            modifiers: [],
+        };
+        const unequippedTrinket2: Equipment = {
+            id: 'trinket-2',
+            characterID: null,
+            name: 'Amulet of Mana',
+            cost: 50,
+            slot: EquipmentSlot.trinket,
+            modifiers: [],
+        };
+
+        const canEquip = canCharacterEquipItem(
+            [equippedTrinket1, unequippedTrinket2],
+            unequippedTrinket2.id,
+            'char-1',
+        );
+        expect(canEquip).toBe(true);
+    });
+
+    it('does not allow equipping a third trinket when two are already equipped', () => {
+        const equippedTrinket1: Equipment = {
+            id: 'trinket-1',
+            characterID: 'char-1',
+            name: 'Ring of Health',
+            cost: 50,
+            slot: EquipmentSlot.trinket,
+            modifiers: [],
+        };
+        const equippedTrinket2: Equipment = {
+            id: 'trinket-2',
+            characterID: 'char-1',
+            name: 'Amulet of Mana',
+            cost: 50,
+            slot: EquipmentSlot.trinket,
+            modifiers: [],
+        };
+        const unequippedTrinket3: Equipment = {
+            id: 'trinket-3',
+            characterID: null,
+            name: 'Lucky Charm',
+            cost: 50,
+            slot: EquipmentSlot.trinket,
+            modifiers: [],
+        };
+
+        const canEquip = canCharacterEquipItem(
+            [equippedTrinket1, equippedTrinket2, unequippedTrinket3],
+            unequippedTrinket3.id,
+            'char-1',
+        );
+        expect(canEquip).toBe(false);
+    });
 });

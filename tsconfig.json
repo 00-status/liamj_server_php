@@ -11,7 +11,7 @@
         "jsx": "react-jsx",
         "esModuleInterop": true,
         "resolveJsonModule": true,
-        "types": ["jest"],
+        "types": ["jest", "@testing-library/jest-dom"],
         "skipLibCheck": true
     },
     "include": ["src/**/*"],

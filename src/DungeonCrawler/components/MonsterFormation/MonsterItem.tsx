@@ -64,9 +64,11 @@ export const MonsterItem = ({
                     damageTypeTheme={getDamageType(activeCombatEvent)}
                 />
             )}
-            <b>{combatant.character.name}</b>
-            <div>{`HP: ${combatant.character.currentHP}/${combatant.character.stats.healthPoints}`}</div>
-            <div>{`Next Action: ${combatant.turnsUntilAction}`}</div>
+            <div className="monster-item__contents">
+                <b>{combatant.character.name}</b>
+                <div>{`HP: ${combatant.character.currentHP}/${combatant.character.stats.healthPoints}`}</div>
+                <div>{`Next Action: ${combatant.turnsUntilAction}`}</div>
+            </div>
         </div>
     );
 };

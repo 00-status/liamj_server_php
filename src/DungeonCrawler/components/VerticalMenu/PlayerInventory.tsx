@@ -1,9 +1,8 @@
 import { useMemo } from 'react';
 
-import './character-inventory.css';
-import { Card } from '../../SharedComponents/Card/Card';
-import { Equipment, Character } from '../domain/types';
-import { formatModifier } from '../domain/items/formatModifier';
+import './player-inventory.css';
+import { Equipment, Character } from '../../domain/types';
+import { formatModifier } from '../../domain/items/formatModifier';
 
 type Props = { equippables: Equipment[]; wealth: number; playerCharacters: Character[] };
 
@@ -16,24 +15,22 @@ export const PlayerInventory = ({ equippables, wealth, playerCharacters }: Props
     }, [playerCharacters]);
 
     return (
-        <Card title="Inventory">
-            <div className="character-inventory">
-                <div>
-                    <h3>Gold: {wealth}</h3>
-                </div>
+        <div className="player-inventory">
+            <div>
+                <h3>Gold: {wealth}</h3>
+            </div>
+            <div className="player-inventory__item-list">
                 {equippables.map((equippable) => {
                     const equippedCharacter = equippable.characterID
                         ? charactersByID[equippable.characterID]
                         : null;
                     return (
-                        <div key={equippable.id}>
-                            <div className="character-inventory__item-header">
-                                <h3>
-                                    {equippable.name} | {equippable.slot}
-                                </h3>
+                        <div key={equippable.id} className="player-inventory__item">
+                            <div className="player-inventory__item-header">
+                                <h3>{equippable.name}</h3>
                             </div>
                             {equippedCharacter && <div>{equippedCharacter.name}</div>}
-                            <div>
+                            <div className="player-inventory__item-modifiers">
                                 {equippable.modifiers.map((modifier) => (
                                     <div key={modifier.id}>{formatModifier(modifier)}</div>
                                 ))}
@@ -42,6 +39,6 @@ export const PlayerInventory = ({ equippables, wealth, playerCharacters }: Props
                     );
                 })}
             </div>
-        </Card>
+        </div>
     );
 };

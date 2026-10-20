@@ -1,0 +1,51 @@
+.character-stat-card {
+    padding: 4px 12px;
+    margin-bottom: 20px;
+
+    font-weight: 700;
+    border: 2px solid #f7f7f7;
+    border-radius: 4px;
+}
+
+.character-stat-card__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    row-gap: 4px;
+    column-gap: 24px;
+    margin-top: 8px;
+}
+
+.character-stat-card__grid-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.character-stat-card__hit-points {
+    color: #d64d4d;
+}
+
+.character-stat-card__magic-points {
+    color: #80c5e8;
+}
+
+.character-stat-card__attack {
+    color: #de1b1b;
+}
+
+.character-stat-card__defence {
+    color: #ecd3d3;
+}
+
+.character-stat-card__magic-attack {
+    color: #435abf;
+}
+
+.character-stat-card__magic-defence {
+    color: #cbdae8;
+}
+
+.character-stat-card__crit {
+    color: #ff8812;
+}

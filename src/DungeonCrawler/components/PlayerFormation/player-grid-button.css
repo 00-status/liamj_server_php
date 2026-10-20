@@ -3,14 +3,18 @@
     text-align: center;
     padding: 8px;
 
-    border-radius: 8px;
-    background-color: #3b3b40;
-    box-shadow: 1px 1px 4px #1f2028;
+    padding: 8px;
+    border: 2px solid #f7f7f7;
+    border-radius: 4px;
+}
+
+.player-grid-button--active {
+    border: 2px solid #60af45;
 }
 
 .player-grid-button--targetable {
-    border: 1px solid #fcfeff;
-    animation: player-grid-button-smooth-flash 1.5s ease-in-out infinite alternate;
+    border: 2px dashed #f7f7f7;
+    animation: player-grid-button-smooth-flash 1s ease-in-out infinite alternate;
 }
 @keyframes player-grid-button-smooth-flash {
     0% {
@@ -21,9 +25,9 @@
     }
 }
 .player-grid-button--targetable:hover {
-    background-color: #49494e;
+    background-color: #4a4a4a;
 }
 
 .player-grid-button--selectable:hover {
-    background-color: #49494e;
+    background-color: #4a4a4a;
 }

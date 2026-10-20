@@ -5,22 +5,60 @@
     --attack-translate-y: 12px;
 }
 
+/*
+Background-light: #4a4a4a
+Background-medium: #242424
+Background-dark: #000000
+border/text: #f7f7f7
+
+hit-points: #d64d4d
+defence: #ecd3d3
+attack: #de1b1b
+crit: #ff8812
+magic-points: #80c5e8
+magic-defence: #cbdae8
+magic-attack: #435abf
+selected: #60af45
+
+*/
+
 .dungeon-crawler-page {
+    width: 100%;
+    min-height: 100vh;
+
+    background-color: #242424;
+    background: linear-gradient(to bottom, #4a4a4a 0%, #242424 5%, black 10%);
+}
+
+.dungeon-crawler-page__menu-button {
+    width: fit-content;
+    margin: 20px;
+    background-color: #000000;
+    border: 2px solid #f7f7f7;
+}
+
+.dungeon-crawler-page__contents {
+    display: flex;
+    flex-direction: row;
+}
+
+.dungeon-crawler-page__dungeon {
     display: flex;
     flex-direction: column;
 
     width: 100%;
     gap: 20px;
-    padding: 20px 0;
+    padding-top: 20px;
 }
 
 .dungeon-crawler-page__room_count {
     text-align: center;
     padding: 20px;
+    margin: 0 20px;
 
-    border-radius: 8px;
-    background-color: #3b3b40;
-    box-shadow: 1px 1px 4px #1f2028;
+    background-color: #000000;
+    border: 2px solid #f7f7f7;
+    border-radius: 4px;
 }
 
 .character-attack {

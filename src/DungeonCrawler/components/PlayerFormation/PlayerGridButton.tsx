@@ -51,8 +51,8 @@ export const PlayerGridButton = ({
             combatant,
             FormationTeam.PLAYER,
         );
-
     const isSelectable = !currentAbility;
+    const isSelected = currentPlayer && currentPlayer.id === combatant.id;
 
     const shouldPlayAnimation = activeCombatEvent
         ? getEventAnimationTargetIDs(activeCombatEvent).includes(combatant.id)
@@ -75,10 +75,11 @@ export const PlayerGridButton = ({
         shouldPlayAnimation && combatAnimation && combatAnimation.container === 'container';
 
     const animationClassName = shouldAnimateContainer ? combatAnimation.name : '';
+    const selectedClassName = isSelected ? 'player-grid-button--active' : '';
 
     return (
         <div
-            className={`${BASE_CLASS} ${BASE_CLASS}${modifier} ${animationClassName}`}
+            className={`${BASE_CLASS} ${BASE_CLASS}${modifier} ${animationClassName} ${selectedClassName}`}
             onClick={handleClick}
             role="button"
             style={{
@@ -95,10 +96,14 @@ export const PlayerGridButton = ({
                 />
             )}
             <b>{combatant.character.name}</b>
-            <p>
+            <div>
                 HP: {combatant.character.currentHP}/
                 {getCharacterStat(combatant.character, characterItems, BaseStatNames.healthPoints)}
-            </p>
+            </div>
+            <div>
+                MP: {combatant.character.currentMP}/
+                {getCharacterStat(combatant.character, characterItems, BaseStatNames.magicPoints)}
+            </div>
         </div>
     );
 };
