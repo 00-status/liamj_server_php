@@ -96,10 +96,14 @@ export const PlayerGridButton = ({
                 />
             )}
             <b>{combatant.character.name}</b>
-            <p>
+            <div>
                 HP: {combatant.character.currentHP}/
                 {getCharacterStat(combatant.character, characterItems, BaseStatNames.healthPoints)}
-            </p>
+            </div>
+            <div>
+                MP: {combatant.character.currentMP}/
+                {getCharacterStat(combatant.character, characterItems, BaseStatNames.magicPoints)}
+            </div>
         </div>
     );
 };
