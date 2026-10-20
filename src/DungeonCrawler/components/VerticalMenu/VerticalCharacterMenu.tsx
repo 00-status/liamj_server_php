@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import './vertical-character-menu.css';
-import { Card } from '../../../SharedComponents/Card/Card';
 import { Character, Equipment, LogMessage } from '../../domain/types';
 import { DungeonButton } from '../DungeonButton';
 
@@ -72,13 +71,11 @@ export const VerticalCharacterMenu = ({
                         />
                     )}
                     {currentMenuState === MenuState.LOG && (
-                        <Card title="Log">
-                            <div>
-                                {combatLog.map((log) => (
-                                    <p key={log.id}>{log.message}</p>
-                                ))}
-                            </div>
-                        </Card>
+                        <div>
+                            {combatLog.map((log) => (
+                                <p key={log.id}>{log.message}</p>
+                            ))}
+                        </div>
                     )}
                 </div>
             </div>
