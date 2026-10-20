@@ -16,20 +16,20 @@ import { VerticalCharacterMenu } from './components/VerticalMenu/VerticalCharact
 import { PlayerActions } from './components/PlayerActions';
 import { DungeonButton } from './components/DungeonButton';
 
-// Vertical Menu that holds some sub-menus 🟡
+// Vertical Menu that holds some sub-menus ✅
 //      Stats menu, Inventory Menu, and Log Menu ✅
 //      Clicking on an icon navigates to a particular menu. ✅
 //      On Mobile the menu is hidden and only pops out when a button is pressed. ✅
 //      On Desktop the menu is always visible and takes up about 25% of the screen. ✅
-//      TODO: Hide the book icon on desktop. 🔴
+//      TODO: Hide the book icon on desktop. ✅
 // Stats Menu 🟡
 //      Lists each player-character in the game. ✅
 //      Each item displays the character's Current Hit Points, Max Hit Points, Magic Points, Max Magic Points, Attack, Magic Attack, Defence, Magic Defence, Crit Chance. ✅
 //      TODO: Change the colour of modified stats. 🔴
+//      TODO: The Player can assign a weapon, armour, and up to two trinkets to their characters. 🔴
 //      TODO: Change the colour of Attack, Magic Attack, and Crit Chance ✅
 // Inventory Menu 🟡
 //      Displays purchased Items ✅
-//      TODO: The Player can assign Items to their character here. 🔴
 // Log Menu (To be done in #51)
 //      Displays a log of combat so far.
 

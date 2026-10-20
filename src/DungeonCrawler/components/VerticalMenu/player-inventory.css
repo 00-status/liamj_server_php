@@ -4,9 +4,29 @@
     gap: 20px;
 }
 
+.player-inventory__item {
+    padding: 4px 12px;
+    margin-bottom: 20px;
+
+    font-weight: 700;
+    border: 2px solid #f7f7f7;
+    border-radius: 4px;
+}
+
+.player-inventory__item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
 .player-inventory__item-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     gap: 20px;
+}
+
+.player-inventory__item-modifiers {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
