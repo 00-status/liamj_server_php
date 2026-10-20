@@ -49,7 +49,8 @@ export const DungeonShop = ({
                     <div
                         key={item.id}
                         role="button"
-                        className={`dungeon-shop__item ${!isPurchaseable && 'dungeon-shop__item--disabled'}`}
+                        tabIndex={isPurchaseable ? 0 : -1}
+                        className={`dungeon-shop__item ${!isPurchaseable ? 'dungeon-shop__item--disabled' : ''}`}
                         onClick={isPurchaseable ? action : undefined}
                     >
                         <h3>

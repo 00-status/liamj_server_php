@@ -24,6 +24,7 @@ export const DungeonButton = ({
 }: Props) => {
     return (
         <button
+            type="button"
             data-theme={buttonTheme || DungeonButtonTheme.DEFAULT}
             className={`dungeon-button ${isSelected ? 'dungeon-button--selected' : ''}`}
             onClick={onClick}

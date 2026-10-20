@@ -1,24 +1,26 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-export function useWindowWidth() {
-    // Initialize with undefined or a fallback (e.g., 0) to support SSR environments like Next.js
-    const [width, setWidth] = useState(() => {
-        if (typeof window !== 'undefined') {
-            return window.innerWidth;
-        }
-        return 0;
-    });
+export function useWindowWidth(): number {
+    const [width, setWidth] = useState(() =>
+        typeof window !== 'undefined' ? window.innerWidth : 0,
+    );
 
     useEffect(() => {
-        // Return early if window is not defined (SSR)
         if (typeof window === 'undefined') return;
 
-        const handleResize = () => setWidth(window.innerWidth);
+        let timeoutId: ReturnType<typeof setTimeout> | null = null;
+        const handleResize = () => {
+            if (timeoutId) clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                setWidth(window.innerWidth);
+            }, 100);
+        };
 
         window.addEventListener('resize', handleResize);
-
-        // Clean up the listener when the component unmounts
-        return () => window.removeEventListener('resize', handleResize);
+        return () => {
+            if (timeoutId) clearTimeout(timeoutId);
+            window.removeEventListener('resize', handleResize);
+        };
     }, []);
 
     return width;

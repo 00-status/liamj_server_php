@@ -24,7 +24,7 @@ selected: #60af45
 
 .dungeon-crawler-page {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
 
     background-color: #242424;
     background: linear-gradient(to bottom, #4a4a4a 0%, #242424 5%, black 10%);
