@@ -16,27 +16,7 @@ import { VerticalCharacterMenu } from './components/VerticalMenu/VerticalCharact
 import { PlayerActions } from './components/PlayerActions';
 import { DungeonButton } from './components/DungeonButton';
 
-// Vertical Menu that holds some sub-menus ✅
-//      Stats menu, Inventory Menu, and Log Menu ✅
-//      Clicking on an icon navigates to a particular menu. ✅
-//      On Mobile the menu is hidden and only pops out when a button is pressed. ✅
-//      On Desktop the menu is always visible and takes up about 25% of the screen. ✅
-//      TODO: Hide the book icon on desktop. ✅
-// Stats Menu 🟡
-//      Lists each player-character in the game. ✅
-//      Each item displays the character's Current Hit Points, Max Hit Points, Magic Points, Max Magic Points, Attack, Magic Attack, Defence, Magic Defence, Crit Chance. ✅
-//      TODO: Change the colour of modified stats. 🔴
-//      TODO: The Player can assign a weapon, armour, and up to two trinkets to their characters. ✅
-//      TODO: Change the colour of Attack, Magic Attack, and Crit Chance ✅
-// Inventory Menu ✅
-//      Displays purchased Items ✅
-// Log Menu (To be done in #51)
-//      Displays a log of combat so far.
-
-// TODO: Update the colours of the page to look more like a JRPG. ✅
-// TODO: Display a blocky border around Character cards. ✅
-// TODO: Use a more RPG-like font for titles and headers.
-
+// TODO in #74: Use a more RPG-like font for titles and headers.
 // TODO in #51: Add Log Messages back in.
 const DungeonCrawlerPage = () => {
     const windowWidth = useWindowWidth();
