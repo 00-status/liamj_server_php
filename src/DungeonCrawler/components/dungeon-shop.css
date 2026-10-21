@@ -32,6 +32,11 @@
     background-color: transparent;
 }
 
+.dungeon-shop__item-modifier-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
 @media only screen and (max-width: 600px) {
     .dungeon-shop__item {
         width: 100%;
