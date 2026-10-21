@@ -6,6 +6,7 @@ import { DungeonButton, DungeonButtonTheme } from '../DungeonButton';
 
 import { PlayerInventory } from './PlayerInventory';
 import { CharacterStatCard } from './CharacterStatCard';
+import { CombatLogItem } from './CombatLogItem';
 
 enum MenuState {
     STATS,
@@ -99,7 +100,7 @@ export const VerticalCharacterMenu = ({
                     {currentMenuState === MenuState.LOG && (
                         <div>
                             {combatLog.map((log) => (
-                                <p key={log.id}>{log.message}</p>
+                                <CombatLogItem key={log.id} log={log} />
                             ))}
                         </div>
                     )}

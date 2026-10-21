@@ -13,6 +13,27 @@
     padding: 0 20px;
 }
 
+.vertical-character-menu__log-item {
+    margin: 8px 0;
+    line-height: 1.4;
+}
+
+.vertical-character-menu__highlight--hp {
+    color: #d64d4d;
+}
+
+.vertical-character-menu__highlight--mp {
+    color: #80c5e8;
+}
+
+.vertical-character-menu__highlight--physical {
+    color: #de1b1b;
+}
+
+.vertical-character-menu__highlight--magic {
+    color: #435abf;
+}
+
 @media only screen and (max-width: 600px) {
     .vertical-character-menu {
         position: fixed;

@@ -141,7 +141,21 @@ export enum TargetScope {
     all_opponents = 'entire_formation',
 }
 
-export type LogMessage = { id: string; message: string };
+export interface DamageLogMessage {
+    id: string;
+    template: string;
+    sourceName: string;
+    targetName: string;
+    damageValue: number;
+    damageType: DamageType;
+}
+
+export interface PlainLogMessage {
+    id: string;
+    message: string;
+}
+
+export type LogMessage = DamageLogMessage | PlainLogMessage;
 
 export enum CombatEventType {
     CAST_ABILITY = 'CAST_ABILITY',
@@ -165,7 +179,7 @@ interface CastAbilityEvent extends BaseCombatEvent {
     abilityID: string;
 }
 
-interface ApplyDamageEvent extends BaseCombatEvent {
+export interface ApplyDamageEvent extends BaseCombatEvent {
     type: CombatEventType.APPLY_DAMAGE;
     sourceName: string;
     damageType: DamageType;
