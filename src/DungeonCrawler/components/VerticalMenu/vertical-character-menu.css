@@ -27,6 +27,14 @@
 
 .vertical-character-menu__container {
     padding: 0 20px;
+    height: 100vh;
+
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 .vertical-character-menu__log-item {
