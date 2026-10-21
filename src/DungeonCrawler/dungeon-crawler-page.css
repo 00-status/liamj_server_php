@@ -32,7 +32,7 @@ selected: #60af45
 
 .dungeon-crawler-page__menu-button {
     width: fit-content;
-    margin: 20px;
+    margin: 8px 20px 0;
     background-color: #000000;
     border: 2px solid #f7f7f7;
 }

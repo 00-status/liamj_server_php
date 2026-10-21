@@ -71,8 +71,7 @@ export const PlayerActions = ({
 
     return (
         <div className="player-actions">
-            <h2>Actions</h2>
-            <div>
+            <div className="player-actions__container">
                 {actions.map((action) => {
                     const isButtonSelected = action.isSelected;
                     const isButtonDisabled = !action.isSelected && action.isDisabled;

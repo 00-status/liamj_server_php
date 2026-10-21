@@ -1,3 +1,19 @@
+[data-damage-highlight='PHYSICAL'] {
+    --damage-highlight-value: #de1b1b;
+}
+[data-damage-highlight='MAGIC'] {
+    --damage-highlight-value: #435abf;
+}
+[data-damage-highlight='HEALING'] {
+    --damage-highlight-value: #d64d4d;
+}
+[data-damage-highlight='MAGIC_RESTORE'] {
+    --damage-highlight-value: #80c5e8;
+}
+[data-damage-highlight='MAGIC_DRAIN'] {
+    --damage-highlight-value: #80c5e8;
+}
+
 .vertical-character-menu {
     width: 400px;
     flex-shrink: 0;
@@ -11,6 +27,24 @@
 
 .vertical-character-menu__container {
     padding: 0 20px;
+    height: 100vh;
+
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.vertical-character-menu__log-item {
+    margin: 8px 0;
+    line-height: 1.4;
+}
+
+.vertical-character-menu__highlight {
+    font-weight: 700;
+    color: var(--damage-highlight-value);
 }
 
 @media only screen and (max-width: 600px) {

@@ -1,9 +1,9 @@
 .player-actions {
     background-color: black;
-    padding: 20px;
+    padding: 0 20px;
 }
 
-.dungeon-shop__item-modifier-grid {
+.player-actions__container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
 }

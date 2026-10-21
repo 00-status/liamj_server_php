@@ -16,6 +16,7 @@ import { selectTargetForMonster } from './monster/selectTargetForMonster';
 import { resetTurnsUntilAction } from './monster/turnsUntilAction';
 import { isFormationDefeated } from './formation/isFormationDefeated';
 import { combatEventHandlers } from './combatEvents/combatEventHandlers';
+import { generateDamageLogs } from './combatEvents/generateDamageLogs';
 import { changePoints } from './character/changePoints';
 import { exampleEquippables } from './equippables';
 import { shouldPlayerVisitShop } from './formation/shouldPlayerVisitShop';
@@ -215,6 +216,12 @@ export const dungeonCrawlerReducer = (
             const updatedPlayerFormation = updateFormation(playerFormation, updatedCombatants);
             const updatedMonsterFormation = updateFormation(monsterFormation, updatedCombatants);
 
+            const newLogs =
+                currentEvent.type === CombatEventType.APPLY_DAMAGE
+                    ? generateDamageLogs(currentEvent, updatedCombatants)
+                    : [];
+            const updatedCombatLog = [...state.combatLog, ...newLogs];
+
             // Mark the current event as processed.
             const updatedEvents = state.combatEvents.map((event) => {
                 if (event.id !== currentEvent.id) {
@@ -231,6 +238,7 @@ export const dungeonCrawlerReducer = (
                     playerFormation: updatedPlayerFormation,
                     monsterFormation: updatedMonsterFormation,
                     combatEvents: updatedEvents,
+                    combatLog: updatedCombatLog,
                 };
             }
 
@@ -283,6 +291,7 @@ export const dungeonCrawlerReducer = (
                     playerFormation: updatedPlayerFormation,
                     monsterFormation: updatedMonsterFormation,
                     combatEvents: updatedEvents,
+                    combatLog: updatedCombatLog,
                 };
             }
 
@@ -292,6 +301,7 @@ export const dungeonCrawlerReducer = (
                 playerFormation: updatedPlayerFormation,
                 monsterFormation: updatedMonsterFormation,
                 combatEvents: updatedEvents,
+                combatLog: updatedCombatLog,
             };
         }
         case 'LEAVE_SHOP': {
