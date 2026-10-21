@@ -24,9 +24,7 @@ export const generateDamageLogs = (
         const targetCharacterName = targetCombatant.character.name;
         const isSelf = event.sourceName === targetCharacterName;
         const targetName =
-            isSelf && event.damageType === DamageType.HEALING
-                ? 'themself'
-                : targetCharacterName;
+            isSelf && event.damageType === DamageType.HEALING ? 'themself' : targetCharacterName;
 
         let template = '';
         switch (event.damageType) {
@@ -35,13 +33,13 @@ export const generateDamageLogs = (
                 template = '%sourceName dealt %damageValue %damageType to %targetName!';
                 break;
             case DamageType.HEALING:
-                template = '%sourceName healed %targetName for %damageValue Health Points!';
+                template = '%sourceName healed %targetName for %damageValue %damageType!';
                 break;
             case DamageType.MAGIC_RESTORE:
-                template = '%sourceName restored %damageValue Magic Points to %targetName!';
+                template = '%sourceName restored %damageValue %damageType to %targetName!';
                 break;
             case DamageType.MAGIC_DRAIN:
-                template = '%sourceName drained %damageValue Magic Points to %targetName!';
+                template = '%sourceName drained %damageValue %damageType from %targetName!';
                 break;
             default:
                 break;

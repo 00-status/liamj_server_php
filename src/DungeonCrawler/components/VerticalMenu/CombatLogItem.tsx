@@ -13,58 +13,33 @@ export const CombatLogItem = ({ log }: Props) => {
 };
 
 const renderDamageLog = (log: DamageLogMessage) => {
-    switch (log.damageType) {
-        case DamageType.PHYSICAL:
-            return (
-                <>
-                    {log.sourceName} dealt {log.damageValue}{' '}
-                    <span className="vertical-character-menu__highlight--physical">
-                        Physical Damage
-                    </span>{' '}
-                    to {log.targetName}!
-                </>
-            );
-        case DamageType.MAGIC:
-            return (
-                <>
-                    {log.sourceName} dealt {log.damageValue}{' '}
-                    <span className="vertical-character-menu__highlight--magic">
-                        Magical Damage
-                    </span>{' '}
-                    to {log.targetName}!
-                </>
-            );
-        case DamageType.HEALING:
-            return (
-                <>
-                    {log.sourceName} healed {log.targetName} for {log.damageValue}{' '}
-                    <span className="vertical-character-menu__highlight--hp">
-                        Health Points
-                    </span>
-                    !
-                </>
-            );
-        case DamageType.MAGIC_RESTORE:
-            return (
-                <>
-                    {log.sourceName} restored {log.damageValue}{' '}
-                    <span className="vertical-character-menu__highlight--mp">
-                        Magic Points
-                    </span>{' '}
-                    to {log.targetName}!
-                </>
-            );
-        case DamageType.MAGIC_DRAIN:
-            return (
-                <>
-                    {log.sourceName} drained {log.damageValue}{' '}
-                    <span className="vertical-character-menu__highlight--mp">
-                        Magic Points
-                    </span>{' '}
-                    to {log.targetName}!
-                </>
-            );
-        default:
-            return log.template;
-    }
+    const processedString = log.template
+        .replace('%sourceName', log.sourceName)
+        .replace('%damageValue', `${log.damageValue}`)
+        .replace(`%targetName`, log.targetName);
+
+    const [before, after] = processedString.split('%damageType');
+
+    console.log(log.damageType);
+
+    return (
+        <>
+            {before}
+            <span
+                className="vertical-character-menu__highlight"
+                data-damage-highlight={log.damageType}
+            >
+                {damageValueDisplayNames[log.damageType]}
+            </span>
+            {after}
+        </>
+    );
+};
+
+const damageValueDisplayNames = {
+    [DamageType.PHYSICAL]: 'Physical Damage',
+    [DamageType.MAGIC]: 'Magic Damage',
+    [DamageType.HEALING]: 'Health Points',
+    [DamageType.MAGIC_DRAIN]: 'Magic Points',
+    [DamageType.MAGIC_RESTORE]: 'Magic Points',
 };

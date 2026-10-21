@@ -1,11 +1,5 @@
 import { Combatant } from '../Combatant';
-import {
-    ApplyDamageEvent,
-    Character,
-    CharacterTier,
-    CombatEventType,
-    DamageType,
-} from '../types';
+import { ApplyDamageEvent, Character, CharacterTier, CombatEventType, DamageType } from '../types';
 
 import { generateDamageLogs } from './generateDamageLogs';
 
@@ -42,11 +36,10 @@ describe('generateDamageLogs', () => {
         x: 2,
         y: 0,
     });
-    const skeletonPriest = new Combatant(
-        'c-4',
-        buildTestCharacter('char-4', 'Skeleton Priest'),
-        { x: 3, y: 0 },
-    );
+    const skeletonPriest = new Combatant('c-4', buildTestCharacter('char-4', 'Skeleton Priest'), {
+        x: 3,
+        y: 0,
+    });
 
     const combatants = {
         [jimothy.id]: jimothy,
@@ -110,7 +103,7 @@ describe('generateDamageLogs', () => {
         const logs = generateDamageLogs(event, combatants);
         expect(logs).toHaveLength(1);
         expect(logs[0]).toMatchObject({
-            template: '%sourceName healed %targetName for %damageValue Health Points!',
+            template: '%sourceName healed %targetName for %damageValue %damageType!',
             sourceName: 'Skeleton Priest',
             targetName: 'Zombie',
             damageValue: 10,
@@ -131,7 +124,7 @@ describe('generateDamageLogs', () => {
         const logs = generateDamageLogs(event, combatants);
         expect(logs).toHaveLength(1);
         expect(logs[0]).toMatchObject({
-            template: '%sourceName healed %targetName for %damageValue Health Points!',
+            template: '%sourceName healed %targetName for %damageValue %damageType!',
             sourceName: 'Skeleton Priest',
             targetName: 'themself',
             damageValue: 10,
@@ -152,7 +145,7 @@ describe('generateDamageLogs', () => {
         const logs = generateDamageLogs(event, combatants);
         expect(logs).toHaveLength(1);
         expect(logs[0]).toMatchObject({
-            template: '%sourceName restored %damageValue Magic Points to %targetName!',
+            template: '%sourceName restored %damageValue %damageType to %targetName!',
             sourceName: 'Skeleton Priest',
             targetName: 'Zombie',
             damageValue: 4,
@@ -187,7 +180,7 @@ describe('generateDamageLogs', () => {
         const logs = generateDamageLogs(event, combatants);
         expect(logs).toHaveLength(1);
         expect(logs[0]).toMatchObject({
-            template: '%sourceName drained %damageValue Magic Points to %targetName!',
+            template: '%sourceName drained %damageValue %damageType from %targetName!',
             sourceName: 'Skeleton Priest',
             targetName: 'Zombie',
             damageValue: 4,
