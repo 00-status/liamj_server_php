@@ -3,18 +3,14 @@ import { Formation, FormationTeam } from '../formation/types';
 import { Character } from '../types';
 import { getRandomInt } from '../utils';
 
-const MIN_GRID = 1;
-const MAX_GRID_WIDTH = 4;
-const MAX_GRID_HEIGHT = 2;
-
 export const buildNewMonsterFormation = (potentialMonsters: Character[]): Formation => {
-    const gridWidth = getRandomInt(MIN_GRID, MAX_GRID_WIDTH);
-    const gridHeight = getRandomInt(MIN_GRID, MAX_GRID_HEIGHT);
+    const gridWidth = 3;
+    const gridHeight = 3;
 
     const combatants: Combatant[] = [];
     for (let x = 1; x <= gridWidth; x++) {
         for (let y = 1; y <= gridHeight; y++) {
-            const shouldSelectMonster = getRandomInt(1, 2) === 2;
+            const shouldSelectMonster = getRandomInt(1, 4) === 4;
             if (!shouldSelectMonster) {
                 continue;
             }

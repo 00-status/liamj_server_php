@@ -5,7 +5,7 @@ import { Icon } from '../SharedComponents/Icon/Icon';
 import { IconType } from '../SharedComponents/Icon/domain';
 import { useWindowWidth } from '../Common/hooks/useWindowWidth';
 
-import { MonsterStats } from './components/MonsterFormation/MonsterStats';
+import { MonsterFormation } from './components/MonsterFormation/MonsterFormation';
 import { dungeonCrawlerInitialState, dungeonCrawlerReducer, GamePhase } from './domain/reducer';
 import { Combatant } from './domain/Combatant';
 import { Ability, CombatEvent } from './domain/types';
@@ -157,7 +157,7 @@ const DungeonCrawlerPage = () => {
                             />
                         )}
                         {phase !== GamePhase.SHOPPING && (
-                            <MonsterStats
+                            <MonsterFormation
                                 formation={monsterFormation}
                                 currentAbility={selectedAbility}
                                 currentPlayer={selectedPlayerCharacter || null}
