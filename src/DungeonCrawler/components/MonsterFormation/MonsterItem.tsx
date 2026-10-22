@@ -65,7 +65,9 @@ export const MonsterItem = ({
                 />
             )}
             <div className="monster-item__contents">
-                <div>{`Next Action: ${combatant.turnsUntilAction}`}</div>
+                <div className="monster-item__attribute--next-action">
+                    {combatant.turnsUntilAction}
+                </div>
                 <b>{combatant.character.name}</b>
                 <div className="monster-item__attributes">
                     <div className="monster-item__attribute--health-points">

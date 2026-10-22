@@ -1,6 +1,7 @@
 .monster-formation {
-    height: 420px;
     display: grid;
+    width: fit-content;
+    align-self: center;
 
     padding: 12px;
     gap: 12px;
