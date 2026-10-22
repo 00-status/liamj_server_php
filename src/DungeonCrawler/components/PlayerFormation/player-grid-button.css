@@ -6,6 +6,7 @@
     padding: 8px;
     border: 2px solid #f7f7f7;
     border-radius: 4px;
+    font-weight: 700;
 }
 
 .player-grid-button--active {
@@ -30,4 +31,11 @@
 
 .player-grid-button--selectable:hover {
     background-color: #4a4a4a;
+}
+
+.player-grid-button__stat--health-points {
+    color: #d64d4d;
+}
+.player-grid-button__stat--magic-points {
+    color: #80c5e8;
 }
