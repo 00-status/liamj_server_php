@@ -165,25 +165,27 @@ const DungeonCrawlerPage = () => {
                                 onEnemySelect={onTargetSelect}
                             />
                         )}
-                        <PlayerFormation
-                            formation={playerFormation}
-                            purchasedEquipment={playerInventory}
-                            currentPlayer={selectedPlayerCharacter || null}
-                            currentAbility={selectedAbility}
-                            activeCombatEvent={activeCombatEvent}
-                            onPlayerSelect={(combatantID: string) =>
-                                setSelectedPlayerCharacterID(combatantID)
-                            }
-                            onTargetCombatant={onTargetSelect}
-                        />
-                        {selectedPlayerCharacter && (
-                            <PlayerActions
-                                player={selectedPlayerCharacter.character}
-                                canPlayerTakeActions={canPlayerTakeActions}
+                        <div className="dungeon-crawler-page__player-section">
+                            <PlayerFormation
+                                formation={playerFormation}
+                                purchasedEquipment={playerInventory}
+                                currentPlayer={selectedPlayerCharacter || null}
                                 currentAbility={selectedAbility}
-                                onPlayerAbility={onPlayerAbilitySelect}
+                                activeCombatEvent={activeCombatEvent}
+                                onPlayerSelect={(combatantID: string) =>
+                                    setSelectedPlayerCharacterID(combatantID)
+                                }
+                                onTargetCombatant={onTargetSelect}
                             />
-                        )}
+                            {selectedPlayerCharacter && (
+                                <PlayerActions
+                                    player={selectedPlayerCharacter.character}
+                                    canPlayerTakeActions={canPlayerTakeActions}
+                                    currentAbility={selectedAbility}
+                                    onPlayerAbility={onPlayerAbilitySelect}
+                                />
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
