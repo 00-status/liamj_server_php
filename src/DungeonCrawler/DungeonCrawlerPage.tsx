@@ -17,7 +17,6 @@ import { PlayerActions } from './components/PlayerActions';
 import { DungeonButton } from './components/DungeonButton';
 
 // TODO in #74: Use a more RPG-like font for titles and headers.
-// TODO in #51: Add Log Messages back in.
 const DungeonCrawlerPage = () => {
     const windowWidth = useWindowWidth();
 
