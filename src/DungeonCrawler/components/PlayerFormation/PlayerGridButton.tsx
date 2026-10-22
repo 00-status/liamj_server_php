@@ -95,13 +95,13 @@ export const PlayerGridButton = ({
                     damageTypeTheme={getDamageType(activeCombatEvent)}
                 />
             )}
-            <b>{combatant.character.name}</b>
-            <div>
-                HP: {combatant.character.currentHP}/
+            <div>{combatant.character.name}</div>
+            <div className={`${BASE_CLASS}__stat--health-points`}>
+                {combatant.character.currentHP}/
                 {getCharacterStat(combatant.character, characterItems, BaseStatNames.healthPoints)}
             </div>
-            <div>
-                MP: {combatant.character.currentMP}/
+            <div className={`${BASE_CLASS}__stat--magic-points`}>
+                {combatant.character.currentMP}/
                 {getCharacterStat(combatant.character, characterItems, BaseStatNames.magicPoints)}
             </div>
         </div>

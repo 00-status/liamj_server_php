@@ -1,0 +1,14 @@
+.monster-formation {
+    display: grid;
+    width: fit-content;
+    align-self: center;
+
+    padding: 12px;
+    gap: 12px;
+
+    background-color: #000000;
+}
+
+.monster-formation__blank-combatant {
+    border: 2px solid #4a4a4a;
+}

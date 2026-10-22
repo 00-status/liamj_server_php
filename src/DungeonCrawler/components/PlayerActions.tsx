@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 import './player-actions.css';
 import { Ability, AbilityType, Character } from '../domain/types';
 
-import { DungeonButton } from './DungeonButton';
+import { DungeonButton, DungeonButtonTheme } from './DungeonButton';
 
 enum MenuState {
     base = 'Base',
@@ -80,7 +80,11 @@ export const PlayerActions = ({
                             key={action.label}
                             onClick={action.action}
                             isDisabled={!!isButtonDisabled}
-                            isSelected={!!isButtonSelected}
+                            buttonTheme={
+                                isButtonSelected
+                                    ? DungeonButtonTheme.ACTIVE
+                                    : DungeonButtonTheme.DEFAULT
+                            }
                         >
                             {action.label}
                         </DungeonButton>

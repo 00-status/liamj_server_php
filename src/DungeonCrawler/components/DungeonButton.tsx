@@ -10,23 +10,16 @@ export enum DungeonButtonTheme {
 type Props = {
     onClick: () => void;
     isDisabled?: boolean;
-    isSelected?: boolean;
     buttonTheme?: DungeonButtonTheme;
     children: ReactNode;
 };
 
-export const DungeonButton = ({
-    onClick,
-    isDisabled,
-    isSelected,
-    buttonTheme,
-    children,
-}: Props) => {
+export const DungeonButton = ({ onClick, isDisabled, buttonTheme, children }: Props) => {
     return (
         <button
             type="button"
             data-theme={buttonTheme || DungeonButtonTheme.DEFAULT}
-            className={`dungeon-button ${isSelected ? 'dungeon-button--selected' : ''}`}
+            className="dungeon-button"
             onClick={onClick}
             disabled={isDisabled}
         >

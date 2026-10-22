@@ -28,11 +28,6 @@
     transform: scale(1.05);
 }
 
-.dungeon-button--selected {
-    border: 2px solid var(--button-color);
-    border-radius: 4px;
-}
-
 .dungeon-button:disabled {
     color: #4a4a4a;
     transform: none;

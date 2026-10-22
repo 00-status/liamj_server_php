@@ -1,5 +1,8 @@
 .monster-item {
     position: relative;
+    min-width: 120px;
+    min-height: 120px;
+
     padding: 8px;
     border: 2px solid #f7f7f7;
     border-radius: 4px;
@@ -13,6 +16,26 @@
 
     justify-content: center;
     text-align: center;
+}
+
+.monster-item__attributes {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+
+    align-self: center;
+    font-weight: 700;
+}
+
+.monster-item__attribute--next-action {
+    text-align: end;
+    font-weight: 700px;
+}
+.monster-item__attribute--health-points {
+    color: #d64d4d;
+}
+.monster-item__attribute--magic-points {
+    color: #80c5e8;
 }
 
 .monster-item--selecting {
@@ -29,5 +52,12 @@
     }
     100% {
         opacity: 0.75;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .monster-item {
+        min-width: unset;
+        min-height: unset;
     }
 }
