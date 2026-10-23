@@ -1,15 +1,16 @@
 import { ReactElement, useState } from 'react';
 
-import { Page } from '../../SharedComponents/Page/Page';
-import { JSONFileInput } from '../../SharedComponents/FileInput/JSONFileInput';
-import { Button } from '../../SharedComponents/Button/Button';
-import { Card } from '../../SharedComponents/Card/Card';
-import { Equipment, EquipmentSlot } from '../domain/types';
+import { Page } from '../../../SharedComponents/Page/Page';
+import { JSONFileInput } from '../../../SharedComponents/FileInput/JSONFileInput';
+import { Button } from '../../../SharedComponents/Button/Button';
+import { Card } from '../../../SharedComponents/Card/Card';
+import { Equipment, EquipmentSlot } from '../../domain/types';
+import { dungeonCrawlerEditorRoutes } from '../domain';
 
 import { EquipmentEditor } from './components/EquipmentEditor';
-import './dungeon-crawler-editor-page.css';
+import './dungeon-crawler-equipment-editor-page.css';
 
-const DungeonCrawlerEditorPage = (): ReactElement => {
+const DungeonCrawlerEquipmentEditorPage = (): ReactElement => {
     const [equipmentList, setEquipmentList] = useState<Equipment[]>([]);
     const [selectedEquipmentId, setSelectedEquipmentId] = useState<string | null>(null);
 
@@ -80,7 +81,7 @@ const DungeonCrawlerEditorPage = (): ReactElement => {
     const selectedEquipment = equipmentList.find((item) => item.id === selectedEquipmentId);
 
     return (
-        <Page title="Dungeon Crawler Equipment Editor" routes={[]}>
+        <Page title="Dungeon Crawler Equipment Editor" routes={dungeonCrawlerEditorRoutes}>
             <div className="equipment-editor-page">
                 <div className="equipment-editor-page__top-bar">
                     <div className="equipment-editor-page__file-actions">
@@ -157,4 +158,4 @@ const DungeonCrawlerEditorPage = (): ReactElement => {
     );
 };
 
-export default DungeonCrawlerEditorPage;
+export default DungeonCrawlerEquipmentEditorPage;

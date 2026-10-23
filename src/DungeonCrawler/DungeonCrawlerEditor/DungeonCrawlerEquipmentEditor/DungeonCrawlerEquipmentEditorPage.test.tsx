@@ -1,22 +1,22 @@
 import { render, fireEvent } from '@testing-library/react';
 import { Children } from 'react';
 
-import DungeonCrawlerEditorPage from './DungeonCrawlerEditorPage';
+import DungeonCrawlerEquipmentEditorPage from './DungeonCrawlerEquipmentEditorPage';
 
-jest.mock('../../SharedComponents/Page/Page', () => {
+jest.mock('../../../SharedComponents/Page/Page', () => {
     return {
         Page: ({ children }: { children: typeof Children }) => <>{children}</>,
     };
 });
 
-describe('DungeonCrawlerEditorPage', () => {
+describe('DungeonCrawlerEquipmentEditorPage', () => {
     beforeEach(() => {
         window.URL.createObjectURL = jest.fn(() => 'blob:mock-url');
         window.URL.revokeObjectURL = jest.fn();
     });
 
     it('renders empty state initially', () => {
-        const { getByText } = render(<DungeonCrawlerEditorPage />);
+        const { getByText } = render(<DungeonCrawlerEquipmentEditorPage />);
 
         expect(
             getByText('No equipment loaded. Upload a file or add a new item.'),
@@ -25,7 +25,7 @@ describe('DungeonCrawlerEditorPage', () => {
     });
 
     it('can create a new equipment item', () => {
-        const { getByText, getByLabelText } = render(<DungeonCrawlerEditorPage />);
+        const { getByText, getByLabelText } = render(<DungeonCrawlerEquipmentEditorPage />);
 
         const addButton = getByText('Add Equipment');
         fireEvent.click(addButton);
@@ -38,7 +38,7 @@ describe('DungeonCrawlerEditorPage', () => {
     });
 
     it('updates equipment name and displays in the sidebar', () => {
-        const { getByText, getByLabelText } = render(<DungeonCrawlerEditorPage />);
+        const { getByText, getByLabelText } = render(<DungeonCrawlerEquipmentEditorPage />);
 
         fireEvent.click(getByText('Add Equipment'));
 
@@ -49,7 +49,7 @@ describe('DungeonCrawlerEditorPage', () => {
     });
 
     it('can add and remove modifiers', () => {
-        const { getByText, queryByText } = render(<DungeonCrawlerEditorPage />);
+        const { getByText, queryByText } = render(<DungeonCrawlerEquipmentEditorPage />);
 
         fireEvent.click(getByText('Add Equipment'));
 
@@ -65,7 +65,7 @@ describe('DungeonCrawlerEditorPage', () => {
     });
 
     it('can delete an equipment item', () => {
-        const { getByText, queryByText } = render(<DungeonCrawlerEditorPage />);
+        const { getByText, queryByText } = render(<DungeonCrawlerEquipmentEditorPage />);
 
         fireEvent.click(getByText('Add Equipment'));
         expect(getByText('Equipment List (1)')).toBeInTheDocument();
@@ -78,7 +78,7 @@ describe('DungeonCrawlerEditorPage', () => {
     });
 
     it('can trigger export of equipment list', () => {
-        const { getByText } = render(<DungeonCrawlerEditorPage />);
+        const { getByText } = render(<DungeonCrawlerEquipmentEditorPage />);
 
         fireEvent.click(getByText('Add Equipment'));
 

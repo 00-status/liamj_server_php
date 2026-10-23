@@ -1,8 +1,8 @@
 import { applyAbilityEffects, applyPointModifierEffects } from './character/applyAbilityEffects';
 import { examplePlayerFormation } from './constants';
 import { pickMonsterAbility } from './monster/pickMonsterAbility';
-import { buildNewMonsterFormation } from './monster/buildNewMonsterFormation';
-import { exampleMonsters } from './monsters';
+import { pickNewMonsterFormation } from './monster/pickNewMonsterFormation';
+import { exampleMonsterFormations } from './monsters';
 import {
     Ability,
     BaseStatNames,
@@ -63,7 +63,7 @@ type DungeonCrawlerState = {
 export const dungeonCrawlerInitialState: DungeonCrawlerState = {
     phase: GamePhase.SHOPPING,
     roomsClearedCount: 0,
-    monsterFormation: buildNewMonsterFormation(exampleMonsters),
+    monsterFormation: pickNewMonsterFormation(exampleMonsterFormations),
     playerFormation: examplePlayerFormation,
     playerInventory: [],
     playerWealth: 1000,
@@ -277,7 +277,7 @@ export const dungeonCrawlerReducer = (
                     phase: shouldVisitShop ? GamePhase.SHOPPING : GamePhase.PLAYER_TURN,
                     roomsClearedCount: newRoomsClearedCount,
                     playerFormation: updatedPlayerFormation,
-                    monsterFormation: buildNewMonsterFormation(exampleMonsters),
+                    monsterFormation: pickNewMonsterFormation(exampleMonsterFormations),
                     combatEvents: [],
                     combatLog: [],
                     playerWealth: newPlayerWealth,

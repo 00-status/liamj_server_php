@@ -7,10 +7,10 @@ import {
     DamageScaleMethod,
     Equipment,
     EquipmentSlot,
-} from '../../domain/types';
-import { TextInput } from '../../../SharedComponents/TextInput/TextInput';
-import { Dropdown } from '../../../SharedComponents/Dropdown/Dropdown';
-import { Button, ButtonTheme } from '../../../SharedComponents/Button/Button';
+} from '../../../domain/types';
+import { TextInput } from '../../../../SharedComponents/TextInput/TextInput';
+import { Dropdown } from '../../../../SharedComponents/Dropdown/Dropdown';
+import { Button, ButtonTheme } from '../../../../SharedComponents/Button/Button';
 import './equipment-editor.css';
 
 interface EquipmentEditorProps {

@@ -1,4 +1,6 @@
 import { attackAbility } from './constants';
+import { MonsterCombatant } from './Combatant';
+import { Formation, FormationTeam } from './formation/types';
 import {
     AbilityTarget,
     AbilityType,
@@ -141,6 +143,47 @@ export const exampleMonsters: Character[] = [
                     },
                 ],
             },
+        ],
+    },
+];
+
+export const exampleMonsterFormations: Formation[] = [
+    {
+        id: crypto.randomUUID(),
+        team: FormationTeam.MONSTER,
+        gridDimensions: { x: 3, y: 3 },
+        combatants: [
+            new MonsterCombatant(
+                crypto.randomUUID(),
+                exampleMonsters[0],
+                { x: 1, y: 2 },
+                0,
+            ),
+            new MonsterCombatant(
+                crypto.randomUUID(),
+                exampleMonsters[2],
+                { x: 2, y: 2 },
+                0,
+            ),
+        ],
+    },
+    {
+        id: crypto.randomUUID(),
+        team: FormationTeam.MONSTER,
+        gridDimensions: { x: 3, y: 3 },
+        combatants: [
+            new MonsterCombatant(
+                crypto.randomUUID(),
+                exampleMonsters[1],
+                { x: 1, y: 1 },
+                0,
+            ),
+            new MonsterCombatant(
+                crypto.randomUUID(),
+                exampleMonsters[1],
+                { x: 1, y: 3 },
+                0,
+            ),
         ],
     },
 ];

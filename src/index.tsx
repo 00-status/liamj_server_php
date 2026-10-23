@@ -76,10 +76,16 @@ const TerminalEditorPage = lazy(
             /* webpackChunkName: "terminal-editor-page" */ './HiddenPages/TerminalEditor/TerminalEditorPage'
         ),
 );
-const DungeonCrawlerEditorPage = lazy(
+const DungeonCrawlerEquipmentEditorPage = lazy(
     () =>
         import(
-            /* webpackChunkName: "dungeon-crawler-editor-page" */ './DungeonCrawler/DungeonCrawlerEditor/DungeonCrawlerEditorPage'
+            /* webpackChunkName: "dungeon-crawler-equipment-editor-page" */ './DungeonCrawler/DungeonCrawlerEditor/DungeonCrawlerEquipmentEditor/DungeonCrawlerEquipmentEditorPage'
+        ),
+);
+const MonsterFormationEditorPage = lazy(
+    () =>
+        import(
+            /* webpackChunkName: "monster-formation-editor-page" */ './DungeonCrawler/DungeonCrawlerEditor/DungeonCrawlerMonsterFormationEditor/MonsterFormationEditorPage'
         ),
 );
 const RouterErrorBoundary = lazy(
@@ -166,7 +172,12 @@ const router = createBrowserRouter([
     },
     {
         path: '/unlisted/dungeon_crawler/equipment_editor',
-        element: <DungeonCrawlerEditorPage />,
+        element: <DungeonCrawlerEquipmentEditorPage />,
+        ErrorBoundary: RouterErrorBoundary,
+    },
+    {
+        path: '/unlisted/dungeon_crawler/monster_formation_editor',
+        element: <MonsterFormationEditorPage />,
         ErrorBoundary: RouterErrorBoundary,
     },
     { path: '*', element: <NotFoundPage />, ErrorBoundary: RouterErrorBoundary },

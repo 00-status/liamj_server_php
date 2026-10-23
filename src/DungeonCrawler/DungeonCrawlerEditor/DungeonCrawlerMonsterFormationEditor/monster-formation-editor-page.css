@@ -1,0 +1,103 @@
+.formation-editor-page {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.formation-editor-page__top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--surface-color, #ffffff);
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.formation-editor-page__file-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.formation-editor-page__content {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.formation-editor-page__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.formation-editor-page__sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.formation-editor-page__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-height: 75vh;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.formation-editor-page__item-card {
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s ease-in-out;
+}
+
+.formation-editor-page__item-card--selected {
+    border-color: #3b82f6;
+    background-color: #f8fafc;
+}
+
+.formation-editor-page__item-id {
+    font-size: 0.75rem;
+    color: #64748b;
+    word-break: break-all;
+    margin-top: 0.25rem;
+}
+
+.formation-editor-page__main-area {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.formation-editor-page__main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--surface-color, #ffffff);
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.formation-editor-page__empty {
+    padding: 2rem;
+    text-align: center;
+    color: #64748b;
+    background-color: var(--surface-color, #ffffff);
+    border-radius: 8px;
+    border: 1px dashed #cbd5e1;
+}
+
+@media (max-width: 900px) {
+    .formation-editor-page__content {
+        grid-template-columns: 1fr;
+    }
+}
