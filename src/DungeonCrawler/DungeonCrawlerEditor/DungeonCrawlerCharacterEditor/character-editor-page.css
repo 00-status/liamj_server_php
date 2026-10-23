@@ -3,7 +3,6 @@
     flex-direction: column;
     gap: 1.5rem;
     padding: 1.5rem;
-    max-width: 1400px;
     margin: 0 auto;
 }
 
@@ -11,7 +10,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--surface-color, #ffffff);
     padding: 1rem 1.5rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -27,7 +25,7 @@
 
 .character-editor-page__content {
     display: grid;
-    grid-template-columns: 320px 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
     align-items: start;
 }
@@ -61,7 +59,6 @@
 
 .character-editor-page__item-card--selected {
     border-color: #3b82f6;
-    background-color: #f8fafc;
 }
 
 .character-editor-page__item-id {
@@ -75,7 +72,6 @@
     padding: 2rem;
     text-align: center;
     color: #64748b;
-    background-color: var(--surface-color, #ffffff);
     border-radius: 8px;
     border: 1px dashed #cbd5e1;
 }
