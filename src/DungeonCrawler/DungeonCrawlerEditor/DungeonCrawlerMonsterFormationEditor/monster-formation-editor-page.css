@@ -11,7 +11,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--surface-color, #ffffff);
     padding: 1rem 1.5rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -81,7 +80,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--surface-color, #ffffff);
     padding: 1rem 1.5rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -91,7 +89,6 @@
     padding: 2rem;
     text-align: center;
     color: #64748b;
-    background-color: var(--surface-color, #ffffff);
     border-radius: 8px;
     border: 1px dashed #cbd5e1;
 }

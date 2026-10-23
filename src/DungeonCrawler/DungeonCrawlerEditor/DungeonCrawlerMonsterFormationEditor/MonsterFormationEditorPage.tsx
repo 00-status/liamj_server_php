@@ -79,10 +79,7 @@ const MonsterFormationEditorPage = (): ReactElement => {
     const handleAddCombatantAt = (x: number, y: number) => {
         if (!selectedFormation) return;
 
-        const newCombatant = createDefaultMonsterCombatant(
-            { x, y },
-            `Monster (${x}, ${y})`,
-        );
+        const newCombatant = createDefaultMonsterCombatant({ x, y }, `Monster (${x}, ${y})`);
         const updatedFormation: Formation = {
             ...selectedFormation,
             combatants: [...selectedFormation.combatants, newCombatant],
@@ -112,9 +109,7 @@ const MonsterFormationEditorPage = (): ReactElement => {
     const handleDeleteCombatant = (combatantId: string) => {
         if (!selectedFormation) return;
 
-        const updatedCombatants = selectedFormation.combatants.filter(
-            (c) => c.id !== combatantId,
-        );
+        const updatedCombatants = selectedFormation.combatants.filter((c) => c.id !== combatantId);
         const updatedFormation: Formation = {
             ...selectedFormation,
             combatants: updatedCombatants,
@@ -124,9 +119,7 @@ const MonsterFormationEditorPage = (): ReactElement => {
             prev.map((f) => (f.id === updatedFormation.id ? updatedFormation : f)),
         );
         if (selectedCombatantId === combatantId) {
-            setSelectedCombatantId(
-                updatedCombatants.length > 0 ? updatedCombatants[0].id : null,
-            );
+            setSelectedCombatantId(updatedCombatants.length > 0 ? updatedCombatants[0].id : null);
         }
     };
 
@@ -138,6 +131,7 @@ const MonsterFormationEditorPage = (): ReactElement => {
         <Page
             title="Dungeon Crawler Monster Formation Editor"
             routes={dungeonCrawlerEditorRoutes}
+            isFullWidth
         >
             <div className="formation-editor-page">
                 <div className="formation-editor-page__top-bar">
@@ -162,8 +156,7 @@ const MonsterFormationEditorPage = (): ReactElement => {
                         <div className="formation-editor-page__list">
                             {formations.length === 0 ? (
                                 <div className="formation-editor-page__empty">
-                                    No formations loaded. Upload a file or add a new
-                                    formation.
+                                    No formations loaded. Upload a file or add a new formation.
                                 </div>
                             ) : (
                                 formations.map((item, index) => {
@@ -211,18 +204,14 @@ const MonsterFormationEditorPage = (): ReactElement => {
                                     </div>
                                     <Button
                                         buttonTheme={ButtonTheme.Delete}
-                                        onClick={() =>
-                                            handleDeleteFormation(selectedFormation.id)
-                                        }
+                                        onClick={() => handleDeleteFormation(selectedFormation.id)}
                                     >
                                         Delete Formation
                                     </Button>
                                 </div>
 
                                 <FormationGrid
-                                    combatants={
-                                        selectedFormation.combatants as MonsterCombatant[]
-                                    }
+                                    combatants={selectedFormation.combatants as MonsterCombatant[]}
                                     selectedCombatantId={selectedCombatantId}
                                     onSelectCombatant={(id) => setSelectedCombatantId(id)}
                                     onAddCombatantAt={handleAddCombatantAt}
@@ -237,8 +226,8 @@ const MonsterFormationEditorPage = (): ReactElement => {
                                     />
                                 ) : (
                                     <div className="formation-editor-page__empty">
-                                        Select a monster from the grid above to edit its
-                                        stats or abilities.
+                                        Select a monster from the grid above to edit its stats or
+                                        abilities.
                                     </div>
                                 )}
                             </>
