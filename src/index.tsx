@@ -88,6 +88,12 @@ const MonsterFormationEditorPage = lazy(
             /* webpackChunkName: "monster-formation-editor-page" */ './DungeonCrawler/DungeonCrawlerEditor/DungeonCrawlerMonsterFormationEditor/MonsterFormationEditorPage'
         ),
 );
+const CharacterEditorPage = lazy(
+    () =>
+        import(
+            /* webpackChunkName: "character-editor-page" */ './DungeonCrawler/DungeonCrawlerEditor/DungeonCrawlerCharacterEditor/CharacterEditorPage'
+        ),
+);
 const RouterErrorBoundary = lazy(
     () => import(/* webpackChunkName: "about-me" */ './ErrorStates/ErrorBoundary'),
 );
@@ -178,6 +184,11 @@ const router = createBrowserRouter([
     {
         path: '/unlisted/dungeon_crawler/monster_formation_editor',
         element: <MonsterFormationEditorPage />,
+        ErrorBoundary: RouterErrorBoundary,
+    },
+    {
+        path: '/unlisted/dungeon_crawler/character_editor',
+        element: <CharacterEditorPage />,
         ErrorBoundary: RouterErrorBoundary,
     },
     { path: '*', element: <NotFoundPage />, ErrorBoundary: RouterErrorBoundary },

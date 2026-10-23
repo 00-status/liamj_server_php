@@ -11,4 +11,9 @@ export const dungeonCrawlerEditorRoutes = [
         route: '/unlisted/dungeon_crawler/monster_formation_editor',
         iconType: IconType.GROUP,
     },
+    {
+        label: 'Character Editor',
+        route: '/unlisted/dungeon_crawler/character_editor',
+        iconType: IconType.PENCIL,
+    },
 ];

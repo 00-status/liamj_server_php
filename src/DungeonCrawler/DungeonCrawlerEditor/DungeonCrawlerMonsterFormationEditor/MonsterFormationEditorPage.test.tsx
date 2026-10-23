@@ -49,26 +49,36 @@ describe('MonsterFormationEditorPage', () => {
         expect(getByText('Monster (2, 2)')).toBeInTheDocument();
     });
 
-    it('allows editing character name, tier, MP, and stats', () => {
+    it('allows editing currentHP and currentMP, and keeps name read-only', () => {
         const { getByText, getByLabelText } = render(<MonsterFormationEditorPage />);
 
         fireEvent.click(getByText('Add Formation'));
 
-        const nameInput = getByLabelText('Character Name') as HTMLInputElement;
-        fireEvent.change(nameInput, { target: { value: 'Goblin Warlord' } });
+        const nameInput = getByLabelText('Name (from Template)') as HTMLInputElement;
+        expect(nameInput).toHaveAttribute('readonly');
 
-        expect(getByText('Goblin Warlord')).toBeInTheDocument();
+        const hpInput = getByLabelText('Current HP') as HTMLInputElement;
+        fireEvent.change(hpInput, { target: { value: '75' } });
+        expect(hpInput.value).toBe('75');
 
         const mpInput = getByLabelText('Current MP') as HTMLInputElement;
         fireEvent.change(mpInput, { target: { value: '15' } });
         expect(mpInput.value).toBe('15');
-
-        const atkInput = getByLabelText('attack') as HTMLInputElement;
-        fireEvent.change(atkInput, { target: { value: '45' } });
-        expect(atkInput.value).toBe('45');
     });
 
-    it('keeps ID read-only and does not expose currentHP or modifiers', () => {
+    it('allows applying a character template from dropdown', () => {
+        const { getByText, getByLabelText } = render(<MonsterFormationEditorPage />);
+
+        fireEvent.click(getByText('Add Formation'));
+
+        const templateSelect = getByLabelText('Apply Template') as HTMLSelectElement;
+        // exampleMonsters[0] is Skeleton
+        fireEvent.change(templateSelect, { target: { value: templateSelect.options[1].value } });
+
+        expect(getByText('Skeleton')).toBeInTheDocument();
+    });
+
+    it('keeps ID read-only and does not expose modifiers', () => {
         const { getByText, getByLabelText, queryByLabelText } = render(
             <MonsterFormationEditorPage />,
         );
@@ -78,7 +88,6 @@ describe('MonsterFormationEditorPage', () => {
         const idInput = getByLabelText('Combatant ID (Read Only)') as HTMLInputElement;
         expect(idInput).toHaveAttribute('readonly');
 
-        expect(queryByLabelText('Current HP')).not.toBeInTheDocument();
         expect(queryByLabelText('Modifiers')).not.toBeInTheDocument();
     });
 

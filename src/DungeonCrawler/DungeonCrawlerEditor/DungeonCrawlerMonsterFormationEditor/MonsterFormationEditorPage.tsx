@@ -6,6 +6,8 @@ import { Button, ButtonTheme } from '../../../SharedComponents/Button/Button';
 import { Card } from '../../../SharedComponents/Card/Card';
 import { Formation } from '../../domain/formation/types';
 import { MonsterCombatant } from '../../domain/Combatant';
+import { Character } from '../../domain/types';
+import { exampleMonsters } from '../../domain/monsters';
 import { dungeonCrawlerEditorRoutes } from '../domain';
 
 import {
@@ -19,8 +21,17 @@ import './monster-formation-editor-page.css';
 
 const MonsterFormationEditorPage = (): ReactElement => {
     const [formations, setFormations] = useState<Formation[]>([]);
+    const [characterTemplates, setCharacterTemplates] = useState<Character[]>(exampleMonsters);
     const [selectedFormationId, setSelectedFormationId] = useState<string | null>(null);
     const [selectedCombatantId, setSelectedCombatantId] = useState<string | null>(null);
+
+    const handleTemplatesLoad = (
+        parsed: Array<{ [key: string]: unknown }> | { [key: string]: unknown },
+    ) => {
+        if (Array.isArray(parsed)) {
+            setCharacterTemplates(parsed as unknown as Character[]);
+        }
+    };
 
     const handleFileLoad = (
         parsed: Array<{ [key: string]: unknown }> | { [key: string]: unknown },
@@ -131,7 +142,6 @@ const MonsterFormationEditorPage = (): ReactElement => {
         <Page
             title="Dungeon Crawler Monster Formation Editor"
             routes={dungeonCrawlerEditorRoutes}
-            isFullWidth
         >
             <div className="formation-editor-page">
                 <div className="formation-editor-page__top-bar">
@@ -140,6 +150,11 @@ const MonsterFormationEditorPage = (): ReactElement => {
                             id="formation-file-input"
                             name="Load Formations JSON"
                             onChange={handleFileLoad}
+                        />
+                        <JSONFileInput
+                            id="template-file-input"
+                            name="Load Character Templates JSON"
+                            onChange={handleTemplatesLoad}
                         />
                     </div>
                     <Button onClick={handleExport} disabled={formations.length === 0}>
@@ -221,6 +236,7 @@ const MonsterFormationEditorPage = (): ReactElement => {
                                     <CombatantEditor
                                         key={selectedCombatant.id}
                                         combatant={selectedCombatant}
+                                        characterTemplates={characterTemplates}
                                         onChange={handleUpdateCombatant}
                                         onDelete={handleDeleteCombatant}
                                     />
