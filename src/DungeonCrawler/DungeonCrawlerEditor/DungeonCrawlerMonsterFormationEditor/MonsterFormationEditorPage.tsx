@@ -7,7 +7,6 @@ import { Card } from '../../../SharedComponents/Card/Card';
 import { Formation } from '../../domain/formation/types';
 import { MonsterCombatant } from '../../domain/Combatant';
 import { Character } from '../../domain/types';
-import { exampleMonsters } from '../../domain/monsters';
 import { dungeonCrawlerEditorRoutes } from '../domain';
 import { deserializeFormations } from '../../domain/formation/deserializeFormations';
 
@@ -19,7 +18,7 @@ import './monster-formation-editor-page.css';
 
 const MonsterFormationEditorPage = (): ReactElement => {
     const [formations, setFormations] = useState<Formation[]>([]);
-    const [characterTemplates, setCharacterTemplates] = useState<Character[]>(exampleMonsters);
+    const [characterTemplates, setCharacterTemplates] = useState<Character[]>([]);
     const [selectedFormationId, setSelectedFormationId] = useState<string | null>(null);
     const [selectedCombatantId, setSelectedCombatantId] = useState<string | null>(null);
 

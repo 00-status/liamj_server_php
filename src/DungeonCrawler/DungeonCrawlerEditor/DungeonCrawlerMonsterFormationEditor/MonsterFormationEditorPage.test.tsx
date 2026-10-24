@@ -63,18 +63,6 @@ describe('MonsterFormationEditorPage', () => {
         expect(mpInput.value).toBe('15');
     });
 
-    it('allows applying a character template from dropdown', () => {
-        const { getByText, getByLabelText } = render(<MonsterFormationEditorPage />);
-
-        fireEvent.click(getByText('Add Formation'));
-
-        const templateSelect = getByLabelText('Apply Template') as HTMLSelectElement;
-        // exampleMonsters[0] is Skeleton
-        fireEvent.change(templateSelect, { target: { value: templateSelect.options[1].value } });
-
-        expect(getByText('Skeleton')).toBeInTheDocument();
-    });
-
     it('keeps ID read-only and does not expose modifiers', () => {
         const { getByText, getByLabelText, queryByLabelText } = render(
             <MonsterFormationEditorPage />,
