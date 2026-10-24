@@ -1,8 +1,9 @@
+import rawMonsterFormations from '../../assets/monster_formations.json';
+
 import { applyAbilityEffects, applyPointModifierEffects } from './character/applyAbilityEffects';
 import { examplePlayerFormation } from './constants';
 import { pickMonsterAbility } from './monster/pickMonsterAbility';
 import { pickNewMonsterFormation } from './monster/pickNewMonsterFormation';
-import { exampleMonsterFormations } from './monsters';
 import {
     Ability,
     BaseStatNames,
@@ -25,6 +26,7 @@ import { calculateValueOfCharacters } from './character/calculateValueOfCharacte
 import { getCharacterStat } from './character/getCharacterStat';
 import { Formation } from './formation/types';
 import { Combatant, MonsterCombatant } from './Combatant';
+import { deserializeFormations } from './formation/deserializeFormations';
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability; caster: Combatant; target: Combatant }
@@ -60,10 +62,12 @@ type DungeonCrawlerState = {
     combatEvents: CombatEvent[];
 };
 
+const monsterFormations: Formation[] = deserializeFormations(rawMonsterFormations);
+
 export const dungeonCrawlerInitialState: DungeonCrawlerState = {
     phase: GamePhase.SHOPPING,
     roomsClearedCount: 0,
-    monsterFormation: pickNewMonsterFormation(exampleMonsterFormations),
+    monsterFormation: pickNewMonsterFormation(monsterFormations),
     playerFormation: examplePlayerFormation,
     playerInventory: [],
     playerWealth: 1000,
@@ -277,7 +281,7 @@ export const dungeonCrawlerReducer = (
                     phase: shouldVisitShop ? GamePhase.SHOPPING : GamePhase.PLAYER_TURN,
                     roomsClearedCount: newRoomsClearedCount,
                     playerFormation: updatedPlayerFormation,
-                    monsterFormation: pickNewMonsterFormation(exampleMonsterFormations),
+                    monsterFormation: pickNewMonsterFormation(monsterFormations),
                     combatEvents: [],
                     combatLog: [],
                     playerWealth: newPlayerWealth,

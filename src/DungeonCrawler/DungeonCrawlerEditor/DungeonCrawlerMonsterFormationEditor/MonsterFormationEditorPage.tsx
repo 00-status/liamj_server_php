@@ -9,14 +9,12 @@ import { MonsterCombatant } from '../../domain/Combatant';
 import { Character } from '../../domain/types';
 import { exampleMonsters } from '../../domain/monsters';
 import { dungeonCrawlerEditorRoutes } from '../domain';
+import { deserializeFormations } from '../../domain/formation/deserializeFormations';
 
-import {
-    createDefaultFormation,
-    createDefaultMonsterCombatant,
-    deserializeFormations,
-} from './domain';
+import { createDefaultFormation, createDefaultMonsterCombatant } from './domain';
 import { FormationGrid } from './components/FormationGrid';
 import { CombatantEditor } from './components/CombatantEditor';
+
 import './monster-formation-editor-page.css';
 
 const MonsterFormationEditorPage = (): ReactElement => {
@@ -139,10 +137,7 @@ const MonsterFormationEditorPage = (): ReactElement => {
     ) as MonsterCombatant | undefined;
 
     return (
-        <Page
-            title="Dungeon Crawler Monster Formation Editor"
-            routes={dungeonCrawlerEditorRoutes}
-        >
+        <Page title="Dungeon Crawler Monster Formation Editor" routes={dungeonCrawlerEditorRoutes}>
             <div className="formation-editor-page">
                 <div className="formation-editor-page__top-bar">
                     <div className="formation-editor-page__file-actions">

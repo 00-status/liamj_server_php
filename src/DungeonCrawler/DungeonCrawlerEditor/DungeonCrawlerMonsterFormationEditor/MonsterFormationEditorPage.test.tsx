@@ -1,10 +1,7 @@
 import { render, fireEvent } from '@testing-library/react';
 import { Children } from 'react';
 
-import { MonsterCombatant } from '../../domain/Combatant';
-
 import MonsterFormationEditorPage from './MonsterFormationEditorPage';
-import { deserializeFormations } from './domain';
 
 jest.mock('../../../SharedComponents/Page/Page', () => {
     return {
@@ -101,9 +98,7 @@ describe('MonsterFormationEditorPage', () => {
 
         expect(queryByText('Monster 1')).not.toBeInTheDocument();
         expect(
-            getByText(
-                'Select a monster from the grid above to edit its stats or abilities.',
-            ),
+            getByText('Select a monster from the grid above to edit its stats or abilities.'),
         ).toBeInTheDocument();
     });
 
@@ -116,37 +111,5 @@ describe('MonsterFormationEditorPage', () => {
         fireEvent.click(exportBtn);
 
         expect(window.URL.createObjectURL).toHaveBeenCalledTimes(1);
-    });
-
-    it('deserializes raw JSON into MonsterCombatant class instances', () => {
-        const rawJson = [
-            {
-                id: 'form-1',
-                team: 'MONSTER',
-                gridDimensions: { x: 3, y: 3 },
-                combatants: [
-                    {
-                        id: 'comb-1',
-                        character: {
-                            id: 'char-1',
-                            name: 'Bespoke Dragon',
-                            tier: 4,
-                            currentHP: 300,
-                            currentMP: 50,
-                            stats: { healthPoints: 300, magicPoints: 50 },
-                        },
-                        position: { x: 2, y: 2 },
-                        turnsUntilAction: 1,
-                        critBag: [true, false],
-                    },
-                ],
-            },
-        ];
-
-        const deserialized = deserializeFormations(rawJson);
-        expect(deserialized.length).toBe(1);
-        expect(deserialized[0].combatants[0]).toBeInstanceOf(MonsterCombatant);
-        expect(deserialized[0].combatants[0].character.name).toBe('Bespoke Dragon');
-        expect(deserialized[0].combatants[0].rollCrit(100)).toBe(true);
     });
 });

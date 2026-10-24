@@ -39,17 +39,17 @@ const STATUS_EFFECT_HANDLERS: Record<
     [DamageType.HEALING]: {
         getStat: (caster, casterEquippables) =>
             getCharacterStat(caster, casterEquippables, BaseStatNames.healthPoints),
-        apply: (target, targetEquippables, value) => Math.round(value),
+        apply: (target, targetEquippables, value) => Math.max(1, Math.round(value)),
     },
     [DamageType.MAGIC_RESTORE]: {
         getStat: (caster, casterEquippables) =>
             getCharacterStat(caster, casterEquippables, BaseStatNames.magicPoints),
-        apply: (target, targetEquippables, value) => Math.round(value),
+        apply: (target, targetEquippables, value) => Math.max(1, Math.round(value)),
     },
     [DamageType.MAGIC_DRAIN]: {
         getStat: (caster, casterEquippables) =>
             getCharacterStat(caster, casterEquippables, BaseStatNames.magicPoints),
-        apply: (target, targetEquippables, value) => Math.round(value),
+        apply: (target, targetEquippables, value) => Math.max(1, Math.round(value)),
     },
 };
 

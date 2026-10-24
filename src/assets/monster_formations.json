@@ -1,0 +1,1916 @@
+[
+  {
+    "id": "bc1d4f7b-3165-4ef8-9c51-7a86afc42a1e",
+    "team": "MONSTER",
+    "combatants": [
+      {
+        "id": "42083807-2a72-4a66-a998-9bf11a7694a7",
+        "character": {
+          "id": "94809e0e-211e-4b89-abf7-290523f3e7e0",
+          "name": "Skeleton",
+          "tier": 1,
+          "currentHP": 50,
+          "currentMP": 0,
+          "stats": {
+            "healthPoints": 50,
+            "magicPoints": 2,
+            "attack": 10,
+            "magicAttack": 10,
+            "defence": 10,
+            "magicDefence": 10,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Attack",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "d61d6f79-6421-45ec-bbbc-517ecf4db30f",
+                  "name": "Attack (Skeleton)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "6e4f6e23-1ce7-4d1a-810b-c1bd573a4ba8",
+                  "name": "MP Restore (Skeleton)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Skeletal Phalanx",
+              "cost": 2,
+              "type": "magic",
+              "abilityTarget": "ALLY_FORMATION",
+              "pointEffects": [],
+              "statusEffects": [
+                {
+                  "id": "8ebfdbd1-2772-4a98-98ab-e32428fd7e31",
+                  "name": "Skeletal Phalanx",
+                  "target": "target",
+                  "duration": 2,
+                  "stat": "defence",
+                  "value": 10,
+                  "damageScaleType": "FLAT"
+                }
+              ]
+            }
+          ]
+        },
+        "position": {
+          "x": 2,
+          "y": 3
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      },
+      {
+        "id": "a4f131f2-180c-4d6d-9272-cbb87bdff525",
+        "character": {
+          "id": "3479c6c0-4f05-468c-8004-82703a509a2e",
+          "name": "Skeleton",
+          "tier": 1,
+          "currentHP": 50,
+          "currentMP": 0,
+          "stats": {
+            "healthPoints": 50,
+            "magicPoints": 2,
+            "attack": 10,
+            "magicAttack": 10,
+            "defence": 10,
+            "magicDefence": 10,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Attack",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "d61d6f79-6421-45ec-bbbc-517ecf4db30f",
+                  "name": "Attack (Skeleton)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "6e4f6e23-1ce7-4d1a-810b-c1bd573a4ba8",
+                  "name": "MP Restore (Skeleton)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Skeletal Phalanx",
+              "cost": 2,
+              "type": "magic",
+              "abilityTarget": "ALLY_FORMATION",
+              "pointEffects": [],
+              "statusEffects": [
+                {
+                  "id": "8ebfdbd1-2772-4a98-98ab-e32428fd7e31",
+                  "name": "Skeletal Phalanx",
+                  "target": "target",
+                  "duration": 2,
+                  "stat": "defence",
+                  "value": 10,
+                  "damageScaleType": "FLAT"
+                }
+              ]
+            }
+          ]
+        },
+        "position": {
+          "x": 1,
+          "y": 3
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      },
+      {
+        "id": "b8ecfa30-7c12-471b-bc46-1862eee5360c",
+        "character": {
+          "id": "15e20fdb-2984-489f-89ac-c62dced8ccce",
+          "name": "Skeleton",
+          "tier": 1,
+          "currentHP": 50,
+          "currentMP": 0,
+          "stats": {
+            "healthPoints": 50,
+            "magicPoints": 2,
+            "attack": 10,
+            "magicAttack": 10,
+            "defence": 10,
+            "magicDefence": 10,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Attack",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "d61d6f79-6421-45ec-bbbc-517ecf4db30f",
+                  "name": "Attack (Skeleton)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "6e4f6e23-1ce7-4d1a-810b-c1bd573a4ba8",
+                  "name": "MP Restore (Skeleton)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Skeletal Phalanx",
+              "cost": 2,
+              "type": "magic",
+              "abilityTarget": "ALLY_FORMATION",
+              "pointEffects": [],
+              "statusEffects": [
+                {
+                  "id": "8ebfdbd1-2772-4a98-98ab-e32428fd7e31",
+                  "name": "Skeletal Phalanx",
+                  "target": "target",
+                  "duration": 2,
+                  "stat": "defence",
+                  "value": 10,
+                  "damageScaleType": "FLAT"
+                }
+              ]
+            }
+          ]
+        },
+        "position": {
+          "x": 3,
+          "y": 3
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      }
+    ],
+    "gridDimensions": {
+      "x": 3,
+      "y": 3
+    }
+  },
+  {
+    "id": "d57a7e82-b023-4c32-a3cd-bb37ab834a79",
+    "team": "MONSTER",
+    "combatants": [
+      {
+        "id": "5a04c6c2-daec-4ea1-ba27-6c3b3dde1e49",
+        "character": {
+          "id": "df73ed57-750e-4771-858c-19ba86474598",
+          "name": "Skeleton",
+          "tier": 1,
+          "currentHP": 50,
+          "currentMP": 0,
+          "stats": {
+            "healthPoints": 50,
+            "magicPoints": 2,
+            "attack": 10,
+            "magicAttack": 10,
+            "defence": 10,
+            "magicDefence": 10,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Attack",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "d61d6f79-6421-45ec-bbbc-517ecf4db30f",
+                  "name": "Attack (Skeleton)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "6e4f6e23-1ce7-4d1a-810b-c1bd573a4ba8",
+                  "name": "MP Restore (Skeleton)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Skeletal Phalanx",
+              "cost": 2,
+              "type": "magic",
+              "abilityTarget": "ALLY_FORMATION",
+              "pointEffects": [],
+              "statusEffects": [
+                {
+                  "id": "8ebfdbd1-2772-4a98-98ab-e32428fd7e31",
+                  "name": "Skeletal Phalanx",
+                  "target": "target",
+                  "duration": 2,
+                  "stat": "defence",
+                  "value": 10,
+                  "damageScaleType": "FLAT"
+                }
+              ]
+            }
+          ]
+        },
+        "position": {
+          "x": 2,
+          "y": 3
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      },
+      {
+        "id": "4e5746e8-6fc2-4076-8ef1-1c8474355864",
+        "character": {
+          "id": "2dbdfcf2-99f9-4d0d-81e5-da943ab2c82e",
+          "name": "Skulker Demon",
+          "tier": 1,
+          "currentHP": 50,
+          "currentMP": 0,
+          "stats": {
+            "healthPoints": 50,
+            "magicPoints": 2,
+            "attack": 10,
+            "magicAttack": 20,
+            "defence": 10,
+            "magicDefence": 10,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Attack",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "54bde359-c583-465e-8ae1-fd8ab3785f4f",
+                  "name": "Attack (Skulker Demon)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "0dcdbea9-0e6e-44bc-8c07-d48dd9faa3a5",
+                  "name": "MP Restore (Skulker Demon)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Corrupting Presence",
+              "cost": 2,
+              "type": "magic",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "1c4bac6c-620f-4578-b20d-ba129cba193f",
+                  "name": "Corrupting Presence (Skulker Demon)",
+                  "target": "target",
+                  "damageType": "MAGIC",
+                  "power": 0.5,
+                  "duration": 0
+                },
+                {
+                  "id": "237517b5-5eb4-4f1f-9a3f-f4c208f0e6f2",
+                  "name": "Corrupting Presence (Skulker Demon)",
+                  "target": "target",
+                  "damageType": "MAGIC",
+                  "power": 0.5,
+                  "duration": 3
+                }
+              ],
+              "statusEffects": []
+            }
+          ]
+        },
+        "position": {
+          "x": 2,
+          "y": 2
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      }
+    ],
+    "gridDimensions": {
+      "x": 3,
+      "y": 3
+    }
+  },
+  {
+    "id": "71b13c1e-aa37-4cc0-b7a0-b2e6205d2bc8",
+    "team": "MONSTER",
+    "combatants": [
+      {
+        "id": "78bc0821-1fc0-4f98-a0cb-d7fbe1e7da96",
+        "character": {
+          "id": "1f53800c-d2b8-4f5c-9837-bf71e6ce9672",
+          "name": "Skeleton",
+          "tier": 1,
+          "currentHP": 50,
+          "currentMP": 0,
+          "stats": {
+            "healthPoints": 50,
+            "magicPoints": 2,
+            "attack": 10,
+            "magicAttack": 10,
+            "defence": 10,
+            "magicDefence": 10,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Attack",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "d61d6f79-6421-45ec-bbbc-517ecf4db30f",
+                  "name": "Attack (Skeleton)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "6e4f6e23-1ce7-4d1a-810b-c1bd573a4ba8",
+                  "name": "MP Restore (Skeleton)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Skeletal Phalanx",
+              "cost": 2,
+              "type": "magic",
+              "abilityTarget": "ALLY_FORMATION",
+              "pointEffects": [],
+              "statusEffects": [
+                {
+                  "id": "8ebfdbd1-2772-4a98-98ab-e32428fd7e31",
+                  "name": "Skeletal Phalanx",
+                  "target": "target",
+                  "duration": 2,
+                  "stat": "defence",
+                  "value": 10,
+                  "damageScaleType": "FLAT"
+                }
+              ]
+            }
+          ]
+        },
+        "position": {
+          "x": 1,
+          "y": 3
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      },
+      {
+        "id": "9bbedd9f-3222-4dd6-9734-a21b9843f9d3",
+        "character": {
+          "id": "3c7f3de0-0dbc-47b8-92d4-daafa1c9be3e",
+          "name": "Zombie",
+          "tier": 1,
+          "currentHP": 120,
+          "currentMP": 3,
+          "stats": {
+            "healthPoints": 120,
+            "magicPoints": 3,
+            "attack": 20,
+            "magicAttack": 10,
+            "defence": 5,
+            "magicDefence": 5,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Attack",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "6a060656-6758-44af-96e5-285f23e95f06",
+                  "name": "Attack (Zombie)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "7c91c009-db92-4b66-a196-e1c784bf1425",
+                  "name": "MP Restore (Zombie)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Bite",
+              "cost": 3,
+              "type": "magic",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "9db9711d-8326-43a3-9097-4c7251aac2b4",
+                  "name": "Bite (Zombie)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1.5,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            }
+          ]
+        },
+        "position": {
+          "x": 3,
+          "y": 3
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      },
+      {
+        "id": "3eb53695-d939-4645-8193-06db46c484cd",
+        "character": {
+          "id": "ac07e844-24f5-4f9d-92ae-aea2f5b91beb",
+          "name": "Zombie",
+          "tier": 1,
+          "currentHP": 120,
+          "currentMP": 3,
+          "stats": {
+            "healthPoints": 120,
+            "magicPoints": 3,
+            "attack": 20,
+            "magicAttack": 10,
+            "defence": 5,
+            "magicDefence": 5,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Attack",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "6a060656-6758-44af-96e5-285f23e95f06",
+                  "name": "Attack (Zombie)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "7c91c009-db92-4b66-a196-e1c784bf1425",
+                  "name": "MP Restore (Zombie)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Bite",
+              "cost": 3,
+              "type": "magic",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "9db9711d-8326-43a3-9097-4c7251aac2b4",
+                  "name": "Bite (Zombie)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1.5,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            }
+          ]
+        },
+        "position": {
+          "x": 2,
+          "y": 3
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      }
+    ],
+    "gridDimensions": {
+      "x": 3,
+      "y": 3
+    }
+  },
+  {
+    "id": "dada09c0-50d4-4997-9fca-c825919c0c86",
+    "team": "MONSTER",
+    "combatants": [
+      {
+        "id": "3491a2fc-748c-48b2-ba89-7f923b6ae15e",
+        "character": {
+          "id": "e7242006-a950-4e0e-a3d6-ffa74670ae0b",
+          "name": "Skulker Demon",
+          "tier": 1,
+          "currentHP": 50,
+          "currentMP": 0,
+          "stats": {
+            "healthPoints": 50,
+            "magicPoints": 2,
+            "attack": 10,
+            "magicAttack": 20,
+            "defence": 10,
+            "magicDefence": 10,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Attack",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "54bde359-c583-465e-8ae1-fd8ab3785f4f",
+                  "name": "Attack (Skulker Demon)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "0dcdbea9-0e6e-44bc-8c07-d48dd9faa3a5",
+                  "name": "MP Restore (Skulker Demon)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Corrupting Presence",
+              "cost": 2,
+              "type": "magic",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "1c4bac6c-620f-4578-b20d-ba129cba193f",
+                  "name": "Corrupting Presence (Skulker Demon)",
+                  "target": "target",
+                  "damageType": "MAGIC",
+                  "power": 0.5,
+                  "duration": 0
+                },
+                {
+                  "id": "237517b5-5eb4-4f1f-9a3f-f4c208f0e6f2",
+                  "name": "Corrupting Presence (Skulker Demon)",
+                  "target": "target",
+                  "damageType": "MAGIC",
+                  "power": 0.5,
+                  "duration": 3
+                }
+              ],
+              "statusEffects": []
+            }
+          ]
+        },
+        "position": {
+          "x": 2,
+          "y": 3
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      },
+      {
+        "id": "44bbc3e6-4e93-4033-b027-63b14b885790",
+        "character": {
+          "id": "3f5b08c3-4e99-442c-990f-bd749d837b94",
+          "name": "Skulker Demon",
+          "tier": 1,
+          "currentHP": 50,
+          "currentMP": 0,
+          "stats": {
+            "healthPoints": 50,
+            "magicPoints": 2,
+            "attack": 10,
+            "magicAttack": 20,
+            "defence": 10,
+            "magicDefence": 10,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Attack",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "54bde359-c583-465e-8ae1-fd8ab3785f4f",
+                  "name": "Attack (Skulker Demon)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "0dcdbea9-0e6e-44bc-8c07-d48dd9faa3a5",
+                  "name": "MP Restore (Skulker Demon)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Corrupting Presence",
+              "cost": 2,
+              "type": "magic",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "1c4bac6c-620f-4578-b20d-ba129cba193f",
+                  "name": "Corrupting Presence (Skulker Demon)",
+                  "target": "target",
+                  "damageType": "MAGIC",
+                  "power": 0.5,
+                  "duration": 0
+                },
+                {
+                  "id": "237517b5-5eb4-4f1f-9a3f-f4c208f0e6f2",
+                  "name": "Corrupting Presence (Skulker Demon)",
+                  "target": "target",
+                  "damageType": "MAGIC",
+                  "power": 0.5,
+                  "duration": 3
+                }
+              ],
+              "statusEffects": []
+            }
+          ]
+        },
+        "position": {
+          "x": 2,
+          "y": 2
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      },
+      {
+        "id": "dbc6ca8b-8c42-422b-89fe-9a18597052b9",
+        "character": {
+          "id": "797a5680-dbd5-472b-b9dd-86176279e5b9",
+          "name": "Skulker Demon",
+          "tier": 1,
+          "currentHP": 50,
+          "currentMP": 0,
+          "stats": {
+            "healthPoints": 50,
+            "magicPoints": 2,
+            "attack": 10,
+            "magicAttack": 20,
+            "defence": 10,
+            "magicDefence": 10,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Attack",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "54bde359-c583-465e-8ae1-fd8ab3785f4f",
+                  "name": "Attack (Skulker Demon)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "0dcdbea9-0e6e-44bc-8c07-d48dd9faa3a5",
+                  "name": "MP Restore (Skulker Demon)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Corrupting Presence",
+              "cost": 2,
+              "type": "magic",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "1c4bac6c-620f-4578-b20d-ba129cba193f",
+                  "name": "Corrupting Presence (Skulker Demon)",
+                  "target": "target",
+                  "damageType": "MAGIC",
+                  "power": 0.5,
+                  "duration": 0
+                },
+                {
+                  "id": "237517b5-5eb4-4f1f-9a3f-f4c208f0e6f2",
+                  "name": "Corrupting Presence (Skulker Demon)",
+                  "target": "target",
+                  "damageType": "MAGIC",
+                  "power": 0.5,
+                  "duration": 3
+                }
+              ],
+              "statusEffects": []
+            }
+          ]
+        },
+        "position": {
+          "x": 1,
+          "y": 2
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      },
+      {
+        "id": "be53f65a-aac5-4fbc-ab9d-492e34e27789",
+        "character": {
+          "id": "922e3ae8-d913-415d-a988-56ee3cb54421",
+          "name": "Skulker Demon",
+          "tier": 1,
+          "currentHP": 50,
+          "currentMP": 0,
+          "stats": {
+            "healthPoints": 50,
+            "magicPoints": 2,
+            "attack": 10,
+            "magicAttack": 20,
+            "defence": 10,
+            "magicDefence": 10,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Attack",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "54bde359-c583-465e-8ae1-fd8ab3785f4f",
+                  "name": "Attack (Skulker Demon)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "0dcdbea9-0e6e-44bc-8c07-d48dd9faa3a5",
+                  "name": "MP Restore (Skulker Demon)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Corrupting Presence",
+              "cost": 2,
+              "type": "magic",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "1c4bac6c-620f-4578-b20d-ba129cba193f",
+                  "name": "Corrupting Presence (Skulker Demon)",
+                  "target": "target",
+                  "damageType": "MAGIC",
+                  "power": 0.5,
+                  "duration": 0
+                },
+                {
+                  "id": "237517b5-5eb4-4f1f-9a3f-f4c208f0e6f2",
+                  "name": "Corrupting Presence (Skulker Demon)",
+                  "target": "target",
+                  "damageType": "MAGIC",
+                  "power": 0.5,
+                  "duration": 3
+                }
+              ],
+              "statusEffects": []
+            }
+          ]
+        },
+        "position": {
+          "x": 3,
+          "y": 2
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      }
+    ],
+    "gridDimensions": {
+      "x": 3,
+      "y": 3
+    }
+  },
+  {
+    "id": "de553bf6-7cab-4dc3-b86f-4c2f53681323",
+    "team": "MONSTER",
+    "combatants": [
+      {
+        "id": "46c4b5b8-7028-4958-b160-789cb33f7772",
+        "character": {
+          "id": "231d2254-43c6-49db-80d8-09c98f5f5486",
+          "name": "Vampire",
+          "tier": 1,
+          "currentHP": 70,
+          "currentMP": 0,
+          "stats": {
+            "healthPoints": 70,
+            "magicPoints": 3,
+            "attack": 20,
+            "magicAttack": 10,
+            "defence": 10,
+            "magicDefence": 10,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Claws",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "91b00c21-db31-44a9-afcb-e6bf1595a980",
+                  "name": "Claws (Vampire)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "a3224d97-9125-4844-87ee-a79801ee2b94",
+                  "name": "Claws (Vampire)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "ff91e320-9c7f-4700-b75d-6658fb3117c0",
+                  "name": "MP Restore (Vampire)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Umbral Strikes",
+              "cost": 3,
+              "type": "magic",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "56e2485a-3991-4984-9280-a37a6fc23b2e",
+                  "name": "Umbral Strikes (Vampire)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "9e0eb135-9761-49e9-9942-deecc0aff751",
+                  "name": "Umbral Strikes (Vampire)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "fc146662-de1a-40c3-9837-24981a3a7ef5",
+                  "name": "Umbral Strikes (Vampire)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            }
+          ]
+        },
+        "position": {
+          "x": 2,
+          "y": 2
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      },
+      {
+        "id": "7d4a0041-9326-4c78-91fc-148eb916c8a8",
+        "character": {
+          "id": "49d698f8-efc4-4b65-b091-67b25340768b",
+          "name": "Skeleton",
+          "tier": 1,
+          "currentHP": 50,
+          "currentMP": 0,
+          "stats": {
+            "healthPoints": 50,
+            "magicPoints": 2,
+            "attack": 10,
+            "magicAttack": 10,
+            "defence": 10,
+            "magicDefence": 10,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Attack",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "d61d6f79-6421-45ec-bbbc-517ecf4db30f",
+                  "name": "Attack (Skeleton)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "6e4f6e23-1ce7-4d1a-810b-c1bd573a4ba8",
+                  "name": "MP Restore (Skeleton)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Skeletal Phalanx",
+              "cost": 2,
+              "type": "magic",
+              "abilityTarget": "ALLY_FORMATION",
+              "pointEffects": [],
+              "statusEffects": [
+                {
+                  "id": "8ebfdbd1-2772-4a98-98ab-e32428fd7e31",
+                  "name": "Skeletal Phalanx",
+                  "target": "target",
+                  "duration": 2,
+                  "stat": "defence",
+                  "value": 10,
+                  "damageScaleType": "FLAT"
+                }
+              ]
+            }
+          ]
+        },
+        "position": {
+          "x": 1,
+          "y": 2
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      },
+      {
+        "id": "717b8e9b-bc05-433a-84c7-a5a5db006c4d",
+        "character": {
+          "id": "cea900b2-2860-4680-8449-2ab025d0a992",
+          "name": "Skeleton",
+          "tier": 1,
+          "currentHP": 50,
+          "currentMP": 0,
+          "stats": {
+            "healthPoints": 50,
+            "magicPoints": 2,
+            "attack": 10,
+            "magicAttack": 10,
+            "defence": 10,
+            "magicDefence": 10,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Attack",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "d61d6f79-6421-45ec-bbbc-517ecf4db30f",
+                  "name": "Attack (Skeleton)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "6e4f6e23-1ce7-4d1a-810b-c1bd573a4ba8",
+                  "name": "MP Restore (Skeleton)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Skeletal Phalanx",
+              "cost": 2,
+              "type": "magic",
+              "abilityTarget": "ALLY_FORMATION",
+              "pointEffects": [],
+              "statusEffects": [
+                {
+                  "id": "8ebfdbd1-2772-4a98-98ab-e32428fd7e31",
+                  "name": "Skeletal Phalanx",
+                  "target": "target",
+                  "duration": 2,
+                  "stat": "defence",
+                  "value": 10,
+                  "damageScaleType": "FLAT"
+                }
+              ]
+            }
+          ]
+        },
+        "position": {
+          "x": 3,
+          "y": 2
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      }
+    ],
+    "gridDimensions": {
+      "x": 3,
+      "y": 3
+    }
+  },
+  {
+    "id": "9c3eaf79-9870-4c11-86eb-2b2d71574b46",
+    "team": "MONSTER",
+    "combatants": [
+      {
+        "id": "7bde0e92-2bbb-4d0c-a692-2bf4265348ed",
+        "character": {
+          "id": "b5da7da7-ca8a-4e48-96eb-b8ea9e4f301c",
+          "name": "Warlock",
+          "tier": 1,
+          "currentHP": 70,
+          "currentMP": 0,
+          "stats": {
+            "healthPoints": 70,
+            "magicPoints": 3,
+            "attack": 10,
+            "magicAttack": 30,
+            "defence": 10,
+            "magicDefence": 10,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Shadowbolt",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "62ec087c-adb5-41c0-a788-2419518ca8d2",
+                  "name": "Shadowbolt (Warlock)",
+                  "target": "target",
+                  "damageType": "MAGIC",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "899cc4b7-445b-4a04-922b-73b510eaa18d",
+                  "name": "MP Restore (Warlock)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Wither in the Dark",
+              "cost": 3,
+              "type": "magic",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "fff04af6-8448-429f-9e40-da759287e605",
+                  "name": "Wither in the Dark (Warlock)",
+                  "target": "target",
+                  "damageType": "MAGIC",
+                  "power": 2,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            }
+          ]
+        },
+        "position": {
+          "x": 2,
+          "y": 2
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      },
+      {
+        "id": "5bd81e5e-7ed8-4b8f-92e3-91a07324ba5e",
+        "character": {
+          "id": "c4e8734a-d69f-4c33-a635-2c7ef1c6c0c7",
+          "name": "Skulker Demon",
+          "tier": 1,
+          "currentHP": 50,
+          "currentMP": 0,
+          "stats": {
+            "healthPoints": 50,
+            "magicPoints": 2,
+            "attack": 10,
+            "magicAttack": 20,
+            "defence": 10,
+            "magicDefence": 10,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Attack",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "54bde359-c583-465e-8ae1-fd8ab3785f4f",
+                  "name": "Attack (Skulker Demon)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "0dcdbea9-0e6e-44bc-8c07-d48dd9faa3a5",
+                  "name": "MP Restore (Skulker Demon)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Corrupting Presence",
+              "cost": 2,
+              "type": "magic",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "1c4bac6c-620f-4578-b20d-ba129cba193f",
+                  "name": "Corrupting Presence (Skulker Demon)",
+                  "target": "target",
+                  "damageType": "MAGIC",
+                  "power": 0.5,
+                  "duration": 0
+                },
+                {
+                  "id": "237517b5-5eb4-4f1f-9a3f-f4c208f0e6f2",
+                  "name": "Corrupting Presence (Skulker Demon)",
+                  "target": "target",
+                  "damageType": "MAGIC",
+                  "power": 0.5,
+                  "duration": 3
+                }
+              ],
+              "statusEffects": []
+            }
+          ]
+        },
+        "position": {
+          "x": 1,
+          "y": 2
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      },
+      {
+        "id": "0c9984c0-d7c4-4ba5-89dc-5eb4419132d4",
+        "character": {
+          "id": "2d22fd4d-f189-4d33-b62c-e5097d55781c",
+          "name": "Skeleton",
+          "tier": 1,
+          "currentHP": 50,
+          "currentMP": 0,
+          "stats": {
+            "healthPoints": 50,
+            "magicPoints": 2,
+            "attack": 10,
+            "magicAttack": 10,
+            "defence": 10,
+            "magicDefence": 10,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Attack",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "d61d6f79-6421-45ec-bbbc-517ecf4db30f",
+                  "name": "Attack (Skeleton)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "6e4f6e23-1ce7-4d1a-810b-c1bd573a4ba8",
+                  "name": "MP Restore (Skeleton)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Skeletal Phalanx",
+              "cost": 2,
+              "type": "magic",
+              "abilityTarget": "ALLY_FORMATION",
+              "pointEffects": [],
+              "statusEffects": [
+                {
+                  "id": "8ebfdbd1-2772-4a98-98ab-e32428fd7e31",
+                  "name": "Skeletal Phalanx",
+                  "target": "target",
+                  "duration": 2,
+                  "stat": "defence",
+                  "value": 10,
+                  "damageScaleType": "FLAT"
+                }
+              ]
+            }
+          ]
+        },
+        "position": {
+          "x": 2,
+          "y": 1
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      },
+      {
+        "id": "d6522bb7-5bdf-48d3-9af4-fe81b5fe7ea2",
+        "character": {
+          "id": "779209fc-6636-4dd9-9c2a-2ba214f3d293",
+          "name": "Skeleton",
+          "tier": 1,
+          "currentHP": 50,
+          "currentMP": 0,
+          "stats": {
+            "healthPoints": 50,
+            "magicPoints": 2,
+            "attack": 10,
+            "magicAttack": 10,
+            "defence": 10,
+            "magicDefence": 10,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Attack",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "d61d6f79-6421-45ec-bbbc-517ecf4db30f",
+                  "name": "Attack (Skeleton)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "6e4f6e23-1ce7-4d1a-810b-c1bd573a4ba8",
+                  "name": "MP Restore (Skeleton)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Skeletal Phalanx",
+              "cost": 2,
+              "type": "magic",
+              "abilityTarget": "ALLY_FORMATION",
+              "pointEffects": [],
+              "statusEffects": [
+                {
+                  "id": "8ebfdbd1-2772-4a98-98ab-e32428fd7e31",
+                  "name": "Skeletal Phalanx",
+                  "target": "target",
+                  "duration": 2,
+                  "stat": "defence",
+                  "value": 10,
+                  "damageScaleType": "FLAT"
+                }
+              ]
+            }
+          ]
+        },
+        "position": {
+          "x": 2,
+          "y": 3
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      },
+      {
+        "id": "d8c61895-5306-4ce3-a386-fa3b7c48210d",
+        "character": {
+          "id": "ef0d1fdf-ea2b-433a-b2f3-78779d3acbd7",
+          "name": "Skeleton",
+          "tier": 1,
+          "currentHP": 50,
+          "currentMP": 0,
+          "stats": {
+            "healthPoints": 50,
+            "magicPoints": 2,
+            "attack": 10,
+            "magicAttack": 10,
+            "defence": 10,
+            "magicDefence": 10,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Attack",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "d61d6f79-6421-45ec-bbbc-517ecf4db30f",
+                  "name": "Attack (Skeleton)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "6e4f6e23-1ce7-4d1a-810b-c1bd573a4ba8",
+                  "name": "MP Restore (Skeleton)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Skeletal Phalanx",
+              "cost": 2,
+              "type": "magic",
+              "abilityTarget": "ALLY_FORMATION",
+              "pointEffects": [],
+              "statusEffects": [
+                {
+                  "id": "8ebfdbd1-2772-4a98-98ab-e32428fd7e31",
+                  "name": "Skeletal Phalanx",
+                  "target": "target",
+                  "duration": 2,
+                  "stat": "defence",
+                  "value": 10,
+                  "damageScaleType": "FLAT"
+                }
+              ]
+            }
+          ]
+        },
+        "position": {
+          "x": 3,
+          "y": 2
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      }
+    ],
+    "gridDimensions": {
+      "x": 3,
+      "y": 3
+    }
+  },
+  {
+    "id": "7b8e69e0-0482-42c9-8aab-cd7acbf24e9c",
+    "team": "MONSTER",
+    "combatants": [
+      {
+        "id": "2b54c36c-dc29-461f-b460-40c6a0ad3269",
+        "character": {
+          "id": "7a0465c0-27cf-4370-904b-c021b0582c34",
+          "name": "Vampire",
+          "tier": 1,
+          "currentHP": 70,
+          "currentMP": 0,
+          "stats": {
+            "healthPoints": 70,
+            "magicPoints": 3,
+            "attack": 20,
+            "magicAttack": 10,
+            "defence": 10,
+            "magicDefence": 10,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Claws",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "91b00c21-db31-44a9-afcb-e6bf1595a980",
+                  "name": "Claws (Vampire)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "a3224d97-9125-4844-87ee-a79801ee2b94",
+                  "name": "Claws (Vampire)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "ff91e320-9c7f-4700-b75d-6658fb3117c0",
+                  "name": "MP Restore (Vampire)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Umbral Strikes",
+              "cost": 3,
+              "type": "magic",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "56e2485a-3991-4984-9280-a37a6fc23b2e",
+                  "name": "Umbral Strikes (Vampire)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "9e0eb135-9761-49e9-9942-deecc0aff751",
+                  "name": "Umbral Strikes (Vampire)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "fc146662-de1a-40c3-9837-24981a3a7ef5",
+                  "name": "Umbral Strikes (Vampire)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            }
+          ]
+        },
+        "position": {
+          "x": 3,
+          "y": 2
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      },
+      {
+        "id": "f3f12648-19c0-4d94-825a-45909c638e3f",
+        "character": {
+          "id": "cad5e96a-ffa0-474d-a3b8-95f8b33c10f0",
+          "name": "Vampire",
+          "tier": 1,
+          "currentHP": 70,
+          "currentMP": 0,
+          "stats": {
+            "healthPoints": 70,
+            "magicPoints": 3,
+            "attack": 20,
+            "magicAttack": 10,
+            "defence": 10,
+            "magicDefence": 10,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Claws",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "91b00c21-db31-44a9-afcb-e6bf1595a980",
+                  "name": "Claws (Vampire)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "a3224d97-9125-4844-87ee-a79801ee2b94",
+                  "name": "Claws (Vampire)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "ff91e320-9c7f-4700-b75d-6658fb3117c0",
+                  "name": "MP Restore (Vampire)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Umbral Strikes",
+              "cost": 3,
+              "type": "magic",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "56e2485a-3991-4984-9280-a37a6fc23b2e",
+                  "name": "Umbral Strikes (Vampire)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "9e0eb135-9761-49e9-9942-deecc0aff751",
+                  "name": "Umbral Strikes (Vampire)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "fc146662-de1a-40c3-9837-24981a3a7ef5",
+                  "name": "Umbral Strikes (Vampire)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            }
+          ]
+        },
+        "position": {
+          "x": 1,
+          "y": 2
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      }
+    ],
+    "gridDimensions": {
+      "x": 3,
+      "y": 3
+    }
+  },
+  {
+    "id": "20492f89-94ba-4f9c-9df4-5c23c15b3e29",
+    "team": "MONSTER",
+    "combatants": [
+      {
+        "id": "132b4d25-2f75-4567-9c62-434e0a6c673c",
+        "character": {
+          "id": "76a0c7ca-9d09-48e7-9ee5-6cc644847c1b",
+          "name": "Zombie",
+          "tier": 1,
+          "currentHP": 120,
+          "currentMP": 3,
+          "stats": {
+            "healthPoints": 120,
+            "magicPoints": 3,
+            "attack": 20,
+            "magicAttack": 10,
+            "defence": 5,
+            "magicDefence": 5,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Attack",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "6a060656-6758-44af-96e5-285f23e95f06",
+                  "name": "Attack (Zombie)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "7c91c009-db92-4b66-a196-e1c784bf1425",
+                  "name": "MP Restore (Zombie)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Bite",
+              "cost": 3,
+              "type": "magic",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "9db9711d-8326-43a3-9097-4c7251aac2b4",
+                  "name": "Bite (Zombie)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1.5,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            }
+          ]
+        },
+        "position": {
+          "x": 1,
+          "y": 3
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      },
+      {
+        "id": "2ffcf3be-f6e1-49cd-9294-f4bfb0916b02",
+        "character": {
+          "id": "ef0cfabe-a119-427a-a888-51bf69f722c9",
+          "name": "Zombie",
+          "tier": 1,
+          "currentHP": 120,
+          "currentMP": 3,
+          "stats": {
+            "healthPoints": 120,
+            "magicPoints": 3,
+            "attack": 20,
+            "magicAttack": 10,
+            "defence": 5,
+            "magicDefence": 5,
+            "critChance": 0
+          },
+          "modifiers": [],
+          "pointModifiers": [],
+          "abilities": [
+            {
+              "name": "Attack",
+              "cost": 0,
+              "type": "default",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "6a060656-6758-44af-96e5-285f23e95f06",
+                  "name": "Attack (Zombie)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1,
+                  "duration": 0
+                },
+                {
+                  "id": "7c91c009-db92-4b66-a196-e1c784bf1425",
+                  "name": "MP Restore (Zombie)",
+                  "target": "self",
+                  "damageType": "MAGIC_RESTORE",
+                  "power": 0.1,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            },
+            {
+              "name": "Bite",
+              "cost": 3,
+              "type": "magic",
+              "abilityTarget": "OPPONENT_FORMATION",
+              "pointEffects": [
+                {
+                  "id": "9db9711d-8326-43a3-9097-4c7251aac2b4",
+                  "name": "Bite (Zombie)",
+                  "target": "target",
+                  "damageType": "PHYSICAL",
+                  "power": 1.5,
+                  "duration": 0
+                }
+              ],
+              "statusEffects": []
+            }
+          ]
+        },
+        "position": {
+          "x": 2,
+          "y": 3
+        },
+        "critBag": [],
+        "turnsUntilAction": 0
+      }
+    ],
+    "gridDimensions": {
+      "x": 3,
+      "y": 3
+    }
+  }
+]
