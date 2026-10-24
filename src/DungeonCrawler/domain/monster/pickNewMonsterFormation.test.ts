@@ -1,4 +1,6 @@
-import { attackAbility } from './constants';
+import { MonsterCombatant } from '../Combatant';
+import { attackAbility } from '../constants';
+import { Formation, FormationTeam } from '../formation/types';
 import {
     AbilityTarget,
     AbilityType,
@@ -8,9 +10,11 @@ import {
     DamageScaleMethod,
     DamageType,
     TargetScope,
-} from './types';
+} from '../types';
 
-export const exampleMonsters: Character[] = [
+import { pickNewMonsterFormation } from './pickNewMonsterFormation';
+
+const exampleMonsters: Character[] = [
     {
         id: crypto.randomUUID(),
         name: 'Skeleton',
@@ -144,3 +148,51 @@ export const exampleMonsters: Character[] = [
         ],
     },
 ];
+
+const exampleMonsterFormations: Formation[] = [
+    {
+        id: crypto.randomUUID(),
+        team: FormationTeam.MONSTER,
+        gridDimensions: { x: 3, y: 3 },
+        combatants: [
+            new MonsterCombatant(crypto.randomUUID(), exampleMonsters[0], { x: 1, y: 2 }, 0),
+            new MonsterCombatant(crypto.randomUUID(), exampleMonsters[2], { x: 2, y: 2 }, 0),
+        ],
+    },
+    {
+        id: crypto.randomUUID(),
+        team: FormationTeam.MONSTER,
+        gridDimensions: { x: 3, y: 3 },
+        combatants: [
+            new MonsterCombatant(crypto.randomUUID(), exampleMonsters[1], { x: 1, y: 1 }, 0),
+            new MonsterCombatant(crypto.randomUUID(), exampleMonsters[1], { x: 1, y: 3 }, 0),
+        ],
+    },
+];
+
+describe('pickNewMonsterFormation', () => {
+    it('throws error when formations list is empty', () => {
+        expect(() => pickNewMonsterFormation([])).toThrow(
+            'Cannot pick from empty monster formations!',
+        );
+    });
+
+    it('returns a picked formation with proper MonsterCombatant instances', () => {
+        const formation = pickNewMonsterFormation(exampleMonsterFormations);
+
+        expect(formation).toBeDefined();
+        expect(formation.combatants.length).toBeGreaterThan(0);
+        expect(formation.combatants[0]).toBeInstanceOf(MonsterCombatant);
+    });
+
+    it('creates new unique IDs for the combatants and characters', () => {
+        const formation1 = pickNewMonsterFormation([exampleMonsterFormations[0]]);
+        const formation2 = pickNewMonsterFormation([exampleMonsterFormations[0]]);
+
+        expect(formation1.id).not.toBe(formation2.id);
+        expect(formation1.combatants[0].id).not.toBe(formation2.combatants[0].id);
+        expect(formation1.combatants[0].character.id).not.toBe(
+            formation2.combatants[0].character.id,
+        );
+    });
+});

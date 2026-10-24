@@ -1,0 +1,311 @@
+[
+  {
+    "id": "d5f8ab05-1b99-478a-8405-86367e7520fd",
+    "characterID": null,
+    "name": "Armour of the Valiant Knight",
+    "cost": 1200,
+    "slot": "armour",
+    "modifiers": [
+      {
+        "id": "c02f7ba0-7c4a-466b-bef5-618041abab6d",
+        "stat": "defence",
+        "value": 150,
+        "type": "FLAT"
+      },
+      {
+        "id": "6803739c-1a1e-4822-bdbb-f53ebc48437b",
+        "stat": "healthPoints",
+        "value": 200,
+        "type": "FLAT"
+      }
+    ]
+  },
+  {
+    "id": "788a8e91-f87d-40b3-abba-3e71eda1b3f8",
+    "characterID": null,
+    "name": "Battlemage Armour",
+    "cost": 500,
+    "slot": "armour",
+    "modifiers": [
+      {
+        "id": "708f200a-aa5e-4434-9625-f1a0e8221566",
+        "stat": "defence",
+        "value": 50,
+        "type": "FLAT"
+      },
+      {
+        "id": "9f809c35-8e74-424a-8fde-7875bb91fb85",
+        "stat": "magicDefence",
+        "value": 50,
+        "type": "FLAT"
+      }
+    ]
+  },
+  {
+    "id": "6b71f92e-e6ff-473d-9204-dad5d32a7686",
+    "characterID": null,
+    "name": "Robes of the Archmage",
+    "cost": 1200,
+    "slot": "armour",
+    "modifiers": [
+      {
+        "id": "13a83942-118f-4fcf-a7a5-6c10cf69b764",
+        "stat": "magicDefence",
+        "value": 200,
+        "type": "FLAT"
+      },
+      {
+        "id": "165f4467-6e64-45fe-8d2c-cbc919542668",
+        "stat": "healthPoints",
+        "value": 100,
+        "type": "FLAT"
+      }
+    ]
+  },
+  {
+    "id": "d00dfefb-9745-47c5-b619-f66a6e2e68af",
+    "characterID": null,
+    "name": "Warden's Armour",
+    "cost": 1200,
+    "slot": "armour",
+    "modifiers": [
+      {
+        "id": "86fa4be1-0257-451b-86f5-10aabab3063e",
+        "stat": "defence",
+        "value": 100,
+        "type": "FLAT"
+      },
+      {
+        "id": "7b576e5a-cba1-4f9b-82da-da1f1c979ebe",
+        "stat": "magicDefence",
+        "value": 50,
+        "type": "FLAT"
+      },
+      {
+        "id": "eeda2f44-1a57-4f60-bf72-25939b4e6cce",
+        "stat": "healthPoints",
+        "value": 200,
+        "type": "FLAT"
+      }
+    ]
+  },
+  {
+    "id": "0832d769-41ef-48e4-acd2-bcf3853609fb",
+    "characterID": null,
+    "name": "Amulet of Protection",
+    "cost": 150,
+    "slot": "trinket",
+    "modifiers": [
+      {
+        "id": "3f4a3c8a-45d8-4d5d-b25f-301b86c10c9c",
+        "stat": "defence",
+        "value": 20,
+        "type": "FLAT"
+      },
+      {
+        "id": "4c94e858-69e1-4d51-be0b-03f92ac955e5",
+        "stat": "magicDefence",
+        "value": 20,
+        "type": "FLAT"
+      }
+    ]
+  },
+  {
+    "id": "1dafe5cf-d6fb-4a9b-88ac-32198f69c391",
+    "characterID": null,
+    "name": "Phial of Light",
+    "cost": 150,
+    "slot": "trinket",
+    "modifiers": [
+      {
+        "id": "9ba5e561-34f7-40a7-9cbf-4fb19227c0a4",
+        "stat": "magicPoints",
+        "value": 2,
+        "type": "FLAT"
+      },
+      {
+        "id": "3cb257b2-e29d-48b6-afa0-b50b0d408b50",
+        "stat": "defence",
+        "value": 10,
+        "type": "FLAT"
+      }
+    ]
+  },
+  {
+    "id": "c765a956-18a9-4200-ab4e-f5e22bba1ffa",
+    "characterID": null,
+    "name": "Ring of Gatsby the Great",
+    "cost": 500,
+    "slot": "trinket",
+    "modifiers": [
+      {
+        "id": "2a627004-5ccc-41d6-b50f-decedb0f2f82",
+        "stat": "magicAttack",
+        "value": 20,
+        "type": "FLAT"
+      },
+      {
+        "id": "d43eb80e-ab6a-42cc-939c-a9928c73f30b",
+        "stat": "magicPoints",
+        "value": 5,
+        "type": "FLAT"
+      }
+    ]
+  },
+  {
+    "id": "d8fae814-63a3-4284-8e72-2e3fd14be02a",
+    "characterID": null,
+    "name": "Robber's Gloves",
+    "cost": 150,
+    "slot": "trinket",
+    "modifiers": [
+      {
+        "id": "90f77370-3fd5-4b95-8606-9451eb95b7e6",
+        "stat": "critChance",
+        "value": 15,
+        "type": "FLAT"
+      }
+    ]
+  },
+  {
+    "id": "46bf6da7-b4b9-4bfd-842e-85f9bae1c826",
+    "characterID": null,
+    "name": "Stone of the Mad God",
+    "cost": 500,
+    "slot": "trinket",
+    "modifiers": [
+      {
+        "id": "807d6c33-e10a-4353-a4fa-5bf64b196bb9",
+        "stat": "attack",
+        "value": 20,
+        "type": "FLAT"
+      },
+      {
+        "id": "5181fe5e-93ac-42f4-a083-106223c4fcd5",
+        "stat": "critChance",
+        "value": 10,
+        "type": "FLAT"
+      }
+    ]
+  },
+  {
+    "id": "f4029288-f55c-4934-a8fc-221052179163",
+    "characterID": null,
+    "name": "Warden's Helm",
+    "cost": 150,
+    "slot": "trinket",
+    "modifiers": [
+      {
+        "id": "4c0888ec-391e-449f-97dc-e4a158d25ff1",
+        "stat": "defence",
+        "value": 20,
+        "type": "FLAT"
+      },
+      {
+        "id": "3d590149-5b2f-4b42-ad25-183cfcec6d26",
+        "stat": "magicDefence",
+        "value": 10,
+        "type": "FLAT"
+      }
+    ]
+  },
+  {
+    "id": "afb7f3ce-c699-42f9-a1c8-5de875503712",
+    "characterID": null,
+    "name": "Wrought-Iron Weight",
+    "cost": 500,
+    "slot": "trinket",
+    "modifiers": [
+      {
+        "id": "9cca72a7-cc16-4a5c-b9c8-f83e7bfadb53",
+        "stat": "attack",
+        "value": 40,
+        "type": "FLAT"
+      }
+    ]
+  },
+  {
+    "id": "59f80eed-a557-4ac3-b2cf-da1ec9838cde",
+    "characterID": null,
+    "name": "Apprentice's Wand",
+    "cost": 150,
+    "slot": "weapon",
+    "modifiers": [
+      {
+        "id": "5bcb218d-c3fb-48d4-9ad4-88daa70fde1a",
+        "stat": "magicAttack",
+        "value": 25,
+        "type": "FLAT"
+      }
+    ]
+  },
+  {
+    "id": "ada8ceac-134a-4cff-b827-d003ba1273cc",
+    "characterID": null,
+    "name": "Hellblade",
+    "cost": 1200,
+    "slot": "weapon",
+    "modifiers": [
+      {
+        "id": "251ab732-c3bf-4b32-8140-3f88432e52bc",
+        "stat": "attack",
+        "value": 80,
+        "type": "FLAT"
+      },
+      {
+        "id": "c778e54e-03bc-4dbb-b103-10ff7cdbfd46",
+        "stat": "magicAttack",
+        "value": 80,
+        "type": "FLAT"
+      }
+    ]
+  },
+  {
+    "id": "c7618373-8b4b-4f2f-9e36-4bd75b3778a5",
+    "characterID": null,
+    "name": "Robber's Dagger",
+    "cost": 500,
+    "slot": "weapon",
+    "modifiers": [
+      {
+        "id": "35ddb181-c292-4051-8d61-d8e34dee5074",
+        "stat": "attack",
+        "value": 20,
+        "type": "FLAT"
+      },
+      {
+        "id": "e6e157c9-1ae3-4e75-bd57-5bc064890e9d",
+        "stat": "critChance",
+        "value": 25,
+        "type": "FLAT"
+      }
+    ]
+  },
+  {
+    "id": "ddb99feb-a0f6-4f92-91e1-c3b95930913e",
+    "characterID": null,
+    "name": "Sparkstone Shank",
+    "cost": 150,
+    "slot": "weapon",
+    "modifiers": [
+      {
+        "id": "9749b8b6-270f-4ac3-a106-4c6ee3f9eee7",
+        "stat": "attack",
+        "value": 15,
+        "type": "FLAT"
+      },
+      {
+        "id": "b40d32f5-07c8-4681-a9fa-6960739b7c3c",
+        "stat": "magicAttack",
+        "value": 10,
+        "type": "FLAT"
+      },
+      {
+        "id": "7ab45341-27f8-4766-85df-a216e9680f49",
+        "stat": "critChance",
+        "value": 10,
+        "type": "FLAT"
+      }
+    ]
+  }
+]

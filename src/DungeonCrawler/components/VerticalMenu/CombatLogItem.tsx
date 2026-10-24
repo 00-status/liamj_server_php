@@ -20,8 +20,6 @@ const renderDamageLog = (log: DamageLogMessage) => {
 
     const [before, after] = processedString.split('%damageType');
 
-    console.log(log.damageType);
-
     return (
         <>
             {before}

@@ -1,0 +1,55 @@
+.formation-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.formation-grid__board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.formation-grid__cell {
+    border: 2px dashed #cbd5e1;
+    border-radius: 8px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.formation-grid__cell:hover {
+    border-color: #94a3b8;
+}
+
+.formation-grid__cell--occupied {
+    border-style: solid;
+    border-color: #94a3b8;
+}
+
+.formation-grid__cell--selected {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.formation-grid__monster-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+.formation-grid__monster-stats {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-top: 0.25rem;
+    text-align: center;
+}
