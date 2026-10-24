@@ -78,10 +78,7 @@ export const CharacterEditor = ({
         });
     };
 
-    const handleUpdateAbility = (
-        abilityIndex: number,
-        updatedFields: Partial<Ability>,
-    ) => {
+    const handleUpdateAbility = (abilityIndex: number, updatedFields: Partial<Ability>) => {
         handleFieldChange({
             abilities: character.abilities.map((ability, i) => {
                 if (i === abilityIndex) {
@@ -124,9 +121,7 @@ export const CharacterEditor = ({
     const handleRemovePointEffect = (abilityIndex: number, effectId: string) => {
         const currentAbility = character.abilities[abilityIndex];
         handleUpdateAbility(abilityIndex, {
-            pointEffects: currentAbility.pointEffects.filter(
-                (effect) => effect.id !== effectId,
-            ),
+            pointEffects: currentAbility.pointEffects.filter((effect) => effect.id !== effectId),
         });
     };
 
@@ -163,9 +158,7 @@ export const CharacterEditor = ({
     const handleRemoveStatusEffect = (abilityIndex: number, effectId: string) => {
         const currentAbility = character.abilities[abilityIndex];
         handleUpdateAbility(abilityIndex, {
-            statusEffects: currentAbility.statusEffects.filter(
-                (effect) => effect.id !== effectId,
-            ),
+            statusEffects: currentAbility.statusEffects.filter((effect) => effect.id !== effectId),
         });
     };
 
@@ -210,10 +203,7 @@ export const CharacterEditor = ({
         <div className="character-editor">
             <div className="character-editor__header">
                 <h2>Edit Character Template</h2>
-                <Button
-                    buttonTheme={ButtonTheme.Delete}
-                    onClick={() => onDelete(character.id)}
-                >
+                <Button buttonTheme={ButtonTheme.Delete} onClick={() => onDelete(character.id)}>
                     Delete Character
                 </Button>
             </div>
@@ -343,32 +333,21 @@ export const CharacterEditor = ({
                             {/* Point Effects */}
                             <div className="character-editor__effects-group">
                                 <div className="character-editor__effects-header">
-                                    <h5>
-                                        Point Effects ({ability.pointEffects.length})
-                                    </h5>
-                                    <Button
-                                        onClick={() =>
-                                            handleAddPointEffect(abilityIndex)
-                                        }
-                                    >
+                                    <h5>Point Effects ({ability.pointEffects.length})</h5>
+                                    <Button onClick={() => handleAddPointEffect(abilityIndex)}>
                                         + Add Point Effect
                                     </Button>
                                 </div>
                                 {ability.pointEffects.map((effect) => (
-                                    <div
-                                        key={effect.id}
-                                        className="character-editor__effect-row"
-                                    >
+                                    <div key={effect.id} className="character-editor__effect-row">
                                         <TextInput
                                             id={`pe-name-${effect.id}`}
                                             label="Effect Name"
                                             value={effect.name}
                                             onChange={(val) =>
-                                                handleUpdatePointEffect(
-                                                    abilityIndex,
-                                                    effect.id,
-                                                    { name: val ?? '' },
-                                                )
+                                                handleUpdatePointEffect(abilityIndex, effect.id, {
+                                                    name: val ?? '',
+                                                })
                                             }
                                         />
                                         <Dropdown
@@ -377,11 +356,9 @@ export const CharacterEditor = ({
                                             defaultValue={effect.target}
                                             options={targetScopeOptions}
                                             onOptionSelect={(val) =>
-                                                handleUpdatePointEffect(
-                                                    abilityIndex,
-                                                    effect.id,
-                                                    { target: val as TargetScope },
-                                                )
+                                                handleUpdatePointEffect(abilityIndex, effect.id, {
+                                                    target: val as TargetScope,
+                                                })
                                             }
                                         />
                                         <Dropdown
@@ -390,11 +367,9 @@ export const CharacterEditor = ({
                                             defaultValue={effect.damageType}
                                             options={damageTypeOptions}
                                             onOptionSelect={(val) =>
-                                                handleUpdatePointEffect(
-                                                    abilityIndex,
-                                                    effect.id,
-                                                    { damageType: val as DamageType },
-                                                )
+                                                handleUpdatePointEffect(abilityIndex, effect.id, {
+                                                    damageType: val as DamageType,
+                                                })
                                             }
                                         />
                                         <TextInput
@@ -403,27 +378,28 @@ export const CharacterEditor = ({
                                             numbersOnly={true}
                                             value={effect.power.toString()}
                                             onChange={(val) => {
-                                                const parsed = val
-                                                    ? parseFloat(val)
-                                                    : 0;
-                                                handleUpdatePointEffect(
-                                                    abilityIndex,
-                                                    effect.id,
-                                                    {
-                                                        power: isNaN(parsed)
-                                                            ? 0
-                                                            : parsed,
-                                                    },
-                                                );
+                                                const parsed = val ? parseFloat(val) : 0;
+                                                handleUpdatePointEffect(abilityIndex, effect.id, {
+                                                    power: isNaN(parsed) ? 0 : parsed,
+                                                });
+                                            }}
+                                        />
+                                        <TextInput
+                                            id={`pe-duration-${effect.id}`}
+                                            label="Duration"
+                                            numbersOnly={true}
+                                            value={effect.duration.toString()}
+                                            onChange={(val) => {
+                                                const parsed = val ? parseInt(val) : 0;
+                                                handleUpdatePointEffect(abilityIndex, effect.id, {
+                                                    duration: isNaN(parsed) ? 0 : parsed,
+                                                });
                                             }}
                                         />
                                         <Button
                                             buttonTheme={ButtonTheme.Delete}
                                             onClick={() =>
-                                                handleRemovePointEffect(
-                                                    abilityIndex,
-                                                    effect.id,
-                                                )
+                                                handleRemovePointEffect(abilityIndex, effect.id)
                                             }
                                         >
                                             Remove
@@ -435,32 +411,21 @@ export const CharacterEditor = ({
                             {/* Status Effects */}
                             <div className="character-editor__effects-group">
                                 <div className="character-editor__effects-header">
-                                    <h5>
-                                        Status Effects ({ability.statusEffects.length})
-                                    </h5>
-                                    <Button
-                                        onClick={() =>
-                                            handleAddStatusEffect(abilityIndex)
-                                        }
-                                    >
+                                    <h5>Status Effects ({ability.statusEffects.length})</h5>
+                                    <Button onClick={() => handleAddStatusEffect(abilityIndex)}>
                                         + Add Status Effect
                                     </Button>
                                 </div>
                                 {ability.statusEffects.map((effect) => (
-                                    <div
-                                        key={effect.id}
-                                        className="character-editor__effect-row"
-                                    >
+                                    <div key={effect.id} className="character-editor__effect-row">
                                         <TextInput
                                             id={`se-name-${effect.id}`}
                                             label="Status Effect Name"
                                             value={effect.name}
                                             onChange={(val) =>
-                                                handleUpdateStatusEffect(
-                                                    abilityIndex,
-                                                    effect.id,
-                                                    { name: val ?? '' },
-                                                )
+                                                handleUpdateStatusEffect(abilityIndex, effect.id, {
+                                                    name: val ?? '',
+                                                })
                                             }
                                         />
                                         <Dropdown
@@ -469,11 +434,9 @@ export const CharacterEditor = ({
                                             defaultValue={effect.target}
                                             options={targetScopeOptions}
                                             onOptionSelect={(val) =>
-                                                handleUpdateStatusEffect(
-                                                    abilityIndex,
-                                                    effect.id,
-                                                    { target: val as TargetScope },
-                                                )
+                                                handleUpdateStatusEffect(abilityIndex, effect.id, {
+                                                    target: val as TargetScope,
+                                                })
                                             }
                                         />
                                         <Dropdown
@@ -482,11 +445,9 @@ export const CharacterEditor = ({
                                             defaultValue={effect.stat}
                                             options={statOptions}
                                             onOptionSelect={(val) =>
-                                                handleUpdateStatusEffect(
-                                                    abilityIndex,
-                                                    effect.id,
-                                                    { stat: val as keyof BaseStats },
-                                                )
+                                                handleUpdateStatusEffect(abilityIndex, effect.id, {
+                                                    stat: val as keyof BaseStats,
+                                                })
                                             }
                                         />
                                         <Dropdown
@@ -495,14 +456,9 @@ export const CharacterEditor = ({
                                             defaultValue={effect.damageScaleType}
                                             options={damageScaleMethodOptions}
                                             onOptionSelect={(val) =>
-                                                handleUpdateStatusEffect(
-                                                    abilityIndex,
-                                                    effect.id,
-                                                    {
-                                                        damageScaleType:
-                                                            val as DamageScaleMethod,
-                                                    },
-                                                )
+                                                handleUpdateStatusEffect(abilityIndex, effect.id, {
+                                                    damageScaleType: val as DamageScaleMethod,
+                                                })
                                             }
                                         />
                                         <TextInput
@@ -511,18 +467,10 @@ export const CharacterEditor = ({
                                             numbersOnly={true}
                                             value={effect.value.toString()}
                                             onChange={(val) => {
-                                                const parsed = val
-                                                    ? parseFloat(val)
-                                                    : 0;
-                                                handleUpdateStatusEffect(
-                                                    abilityIndex,
-                                                    effect.id,
-                                                    {
-                                                        value: isNaN(parsed)
-                                                            ? 0
-                                                            : parsed,
-                                                    },
-                                                );
+                                                const parsed = val ? parseFloat(val) : 0;
+                                                handleUpdateStatusEffect(abilityIndex, effect.id, {
+                                                    value: isNaN(parsed) ? 0 : parsed,
+                                                });
                                             }}
                                         />
                                         <TextInput
@@ -531,27 +479,16 @@ export const CharacterEditor = ({
                                             numbersOnly={true}
                                             value={effect.duration.toString()}
                                             onChange={(val) => {
-                                                const parsed = val
-                                                    ? parseInt(val, 10)
-                                                    : 0;
-                                                handleUpdateStatusEffect(
-                                                    abilityIndex,
-                                                    effect.id,
-                                                    {
-                                                        duration: isNaN(parsed)
-                                                            ? 0
-                                                            : parsed,
-                                                    },
-                                                );
+                                                const parsed = val ? parseInt(val, 10) : 0;
+                                                handleUpdateStatusEffect(abilityIndex, effect.id, {
+                                                    duration: isNaN(parsed) ? 0 : parsed,
+                                                });
                                             }}
                                         />
                                         <Button
                                             buttonTheme={ButtonTheme.Delete}
                                             onClick={() =>
-                                                handleRemoveStatusEffect(
-                                                    abilityIndex,
-                                                    effect.id,
-                                                )
+                                                handleRemoveStatusEffect(abilityIndex, effect.id)
                                             }
                                         >
                                             Remove
