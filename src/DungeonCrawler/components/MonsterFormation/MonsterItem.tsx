@@ -68,7 +68,7 @@ export const MonsterItem = ({
                 <div className="monster-item__attribute--next-action">
                     {combatant.turnsUntilAction}
                 </div>
-                <b>{combatant.character.name}</b>
+                <div>{combatant.character.name}</div>
                 <div className="monster-item__attributes">
                     <div className="monster-item__attribute--health-points">
                         {combatant.character.currentHP}

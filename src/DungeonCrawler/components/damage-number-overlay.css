@@ -20,7 +20,6 @@
 .damage-number-overlay {
     position: absolute;
     font-size: 20px;
-    font-weight: bold;
     color: var(--damage-text-color);
     text-shadow: 1px black;
     animation: damage-number-overlay 600ms ease-in-out forwards;
