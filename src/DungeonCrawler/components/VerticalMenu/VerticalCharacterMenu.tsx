@@ -81,15 +81,18 @@ export const VerticalCharacterMenu = ({
                     </DungeonButton>
                 </div>
                 <div className="vertical-character-menu__container">
-                    {currentMenuState === MenuState.STATS &&
-                        playerCharacters.map((playerCharacter) => (
-                            <CharacterStatCard
-                                key={`stat-card-${playerCharacter.id}`}
-                                character={playerCharacter}
-                                purchasedEquipment={purchasedEquipment}
-                                onEquipmentSelect={onEquipmentSelect}
-                            />
-                        ))}
+                    {currentMenuState === MenuState.STATS && (
+                        <div>
+                            {playerCharacters.map((playerCharacter) => (
+                                <CharacterStatCard
+                                    key={`stat-card-${playerCharacter.id}`}
+                                    character={playerCharacter}
+                                    purchasedEquipment={purchasedEquipment}
+                                    onEquipmentSelect={onEquipmentSelect}
+                                />
+                            ))}
+                        </div>
+                    )}
                     {currentMenuState === MenuState.INV && (
                         <PlayerInventory
                             equippables={purchasedEquipment}
