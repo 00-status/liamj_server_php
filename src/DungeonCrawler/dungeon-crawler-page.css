@@ -29,7 +29,7 @@ selected: #60af45
     background-color: #242424;
     background: linear-gradient(to bottom, #4a4a4a 0%, #242424 5%, black 10%);
 
-    font-family: 'Pixelify Sans', sans-serif;
+    font-family: 'Bitcount Prop Single', system-ui;
     font-weight: 400;
     font-style: normal;
 }
@@ -38,8 +38,8 @@ selected: #60af45
 h2,
 h3,
 h4 {
-    font-family: 'Pixelify Sans', sans-serif;
-    font-weight: 500;
+    font-family: 'Bitcount Prop Single', system-ui;
+    font-weight: 400;
 }
 
 .dungeon-crawler-page__menu-button {
