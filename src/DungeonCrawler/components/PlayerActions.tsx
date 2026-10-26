@@ -36,18 +36,20 @@ export const PlayerActions = ({
     const [menuState, setMenuState] = useState<MenuState>(MenuState.base);
 
     const actions = useMemo((): Array<MenuOption> => {
+        const mapAbilityToOption = (ability: Ability): MenuOption => ({
+            action: () => onPlayerAbility(ability),
+            label: ability.name,
+            cost: ability.cost,
+            buttonTheme: calculateActionTheme(ability),
+            isDisabled: ability.cost > player.currentMP || !canPlayerTakeActions,
+            isSelected: currentAbility?.name === ability.name && canPlayerTakeActions,
+        });
+
         switch (menuState) {
             case MenuState.base: {
                 const defaultAbilities = player.abilities
                     .filter((ability) => ability.type === AbilityType.default)
-                    .map((ability) => ({
-                        action: () => onPlayerAbility(ability),
-                        label: ability.name,
-                        cost: ability.cost,
-                        buttonTheme: calculateActionTheme(ability),
-                        isDisabled: ability.cost > player.currentMP || !canPlayerTakeActions,
-                        isSelected: currentAbility?.name === ability.name && canPlayerTakeActions,
-                    }));
+                    .map((ability) => mapAbilityToOption(ability));
 
                 return [
                     ...defaultAbilities,
@@ -62,14 +64,7 @@ export const PlayerActions = ({
             case MenuState.magic: {
                 const magicAbilities = player.abilities
                     .filter((ability) => ability.type === AbilityType.magic)
-                    .map((ability) => ({
-                        action: () => onPlayerAbility(ability),
-                        label: ability.name,
-                        cost: ability.cost,
-                        buttonTheme: calculateActionTheme(ability),
-                        isDisabled: ability.cost > player.currentMP || !canPlayerTakeActions,
-                        isSelected: currentAbility?.name === ability.name && canPlayerTakeActions,
-                    }));
+                    .map((ability) => mapAbilityToOption(ability));
 
                 return [
                     {
