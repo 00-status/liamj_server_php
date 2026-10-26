@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 
 import './player-actions.css';
-import { Ability, AbilityType, Character } from '../domain/types';
+import { Ability, AbilityType, Character, DamageType } from '../domain/types';
 
 import { DungeonButton, DungeonButtonTheme } from './DungeonButton';
 
@@ -13,6 +13,7 @@ enum MenuState {
 type MenuOption = {
     action: () => void;
     label: string;
+    buttonTheme: DungeonButtonTheme;
     isDisabled?: boolean;
     isSelected?: boolean;
 };
@@ -40,13 +41,18 @@ export const PlayerActions = ({
                     .map((ability) => ({
                         action: () => onPlayerAbility(ability),
                         label: ability.name,
+                        buttonTheme: calculateActionTheme(ability),
                         isDisabled: ability.cost > player.currentMP || !canPlayerTakeActions,
                         isSelected: currentAbility?.name === ability.name && canPlayerTakeActions,
                     }));
 
                 return [
                     ...defaultAbilities,
-                    { action: () => setMenuState(MenuState.magic), label: 'Magic' },
+                    {
+                        action: () => setMenuState(MenuState.magic),
+                        label: 'Magic',
+                        buttonTheme: DungeonButtonTheme.DEFAULT,
+                    },
                 ];
             }
             case MenuState.magic: {
@@ -55,12 +61,17 @@ export const PlayerActions = ({
                     .map((ability) => ({
                         action: () => onPlayerAbility(ability),
                         label: ability.name,
+                        buttonTheme: calculateActionTheme(ability),
                         isDisabled: ability.cost > player.currentMP || !canPlayerTakeActions,
                         isSelected: currentAbility?.name === ability.name && canPlayerTakeActions,
                     }));
 
                 return [
-                    { action: () => setMenuState(MenuState.base), label: 'Back' },
+                    {
+                        action: () => setMenuState(MenuState.base),
+                        label: 'Back',
+                        buttonTheme: DungeonButtonTheme.DEFAULT,
+                    },
                     ...magicAbilities,
                 ];
             }
@@ -81,9 +92,7 @@ export const PlayerActions = ({
                             onClick={action.action}
                             isDisabled={!!isButtonDisabled}
                             buttonTheme={
-                                isButtonSelected
-                                    ? DungeonButtonTheme.ACTIVE
-                                    : DungeonButtonTheme.DEFAULT
+                                isButtonSelected ? DungeonButtonTheme.ACTIVE : action.buttonTheme
                             }
                         >
                             {action.label}
@@ -93,4 +102,38 @@ export const PlayerActions = ({
             </div>
         </div>
     );
+};
+
+const calculateActionTheme = (ability: Ability): DungeonButtonTheme => {
+    const pointEffects = ability.pointEffects;
+
+    if (pointEffects.length <= 0) {
+        return DungeonButtonTheme.DEFAULT;
+    }
+
+    let hasMagicPointEffect = false;
+    let hasPhysicalPointEffect = false;
+    pointEffects.forEach((pointEffect) => {
+        if (pointEffect.damageType === DamageType.PHYSICAL) {
+            hasPhysicalPointEffect = true;
+        }
+
+        if (pointEffect.damageType === DamageType.MAGIC) {
+            hasMagicPointEffect = true;
+        }
+    });
+
+    if (hasPhysicalPointEffect && hasMagicPointEffect) {
+        return DungeonButtonTheme.DEFAULT;
+    }
+
+    if (hasPhysicalPointEffect && !hasMagicPointEffect) {
+        return DungeonButtonTheme.PHYSICAL;
+    }
+
+    if (!hasPhysicalPointEffect && hasMagicPointEffect) {
+        return DungeonButtonTheme.MAGIC;
+    }
+
+    return DungeonButtonTheme.DEFAULT;
 };

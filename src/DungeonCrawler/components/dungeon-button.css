@@ -4,6 +4,12 @@
 [data-theme='ACTIVE'] {
     --button-color: #60af45;
 }
+[data-theme='PHYSICAL'] {
+    --button-color: #de1b1b;
+}
+[data-theme='MAGIC'] {
+    --button-color: #435abf;
+}
 
 .dungeon-button {
     display: flex;
