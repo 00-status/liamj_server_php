@@ -158,7 +158,7 @@ export interface PlainLogMessage {
 export type LogMessage = DamageLogMessage | PlainLogMessage;
 
 export enum CombatEventType {
-    CAST_ABILITY = 'CAST_ABILITY',
+    CAST_DAMAGE_ABILITY = 'CAST_DAMAGE_ABILITY',
     APPLY_DAMAGE = 'APPLY_DAMAGE',
     APPLY_POINT_EFFECT = 'APPLY_POINT_EFFECT',
     APPLY_STATUS_EFFECT = 'APPLY_STATUS_EFFECT',
@@ -173,8 +173,8 @@ interface BaseCombatEvent {
     isProcessed: boolean;
 }
 
-interface CastAbilityEvent extends BaseCombatEvent {
-    type: CombatEventType.CAST_ABILITY;
+interface CastDamageAbilityEvent extends BaseCombatEvent {
+    type: CombatEventType.CAST_DAMAGE_ABILITY;
     casterCombatantID: string;
     abilityID: string;
 }
@@ -219,7 +219,7 @@ interface ResetTurnTimerEvent extends BaseCombatEvent {
 }
 
 export type CombatEvent =
-    | CastAbilityEvent
+    | CastDamageAbilityEvent
     | ApplyDamageEvent
     | ApplyPointEffectEvent
     | ApplyStatusEffectEvent

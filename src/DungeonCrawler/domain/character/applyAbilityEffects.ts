@@ -65,14 +65,6 @@ export const applyAbilityEffects = (
     );
     const combatEvents: CombatEvent[] = [];
 
-    combatEvents.push({
-        id: crypto.randomUUID(),
-        type: CombatEventType.CAST_ABILITY,
-        isProcessed: false,
-        casterCombatantID: caster.id,
-        abilityID: ability.name,
-    });
-
     if (ability.cost > 0) {
         combatEvents.push({
             id: crypto.randomUUID(),
@@ -178,6 +170,16 @@ export const applyAbilityEffects = (
                     isCritical,
                 };
             });
+
+            if (isPhysical || pointEffect.damageType === DamageType.MAGIC) {
+                combatEvents.push({
+                    id: crypto.randomUUID(),
+                    type: CombatEventType.CAST_DAMAGE_ABILITY,
+                    isProcessed: false,
+                    casterCombatantID: caster.id,
+                    abilityID: ability.name,
+                });
+            }
 
             const combatEvent: CombatEvent = {
                 id: crypto.randomUUID(),

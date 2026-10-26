@@ -21,12 +21,12 @@ export const getAnimationData = (event: CombatEvent, targetID: string): CombatAn
                     : String(damageTarget.amount),
             };
         }
-        case CombatEventType.CAST_ABILITY: {
+        case CombatEventType.CAST_DAMAGE_ABILITY: {
             return {
                 id: crypto.randomUUID(),
                 name: 'character-attack',
                 container: 'container',
-                combatEventType: CombatEventType.CAST_ABILITY,
+                combatEventType: CombatEventType.CAST_DAMAGE_ABILITY,
                 text: '',
             };
         }
@@ -39,7 +39,7 @@ export const getCombatEventDuration = (event: CombatEvent): number => {
     switch (event.type) {
         case CombatEventType.APPLY_DAMAGE:
             return 600;
-        case CombatEventType.CAST_ABILITY:
+        case CombatEventType.CAST_DAMAGE_ABILITY:
             return 300;
         default:
             return 0;
@@ -50,7 +50,7 @@ export const getEventAnimationTargetIDs = (event: CombatEvent): string[] => {
     switch (event.type) {
         case CombatEventType.APPLY_DAMAGE:
             return event.damageTargets.map((target) => target.targetCombatantID);
-        case CombatEventType.CAST_ABILITY:
+        case CombatEventType.CAST_DAMAGE_ABILITY:
             return [event.casterCombatantID];
         case CombatEventType.APPLY_POINT_EFFECT:
         case CombatEventType.APPLY_STATUS_EFFECT:
