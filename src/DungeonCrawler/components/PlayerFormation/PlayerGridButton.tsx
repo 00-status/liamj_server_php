@@ -42,17 +42,19 @@ export const PlayerGridButton = ({
         (equippable) => equippable.characterID === combatant.character.id,
     );
 
+    const isCombatantDefeated = combatant.character.currentHP <= 0;
     const isTargetable =
         currentAbility &&
         currentPlayer &&
+        isCombatantDefeated &&
         isTargetValid(
             currentAbility.abilityTarget,
             currentPlayer.id,
             combatant,
             FormationTeam.PLAYER,
         );
-    const isSelectable = !currentAbility;
-    const isSelected = currentPlayer && currentPlayer.id === combatant.id;
+    const isSelectable = !currentAbility && !isCombatantDefeated;
+    const isSelected = currentPlayer && currentPlayer.id === combatant.id && !isCombatantDefeated;
 
     const shouldPlayAnimation = activeCombatEvent
         ? getEventAnimationTargetIDs(activeCombatEvent).includes(combatant.id)
@@ -69,6 +71,8 @@ export const PlayerGridButton = ({
     } else if (isSelectable) {
         modifier = '--selectable';
         handleClick = () => onSelect(combatant.id);
+    } else if (isCombatantDefeated) {
+        modifier = '--disabled';
     }
 
     const shouldAnimateContainer =
@@ -95,12 +99,18 @@ export const PlayerGridButton = ({
                     damageTypeTheme={getDamageType(activeCombatEvent)}
                 />
             )}
-            <div>{combatant.character.name}</div>
-            <div className={`${BASE_CLASS}__stat--health-points`}>
+            <div className={`${isCombatantDefeated ? `${BASE_CLASS}__stat--disabled` : ''}`}>
+                {combatant.character.name}
+            </div>
+            <div
+                className={`${isCombatantDefeated ? `${BASE_CLASS}__stat--disabled` : `${BASE_CLASS}__stat--health-points`}`}
+            >
                 {combatant.character.currentHP}/
                 {getCharacterStat(combatant.character, characterItems, BaseStatNames.healthPoints)}
             </div>
-            <div className={`${BASE_CLASS}__stat--magic-points`}>
+            <div
+                className={`${isCombatantDefeated ? `${BASE_CLASS}__stat--disabled` : `${BASE_CLASS}__stat--magic-points`}`}
+            >
                 {combatant.character.currentMP}/
                 {getCharacterStat(combatant.character, characterItems, BaseStatNames.magicPoints)}
             </div>
