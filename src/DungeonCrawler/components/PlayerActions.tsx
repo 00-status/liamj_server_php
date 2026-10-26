@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 
 import './player-actions.css';
 import { Ability, AbilityType, Character, DamageType } from '../domain/types';
+import { calculatePrimaryAbilityDamageType } from '../domain/character/CalculatePrimaryAbilityDamageType';
 
 import { DungeonButton, DungeonButtonTheme } from './DungeonButton';
 
@@ -101,8 +102,12 @@ export const PlayerActions = ({
                             }
                         >
                             {action.label}{' '}
-                            {!isButtonDisabled && action.cost ? (
-                                <span className="player-actions__action-cost">{action.cost}</span>
+                            {action.cost ? (
+                                <span
+                                    className={`player-actions__action-cost ${isButtonDisabled ? 'player-actions__actions-cost--disabled' : ''}`}
+                                >
+                                    {action.cost}
+                                </span>
                             ) : undefined}
                         </DungeonButton>
                     );
@@ -112,36 +117,15 @@ export const PlayerActions = ({
     );
 };
 
-const calculateActionTheme = (ability: Ability): DungeonButtonTheme => {
-    const pointEffects = ability.pointEffects;
+const calculateActionTheme = (ability: Ability) => {
+    const damageType = calculatePrimaryAbilityDamageType(ability);
 
-    if (pointEffects.length <= 0) {
-        return DungeonButtonTheme.DEFAULT;
+    switch (damageType) {
+        case DamageType.PHYSICAL:
+            return DungeonButtonTheme.PHYSICAL;
+        case DamageType.MAGIC:
+            return DungeonButtonTheme.MAGIC;
+        default:
+            return DungeonButtonTheme.DEFAULT;
     }
-
-    let hasMagicPointEffect = false;
-    let hasPhysicalPointEffect = false;
-    pointEffects.forEach((pointEffect) => {
-        if (pointEffect.damageType === DamageType.PHYSICAL) {
-            hasPhysicalPointEffect = true;
-        }
-
-        if (pointEffect.damageType === DamageType.MAGIC) {
-            hasMagicPointEffect = true;
-        }
-    });
-
-    if (hasPhysicalPointEffect && hasMagicPointEffect) {
-        return DungeonButtonTheme.DEFAULT;
-    }
-
-    if (hasPhysicalPointEffect && !hasMagicPointEffect) {
-        return DungeonButtonTheme.PHYSICAL;
-    }
-
-    if (!hasPhysicalPointEffect && hasMagicPointEffect) {
-        return DungeonButtonTheme.MAGIC;
-    }
-
-    return DungeonButtonTheme.DEFAULT;
 };

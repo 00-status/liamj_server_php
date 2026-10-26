@@ -2,7 +2,7 @@
     --damage-highlight-value: #de1b1b;
 }
 [data-damage-highlight='MAGIC'] {
-    --damage-highlight-value: #435abf;
+    --damage-highlight-value: #637be8;
 }
 [data-damage-highlight='HEALING'] {
     --damage-highlight-value: #d64d4d;

@@ -1,14 +1,14 @@
-[data-theme='DEFAULT'] {
+.dungeon-button[data-theme='DEFAULT'] {
     --button-color: #f7f7f7;
 }
-[data-theme='ACTIVE'] {
+.dungeon-button[data-theme='ACTIVE'] {
     --button-color: #60af45;
 }
-[data-theme='PHYSICAL'] {
+.dungeon-button[data-theme='PHYSICAL'] {
     --button-color: #de1b1b;
 }
-[data-theme='MAGIC'] {
-    --button-color: #435abf;
+.dungeon-button[data-theme='MAGIC'] {
+    --button-color: #637be8;
 }
 
 .dungeon-button {
