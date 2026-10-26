@@ -13,6 +13,7 @@ enum MenuState {
 type MenuOption = {
     action: () => void;
     label: string;
+    cost: number;
     buttonTheme: DungeonButtonTheme;
     isDisabled?: boolean;
     isSelected?: boolean;
@@ -41,6 +42,7 @@ export const PlayerActions = ({
                     .map((ability) => ({
                         action: () => onPlayerAbility(ability),
                         label: ability.name,
+                        cost: ability.cost,
                         buttonTheme: calculateActionTheme(ability),
                         isDisabled: ability.cost > player.currentMP || !canPlayerTakeActions,
                         isSelected: currentAbility?.name === ability.name && canPlayerTakeActions,
@@ -51,6 +53,7 @@ export const PlayerActions = ({
                     {
                         action: () => setMenuState(MenuState.magic),
                         label: 'Magic',
+                        cost: 0,
                         buttonTheme: DungeonButtonTheme.DEFAULT,
                     },
                 ];
@@ -61,6 +64,7 @@ export const PlayerActions = ({
                     .map((ability) => ({
                         action: () => onPlayerAbility(ability),
                         label: ability.name,
+                        cost: ability.cost,
                         buttonTheme: calculateActionTheme(ability),
                         isDisabled: ability.cost > player.currentMP || !canPlayerTakeActions,
                         isSelected: currentAbility?.name === ability.name && canPlayerTakeActions,
@@ -70,6 +74,7 @@ export const PlayerActions = ({
                     {
                         action: () => setMenuState(MenuState.base),
                         label: 'Back',
+                        cost: 0,
                         buttonTheme: DungeonButtonTheme.DEFAULT,
                     },
                     ...magicAbilities,
@@ -95,7 +100,10 @@ export const PlayerActions = ({
                                 isButtonSelected ? DungeonButtonTheme.ACTIVE : action.buttonTheme
                             }
                         >
-                            {action.label}
+                            {action.label}{' '}
+                            {!isButtonDisabled && action.cost ? (
+                                <span className="player-actions__action-cost">{action.cost}</span>
+                            ) : undefined}
                         </DungeonButton>
                     );
                 })}
