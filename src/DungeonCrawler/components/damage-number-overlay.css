@@ -1,19 +1,19 @@
-[data-theme='PHYSICAL'] {
+.damage-number-overlay[data-theme='PHYSICAL'] {
     --damage-text-color: #de1b1b;
 }
-[data-theme='MAGIC'] {
-    --damage-text-color: #435abf;
+.damage-number-overlay[data-theme='MAGIC'] {
+    --damage-text-color: #637be8;
 }
-[data-theme='HEALING'] {
+.damage-number-overlay[data-theme='HEALING'] {
     --damage-text-color: #d64d4d;
 }
-[data-theme='MAGIC_RESTORE'] {
+.damage-number-overlay[data-theme='MAGIC_RESTORE'] {
     --damage-text-color: #80c5e8;
 }
-[data-theme='MAGIC_DRAIN'] {
+.damage-number-overlay[data-theme='MAGIC_DRAIN'] {
     --damage-text-color: purple;
 }
-[data-theme='DEFAULT'] {
+.damage-number-overlay[data-theme='DEFAULT'] {
     --damage-text-color: purple;
 }
 

@@ -3,8 +3,10 @@ import { ReactNode } from 'react';
 import './dungeon-button.css';
 
 export enum DungeonButtonTheme {
-    ACTIVE = 'ACTIVE',
     DEFAULT = 'DEFAULT',
+    ACTIVE = 'ACTIVE',
+    MAGIC = 'MAGIC',
+    PHYSICAL = 'PHYSICAL',
 }
 
 type Props = {

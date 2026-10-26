@@ -7,3 +7,10 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
+
+.player-actions__action-cost {
+    color: #80c5e8;
+}
+.player-actions__actions-cost--disabled {
+    color: inherit;
+}

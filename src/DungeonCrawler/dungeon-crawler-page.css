@@ -1,7 +1,7 @@
-[data-formation='PLAYER'] {
+.character-attack[data-formation='PLAYER'] {
     --attack-translate-y: -12px;
 }
-[data-formation='MONSTER'] {
+.character-attack[data-formation='MONSTER'] {
     --attack-translate-y: 12px;
 }
 
@@ -17,7 +17,7 @@ attack: #de1b1b
 crit: #ff8812
 magic-points: #80c5e8
 magic-defence: #cbdae8
-magic-attack: #435abf
+magic-attack: #637be8
 selected: #60af45
 
 */
