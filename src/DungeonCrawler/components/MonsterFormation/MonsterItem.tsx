@@ -25,9 +25,11 @@ export const MonsterItem = ({
     activeCombatEvent,
     onEnemySelect,
 }: Props) => {
+    const isCombatantDefeated = combatant.character.currentHP <= 0;
     const isTargetable =
         currentAbility &&
         currentPlayer &&
+        !isCombatantDefeated &&
         isTargetValid(
             currentAbility.abilityTarget,
             currentPlayer.id,
@@ -47,10 +49,14 @@ export const MonsterItem = ({
 
     const animationClassName = shouldAnimateContainer ? combatAnimation.name : '';
 
+    let monsterItemClasses = `monster-item ${animationClassName} `;
+    monsterItemClasses += !isCombatantDefeated && isTargetable ? 'monster-item--selecting' : '';
+    monsterItemClasses += isCombatantDefeated ? 'monster-item--disabled' : '';
+
     return (
         <div
             onClick={() => (isTargetable ? onEnemySelect(combatant) : null)}
-            className={`monster-item ${isTargetable ? 'monster-item--selecting' : ''} ${animationClassName} `}
+            className={monsterItemClasses}
             style={{
                 gridColumnStart: combatant.position.x,
                 gridRowStart: combatant.position.y,
@@ -64,16 +70,22 @@ export const MonsterItem = ({
                     damageTypeTheme={getDamageType(activeCombatEvent)}
                 />
             )}
-            <div className="monster-item__contents">
+            <div
+                className={`monster-item__contents ${isCombatantDefeated ? 'monster-item__attributes--disabled' : ''}`}
+            >
                 <div className="monster-item__attribute--next-action">
                     {combatant.turnsUntilAction}
                 </div>
                 <div>{combatant.character.name}</div>
                 <div className="monster-item__attributes">
-                    <div className="monster-item__attribute--health-points">
+                    <div
+                        className={`${isCombatantDefeated ? 'monster-item__attribute--disabled' : 'monster-item__attribute--health-points'}`}
+                    >
                         {combatant.character.currentHP}
                     </div>
-                    <div className="monster-item__attribute--magic-points">
+                    <div
+                        className={`${isCombatantDefeated ? 'monster-item__attribute--disabled' : 'monster-item__attribute--magic-points'}`}
+                    >
                         {combatant.character.currentMP}
                     </div>
                 </div>
