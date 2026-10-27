@@ -171,7 +171,7 @@ const examplePlayer2: Character = {
         },
         {
             name: 'YEET!',
-            cost: 2,
+            cost: 3,
             type: AbilityType.magic,
             abilityTarget: AbilityTarget.OPPONENT_FORMATION,
             pointEffects: [
@@ -188,7 +188,7 @@ const examplePlayer2: Character = {
         },
         {
             name: 'Body Slam',
-            cost: 2,
+            cost: 3,
             type: AbilityType.magic,
             abilityTarget: AbilityTarget.OPPONENT_FORMATION,
             pointEffects: [
@@ -222,7 +222,7 @@ const examplePlayer2: Character = {
                 {
                     id: crypto.randomUUID(),
                     name: 'Hyped! (Barry)',
-                    target: TargetScope.target,
+                    target: TargetScope.entire_formation,
                     duration: 3,
                     stat: BaseStatNames.attack,
                     value: 15,

@@ -1,16 +1,16 @@
-[data-damage-highlight='PHYSICAL'] {
+.vertical-character-menu__highlight[data-damage-highlight='PHYSICAL'] {
     --damage-highlight-value: #de1b1b;
 }
-[data-damage-highlight='MAGIC'] {
+.vertical-character-menu__highlight[data-damage-highlight='MAGIC'] {
     --damage-highlight-value: #637be8;
 }
-[data-damage-highlight='HEALING'] {
+.vertical-character-menu__highlight[data-damage-highlight='HEALING'] {
     --damage-highlight-value: #d64d4d;
 }
-[data-damage-highlight='MAGIC_RESTORE'] {
+.vertical-character-menu__highlight[data-damage-highlight='MAGIC_RESTORE'] {
     --damage-highlight-value: #80c5e8;
 }
-[data-damage-highlight='MAGIC_DRAIN'] {
+.vertical-character-menu__highlight[data-damage-highlight='MAGIC_DRAIN'] {
     --damage-highlight-value: #80c5e8;
 }
 
@@ -43,7 +43,7 @@
 }
 
 .vertical-character-menu__highlight {
-    font-weight: 700;
+    font-weight: 500;
     color: var(--damage-highlight-value);
 }
 
