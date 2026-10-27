@@ -49,7 +49,7 @@ export const PlayerGridButton = ({
     const isValidAbilityTarget =
         currentAbility &&
         currentPlayer &&
-        isCombatantDefeated &&
+        !isCombatantDefeated &&
         isTargetValid(
             currentAbility.abilityTarget,
             currentPlayer.id,

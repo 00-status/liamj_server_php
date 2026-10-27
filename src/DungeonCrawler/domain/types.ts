@@ -138,7 +138,7 @@ export enum TargetScope {
     adjacent = 'adjacent',
     target_and_surrounding = 'target_and_surrounding',
     surrounding = 'surrounding',
-    all_opponents = 'entire_formation',
+    entire_formation = 'entire_formation',
 }
 
 export interface DamageLogMessage {
