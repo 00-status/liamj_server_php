@@ -21,7 +21,7 @@ export const getValidTargets = (
             return [structuredClone(caster)];
         case TargetScope.target:
             return [structuredClone(target)];
-        case TargetScope.all_opponents:
+        case TargetScope.entire_formation:
             return formationOfTarget.combatants.map((combatant) => structuredClone(combatant));
         case TargetScope.adjacent:
             return getAdjacentCombatants(target, formationOfTarget.combatants);

@@ -5,12 +5,7 @@ import {
     resetTurnsUntilAction,
 } from '../monster/turnsUntilAction';
 import { Combatant, MonsterCombatant } from '../Combatant';
-import {
-    Character,
-    CombatEvent,
-    CombatEventType,
-    Equipment,
-} from '../types';
+import { Character, CombatEvent, CombatEventType, Equipment } from '../types';
 
 type CombatantDictionary = { [combatantID: string]: Combatant };
 
@@ -83,7 +78,7 @@ export const combatEventHandlers: CombatEventHandlerMap = {
 
         return combatantDictionary;
     },
-    [CombatEventType.CAST_ABILITY]: (event, combatants) => {
+    [CombatEventType.CAST_DAMAGE_ABILITY]: (event, combatants) => {
         return keyCombatantsByID(combatants);
     },
     [CombatEventType.DECREASE_MODIFIERS]: (event, combatants) => {

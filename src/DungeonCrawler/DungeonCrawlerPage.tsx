@@ -16,7 +16,6 @@ import { VerticalCharacterMenu } from './components/VerticalMenu/VerticalCharact
 import { PlayerActions } from './components/PlayerActions';
 import { DungeonButton } from './components/DungeonButton';
 
-// TODO in #74: Use a more RPG-like font for titles and headers.
 const DungeonCrawlerPage = () => {
     const windowWidth = useWindowWidth();
 

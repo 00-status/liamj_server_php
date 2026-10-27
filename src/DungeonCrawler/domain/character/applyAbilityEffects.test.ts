@@ -293,7 +293,7 @@ describe('applyAbilityEffects', () => {
                     power: 1,
                     damageType: DamageType.PHYSICAL,
                     duration: 0,
-                    target: TargetScope.all_opponents,
+                    target: TargetScope.entire_formation,
                 },
             ],
         };

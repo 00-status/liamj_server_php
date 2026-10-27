@@ -31,7 +31,7 @@ describe('calculateValueOfCharacters', () => {
         const char = buildMockCharacter(CharacterTier.ONE);
         const wealth = calculateValueOfCharacters([char]);
         expect(wealth).toBeGreaterThanOrEqual(10);
-        expect(wealth).toBeLessThanOrEqual(20);
+        expect(wealth).toBeLessThanOrEqual(40);
     });
 
     it('returns wealth within tier 2 range', () => {
@@ -46,6 +46,6 @@ describe('calculateValueOfCharacters', () => {
         const char2 = buildMockCharacter(CharacterTier.TWO);
         const totalWealth = calculateValueOfCharacters([char1, char2]);
         expect(totalWealth).toBeGreaterThanOrEqual(60);
-        expect(totalWealth).toBeLessThanOrEqual(120);
+        expect(totalWealth).toBeLessThanOrEqual(140);
     });
 });

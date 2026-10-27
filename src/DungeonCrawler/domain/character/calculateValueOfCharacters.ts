@@ -15,7 +15,7 @@ const getCharacterWealth = (characterTier: CharacterTier): number => {
     switch (characterTier) {
         default:
         case CharacterTier.ONE:
-            return getRandomInt(10, 20);
+            return getRandomInt(20, 40);
         case CharacterTier.TWO:
             return getRandomInt(50, 100);
         case CharacterTier.THREE:

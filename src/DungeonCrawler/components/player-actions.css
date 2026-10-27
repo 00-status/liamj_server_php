@@ -1,5 +1,6 @@
 .player-actions {
     background-color: black;
+    margin-top: 8px;
     padding: 0 20px;
 }
 
@@ -13,4 +14,10 @@
 }
 .player-actions__actions-cost--disabled {
     color: inherit;
+}
+
+@media only screen and (max-width: 600px) {
+    .player-actions {
+        margin-bottom: 20px;
+    }
 }

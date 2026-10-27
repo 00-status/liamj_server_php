@@ -1,9 +1,11 @@
 import './monster-item.css';
 
+import { useMemo } from 'react';
+
 import { isTargetValid } from '../../domain/character/isTargetValid';
 import { Combatant, MonsterCombatant } from '../../domain/Combatant';
 import { FormationTeam } from '../../domain/formation/types';
-import { Ability, CombatEvent, CombatEventType } from '../../domain/types';
+import { Ability, CombatAnimation, CombatEvent, CombatEventType } from '../../domain/types';
 import {
     getAnimationData,
     getEventAnimationTargetIDs,
@@ -25,9 +27,11 @@ export const MonsterItem = ({
     activeCombatEvent,
     onEnemySelect,
 }: Props) => {
+    const isCombatantDefeated = combatant.character.currentHP <= 0;
     const isTargetable =
         currentAbility &&
         currentPlayer &&
+        !isCombatantDefeated &&
         isTargetValid(
             currentAbility.abilityTarget,
             currentPlayer.id,
@@ -35,45 +39,60 @@ export const MonsterItem = ({
             FormationTeam.MONSTER,
         );
 
-    const shouldPlayAnimation = activeCombatEvent
-        ? getEventAnimationTargetIDs(activeCombatEvent).includes(combatant.id)
-        : false;
-    const combatAnimation = activeCombatEvent
-        ? getAnimationData(activeCombatEvent, combatant.id)
-        : null;
+    const combatAnimation = useMemo(() => {
+        if (!activeCombatEvent) {
+            return null;
+        }
 
-    const shouldAnimateContainer =
-        shouldPlayAnimation && combatAnimation && combatAnimation.container === 'container';
+        const isTargetingActiveCombatant = getEventAnimationTargetIDs(activeCombatEvent).includes(
+            combatant.id,
+        );
 
-    const animationClassName = shouldAnimateContainer ? combatAnimation.name : '';
+        if (!isTargetingActiveCombatant) {
+            return null;
+        }
+
+        return getAnimationData(activeCombatEvent, combatant.id);
+    }, [combatant.id, activeCombatEvent]);
+
+    let monsterItemClasses = `monster-item `;
+    monsterItemClasses += isTargetable ? 'monster-item--selecting ' : '';
+    monsterItemClasses += isCombatantDefeated ? 'monster-item--disabled ' : '';
+    monsterItemClasses += combatAnimation?.container === 'container' ? combatAnimation.name : '';
 
     return (
         <div
             onClick={() => (isTargetable ? onEnemySelect(combatant) : null)}
-            className={`monster-item ${isTargetable ? 'monster-item--selecting' : ''} ${animationClassName} `}
+            className={monsterItemClasses}
             style={{
                 gridColumnStart: combatant.position.x,
                 gridRowStart: combatant.position.y,
             }}
             data-formation={'MONSTER'}
         >
-            {shouldPlayAnimation && combatAnimation && combatAnimation.container === 'child' && (
+            {combatAnimation && combatAnimation.container === 'child' && (
                 <DamageNumberOverlay
                     key={combatAnimation.id}
                     text={combatAnimation.text}
-                    damageTypeTheme={getDamageType(activeCombatEvent)}
+                    damageTypeTheme={getDamageType(activeCombatEvent, combatAnimation)}
                 />
             )}
-            <div className="monster-item__contents">
+            <div
+                className={`monster-item__contents ${isCombatantDefeated ? 'monster-item__attributes--disabled' : ''}`}
+            >
                 <div className="monster-item__attribute--next-action">
                     {combatant.turnsUntilAction}
                 </div>
                 <div>{combatant.character.name}</div>
                 <div className="monster-item__attributes">
-                    <div className="monster-item__attribute--health-points">
+                    <div
+                        className={`${isCombatantDefeated ? 'monster-item__attribute--disabled' : 'monster-item__attribute--health-points'}`}
+                    >
                         {combatant.character.currentHP}
                     </div>
-                    <div className="monster-item__attribute--magic-points">
+                    <div
+                        className={`${isCombatantDefeated ? 'monster-item__attribute--disabled' : 'monster-item__attribute--magic-points'}`}
+                    >
                         {combatant.character.currentMP}
                     </div>
                 </div>
@@ -82,9 +101,16 @@ export const MonsterItem = ({
     );
 };
 
-const getDamageType = (combatEvent?: CombatEvent): string => {
+const getDamageType = (
+    combatEvent: CombatEvent | undefined,
+    combatAnimation: CombatAnimation,
+): string => {
     if (!combatEvent || combatEvent.type !== CombatEventType.APPLY_DAMAGE) {
         return 'DEFAULT';
+    }
+
+    if (combatAnimation.isCritical) {
+        return 'CRIT';
     }
 
     return combatEvent.damageType;

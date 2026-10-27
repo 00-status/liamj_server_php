@@ -56,19 +56,51 @@ const examplePlayer: Character = {
     modifiers: [],
     pointModifiers: [],
     abilities: [
-        attackAbility,
         {
-            name: 'YEET!',
-            cost: 3,
+            name: 'Throw a Punch',
+            cost: 0,
+            type: AbilityType.default,
+            abilityTarget: AbilityTarget.OPPONENT_FORMATION,
+            pointEffects: [
+                {
+                    id: crypto.randomUUID(),
+                    name: 'Throw a Punch (Jimothy)',
+                    target: TargetScope.target,
+                    damageType: DamageType.PHYSICAL,
+                    power: 1.0,
+                    duration: 0,
+                },
+                {
+                    id: crypto.randomUUID(),
+                    name: 'MP Restore (Jimothy)',
+                    target: TargetScope.self,
+                    damageType: DamageType.MAGIC_RESTORE,
+                    power: 0.2,
+                    duration: 0,
+                },
+            ],
+            statusEffects: [],
+        },
+        {
+            name: "The Ol' One-Two",
+            cost: 2,
             type: AbilityType.magic,
             abilityTarget: AbilityTarget.OPPONENT_FORMATION,
             pointEffects: [
                 {
                     id: crypto.randomUUID(),
-                    name: 'YEET!',
+                    name: "The Ol' One-Two (Jimothy)",
                     target: TargetScope.target,
-                    damageType: DamageType.MAGIC,
-                    power: 1.5,
+                    damageType: DamageType.PHYSICAL,
+                    power: 1.0,
+                    duration: 0,
+                },
+                {
+                    id: crypto.randomUUID(),
+                    name: "The Ol' One-Two (Jimothy)",
+                    target: TargetScope.target,
+                    damageType: DamageType.PHYSICAL,
+                    power: 1.0,
                     duration: 0,
                 },
             ],
@@ -82,10 +114,10 @@ const examplePlayer: Character = {
             pointEffects: [
                 {
                     id: crypto.randomUUID(),
-                    name: 'HP Restore',
+                    name: 'HP Restore (Jimothy)',
                     target: TargetScope.self,
                     damageType: DamageType.HEALING,
-                    power: 0.2,
+                    power: 0.3,
                     duration: 0,
                 },
             ],
@@ -112,7 +144,65 @@ const examplePlayer2: Character = {
     modifiers: [],
     pointModifiers: [],
     abilities: [
-        attackAbility,
+        {
+            name: 'Throw a Punch',
+            cost: 0,
+            type: AbilityType.default,
+            abilityTarget: AbilityTarget.OPPONENT_FORMATION,
+            pointEffects: [
+                {
+                    id: crypto.randomUUID(),
+                    name: 'Throw a Punch (Barry)',
+                    target: TargetScope.target,
+                    damageType: DamageType.PHYSICAL,
+                    power: 1.0,
+                    duration: 0,
+                },
+                {
+                    id: crypto.randomUUID(),
+                    name: 'MP Restore (Jimothy)',
+                    target: TargetScope.self,
+                    damageType: DamageType.MAGIC_RESTORE,
+                    power: 0.2,
+                    duration: 0,
+                },
+            ],
+            statusEffects: [],
+        },
+        {
+            name: 'YEET!',
+            cost: 3,
+            type: AbilityType.magic,
+            abilityTarget: AbilityTarget.OPPONENT_FORMATION,
+            pointEffects: [
+                {
+                    id: crypto.randomUUID(),
+                    name: 'YEET! (Barry)',
+                    target: TargetScope.target,
+                    damageType: DamageType.MAGIC,
+                    power: 2.0,
+                    duration: 0,
+                },
+            ],
+            statusEffects: [],
+        },
+        {
+            name: 'Body Slam',
+            cost: 3,
+            type: AbilityType.magic,
+            abilityTarget: AbilityTarget.OPPONENT_FORMATION,
+            pointEffects: [
+                {
+                    id: crypto.randomUUID(),
+                    name: 'Body Slam (Barry)',
+                    target: TargetScope.target_and_surrounding,
+                    damageType: DamageType.MAGIC,
+                    power: 0.8,
+                    duration: 0,
+                },
+            ],
+            statusEffects: [],
+        },
         {
             name: 'Hype Man',
             cost: 3,
@@ -121,8 +211,8 @@ const examplePlayer2: Character = {
             pointEffects: [
                 {
                     id: crypto.randomUUID(),
-                    name: 'Heal',
-                    target: TargetScope.target,
+                    name: 'Heal (Barry)',
+                    target: TargetScope.entire_formation,
                     damageType: DamageType.HEALING,
                     power: 0.1,
                     duration: 0,
@@ -131,31 +221,14 @@ const examplePlayer2: Character = {
             statusEffects: [
                 {
                     id: crypto.randomUUID(),
-                    name: 'Hyped!',
-                    target: TargetScope.target,
+                    name: 'Hyped! (Barry)',
+                    target: TargetScope.entire_formation,
                     duration: 3,
                     stat: BaseStatNames.attack,
                     value: 15,
                     damageScaleType: DamageScaleMethod.FLAT,
                 },
             ],
-        },
-        {
-            name: 'Sweep the Leg!',
-            cost: 2,
-            type: AbilityType.magic,
-            abilityTarget: AbilityTarget.OPPONENT_FORMATION,
-            pointEffects: [
-                {
-                    id: crypto.randomUUID(),
-                    name: 'Sweep the Leg!',
-                    target: TargetScope.target_and_adjacent,
-                    damageType: DamageType.PHYSICAL,
-                    power: 1.0,
-                    duration: 0,
-                },
-            ],
-            statusEffects: [],
         },
     ],
 };

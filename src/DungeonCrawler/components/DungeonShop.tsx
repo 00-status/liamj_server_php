@@ -27,7 +27,7 @@ export const DungeonShop = ({
         });
 
         return randomizeArray<Equipment>(nonPurchasedItems)
-            .slice(0, 3)
+            .slice(0, 4)
             .map((item) => item.id);
     });
 

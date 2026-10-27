@@ -1,20 +1,27 @@
 .player-grid-button {
     position: relative;
     text-align: center;
-    padding: 8px;
 
-    padding: 8px;
+    padding: 20px 8px;
     border: 2px solid #f7f7f7;
     border-radius: 4px;
 }
 
+.player-grid-button--disabled {
+    border: 2px solid #4a4a4a;
+}
 .player-grid-button--active {
     border: 2px solid #60af45;
 }
-
 .player-grid-button--targetable {
     border: 2px dashed #f7f7f7;
     animation: player-grid-button-smooth-flash 1s ease-in-out infinite alternate;
+}
+.player-grid-button--targetable:hover {
+    background-color: #4a4a4a;
+}
+.player-grid-button--selectable:hover {
+    background-color: #4a4a4a;
 }
 @keyframes player-grid-button-smooth-flash {
     0% {
@@ -24,17 +31,13 @@
         opacity: 0.75;
     }
 }
-.player-grid-button--targetable:hover {
-    background-color: #4a4a4a;
-}
-
-.player-grid-button--selectable:hover {
-    background-color: #4a4a4a;
-}
 
 .player-grid-button__stat--health-points {
     color: #d64d4d;
 }
 .player-grid-button__stat--magic-points {
     color: #80c5e8;
+}
+.player-grid-button__stat--disabled {
+    color: #4a4a4a;
 }
