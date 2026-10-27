@@ -17,8 +17,9 @@ export const getAnimationData = (event: CombatEvent, targetID: string): CombatAn
                 container: 'child',
                 combatEventType: CombatEventType.APPLY_DAMAGE,
                 text: damageTarget.isCritical
-                    ? `${damageTarget.amount} CRIT!`
+                    ? `${damageTarget.amount}`
                     : String(damageTarget.amount),
+                isCritical: !!damageTarget.isCritical,
             };
         }
         case CombatEventType.CAST_DAMAGE_ABILITY: {
@@ -28,6 +29,7 @@ export const getAnimationData = (event: CombatEvent, targetID: string): CombatAn
                 container: 'container',
                 combatEventType: CombatEventType.CAST_DAMAGE_ABILITY,
                 text: '',
+                isCritical: false,
             };
         }
         default:

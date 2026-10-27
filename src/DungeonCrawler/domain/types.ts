@@ -233,4 +233,5 @@ export interface CombatAnimation {
     name: string;
     container: 'container' | 'child';
     text: string;
+    isCritical: boolean;
 }

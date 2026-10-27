@@ -1,11 +1,14 @@
 import './player-grid-button.css';
 
+import { useMemo } from 'react';
+
 import { isTargetValid } from '../../domain/character/isTargetValid';
 import { Combatant } from '../../domain/Combatant';
 import { FormationTeam } from '../../domain/formation/types';
 import {
     Ability,
     BaseStatNames,
+    CombatAnimation,
     CombatEvent,
     CombatEventType,
     Equipment,
@@ -43,7 +46,7 @@ export const PlayerGridButton = ({
     );
 
     const isCombatantDefeated = combatant.character.currentHP <= 0;
-    const isTargetable =
+    const isValidAbilityTarget =
         currentAbility &&
         currentPlayer &&
         isCombatantDefeated &&
@@ -53,37 +56,58 @@ export const PlayerGridButton = ({
             combatant,
             FormationTeam.PLAYER,
         );
+
     const isSelectable = !currentAbility && !isCombatantDefeated;
     const isSelected = currentPlayer && currentPlayer.id === combatant.id && !isCombatantDefeated;
 
-    const shouldPlayAnimation = activeCombatEvent
-        ? getEventAnimationTargetIDs(activeCombatEvent).includes(combatant.id)
-        : false;
-    const combatAnimation = activeCombatEvent
-        ? getAnimationData(activeCombatEvent, combatant.id)
-        : null;
+    const combatAnimation = useMemo(() => {
+        if (!activeCombatEvent) {
+            return null;
+        }
 
-    let modifier = '';
-    let handleClick: (() => void) | undefined;
-    if (isTargetable) {
-        modifier = '--targetable';
-        handleClick = () => onTarget(combatant);
-    } else if (isSelectable) {
-        modifier = '--selectable';
-        handleClick = () => onSelect(combatant.id);
-    } else if (isCombatantDefeated) {
-        modifier = '--disabled';
-    }
+        const isTargetingActiveCombatant = getEventAnimationTargetIDs(activeCombatEvent).includes(
+            combatant.id,
+        );
 
-    const shouldAnimateContainer =
-        shouldPlayAnimation && combatAnimation && combatAnimation.container === 'container';
+        if (!isTargetingActiveCombatant) {
+            return null;
+        }
 
-    const animationClassName = shouldAnimateContainer ? combatAnimation.name : '';
-    const selectedClassName = isSelected ? 'player-grid-button--active' : '';
+        return getAnimationData(activeCombatEvent, combatant.id);
+    }, [combatant.id, activeCombatEvent]);
+
+    const { modifier, animationClassName, handleClick } = useMemo(() => {
+        let modifier = '--disabled';
+        let handleClick: (() => void) | undefined;
+        if (isValidAbilityTarget) {
+            modifier = '--targetable';
+            handleClick = () => onTarget(combatant);
+        } else if (isSelectable) {
+            modifier = '--selectable';
+            handleClick = () => onSelect(combatant.id);
+        } else if (isSelected) {
+            modifier = '--active';
+        }
+
+        let animationClassName = '';
+        if (combatAnimation && combatAnimation.container === 'container') {
+            animationClassName = combatAnimation.name;
+        }
+
+        return { modifier, animationClassName, handleClick };
+    }, [
+        combatant,
+        combatAnimation,
+        isSelectable,
+        isSelected,
+        isValidAbilityTarget,
+        onTarget,
+        onSelect,
+    ]);
 
     return (
         <div
-            className={`${BASE_CLASS} ${BASE_CLASS}${modifier} ${animationClassName} ${selectedClassName}`}
+            className={`${BASE_CLASS} ${BASE_CLASS}${modifier} ${animationClassName}`}
             onClick={handleClick}
             role="button"
             style={{
@@ -92,11 +116,11 @@ export const PlayerGridButton = ({
             }}
             data-formation={'PLAYER'}
         >
-            {shouldPlayAnimation && combatAnimation && combatAnimation.container === 'child' && (
+            {combatAnimation && combatAnimation.container === 'child' && (
                 <DamageNumberOverlay
                     key={combatAnimation.id}
                     text={combatAnimation.text}
-                    damageTypeTheme={getDamageType(activeCombatEvent)}
+                    damageTypeTheme={getDamageType(activeCombatEvent, combatAnimation)}
                 />
             )}
             <div className={`${isCombatantDefeated ? `${BASE_CLASS}__stat--disabled` : ''}`}>
@@ -118,9 +142,16 @@ export const PlayerGridButton = ({
     );
 };
 
-const getDamageType = (combatEvent?: CombatEvent): string => {
+const getDamageType = (
+    combatEvent: CombatEvent | undefined,
+    combatAnimation: CombatAnimation,
+): string => {
     if (!combatEvent || combatEvent.type !== CombatEventType.APPLY_DAMAGE) {
         return 'DEFAULT';
+    }
+
+    if (combatAnimation.isCritical) {
+        return 'CRITICAL';
     }
 
     return combatEvent.damageType;

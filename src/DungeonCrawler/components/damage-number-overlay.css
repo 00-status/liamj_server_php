@@ -1,6 +1,9 @@
 .damage-number-overlay[data-theme='PHYSICAL'] {
     --damage-text-color: #de1b1b;
 }
+.damage-number-overlay[data-theme='CRITICAL'] {
+    --damage-text-color: #ff8812;
+}
 .damage-number-overlay[data-theme='MAGIC'] {
     --damage-text-color: #637be8;
 }
