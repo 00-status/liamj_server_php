@@ -151,7 +151,7 @@ const getDamageType = (
     }
 
     if (combatAnimation.isCritical) {
-        return 'CRITICAL';
+        return 'CRIT';
     }
 
     return combatEvent.damageType;
