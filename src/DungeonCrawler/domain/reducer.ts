@@ -70,7 +70,7 @@ export const dungeonCrawlerInitialState: DungeonCrawlerState = {
     monsterFormation: pickNewMonsterFormation(monsterFormations),
     playerFormation: examplePlayerFormation,
     playerInventory: [],
-    playerWealth: 1000,
+    playerWealth: 650,
     combatLog: [],
     combatEvents: [],
 };

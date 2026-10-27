@@ -7,6 +7,12 @@
     padding: 20px;
 
     background-color: black;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 .dungeon-shop__item {
