@@ -1,10 +1,10 @@
-import { Channel } from 'pusher-js';
+import type { Channel } from 'pusher-js';
 import { useEffect, useState } from 'react';
 
 import './kingdom-lobby.css';
 import { useChannelEvents } from '../../hooks/useChannelEvents';
 import { useKingdomPlayer } from '../../hooks/useKingdomPlayer';
-import { KingdomPlayerDTO, LocalKingdomPlayer } from '../../domain/types';
+import type { KingdomPlayerDTO, LocalKingdomPlayer } from '../../domain/types';
 import { Icon } from '../../../SharedComponents/Icon/Icon';
 import { IconType } from '../../../SharedComponents/Icon/domain';
 import { Page } from '../../../SharedComponents/Page/Page';

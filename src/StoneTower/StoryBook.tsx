@@ -1,9 +1,10 @@
 import { Story } from 'inkjs';
-import { SetStateAction, useEffect, useRef, useState } from 'react';
+import type { SetStateAction} from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import './story-book.css';
 import { useFetchStoryJSON } from './hooks/useFetchStoryJSON';
-import { StoneTowerGameState } from './StoneTowerPage';
+import type { StoneTowerGameState } from './StoneTowerPage';
 import { StoryBookButton } from './components/StoryBookButton';
 
 type Props = {

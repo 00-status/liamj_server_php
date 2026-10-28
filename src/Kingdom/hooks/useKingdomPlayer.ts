@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 
 import { convertApiCase } from '../../Common/convertApiCase';
-import { KingdomPlayer, KingdomPlayerDTO } from '../domain/types';
+import type { KingdomPlayer, KingdomPlayerDTO } from '../domain/types';
 
 export const useKingdomPlayer = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);

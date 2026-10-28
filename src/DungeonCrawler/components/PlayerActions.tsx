@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
 
 import './player-actions.css';
-import { Ability, AbilityType, Character, DamageType } from '../domain/types';
+import type { Ability, Character} from '../domain/types';
+import { AbilityType, DamageType } from '../domain/types';
 import { calculatePrimaryAbilityDamageType } from '../domain/character/CalculatePrimaryAbilityDamageType';
 
 import { DungeonButton, DungeonButtonTheme } from './DungeonButton';

@@ -4,7 +4,7 @@ import './kingdom-lobby-options.css';
 import { TextInput } from '../../../SharedComponents/TextInput/TextInput';
 import { useGenerateKingdom } from '../../hooks/useGenerateKingdom';
 import { Button } from '../../../SharedComponents/Button/Button';
-import { KingdomGenerationConfig } from '../../domain/types';
+import type { KingdomGenerationConfig } from '../../domain/types';
 
 type Props = {
     lobbyCode: string;

@@ -3,15 +3,16 @@ import './player-grid-button.css';
 import { useMemo } from 'react';
 
 import { isTargetValid } from '../../domain/character/isTargetValid';
-import { Combatant } from '../../domain/Combatant';
+import type { Combatant } from '../../domain/Combatant';
 import { FormationTeam } from '../../domain/formation/types';
-import {
+import type {
     Ability,
-    BaseStatNames,
     CombatAnimation,
     CombatEvent,
-    CombatEventType,
-    Equipment,
+    Equipment} from '../../domain/types';
+import {
+    BaseStatNames,
+    CombatEventType
 } from '../../domain/types';
 import {
     getAnimationData,

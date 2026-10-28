@@ -1,4 +1,5 @@
-import { BaseStatModifier, BaseStatNames, Character, DamageScaleMethod, Equipment } from '../types';
+import type { BaseStatModifier, BaseStatNames, Character, Equipment } from '../types';
+import { DamageScaleMethod } from '../types';
 
 export const getCharacterStat = (
     character: Character,

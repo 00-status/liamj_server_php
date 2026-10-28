@@ -3,8 +3,9 @@ import {
     dungeonCrawlerReducer,
     GamePhase,
 } from './reducer';
+import type {
+    ApplyDamageEvent} from './types';
 import {
-    ApplyDamageEvent,
     CombatEventType,
     DamageType,
 } from './types';

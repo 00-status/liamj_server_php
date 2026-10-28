@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 
 import './character-equipment.css';
-import { Equipment, EquipmentSlot } from '../../domain/types';
+import type { Equipment} from '../../domain/types';
+import { EquipmentSlot } from '../../domain/types';
 
 type Props = {
     characterID: string;

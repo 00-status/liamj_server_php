@@ -20,16 +20,6 @@ module.exports = (env) => {
         optimization: {
             minimize: isProd,
             runtimeChunk: 'single',
-            splitChunks: {
-                chunks: 'all',
-                cacheGroups: {
-                    sharedComponents: {
-                        test: /[\\/]src[\\/]SharedComponents[\\/]/,
-                        name: 'shared-components',
-                        chunks: 'all',
-                    },
-                },
-            },
         },
         plugins: [
             new HtmlWebpackPlugin({
@@ -56,29 +46,14 @@ module.exports = (env) => {
                     test: /\.(js|jsx|ts|tsx)$/,
                     exclude: [/(node_modules)/],
                     loader: 'babel-loader',
-                    options: {
-                        presets: [
-                            '@babel/env',
-                            ['@babel/preset-react', { runtime: 'automatic' }],
-                            '@babel/preset-typescript',
-                        ],
-                    },
-                },
-                {
-                    test: /\.css$/,
-                    use: [
-                        'style-loader',
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                importLoaders: 1,
-                                modules: false, // Set to true if you are using CSS modules
-                            },
-                        },
-                    ],
                 },
             ],
         },
+        experiments: {
+            css: true,
+        },
+        // All css is scoped per Component, so import order should not matter
+        ignoreWarnings: [/Conflicting order between css/],
         resolve: {
             alias: { '@components': path.resolve(__dirname, 'src/SharedComponents') },
             extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],

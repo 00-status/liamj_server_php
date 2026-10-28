@@ -1,11 +1,13 @@
 import { MonsterCombatant } from '../Combatant';
 import { attackAbility } from '../constants';
-import { Formation, FormationTeam } from '../formation/types';
+import type { Formation} from '../formation/types';
+import { FormationTeam } from '../formation/types';
+import type {
+    Character} from '../types';
 import {
     AbilityTarget,
     AbilityType,
     BaseStatNames,
-    Character,
     CharacterTier,
     DamageScaleMethod,
     DamageType,

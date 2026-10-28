@@ -1,6 +1,7 @@
 import './total.css';
-import { CartSlot } from './DnDShop';
-import { Currency, CurrencyEnum, Item } from './domain/types';
+import type { CartSlot } from './DnDShop';
+import type { Currency, Item } from './domain/types';
+import { CurrencyEnum } from './domain/types';
 
 type ItemWithID = Item & { id: string };
 

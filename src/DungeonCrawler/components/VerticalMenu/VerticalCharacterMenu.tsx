@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import './vertical-character-menu.css';
-import { Character, Equipment, LogMessage } from '../../domain/types';
+import type { Character, Equipment, LogMessage } from '../../domain/types';
 import { DungeonButton, DungeonButtonTheme } from '../DungeonButton';
 
 import { PlayerInventory } from './PlayerInventory';

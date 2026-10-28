@@ -1,4 +1,5 @@
-import { Equipment, EquipmentSlot } from '../types';
+import type { Equipment} from '../types';
+import { EquipmentSlot } from '../types';
 
 import { canCharacterEquipItem } from './canCharacterEquipItem';
 

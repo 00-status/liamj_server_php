@@ -1,7 +1,8 @@
 import './player-currency.css';
 import { TextInput } from '../../SharedComponents/TextInput/TextInput';
 
-import { Currency, CurrencyEnum } from './domain/types';
+import type { Currency} from './domain/types';
+import { CurrencyEnum } from './domain/types';
 
 type Props = {
     playerCurrency: Currency;

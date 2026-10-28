@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react';
 
 import './choices-table.css';
-import { Choice } from '../../domain/types';
+import type { Choice } from '../../domain/types';
 import { Button, ButtonTheme } from '../../../../SharedComponents/Button/Button';
 import { Card } from '../../../../SharedComponents/Card/Card';
 import { Icon } from '../../../../SharedComponents/Icon/Icon';

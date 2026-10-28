@@ -1,8 +1,8 @@
 // hooks/usePusherEvents.ts
 import { useEffect, useRef } from 'react';
-import { Channel } from 'pusher-js';
+import type { Channel } from 'pusher-js';
 
-import { KingdomEventHandlers, KingdomEventMap } from '../domain/types';
+import type { KingdomEventHandlers, KingdomEventMap } from '../domain/types';
 import { convertApiCase } from '../../Common/convertApiCase';
 
 export const useChannelEvents = (channel: Channel | null, handlers: KingdomEventHandlers) => {

@@ -1,4 +1,4 @@
-import { Character, LogMessage, PointModifier, DynamicStatModifier } from '../types';
+import type { Character, LogMessage, PointModifier, DynamicStatModifier } from '../types';
 
 export const decreaseModifierDuration = (
     character: Character,

@@ -1,4 +1,4 @@
-import { IHandler } from '../types';
+import type { IHandler } from '../types';
 
 export const ConnectHandler: IHandler = {
     execute(command, terminal, setTerminal): string {

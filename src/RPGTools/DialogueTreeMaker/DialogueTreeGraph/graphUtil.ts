@@ -1,6 +1,6 @@
-import { SerializedEdge, SerializedNode } from 'graphology-types';
+import type { SerializedEdge, SerializedNode } from 'graphology-types';
 
-import { Dialogue, NodeCoordinate, SkillTest } from '../domain/types';
+import type { Dialogue, NodeCoordinate, SkillTest } from '../domain/types';
 
 export const convertDialoguesToNodes = (
     dialogues: Array<Dialogue>,

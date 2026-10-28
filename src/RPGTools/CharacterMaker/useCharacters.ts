@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Character } from './domain/types';
+import type { Character } from './domain/types';
 
 type UseCharacters = {
     characters: Array<Character>;

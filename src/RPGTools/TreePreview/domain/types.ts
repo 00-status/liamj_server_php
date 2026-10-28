@@ -1,4 +1,4 @@
-import { ConditionOutcome } from '../../DialogueTreeMaker/domain/types';
+import type { ConditionOutcome } from '../../DialogueTreeMaker/domain/types';
 
 export type PreviewCharacter = { name: string; nameColor: string };
 export type DialogueHistory = {

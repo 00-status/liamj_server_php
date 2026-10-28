@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 
 import './dungeon-shop.css';
 import { exampleEquippables } from '../domain/equippables';
-import { Equipment } from '../domain/types';
+import type { Equipment } from '../domain/types';
 import { randomizeArray } from '../domain/utils';
 import { formatModifier } from '../domain/items/formatModifier';
 

@@ -1,9 +1,10 @@
 import './monster-formation.css';
 import { useMemo } from 'react';
 
-import { Combatant, MonsterCombatant } from '../../domain/Combatant';
-import { Formation } from '../../domain/formation/types';
-import { Ability, CombatEvent, Position } from '../../domain/types';
+import type { Combatant} from '../../domain/Combatant';
+import { MonsterCombatant } from '../../domain/Combatant';
+import type { Formation } from '../../domain/formation/types';
+import type { Ability, CombatEvent, Position } from '../../domain/types';
 
 import { MonsterItem } from './MonsterItem';
 

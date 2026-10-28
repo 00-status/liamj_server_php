@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 
 import './weapon-effect-list.css';
 import { Page } from '../../SharedComponents/Page/Page';
-import { WeaponEffect, WeaponEffectForm } from '../WeaponEffectEditor/WeaponEffectForm';
+import type { WeaponEffect} from '../WeaponEffectEditor/WeaponEffectForm';
+import { WeaponEffectForm } from '../WeaponEffectEditor/WeaponEffectForm';
 
 import { useFetchWeaponEffect } from './useFetchWeaponEffect';
 

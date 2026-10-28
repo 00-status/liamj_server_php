@@ -8,7 +8,7 @@ import { TextInput } from '../../../SharedComponents/TextInput/TextInput';
 import { Button } from '../../../SharedComponents/Button/Button';
 import { useKingdomLobby } from '../../hooks/useKingdomLobby';
 import { useKingdomPlayer } from '../../hooks/useKingdomPlayer';
-import { LocalKingdomPlayer } from '../../domain/types';
+import type { LocalKingdomPlayer } from '../../domain/types';
 
 type Props = {
     localKingdomPlayerMap: Record<string, LocalKingdomPlayer | null>;

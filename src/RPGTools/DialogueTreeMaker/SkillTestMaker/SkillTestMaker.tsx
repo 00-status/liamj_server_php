@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import './skill-test-maker.css';
 import { TextInput } from '../../../SharedComponents/TextInput/TextInput';
-import { SkillTest, SkillTestDifficulty } from '../domain/types';
+import type { SkillTest, SkillTestDifficulty } from '../domain/types';
 import { Card } from '../../../SharedComponents/Card/Card';
 import { Button, ButtonTheme } from '../../../SharedComponents/Button/Button';
 import { Icon } from '../../../SharedComponents/Icon/Icon';

@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 
-import { Kingdom } from '../domain/types';
+import type { Kingdom } from '../domain/types';
 
 const fetchKingdomData = async (kingdomId: number, abortSignal?: AbortSignal): Promise<Kingdom> => {
     const response = await fetch(`/api/1/kingdoms/${kingdomId}`, { signal: abortSignal });

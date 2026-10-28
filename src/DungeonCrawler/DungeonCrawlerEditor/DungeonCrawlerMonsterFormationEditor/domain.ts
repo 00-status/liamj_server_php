@@ -1,6 +1,8 @@
 import { MonsterCombatant } from '../../domain/Combatant';
-import { Formation, FormationTeam } from '../../domain/formation/types';
-import { Character, CharacterTier, Position } from '../../domain/types';
+import type { Formation} from '../../domain/formation/types';
+import { FormationTeam } from '../../domain/formation/types';
+import type { Character, Position } from '../../domain/types';
+import { CharacterTier } from '../../domain/types';
 
 export const createDefaultMonsterCharacter = (name: string = 'New Monster'): Character => ({
     id: crypto.randomUUID(),

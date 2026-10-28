@@ -1,4 +1,5 @@
-import { Ability, DamageType } from '../types';
+import type { Ability} from '../types';
+import { DamageType } from '../types';
 
 export const calculatePrimaryAbilityDamageType = (ability: Ability): DamageType | null => {
     const pointEffects = ability.pointEffects;

@@ -1,5 +1,5 @@
 import { render, fireEvent } from '@testing-library/react';
-import { Children } from 'react';
+import type { Children } from 'react';
 
 import CharacterEditorPage from './CharacterEditorPage';
 

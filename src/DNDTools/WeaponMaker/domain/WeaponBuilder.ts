@@ -1,5 +1,6 @@
 import { Weapon } from './Weapon';
-import { Rarity, WeaponDamage, WeaponProperties, WeaponRange, baseWeapons } from './constants';
+import type { Rarity, WeaponDamage, WeaponProperties, WeaponRange} from './constants';
+import { baseWeapons } from './constants';
 
 export class WeaponBuilder {
     private name: string | null = null;

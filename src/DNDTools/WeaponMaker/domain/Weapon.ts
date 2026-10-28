@@ -1,4 +1,4 @@
-import { Rarity, WeaponDamage, WeaponProperties, WeaponRange } from './constants';
+import type { Rarity, WeaponDamage, WeaponProperties, WeaponRange } from './constants';
 
 export class Weapon {
     private name: string;

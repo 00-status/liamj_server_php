@@ -1,11 +1,12 @@
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 
-import {
+import type {
     BaseStatModifier,
-    BaseStatNames,
     BaseStats,
+    Equipment} from '../../../domain/types';
+import {
+    BaseStatNames,
     DamageScaleMethod,
-    Equipment,
     EquipmentSlot,
 } from '../../../domain/types';
 import { TextInput } from '../../../../SharedComponents/TextInput/TextInput';

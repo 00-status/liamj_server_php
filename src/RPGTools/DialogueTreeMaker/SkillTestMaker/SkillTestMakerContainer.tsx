@@ -1,4 +1,4 @@
-import { SkillTest } from '../domain/types';
+import type { SkillTest } from '../domain/types';
 
 import { SkillTestMaker } from './SkillTestMaker';
 

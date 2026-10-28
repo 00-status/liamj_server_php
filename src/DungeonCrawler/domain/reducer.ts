@@ -4,14 +4,15 @@ import { applyAbilityEffects, applyPointModifierEffects } from './character/appl
 import { examplePlayerFormation } from './constants';
 import { pickMonsterAbility } from './monster/pickMonsterAbility';
 import { pickNewMonsterFormation } from './monster/pickNewMonsterFormation';
-import {
+import type {
     Ability,
-    BaseStatNames,
     CombatEvent,
-    CombatEventType,
-    DamageType,
     Equipment,
-    LogMessage,
+    LogMessage} from './types';
+import {
+    BaseStatNames,
+    CombatEventType,
+    DamageType
 } from './types';
 import { selectTargetForMonster } from './monster/selectTargetForMonster';
 import { resetTurnsUntilAction } from './monster/turnsUntilAction';
@@ -24,8 +25,9 @@ import { shouldPlayerVisitShop } from './formation/shouldPlayerVisitShop';
 import { canCharacterEquipItem } from './character/canCharacterEquipItem';
 import { calculateValueOfCharacters } from './character/calculateValueOfCharacters';
 import { getCharacterStat } from './character/getCharacterStat';
-import { Formation } from './formation/types';
-import { Combatant, MonsterCombatant } from './Combatant';
+import type { Formation } from './formation/types';
+import type { Combatant} from './Combatant';
+import { MonsterCombatant } from './Combatant';
 import { deserializeFormations } from './formation/deserializeFormations';
 
 type Actions =

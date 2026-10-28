@@ -1,4 +1,4 @@
-import { DialogueTree } from './types';
+import type { DialogueTree } from './types';
 import { validateDialogueTree } from './validateDialogueTree';
 
 const nodeCoordinates: SerializedMap = [

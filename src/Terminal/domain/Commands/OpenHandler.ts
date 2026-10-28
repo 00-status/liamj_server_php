@@ -1,7 +1,7 @@
-import { Directory } from '../../hooks/directories/useDirectories';
-import { File } from '../../hooks/files/useFiles';
+import type { Directory } from '../../hooks/directories/useDirectories';
+import type { File } from '../../hooks/files/useFiles';
 import { navigateDirectories } from '../navigateDirectories';
-import { IHandler } from '../types';
+import type { IHandler } from '../types';
 
 export const OpenHandler: IHandler = {
     execute(command, terminal): string {

@@ -4,7 +4,7 @@ import './horizontal-nav.css';
 import { Icon } from '../Icon/Icon';
 import { IconTheme } from '../Icon/domain';
 
-import { PageLink } from './domain';
+import type { PageLink } from './domain';
 
 type Props = {
     routes: Array<PageLink>;

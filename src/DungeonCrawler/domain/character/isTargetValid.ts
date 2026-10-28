@@ -1,4 +1,4 @@
-import { Combatant } from '../Combatant';
+import type { Combatant } from '../Combatant';
 import { FormationTeam } from '../formation/types';
 import { AbilityTarget } from '../types';
 

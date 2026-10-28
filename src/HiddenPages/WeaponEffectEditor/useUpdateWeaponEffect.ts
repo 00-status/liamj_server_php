@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { WeaponEffect } from './WeaponEffectForm';
+import type { WeaponEffect } from './WeaponEffectForm';
 
 type UseSaveWeapon = {
     updateWeaponEffect: (weaponEffect: WeaponEffect, id: number) => void;

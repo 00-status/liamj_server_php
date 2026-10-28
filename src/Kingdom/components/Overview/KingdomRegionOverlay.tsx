@@ -1,9 +1,9 @@
-import { Dispatch, SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 
 import './kingdom-region-overlay.css';
 import { Card } from '../../../SharedComponents/Card/Card';
 import { TILE_COLORS } from '../../domain/colors';
-import { Region } from '../../domain/types';
+import type { Region } from '../../domain/types';
 import { Button, ButtonTheme } from '../../../SharedComponents/Button/Button';
 import { Icon } from '../../../SharedComponents/Icon/Icon';
 import { IconType } from '../../../SharedComponents/Icon/domain';

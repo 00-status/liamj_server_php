@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import './file-editor-modal.css';
 import { Modal } from '../../SharedComponents/Modal/Modal';
-import { File } from '../../Terminal/hooks/files/useFiles';
+import type { File } from '../../Terminal/hooks/files/useFiles';
 import { TextInput } from '../../SharedComponents/TextInput/TextInput';
 import { Button } from '../../SharedComponents/Button/Button';
 

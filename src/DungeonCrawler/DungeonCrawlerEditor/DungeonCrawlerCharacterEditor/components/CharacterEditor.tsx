@@ -1,17 +1,18 @@
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 
-import {
+import type {
     Ability,
-    AbilityTarget,
-    AbilityType,
-    BaseStatNames,
     BaseStats,
     Character,
     CharacterTier,
+    PointEffect,
+    StatusEffect} from '../../../domain/types';
+import {
+    AbilityTarget,
+    AbilityType,
+    BaseStatNames,
     DamageScaleMethod,
     DamageType,
-    PointEffect,
-    StatusEffect,
     TargetScope,
 } from '../../../domain/types';
 import { TextInput } from '../../../../SharedComponents/TextInput/TextInput';

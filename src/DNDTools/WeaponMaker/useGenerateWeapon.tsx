@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import { Weapon } from './domain/types';
+import type { Weapon } from './domain/types';
 
 type UseGenerateWeapon = {
     weapon: Weapon | null;

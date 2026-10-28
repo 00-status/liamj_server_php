@@ -1,4 +1,4 @@
-import { Dialogue } from '../domain/types';
+import type { Dialogue } from '../domain/types';
 
 import { DialogueMaker } from './DialogueMaker';
 

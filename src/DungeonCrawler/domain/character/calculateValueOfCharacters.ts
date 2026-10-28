@@ -1,4 +1,5 @@
-import { Character, CharacterTier } from '../types';
+import type { Character} from '../types';
+import { CharacterTier } from '../types';
 import { getRandomInt } from '../utils';
 
 export const calculateValueOfCharacters = (characters: Character[]): number => {

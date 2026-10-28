@@ -7,8 +7,8 @@ import { useWindowWidth } from '../Common/hooks/useWindowWidth';
 
 import { MonsterFormation } from './components/MonsterFormation/MonsterFormation';
 import { dungeonCrawlerInitialState, dungeonCrawlerReducer, GamePhase } from './domain/reducer';
-import { Combatant } from './domain/Combatant';
-import { Ability, CombatEvent } from './domain/types';
+import type { Combatant } from './domain/Combatant';
+import type { Ability, CombatEvent } from './domain/types';
 import { PlayerFormation } from './components/PlayerFormation/PlayerFormation';
 import { getCombatEventDuration } from './domain/combatEvents/getAnimationData';
 import { DungeonShop } from './components/DungeonShop';

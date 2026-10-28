@@ -3,9 +3,10 @@ import './monster-item.css';
 import { useMemo } from 'react';
 
 import { isTargetValid } from '../../domain/character/isTargetValid';
-import { Combatant, MonsterCombatant } from '../../domain/Combatant';
+import type { Combatant, MonsterCombatant } from '../../domain/Combatant';
 import { FormationTeam } from '../../domain/formation/types';
-import { Ability, CombatAnimation, CombatEvent, CombatEventType } from '../../domain/types';
+import type { Ability, CombatAnimation, CombatEvent} from '../../domain/types';
+import { CombatEventType } from '../../domain/types';
 import {
     getAnimationData,
     getEventAnimationTargetIDs,

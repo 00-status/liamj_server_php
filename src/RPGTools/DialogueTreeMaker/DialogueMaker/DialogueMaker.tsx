@@ -1,7 +1,8 @@
-import { ReactElement, useState } from 'react';
+import type { ReactElement} from 'react';
+import { useState } from 'react';
 
 import './dialogue-maker.css';
-import { Dialogue, Choice, HiddenInfo } from '../domain/types';
+import type { Dialogue, Choice, HiddenInfo } from '../domain/types';
 import { TextInput } from '../../../SharedComponents/TextInput/TextInput';
 import { Card } from '../../../SharedComponents/Card/Card';
 import { Button, ButtonTheme } from '../../../SharedComponents/Button/Button';

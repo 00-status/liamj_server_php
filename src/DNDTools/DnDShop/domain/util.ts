@@ -1,4 +1,4 @@
-import { CartSlot } from '../DnDShop';
+import type { CartSlot } from '../DnDShop';
 
 export const generateEmptyCartSlots = (
     startingIdNumber: number,

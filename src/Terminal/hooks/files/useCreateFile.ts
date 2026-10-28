@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { File } from './useFiles';
+import type { File } from './useFiles';
 
 type UseCreateFile = {
     createFile: (file: File) => void;

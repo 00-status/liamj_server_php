@@ -1,5 +1,6 @@
 import { Combatant } from './Combatant';
-import { Character, CharacterTier } from './types';
+import type { Character} from './types';
+import { CharacterTier } from './types';
 
 describe('Combatant', () => {
     const buildTestCharacter = (critChance = 0): Character => ({
