@@ -20,16 +20,6 @@ module.exports = (env) => {
         optimization: {
             minimize: isProd,
             runtimeChunk: 'single',
-            splitChunks: {
-                chunks: 'all',
-                cacheGroups: {
-                    sharedComponents: {
-                        test: /[\\/]src[\\/]SharedComponents[\\/]/,
-                        name: 'shared-components',
-                        chunks: 'all',
-                    },
-                },
-            },
         },
         plugins: [
             new HtmlWebpackPlugin({
@@ -64,20 +54,10 @@ module.exports = (env) => {
                         ],
                     },
                 },
-                {
-                    test: /\.css$/,
-                    use: [
-                        'style-loader',
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                importLoaders: 1,
-                                modules: false, // Set to true if you are using CSS modules
-                            },
-                        },
-                    ],
-                },
             ],
+        },
+        experiments: {
+            css: true,
         },
         resolve: {
             alias: { '@components': path.resolve(__dirname, 'src/SharedComponents') },
