@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 
 import './update-hidden-info-modal.css';
-import { HiddenInfo, HiddenInfoCondition } from '../../domain/types';
+import type { HiddenInfo, HiddenInfoCondition } from '../../domain/types';
 import { Modal } from '../../../../SharedComponents/Modal/Modal';
 import { Button, ButtonTheme } from '../../../../SharedComponents/Button/Button';
 import { TextInput } from '../../../../SharedComponents/TextInput/TextInput';

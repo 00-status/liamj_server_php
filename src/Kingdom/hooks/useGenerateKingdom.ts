@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import { KingdomGenerationConfig, Kingdom } from '../domain/types';
+import type { KingdomGenerationConfig, Kingdom } from '../domain/types';
 import { convertApiCase } from '../../Common/convertApiCase';
 
 export const useGenerateKingdom = () => {

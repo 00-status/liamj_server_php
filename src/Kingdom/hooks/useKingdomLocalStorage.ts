@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 
-import { LocalKingdomPlayer } from '../domain/types';
+import type { LocalKingdomPlayer } from '../domain/types';
 
 const LOCAL_STORAGE_KEY = 'lobbyAuthzTokens';
 

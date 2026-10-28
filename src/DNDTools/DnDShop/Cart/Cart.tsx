@@ -2,7 +2,7 @@ import './cart.css';
 import { useEffect } from 'react';
 
 import { generateEmptyCartSlots } from '../domain/util';
-import { CartSlot } from '../DnDShop';
+import type { CartSlot } from '../DnDShop';
 
 import { CartItem } from './CartItem';
 

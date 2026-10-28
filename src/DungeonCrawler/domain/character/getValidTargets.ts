@@ -1,5 +1,5 @@
-import { Combatant } from '../Combatant';
-import { Formation } from '../formation/types';
+import type { Combatant } from '../Combatant';
+import type { Formation } from '../formation/types';
 import { TargetScope } from '../types';
 
 /**

@@ -1,5 +1,5 @@
-import { Dialogue, DialogueTree, SkillTest, UnknownObject } from './types';
-import { SerializedMap } from './validateDialogueTree.test';
+import type { Dialogue, DialogueTree, SkillTest, UnknownObject } from './types';
+import type { SerializedMap } from './validateDialogueTree.test';
 
 // TOOD: We should really check the sub-properties as well here.
 // At the moment, if a dialogue or dialoguecoordinate is typed incorrectly, we won't catch it here.

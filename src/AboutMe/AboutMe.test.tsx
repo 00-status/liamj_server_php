@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { Children } from 'react';
+import type { Children } from 'react';
 
 import AboutMe from './AboutMe';
 

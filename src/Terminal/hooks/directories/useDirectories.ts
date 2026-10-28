@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import { File } from '../files/useFiles';
+import type { File } from '../files/useFiles';
 
 import { useCreateDirectory } from './useCreateDirectory';
 import { useDeleteDirectory } from './useDeleteDirectory';

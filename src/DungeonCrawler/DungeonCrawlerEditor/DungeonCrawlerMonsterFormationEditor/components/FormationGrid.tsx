@@ -1,6 +1,6 @@
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 
-import { MonsterCombatant } from '../../../domain/Combatant';
+import type { MonsterCombatant } from '../../../domain/Combatant';
 import { Button, ButtonTheme } from '../../../../SharedComponents/Button/Button';
 
 import './formation-grid.css';

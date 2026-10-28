@@ -1,9 +1,10 @@
-import { Weapon } from './Weapon';
+import type { Weapon } from './Weapon';
 import { WeaponBuilder } from './WeaponBuilder';
-import {
+import type {
     DamageType,
+    Rarity} from './constants';
+import {
     DiceType,
-    Rarity,
     baseWeapons,
     damageTypes,
     diceCounts,

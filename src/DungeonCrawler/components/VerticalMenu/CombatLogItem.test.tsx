@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import { PlainLogMessage } from '../../domain/types';
+import type { PlainLogMessage } from '../../domain/types';
 
 import { CombatLogItem } from './CombatLogItem';
 

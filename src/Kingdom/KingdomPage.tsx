@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Channel } from 'pusher-js';
+import type { Channel } from 'pusher-js';
 
 import { pusherClient, setAuthLobbyCode, setAuthzToken } from '../pusher';
 

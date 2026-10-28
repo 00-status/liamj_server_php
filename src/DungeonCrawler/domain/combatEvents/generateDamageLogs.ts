@@ -1,5 +1,6 @@
-import { ApplyDamageEvent, DamageLogMessage, DamageType } from '../types';
-import { Combatant } from '../Combatant';
+import type { ApplyDamageEvent, DamageLogMessage} from '../types';
+import { DamageType } from '../types';
+import type { Combatant } from '../Combatant';
 
 export const generateDamageLogs = (
     event: ApplyDamageEvent,

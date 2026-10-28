@@ -1,6 +1,7 @@
 import { fireEvent, render } from '@testing-library/react';
 
-import { Character, CharacterTier, Equipment, EquipmentSlot } from '../../domain/types';
+import type { Character, Equipment} from '../../domain/types';
+import { CharacterTier, EquipmentSlot } from '../../domain/types';
 
 import { CharacterStatCard } from './CharacterStatCard';
 

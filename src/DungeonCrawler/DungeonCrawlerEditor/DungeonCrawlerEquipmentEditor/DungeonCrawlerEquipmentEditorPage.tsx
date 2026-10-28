@@ -1,10 +1,12 @@
-import { ReactElement, useState } from 'react';
+import type { ReactElement} from 'react';
+import { useState } from 'react';
 
 import { Page } from '../../../SharedComponents/Page/Page';
 import { JSONFileInput } from '../../../SharedComponents/FileInput/JSONFileInput';
 import { Button } from '../../../SharedComponents/Button/Button';
 import { Card } from '../../../SharedComponents/Card/Card';
-import { Equipment, EquipmentSlot } from '../../domain/types';
+import type { Equipment} from '../../domain/types';
+import { EquipmentSlot } from '../../domain/types';
 import { dungeonCrawlerEditorRoutes } from '../domain';
 
 import { EquipmentEditor } from './components/EquipmentEditor';

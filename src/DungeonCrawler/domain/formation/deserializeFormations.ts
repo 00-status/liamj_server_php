@@ -1,7 +1,8 @@
 import { MonsterCombatant } from '../Combatant';
-import { Character, CharacterTier, Position } from '../types';
+import type { Character, CharacterTier, Position } from '../types';
 
-import { Formation, FormationTeam } from './types';
+import type { Formation} from './types';
+import { FormationTeam } from './types';
 
 interface RawCharacter {
     id?: string;

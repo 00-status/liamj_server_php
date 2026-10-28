@@ -1,4 +1,4 @@
-import { Ability } from '../types';
+import type { Ability } from '../types';
 
 export const pickMonsterAbility = (currentMP: number, abilities: Ability[]): Ability => {
     const sortedAbilities = abilities.toSorted((ability1, ability2) => {

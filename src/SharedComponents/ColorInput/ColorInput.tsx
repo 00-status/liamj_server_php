@@ -1,4 +1,4 @@
-import { Ref } from 'react';
+import type { Ref } from 'react';
 import './color-input.css';
 
 type Props = {

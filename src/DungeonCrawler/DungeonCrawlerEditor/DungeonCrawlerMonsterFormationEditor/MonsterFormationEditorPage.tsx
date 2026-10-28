@@ -1,12 +1,13 @@
-import { ReactElement, useState } from 'react';
+import type { ReactElement} from 'react';
+import { useState } from 'react';
 
 import { Page } from '../../../SharedComponents/Page/Page';
 import { JSONFileInput } from '../../../SharedComponents/FileInput/JSONFileInput';
 import { Button, ButtonTheme } from '../../../SharedComponents/Button/Button';
 import { Card } from '../../../SharedComponents/Card/Card';
-import { Formation } from '../../domain/formation/types';
-import { MonsterCombatant } from '../../domain/Combatant';
-import { Character } from '../../domain/types';
+import type { Formation } from '../../domain/formation/types';
+import type { MonsterCombatant } from '../../domain/Combatant';
+import type { Character } from '../../domain/types';
 import { dungeonCrawlerEditorRoutes } from '../domain';
 import { deserializeFormations } from '../../domain/formation/deserializeFormations';
 

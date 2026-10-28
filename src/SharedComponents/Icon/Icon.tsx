@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import './icon.css';
 import { CloseIcon } from './Icons/CloseIcon';
@@ -20,7 +20,8 @@ import { TauntIcon } from './Icons/TauntIcon';
 import { TrashIcon } from './Icons/TrashIcon';
 import { UploadIcon } from './Icons/UploadFile';
 import { VeryDissatisfiedIcon } from './Icons/VeryDissatisfiedIcon';
-import { IconSize, IconTheme, IconType } from './domain';
+import type { IconSize} from './domain';
+import { IconTheme, IconType } from './domain';
 import { MenuIcon } from './Icons/MenuIcon';
 import { StoreIcon } from './Icons/StoreIcon';
 import { Graph4Icon } from './Icons/Graph4';

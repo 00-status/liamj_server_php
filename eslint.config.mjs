@@ -47,6 +47,7 @@ export default tseslint.config(
         },
         rules: {
             ...reactHooks.configs.recommended.rules,
+            '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
             'import-x/order': [
                 'warn',
                 {

@@ -1,10 +1,11 @@
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 
 import './about-me.css';
 import { Page } from '../SharedComponents/Page/Page';
 import { Anchor } from '../SharedComponents/Link/Anchor';
 
-import { Skill, skills } from './domain';
+import type { Skill} from './domain';
+import { skills } from './domain';
 import { SkillCard } from './SkillCard';
 
 const AboutMe = (): ReactElement => {

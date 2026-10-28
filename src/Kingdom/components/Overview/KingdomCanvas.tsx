@@ -1,16 +1,17 @@
-import {
+import type {
     Dispatch,
     MouseEvent,
     RefObject,
     SetStateAction,
-    TouchEvent,
+    TouchEvent} from 'react';
+import {
     useCallback,
     useEffect,
     useMemo,
     useRef,
 } from 'react';
 
-import { Kingdom, Region, Tile } from '../../domain/types';
+import type { Kingdom, Region, Tile } from '../../domain/types';
 import { TILE_COLORS } from '../../domain/colors';
 
 const TILE_SIZE = 32;

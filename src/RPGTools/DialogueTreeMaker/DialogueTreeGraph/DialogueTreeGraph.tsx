@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useLoadGraph, useRegisterEvents, useSigma } from '@react-sigma/core';
-import { SerializedGraph } from 'graphology-types';
+import type { SerializedGraph } from 'graphology-types';
 import { DirectedGraph } from 'graphology';
 
-import { Dialogue, NodeCoordinate, SkillTest } from '../domain/types';
+import type { Dialogue, NodeCoordinate, SkillTest } from '../domain/types';
 
 import { convertDialoguesToEdges, convertDialoguesToNodes } from './graphUtil';
 

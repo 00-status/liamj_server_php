@@ -1,7 +1,7 @@
 import './player-formation.css';
-import { Combatant } from '../../domain/Combatant';
-import { Formation } from '../../domain/formation/types';
-import { Ability, CombatEvent, Equipment } from '../../domain/types';
+import type { Combatant } from '../../domain/Combatant';
+import type { Formation } from '../../domain/formation/types';
+import type { Ability, CombatEvent, Equipment } from '../../domain/types';
 
 import { PlayerGridButton } from './PlayerGridButton';
 

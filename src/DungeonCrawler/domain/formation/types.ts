@@ -1,4 +1,4 @@
-import { Combatant } from '../Combatant';
+import type { Combatant } from '../Combatant';
 
 export interface Formation {
     id: string;

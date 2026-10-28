@@ -1,16 +1,17 @@
-import { Combatant } from '../Combatant';
-import { Formation } from '../formation/types';
-import {
+import type { Combatant } from '../Combatant';
+import type { Formation } from '../formation/types';
+import type {
     Ability,
-    BaseStatNames,
     Character,
-    DamageType,
     PointModifier,
     CombatEvent,
     CombatEventDamageTarget,
-    CombatEventType,
     DynamicStatModifier,
-    Equipment,
+    Equipment} from '../types';
+import {
+    BaseStatNames,
+    DamageType,
+    CombatEventType
 } from '../types';
 
 import { calculateMitigatedDamage } from './calculateMitigatedDamage';

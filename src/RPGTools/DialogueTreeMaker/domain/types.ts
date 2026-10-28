@@ -1,4 +1,4 @@
-import { Character } from '../../CharacterMaker';
+import type { Character } from '../../CharacterMaker';
 
 export type DialogueTree = {
     id: string;

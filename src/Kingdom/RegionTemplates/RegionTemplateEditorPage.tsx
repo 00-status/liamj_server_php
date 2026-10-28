@@ -5,7 +5,8 @@ import './region-template-editor.css';
 import { Page } from '../../SharedComponents/Page/Page';
 import { Button, ButtonTheme } from '../../SharedComponents/Button/Button';
 
-import { useRegionTemplates, TileTemplate } from './hooks/useRegionTemplates';
+import type { TileTemplate } from './hooks/useRegionTemplates';
+import { useRegionTemplates } from './hooks/useRegionTemplates';
 import { RegionTemplateEditorSidebar } from './components/RegionTemplateEditorSidebar';
 import { RegionTemplateEditorCanvas } from './components/RegionTemplateEditorCanvas';
 

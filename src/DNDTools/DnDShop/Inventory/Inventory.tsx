@@ -2,7 +2,7 @@ import './inventory.css';
 import { useDndContext } from '@dnd-kit/core';
 import { useMemo, useState } from 'react';
 
-import { Item } from '../domain/types';
+import type { Item } from '../domain/types';
 import { TextInput } from '../../../SharedComponents/TextInput/TextInput';
 
 import { InventoryItem } from './InventoryItem';

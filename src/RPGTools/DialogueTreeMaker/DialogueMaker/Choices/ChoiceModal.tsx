@@ -3,7 +3,7 @@ import { useState, Fragment } from 'react';
 import './choice-modal.css';
 import { Modal } from '../../../../SharedComponents/Modal/Modal';
 import { TextInput } from '../../../../SharedComponents/TextInput/TextInput';
-import { Choice, ConditionOutcome } from '../../domain/types';
+import type { Choice, ConditionOutcome } from '../../domain/types';
 import { Button, ButtonTheme } from '../../../../SharedComponents/Button/Button';
 import { CheckboxInput } from '../../../../SharedComponents/CheckboxInput/CheckboxInput';
 import { Dropdown } from '../../../../SharedComponents/Dropdown/Dropdown';

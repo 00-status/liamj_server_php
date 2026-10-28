@@ -5,7 +5,8 @@ import { Page } from '../../SharedComponents/Page/Page';
 import { TextInput } from '../../SharedComponents/TextInput/TextInput';
 import { Button } from '../../SharedComponents/Button/Button';
 import { useServers } from '../../Terminal/hooks/server/useServers';
-import { Directory, useDirectories } from '../../Terminal/hooks/directories/useDirectories';
+import type { Directory} from '../../Terminal/hooks/directories/useDirectories';
+import { useDirectories } from '../../Terminal/hooks/directories/useDirectories';
 import { Loader } from '../../SharedComponents/Loader/Loader';
 
 import { TerminalListItem } from './TerminalListItem';

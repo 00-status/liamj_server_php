@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import './player-inventory.css';
-import { Equipment, Character } from '../../domain/types';
+import type { Equipment, Character } from '../../domain/types';
 import { formatModifier } from '../../domain/items/formatModifier';
 
 type Props = { equippables: Equipment[]; wealth: number; playerCharacters: Character[] };

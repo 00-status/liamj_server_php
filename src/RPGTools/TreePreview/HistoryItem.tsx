@@ -1,5 +1,5 @@
 import './history-item.css';
-import { DialogueHistory } from './domain/types';
+import type { DialogueHistory } from './domain/types';
 
 type Props = {
     history: DialogueHistory;

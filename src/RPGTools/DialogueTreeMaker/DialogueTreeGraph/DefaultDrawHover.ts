@@ -1,4 +1,4 @@
-import { PlainObject } from 'sigma/types';
+import type { PlainObject } from 'sigma/types';
 
 export const defaultCircleDrawHover = function (
     context: CanvasRenderingContext2D,

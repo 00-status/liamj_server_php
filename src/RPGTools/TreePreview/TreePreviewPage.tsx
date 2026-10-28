@@ -4,12 +4,12 @@ import './tree-preview-page.css';
 import { Page } from '../../SharedComponents/Page/Page';
 import { useDialogueTree } from '../DialogueTreeMaker/useDialogueTree';
 import { RPGRoutes } from '../domain';
-import { ConditionOutcome } from '../DialogueTreeMaker/domain/types';
+import type { ConditionOutcome } from '../DialogueTreeMaker/domain/types';
 
 import { ChoiceButton } from './ChoiceButton';
 import { convertChoiceToPreviewChoice, findNextDialogue, updateConditions } from './domain/util';
 import { HistoryItem } from './HistoryItem';
-import { Condition, DialogueHistory, PreviewChoice } from './domain/types';
+import type { Condition, DialogueHistory, PreviewChoice } from './domain/types';
 
 const TreePreviewPage = () => {
     const { dialogues, skillTests } = useDialogueTree();

@@ -1,4 +1,4 @@
-import { DialogueTree } from './types';
+import type { DialogueTree } from './types';
 
 export const getDownloadLink = (dialogueTree: DialogueTree): string => {
     const dialogueTreeSerialized = {

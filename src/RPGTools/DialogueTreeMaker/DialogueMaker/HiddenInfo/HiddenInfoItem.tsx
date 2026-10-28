@@ -1,6 +1,6 @@
 import './hidden-info-item.css';
 import { Button, ButtonTheme } from '../../../../SharedComponents/Button/Button';
-import { HiddenInfo } from '../../domain/types';
+import type { HiddenInfo } from '../../domain/types';
 import { Icon } from '../../../../SharedComponents/Icon/Icon';
 import { IconType } from '../../../../SharedComponents/Icon/domain';
 

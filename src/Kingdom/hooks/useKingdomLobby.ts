@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import { KingdomLobby } from '../domain/types';
+import type { KingdomLobby } from '../domain/types';
 import { convertApiCase } from '../../Common/convertApiCase';
 
 export const useKingdomLobby = () => {

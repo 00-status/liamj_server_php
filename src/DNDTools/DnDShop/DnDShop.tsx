@@ -1,4 +1,5 @@
-import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from '@dnd-kit/core';
+import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core';
+import { DndContext, DragOverlay } from '@dnd-kit/core';
 import { useState } from 'react';
 
 import './dnd-shop.css';
@@ -6,7 +7,7 @@ import { Page } from '../../SharedComponents/Page/Page';
 import { dndRoutes } from '../domain';
 
 import { items } from './domain/itemUtil';
-import { Currency, Item } from './domain/types';
+import type { Currency, Item } from './domain/types';
 import { Total } from './Total';
 import { generateEmptyCartSlots } from './domain/util';
 import { PlayerCurrency } from './PlayerCurrency';

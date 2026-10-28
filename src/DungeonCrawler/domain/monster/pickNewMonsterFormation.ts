@@ -1,5 +1,6 @@
 import { MonsterCombatant } from '../Combatant';
-import { Formation, FormationTeam } from '../formation/types';
+import type { Formation} from '../formation/types';
+import { FormationTeam } from '../formation/types';
 
 export const pickNewMonsterFormation = (potentialFormations: Formation[]): Formation => {
     if (potentialFormations.length === 0) {

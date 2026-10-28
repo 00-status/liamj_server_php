@@ -1,6 +1,6 @@
 import jsonItems from '../../../assets/items.json';
 
-import { CurrencyEnum, Item } from './types';
+import type { CurrencyEnum, Item } from './types';
 
 type RawItem = {
     name: string;

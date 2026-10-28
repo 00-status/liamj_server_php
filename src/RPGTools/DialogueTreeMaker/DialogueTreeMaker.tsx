@@ -1,4 +1,5 @@
-import { ReactElement, useState } from 'react';
+import type { ReactElement} from 'react';
+import { useState } from 'react';
 
 import './dialogue-tree-maker.css';
 import { Page } from '../../SharedComponents/Page/Page';
@@ -10,7 +11,7 @@ import { RPGRoutes } from '../domain';
 import { Icon } from '../../SharedComponents/Icon/Icon';
 import { IconType } from '../../SharedComponents/Icon/domain';
 
-import { Dialogue, SkillTest, UnknownObject } from './domain/types';
+import type { Dialogue, SkillTest, UnknownObject } from './domain/types';
 import { DialogueTreeGraph } from './DialogueTreeGraph/DialogueTreeGraph';
 import { useDialogueTree } from './useDialogueTree';
 import { getDownloadLink } from './domain/getDownloadLink';

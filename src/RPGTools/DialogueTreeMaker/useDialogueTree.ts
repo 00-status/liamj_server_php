@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Dialogue, NodeCoordinate, DialogueTree, SkillTest } from './domain/types';
+import type { Dialogue, NodeCoordinate, DialogueTree, SkillTest } from './domain/types';
 import { validateDialogueTree } from './domain/validateDialogueTree';
 
 type UseDialogueTree = {

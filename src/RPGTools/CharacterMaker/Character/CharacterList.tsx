@@ -1,7 +1,7 @@
 import './character-list.css';
 import { Card } from '../../../SharedComponents/Card/Card';
 import { TextInput } from '../../../SharedComponents/TextInput/TextInput';
-import { Character } from '../domain/types';
+import type { Character } from '../domain/types';
 import { Button, ButtonTheme } from '../../../SharedComponents/Button/Button';
 import { ColorInput } from '../../../SharedComponents/ColorInput/ColorInput';
 import { Icon } from '../../../SharedComponents/Icon/Icon';

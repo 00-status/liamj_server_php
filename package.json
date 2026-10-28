@@ -17,11 +17,11 @@
         "*.css"
     ],
     "devDependencies": {
-        "@babel/cli": "^7.24.8",
-        "@babel/core": "^7.25.2",
-        "@babel/preset-env": "^7.25.3",
-        "@babel/preset-react": "^7.24.7",
-        "@babel/preset-typescript": "^7.24.7",
+        "@babel/cli": "^8.0.0",
+        "@babel/core": "^8.0.0",
+        "@babel/preset-env": "^8.0.0",
+        "@babel/preset-react": "^8.0.0",
+        "@babel/preset-typescript": "^8.0.0",
         "@eslint-react/eslint-plugin": "^5.19.0",
         "@eslint/js": "^10.0.1",
         "@testing-library/dom": "^10.4.0",

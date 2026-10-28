@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import { WeaponEffect } from '../WeaponEffectEditor/WeaponEffectForm';
+import type { WeaponEffect } from '../WeaponEffectEditor/WeaponEffectForm';
 
 type UseFetchWeaponEffect = {
     weaponEffects: Array<WeaponEffect>;

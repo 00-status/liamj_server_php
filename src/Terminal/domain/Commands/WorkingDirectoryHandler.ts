@@ -1,5 +1,5 @@
-import { Directory } from '../../hooks/directories/useDirectories';
-import { IHandler } from '../types';
+import type { Directory } from '../../hooks/directories/useDirectories';
+import type { IHandler } from '../types';
 
 export const WorkingDirectoryHandler: IHandler = {
     execute(command, terminal): string {

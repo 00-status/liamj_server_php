@@ -1,4 +1,4 @@
-import { Character, Position } from './types';
+import type { Character, Position } from './types';
 
 export class Combatant {
     public critBag: boolean[];

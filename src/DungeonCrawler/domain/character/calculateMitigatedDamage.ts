@@ -1,4 +1,5 @@
-import { BaseStatNames, Character, DamageType, Equipment } from '../types';
+import type { Character, Equipment } from '../types';
+import { BaseStatNames, DamageType } from '../types';
 
 import { getCharacterStat } from './getCharacterStat';
 

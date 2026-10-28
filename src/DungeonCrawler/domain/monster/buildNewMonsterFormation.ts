@@ -1,6 +1,8 @@
-import { Combatant, MonsterCombatant } from '../Combatant';
-import { Formation, FormationTeam } from '../formation/types';
-import { Character } from '../types';
+import type { Combatant} from '../Combatant';
+import { MonsterCombatant } from '../Combatant';
+import type { Formation} from '../formation/types';
+import { FormationTeam } from '../formation/types';
+import type { Character } from '../types';
 import { getRandomInt } from '../utils';
 
 export const buildNewMonsterFormation = (potentialMonsters: Character[]): Formation => {

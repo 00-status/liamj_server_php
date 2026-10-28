@@ -1,5 +1,6 @@
 import { BaseStatDisplayNames } from '../constants';
-import { BaseStatModifier, DamageScaleMethod } from '../types';
+import type { BaseStatModifier} from '../types';
+import { DamageScaleMethod } from '../types';
 
 export const formatModifier = (modifier: BaseStatModifier): string => {
     const formattedValue = formatModifierValue(modifier);

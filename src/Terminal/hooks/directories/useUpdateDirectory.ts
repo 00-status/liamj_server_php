@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { Directory } from './useDirectories';
+import type { Directory } from './useDirectories';
 
 type UseUpdateDirectory = {
     updateDirectory: (directory: Directory) => void;

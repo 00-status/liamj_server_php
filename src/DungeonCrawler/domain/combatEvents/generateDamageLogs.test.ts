@@ -1,5 +1,6 @@
 import { Combatant } from '../Combatant';
-import { ApplyDamageEvent, Character, CharacterTier, CombatEventType, DamageType } from '../types';
+import type { ApplyDamageEvent, Character} from '../types';
+import { CharacterTier, CombatEventType, DamageType } from '../types';
 
 import { generateDamageLogs } from './generateDamageLogs';
 

@@ -6,7 +6,7 @@ import { Page } from '../../../SharedComponents/Page/Page';
 import { Loader } from '../../../SharedComponents/Loader/Loader';
 import { Button, ButtonTheme } from '../../../SharedComponents/Button/Button';
 import { useKingdom } from '../../hooks/useKingdom';
-import { Region } from '../../domain/types';
+import type { Region } from '../../domain/types';
 import { calculateRegionTileCounts } from '../../domain/util';
 
 import { KingdomRegionOverlay } from './KingdomRegionOverlay';

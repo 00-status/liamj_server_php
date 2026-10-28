@@ -2,7 +2,8 @@ import './character-stat-card.css';
 import { useMemo } from 'react';
 
 import { getCharacterStat } from '../../domain/character/getCharacterStat';
-import { BaseStatNames, Character, Equipment } from '../../domain/types';
+import type { Character, Equipment } from '../../domain/types';
+import { BaseStatNames } from '../../domain/types';
 
 import { CharacterEquipment } from './CharacterEquipment';
 

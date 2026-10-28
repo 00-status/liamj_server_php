@@ -1,11 +1,11 @@
-import {
+import type {
     Choice,
     ConditionOutcome,
     Dialogue,
     SkillTest,
 } from '../../DialogueTreeMaker/domain/types';
 
-import { Condition, PreviewCharacter, PreviewChoice } from './types';
+import type { Condition, PreviewCharacter, PreviewChoice } from './types';
 
 export const updateConditions = (
     currentConditions: Array<Condition>,

@@ -1,4 +1,4 @@
-import { Directory } from '../hooks/directories/useDirectories';
+import type { Directory } from '../hooks/directories/useDirectories';
 
 // TODO: Surface errors related to unknown directories
 export const navigateDirectories = (

@@ -1,5 +1,5 @@
 import { calculateRegionTileCounts } from './util';
-import { Tile } from './types';
+import type { Tile } from './types';
 
 describe('calculateRegionTileCounts', () => {
     it('should correctly count standard tile types and return 0 for unrepresented ones', () => {

@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import './skill-test-difficulty-modal.css';
 import { Modal } from '../../../SharedComponents/Modal/Modal';
 import { TextInput } from '../../../SharedComponents/TextInput/TextInput';
-import { ConditionOutcome, SkillTestDifficulty } from '../domain/types';
+import type { ConditionOutcome, SkillTestDifficulty } from '../domain/types';
 import { Button, ButtonTheme } from '../../../SharedComponents/Button/Button';
 import { Dropdown } from '../../../SharedComponents/Dropdown/Dropdown';
 import { DescriptionCard } from '../../../SharedComponents/DescriptionCard/DescriptionCard';

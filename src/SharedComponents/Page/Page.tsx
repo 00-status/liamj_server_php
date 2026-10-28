@@ -1,17 +1,19 @@
-import { ReactElement, ReactNode, useEffect, useState } from 'react';
+import type { ReactElement, ReactNode} from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { gtag } from 'ga-gtag';
 
 import './page.css';
 import { ImageButton } from '../ImageButton/ImageButton';
-import { ToastMessage, ToastMessageContext } from '../Toast/ToastMessageContext';
+import type { ToastMessage} from '../Toast/ToastMessageContext';
+import { ToastMessageContext } from '../Toast/ToastMessageContext';
 import { Toast } from '../Toast/Toast';
 import { Icon } from '../Icon/Icon';
 import { IconTheme, IconType } from '../Icon/domain';
 
 import { PageErrorBoundary } from './PageErrorBoundary';
 import { VerticalNav } from './VerticalNav';
-import { PageLink } from './domain';
+import type { PageLink } from './domain';
 import { HorizontalNav } from './HorizontalNav';
 
 type Props = {

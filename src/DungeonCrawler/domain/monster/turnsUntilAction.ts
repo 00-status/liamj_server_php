@@ -1,4 +1,5 @@
-import { Combatant, MonsterCombatant } from '../Combatant';
+import type { Combatant} from '../Combatant';
+import { MonsterCombatant } from '../Combatant';
 import { getRandomInt } from '../utils';
 
 /**

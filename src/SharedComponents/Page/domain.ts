@@ -1,4 +1,4 @@
-import { IconType } from '../Icon/domain';
+import type { IconType } from '../Icon/domain';
 
 export const verticalNavRoutes = [
     { label: 'Landing', route: '/', isHomeLink: true },

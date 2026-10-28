@@ -1,4 +1,4 @@
-import { Tile } from './types';
+import type { Tile } from './types';
 
 /**
  * Calculates the total occurrences of each tile type in a region.

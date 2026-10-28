@@ -1,6 +1,6 @@
-import { SerializedEdge } from 'graphology-types';
+import type { SerializedEdge } from 'graphology-types';
 
-import { Choice, Dialogue, SkillTest } from '../domain/types';
+import type { Choice, Dialogue, SkillTest } from '../domain/types';
 
 import { convertDialoguesToEdges, convertDialoguesToNodes } from './graphUtil';
 

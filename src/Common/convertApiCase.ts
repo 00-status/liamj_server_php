@@ -3,7 +3,7 @@
  * @param jsonString
  * @returns An object containing camelCase properties
  */
-export const convertApiCase = <T>(jsonString: string): T | null => {
+export const convertApiCase = <T,>(jsonString: string): T | null => {
     if (!jsonString) {
         return null;
     }

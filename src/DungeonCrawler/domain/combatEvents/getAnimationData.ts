@@ -1,4 +1,5 @@
-import { CombatAnimation, CombatEvent, CombatEventType } from '../types';
+import type { CombatAnimation, CombatEvent} from '../types';
+import { CombatEventType } from '../types';
 
 export const getAnimationData = (event: CombatEvent, targetID: string): CombatAnimation | null => {
     switch (event.type) {

@@ -1,5 +1,5 @@
-import { Directory } from '../hooks/directories/useDirectories';
-import { File } from '../hooks/files/useFiles';
+import type { Directory } from '../hooks/directories/useDirectories';
+import type { File } from '../hooks/files/useFiles';
 
 import { navigateDirectories } from './navigateDirectories';
 

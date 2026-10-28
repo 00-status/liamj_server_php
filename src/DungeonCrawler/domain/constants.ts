@@ -1,11 +1,13 @@
 import { Combatant } from './Combatant';
-import { Formation, FormationTeam } from './formation/types';
-import {
+import type { Formation} from './formation/types';
+import { FormationTeam } from './formation/types';
+import type {
     Ability,
+    Character} from './types';
+import {
     AbilityTarget,
     AbilityType,
     BaseStatNames,
-    Character,
     CharacterTier,
     DamageScaleMethod,
     DamageType,

@@ -1,4 +1,5 @@
-import { DamageLogMessage, DamageType, LogMessage } from '../../domain/types';
+import type { DamageLogMessage, LogMessage } from '../../domain/types';
+import { DamageType } from '../../domain/types';
 
 type Props = {
     log: LogMessage;

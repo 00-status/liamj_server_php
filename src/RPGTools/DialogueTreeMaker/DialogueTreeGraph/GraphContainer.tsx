@@ -1,5 +1,5 @@
 import { SigmaContainer } from '@react-sigma/core';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { defaultCircleDrawHover } from './DefaultDrawHover';
 import { CustomNodeSquareProgram } from './CustomNodeSquareProgram';
