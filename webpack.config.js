@@ -59,6 +59,8 @@ module.exports = (env) => {
         experiments: {
             css: true,
         },
+        // All css is scoped per Component, so import order should not matter
+        ignoreWarnings: [/Conflicting order between css/],
         resolve: {
             alias: { '@components': path.resolve(__dirname, 'src/SharedComponents') },
             extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
