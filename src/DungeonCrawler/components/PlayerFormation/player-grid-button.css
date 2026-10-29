@@ -2,7 +2,7 @@
     position: relative;
     text-align: center;
 
-    padding: 20px 8px;
+    padding: 8px;
     border: 2px solid #f7f7f7;
     border-radius: 4px;
 }
@@ -30,6 +30,17 @@
     100% {
         opacity: 0.75;
     }
+}
+
+.player-grid-button__contents {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    text-align: center;
+
+    margin-top: 12px;
 }
 
 .player-grid-button__stat--health-points {
