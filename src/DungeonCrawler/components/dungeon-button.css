@@ -23,9 +23,9 @@
     border-radius: 4px;
     transition: all 0.1s ease-in-out;
 
+    font-family: 'Bitcount Prop Single', system-ui;
     color: var(--button-color);
     border: none;
-
     background-color: transparent;
     padding: 8px;
 }

@@ -1,9 +1,7 @@
 import { Combatant } from './Combatant';
-import type { Formation} from './formation/types';
+import type { Formation } from './formation/types';
 import { FormationTeam } from './formation/types';
-import type {
-    Ability,
-    Character} from './types';
+import type { Ability, Character } from './types';
 import {
     AbilityTarget,
     AbilityType,
@@ -85,7 +83,7 @@ const examplePlayer: Character = {
         },
         {
             name: "The Ol' One-Two",
-            cost: 2,
+            cost: 1,
             type: AbilityType.magic,
             abilityTarget: AbilityTarget.OPPONENT_FORMATION,
             pointEffects: [
@@ -147,14 +145,14 @@ const examplePlayer2: Character = {
     pointModifiers: [],
     abilities: [
         {
-            name: 'Throw a Punch',
+            name: 'High Kick',
             cost: 0,
             type: AbilityType.default,
             abilityTarget: AbilityTarget.OPPONENT_FORMATION,
             pointEffects: [
                 {
                     id: crypto.randomUUID(),
-                    name: 'Throw a Punch (Barry)',
+                    name: 'High Kick (Barry)',
                     target: TargetScope.target,
                     damageType: DamageType.PHYSICAL,
                     power: 1.0,
@@ -173,7 +171,7 @@ const examplePlayer2: Character = {
         },
         {
             name: 'YEET!',
-            cost: 3,
+            cost: 4,
             type: AbilityType.magic,
             abilityTarget: AbilityTarget.OPPONENT_FORMATION,
             pointEffects: [
@@ -207,14 +205,14 @@ const examplePlayer2: Character = {
         },
         {
             name: 'Hype Man',
-            cost: 3,
+            cost: 2,
             type: AbilityType.magic,
             abilityTarget: AbilityTarget.ALLY_FORMATION,
             pointEffects: [
                 {
                     id: crypto.randomUUID(),
                     name: 'Heal (Barry)',
-                    target: TargetScope.entire_formation,
+                    target: TargetScope.target,
                     damageType: DamageType.HEALING,
                     power: 0.1,
                     duration: 0,
@@ -224,7 +222,7 @@ const examplePlayer2: Character = {
                 {
                     id: crypto.randomUUID(),
                     name: 'Hyped! (Barry)',
-                    target: TargetScope.entire_formation,
+                    target: TargetScope.target,
                     duration: 3,
                     stat: BaseStatNames.attack,
                     value: 15,
