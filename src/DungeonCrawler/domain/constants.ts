@@ -145,14 +145,14 @@ const examplePlayer2: Character = {
     pointModifiers: [],
     abilities: [
         {
-            name: 'Throw a Punch',
+            name: 'High Kick',
             cost: 0,
             type: AbilityType.default,
             abilityTarget: AbilityTarget.OPPONENT_FORMATION,
             pointEffects: [
                 {
                     id: crypto.randomUUID(),
-                    name: 'Throw a Punch (Barry)',
+                    name: 'High Kick (Barry)',
                     target: TargetScope.target,
                     damageType: DamageType.PHYSICAL,
                     power: 1.0,

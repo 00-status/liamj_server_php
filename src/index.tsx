@@ -135,6 +135,11 @@ const router = createBrowserRouter([
         ],
         ErrorBoundary: RouterErrorBoundary,
     },
+    {
+        path: '/dungeon_crawler',
+        element: <DungeonCrawlerPage />,
+        ErrorBoundary: RouterErrorBoundary,
+    },
     { path: '/terminal', element: <TerminalPage />, ErrorBoundary: RouterErrorBoundary },
     {
         path: '/unlisted/weapon_effects',
@@ -169,11 +174,6 @@ const router = createBrowserRouter([
     {
         path: '/unlisted/stone_tower',
         element: <StoneTowerPage />,
-        ErrorBoundary: RouterErrorBoundary,
-    },
-    {
-        path: '/unlisted/dungeon_crawler',
-        element: <DungeonCrawlerPage />,
         ErrorBoundary: RouterErrorBoundary,
     },
     {

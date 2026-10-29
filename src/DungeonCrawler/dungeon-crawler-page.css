@@ -34,12 +34,14 @@ selected: #60af45
     font-style: normal;
 }
 
-.dungeon-crawler-page h1,
-h2,
-h3,
-h4 {
-    font-family: 'Bitcount Prop Single', system-ui;
-    font-weight: 400;
+.dungeon-crawler-page {
+    & h1,
+    & h2,
+    & h3,
+    & h4 {
+        font-family: 'Bitcount Prop Single', system-ui;
+        font-weight: 400;
+    }
 }
 
 .dungeon-crawler-page__menu-button {
