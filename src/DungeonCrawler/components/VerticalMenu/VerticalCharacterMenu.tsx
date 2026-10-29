@@ -1,8 +1,11 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import './vertical-character-menu.css';
 import type { Character, Equipment, LogMessage } from '../../domain/types';
 import { DungeonButton, DungeonButtonTheme } from '../DungeonButton';
+import { Icon } from '../../../SharedComponents/Icon/Icon';
+import { IconType } from '../../../SharedComponents/Icon/domain';
 
 import { PlayerInventory } from './PlayerInventory';
 import { CharacterStatCard } from './CharacterStatCard';
@@ -12,6 +15,7 @@ enum MenuState {
     STATS,
     INV,
     LOG,
+    CONFIG,
 }
 
 type Props = {
@@ -37,6 +41,7 @@ export const VerticalCharacterMenu = ({
     purchasedEquipment,
     onEquipmentSelect,
 }: Props) => {
+    const navigate = useNavigate();
     const [currentMenuState, setCurrentMenuState] = useState<MenuState>(MenuState.STATS);
 
     return (
@@ -50,14 +55,24 @@ export const VerticalCharacterMenu = ({
             >
                 <div className="vertical-character-menu__buttons">
                     <DungeonButton
-                        onClick={() => setCurrentMenuState(MenuState.STATS)}
+                        onClick={() => setCurrentMenuState(MenuState.CONFIG)}
                         buttonTheme={
-                            currentMenuState === MenuState.STATS
+                            currentMenuState === MenuState.CONFIG
                                 ? DungeonButtonTheme.ACTIVE
                                 : DungeonButtonTheme.DEFAULT
                         }
                     >
-                        Stats
+                        <Icon iconType={IconType.GEARS} />
+                    </DungeonButton>
+                    <DungeonButton
+                        onClick={() => setCurrentMenuState(MenuState.LOG)}
+                        buttonTheme={
+                            currentMenuState === MenuState.LOG
+                                ? DungeonButtonTheme.ACTIVE
+                                : DungeonButtonTheme.DEFAULT
+                        }
+                    >
+                        Log
                     </DungeonButton>
                     <DungeonButton
                         onClick={() => setCurrentMenuState(MenuState.INV)}
@@ -70,26 +85,28 @@ export const VerticalCharacterMenu = ({
                         Inv
                     </DungeonButton>
                     <DungeonButton
-                        onClick={() => setCurrentMenuState(MenuState.LOG)}
+                        onClick={() => setCurrentMenuState(MenuState.STATS)}
                         buttonTheme={
-                            currentMenuState === MenuState.LOG
+                            currentMenuState === MenuState.STATS
                                 ? DungeonButtonTheme.ACTIVE
                                 : DungeonButtonTheme.DEFAULT
                         }
                     >
-                        Log
+                        Stats
                     </DungeonButton>
                 </div>
                 <div className="vertical-character-menu__container">
-                    {currentMenuState === MenuState.STATS && (
+                    {currentMenuState === MenuState.CONFIG && (
+                        <div className="vertical-character-menu__config">
+                            <DungeonButton onClick={() => navigate('/')}>
+                                Back to Main Site
+                            </DungeonButton>
+                        </div>
+                    )}
+                    {currentMenuState === MenuState.LOG && (
                         <div>
-                            {playerCharacters.map((playerCharacter) => (
-                                <CharacterStatCard
-                                    key={`stat-card-${playerCharacter.id}`}
-                                    character={playerCharacter}
-                                    purchasedEquipment={purchasedEquipment}
-                                    onEquipmentSelect={onEquipmentSelect}
-                                />
+                            {combatLog.map((log) => (
+                                <CombatLogItem key={log.id} log={log} />
                             ))}
                         </div>
                     )}
@@ -100,10 +117,15 @@ export const VerticalCharacterMenu = ({
                             playerCharacters={playerCharacters}
                         />
                     )}
-                    {currentMenuState === MenuState.LOG && (
+                    {currentMenuState === MenuState.STATS && (
                         <div>
-                            {combatLog.map((log) => (
-                                <CombatLogItem key={log.id} log={log} />
+                            {playerCharacters.map((playerCharacter) => (
+                                <CharacterStatCard
+                                    key={`stat-card-${playerCharacter.id}`}
+                                    character={playerCharacter}
+                                    purchasedEquipment={purchasedEquipment}
+                                    onEquipmentSelect={onEquipmentSelect}
+                                />
                             ))}
                         </div>
                     )}

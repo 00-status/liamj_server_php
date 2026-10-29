@@ -37,6 +37,11 @@
     -ms-overflow-style: none;
 }
 
+.vertical-character-menu__config {
+    display: flex;
+    flex-direction: column;
+}
+
 .vertical-character-menu__log-item {
     margin: 8px 0;
     line-height: 1.4;
