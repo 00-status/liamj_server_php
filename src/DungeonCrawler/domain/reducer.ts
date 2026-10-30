@@ -7,7 +7,6 @@ import { pickNewMonsterFormation } from './monster/pickNewMonsterFormation';
 import type { Ability, CombatEvent, Equipment, LogMessage } from './types';
 import { BaseStatNames, CombatEventType, DamageType } from './types';
 import { selectTargetForMonster } from './monster/selectTargetForMonster';
-import { resetTurnsUntilAction } from './monster/turnsUntilAction';
 import { isFormationDefeated } from './formation/isFormationDefeated';
 import { combatEventHandlers } from './combatEvents/combatEventHandlers';
 import { generateDamageLogs } from './combatEvents/generateDamageLogs';
@@ -155,11 +154,8 @@ export const dungeonCrawlerReducer = (
             );
             combatEvents.push(...pointModifierEvents);
 
-            const updatedActingMonster = actingMonster.cloneWith({
-                turnsUntilAction: resetTurnsUntilAction(),
-            });
             const effectEvents = applyAbilityEffects(
-                updatedActingMonster,
+                actingMonster,
                 chosenAbility,
                 targetCombatant,
                 isTargetInPlayerFormation ? state.playerFormation : state.monsterFormation,
@@ -189,7 +185,7 @@ export const dungeonCrawlerReducer = (
                 ...state,
                 phase: GamePhase.ENEMY_EXECUTES,
                 monsterFormation: updateFormation(state.monsterFormation, {
-                    [actingMonster.id]: updatedActingMonster,
+                    [actingMonster.id]: actingMonster,
                 }),
                 combatEvents: [...state.combatEvents, ...combatEvents],
             };
