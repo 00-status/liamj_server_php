@@ -4,16 +4,8 @@ import { applyAbilityEffects, applyPointModifierEffects } from './character/appl
 import { examplePlayerFormation } from './constants';
 import { pickMonsterAbility } from './monster/pickMonsterAbility';
 import { pickNewMonsterFormation } from './monster/pickNewMonsterFormation';
-import type {
-    Ability,
-    CombatEvent,
-    Equipment,
-    LogMessage} from './types';
-import {
-    BaseStatNames,
-    CombatEventType,
-    DamageType
-} from './types';
+import type { Ability, CombatEvent, Equipment, LogMessage } from './types';
+import { BaseStatNames, CombatEventType, DamageType } from './types';
 import { selectTargetForMonster } from './monster/selectTargetForMonster';
 import { resetTurnsUntilAction } from './monster/turnsUntilAction';
 import { isFormationDefeated } from './formation/isFormationDefeated';
@@ -26,7 +18,7 @@ import { canCharacterEquipItem } from './character/canCharacterEquipItem';
 import { calculateValueOfCharacters } from './character/calculateValueOfCharacters';
 import { getCharacterStat } from './character/getCharacterStat';
 import type { Formation } from './formation/types';
-import type { Combatant} from './Combatant';
+import type { Combatant } from './Combatant';
 import { MonsterCombatant } from './Combatant';
 import { deserializeFormations } from './formation/deserializeFormations';
 
@@ -325,7 +317,7 @@ export const dungeonCrawlerReducer = (
                 );
                 const newCharacter = changePoints(
                     combatant.character,
-                    state.playerInventory,
+                    characterEquippables,
                     healAmount,
                     DamageType.HEALING,
                 );

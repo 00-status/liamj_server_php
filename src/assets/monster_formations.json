@@ -73,7 +73,7 @@
                     "y": 3
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             },
             {
                 "id": "a4f131f2-180c-4d6d-9272-cbb87bdff525",
@@ -145,7 +145,7 @@
                     "y": 3
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             },
             {
                 "id": "b8ecfa30-7c12-471b-bc46-1862eee5360c",
@@ -217,7 +217,7 @@
                     "y": 3
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             }
         ],
         "gridDimensions": {
@@ -299,7 +299,7 @@
                     "y": 3
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             },
             {
                 "id": "4e5746e8-6fc2-4076-8ef1-1c8474355864",
@@ -378,7 +378,7 @@
                     "y": 2
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             }
         ],
         "gridDimensions": {
@@ -460,7 +460,7 @@
                     "y": 3
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             },
             {
                 "id": "9bbedd9f-3222-4dd6-9734-a21b9843f9d3",
@@ -531,7 +531,7 @@
                     "y": 3
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             },
             {
                 "id": "3eb53695-d939-4645-8193-06db46c484cd",
@@ -602,7 +602,7 @@
                     "y": 3
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             }
         ],
         "gridDimensions": {
@@ -691,7 +691,7 @@
                     "y": 3
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             },
             {
                 "id": "44bbc3e6-4e93-4033-b027-63b14b885790",
@@ -770,7 +770,7 @@
                     "y": 2
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             },
             {
                 "id": "dbc6ca8b-8c42-422b-89fe-9a18597052b9",
@@ -849,7 +849,7 @@
                     "y": 2
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             },
             {
                 "id": "be53f65a-aac5-4fbc-ab9d-492e34e27789",
@@ -928,7 +928,7 @@
                     "y": 2
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             }
         ],
         "gridDimensions": {
@@ -1033,7 +1033,7 @@
                     "y": 2
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             },
             {
                 "id": "7d4a0041-9326-4c78-91fc-148eb916c8a8",
@@ -1105,7 +1105,7 @@
                     "y": 2
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             },
             {
                 "id": "717b8e9b-bc05-433a-84c7-a5a5db006c4d",
@@ -1177,7 +1177,7 @@
                     "y": 2
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             }
         ],
         "gridDimensions": {
@@ -1258,7 +1258,7 @@
                     "y": 2
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             },
             {
                 "id": "5bd81e5e-7ed8-4b8f-92e3-91a07324ba5e",
@@ -1337,7 +1337,7 @@
                     "y": 2
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             },
             {
                 "id": "0c9984c0-d7c4-4ba5-89dc-5eb4419132d4",
@@ -1409,7 +1409,7 @@
                     "y": 1
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             },
             {
                 "id": "d6522bb7-5bdf-48d3-9af4-fe81b5fe7ea2",
@@ -1481,7 +1481,7 @@
                     "y": 3
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             },
             {
                 "id": "d8c61895-5306-4ce3-a386-fa3b7c48210d",
@@ -1553,7 +1553,7 @@
                     "y": 2
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             }
         ],
         "gridDimensions": {
@@ -1658,7 +1658,7 @@
                     "y": 2
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             },
             {
                 "id": "f3f12648-19c0-4d94-825a-45909c638e3f",
@@ -1753,7 +1753,7 @@
                     "y": 2
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             }
         ],
         "gridDimensions": {
@@ -1834,7 +1834,7 @@
                     "y": 3
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             },
             {
                 "id": "2ffcf3be-f6e1-49cd-9294-f4bfb0916b02",
@@ -1905,7 +1905,7 @@
                     "y": 3
                 },
                 "critBag": [],
-                "turnsUntilAction": 0
+                "turnsUntilAction": 1
             }
         ],
         "gridDimensions": {
