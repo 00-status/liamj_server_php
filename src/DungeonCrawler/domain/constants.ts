@@ -226,7 +226,7 @@ const examplePlayer2: Character = {
                     target: TargetScope.target,
                     scalingStat: BaseStatNames.magicAttack,
                     damageType: DamageType.HEALING,
-                    power: 0.1,
+                    power: 0.5,
                     duration: 0,
                 },
             ],
