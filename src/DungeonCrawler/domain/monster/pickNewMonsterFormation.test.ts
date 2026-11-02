@@ -1,9 +1,8 @@
 import { MonsterCombatant } from '../Combatant';
 import { attackAbility } from '../constants';
-import type { Formation} from '../formation/types';
+import type { Formation } from '../formation/types';
 import { FormationTeam } from '../formation/types';
-import type {
-    Character} from '../types';
+import type { Character } from '../types';
 import {
     AbilityTarget,
     AbilityType,
@@ -140,7 +139,7 @@ const exampleMonsters: Character[] = [
                         id: '1',
                         name: 'Defence Drain',
                         target: TargetScope.target,
-                        stat: BaseStatNames.defence,
+                        targetStat: BaseStatNames.defence,
                         value: -10,
                         damageScaleType: DamageScaleMethod.FLAT,
                         duration: 2,

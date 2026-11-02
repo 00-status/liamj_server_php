@@ -6,7 +6,8 @@ import type {
     Character,
     CharacterTier,
     PointEffect,
-    StatusEffect} from '../../../domain/types';
+    StatusEffect,
+} from '../../../domain/types';
 import {
     AbilityTarget,
     AbilityType,
@@ -133,7 +134,7 @@ export const CharacterEditor = ({
             name: 'New Status Effect',
             target: TargetScope.target,
             duration: 2,
-            stat: BaseStatNames.defence,
+            targetStat: BaseStatNames.defence,
             value: -5,
             damageScaleType: DamageScaleMethod.FLAT,
         };
@@ -443,11 +444,11 @@ export const CharacterEditor = ({
                                         <Dropdown
                                             id={`se-stat-${effect.id}`}
                                             label="Stat"
-                                            defaultValue={effect.stat}
+                                            defaultValue={effect.targetStat}
                                             options={statOptions}
                                             onOptionSelect={(val) =>
                                                 handleUpdateStatusEffect(abilityIndex, effect.id, {
-                                                    stat: val as keyof BaseStats,
+                                                    targetStat: val as keyof BaseStats,
                                                 })
                                             }
                                         />

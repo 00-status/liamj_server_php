@@ -118,7 +118,7 @@ export interface PointEffect extends AbilityEffect {
 }
 
 export interface StatusEffect extends AbilityEffect {
-    stat: keyof BaseStats;
+    targetStat: keyof BaseStats;
     value: number;
     damageScaleType: DamageScaleMethod;
 }

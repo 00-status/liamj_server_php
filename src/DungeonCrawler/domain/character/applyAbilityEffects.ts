@@ -7,12 +7,9 @@ import type {
     CombatEvent,
     CombatEventDamageTarget,
     DynamicStatModifier,
-    Equipment} from '../types';
-import {
-    BaseStatNames,
-    DamageType,
-    CombatEventType
+    Equipment,
 } from '../types';
+import { BaseStatNames, DamageType, CombatEventType } from '../types';
 
 import { calculateMitigatedDamage } from './calculateMitigatedDamage';
 import { getCharacterStat } from './getCharacterStat';
@@ -92,7 +89,7 @@ export const applyAbilityEffects = (
 
         const statusModifier: DynamicStatModifier = {
             id: crypto.randomUUID(),
-            stat: statusEffect.stat,
+            stat: statusEffect.targetStat,
             value: statusEffect.value,
             type: statusEffect.damageScaleType,
             name: statusEffect.name,

@@ -224,7 +224,7 @@ const examplePlayer2: Character = {
                     name: 'Hyped! (Barry)',
                     target: TargetScope.target,
                     duration: 3,
-                    stat: BaseStatNames.attack,
+                    targetStat: BaseStatNames.attack,
                     value: 15,
                     damageScaleType: DamageScaleMethod.FLAT,
                 },
