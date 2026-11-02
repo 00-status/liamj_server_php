@@ -1,9 +1,8 @@
 import { MonsterCombatant } from '../Combatant';
 import { attackAbility } from '../constants';
-import type { Formation} from '../formation/types';
+import type { Formation } from '../formation/types';
 import { FormationTeam } from '../formation/types';
-import type {
-    Character} from '../types';
+import type { Character } from '../types';
 import {
     AbilityTarget,
     AbilityType,
@@ -46,6 +45,7 @@ const exampleMonsters: Character[] = [
                         id: crypto.randomUUID(),
                         name: 'Bone Bonk',
                         target: TargetScope.target,
+                        scalingStat: BaseStatNames.magicAttack,
                         damageType: DamageType.MAGIC,
                         power: 3.0,
                         duration: 0,
@@ -84,6 +84,7 @@ const exampleMonsters: Character[] = [
                         id: crypto.randomUUID(),
                         name: 'Bone Bonk',
                         target: TargetScope.target,
+                        scalingStat: BaseStatNames.magicAttack,
                         damageType: DamageType.MAGIC,
                         power: 3.0,
                         duration: 0,
@@ -122,6 +123,7 @@ const exampleMonsters: Character[] = [
                         id: crypto.randomUUID(),
                         name: 'Bite',
                         target: TargetScope.target,
+                        scalingStat: BaseStatNames.magicAttack,
                         damageType: DamageType.MAGIC,
                         power: 3.0,
                         duration: 0,
@@ -130,6 +132,7 @@ const exampleMonsters: Character[] = [
                         id: crypto.randomUUID(),
                         name: 'Rot Poison',
                         target: TargetScope.target,
+                        scalingStat: BaseStatNames.magicAttack,
                         damageType: DamageType.MAGIC,
                         power: 0.5,
                         duration: 3,
@@ -140,7 +143,8 @@ const exampleMonsters: Character[] = [
                         id: '1',
                         name: 'Defence Drain',
                         target: TargetScope.target,
-                        stat: BaseStatNames.defence,
+                        scalingStat: BaseStatNames.magicAttack,
+                        targetStat: BaseStatNames.defence,
                         value: -10,
                         damageScaleType: DamageScaleMethod.FLAT,
                         duration: 2,

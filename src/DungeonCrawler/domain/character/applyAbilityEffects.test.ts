@@ -1,10 +1,7 @@
 import { Combatant } from '../Combatant';
-import type { Formation} from '../formation/types';
+import type { Formation } from '../formation/types';
 import { FormationTeam } from '../formation/types';
-import type {
-    Ability,
-    Character,
-    Equipment} from '../types';
+import type { Ability, Character, Equipment } from '../types';
 import {
     AbilityTarget,
     AbilityType,
@@ -60,6 +57,7 @@ describe('applyAbilityEffects', () => {
             {
                 id: 'eff-1',
                 name: 'Physical Strike',
+                scalingStat: BaseStatNames.attack,
                 power: 1,
                 damageType: DamageType.PHYSICAL,
                 duration: 0,
@@ -250,6 +248,7 @@ describe('applyAbilityEffects', () => {
                 {
                     id: 'eff-magic',
                     name: 'Magic Zap',
+                    scalingStat: BaseStatNames.magicAttack,
                     power: 1,
                     damageType: DamageType.MAGIC,
                     duration: 0,
@@ -292,6 +291,7 @@ describe('applyAbilityEffects', () => {
                 {
                     id: 'eff-aoe',
                     name: 'Whirlwind Slash',
+                    scalingStat: BaseStatNames.attack,
                     power: 1,
                     damageType: DamageType.PHYSICAL,
                     duration: 0,
