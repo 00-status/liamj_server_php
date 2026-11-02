@@ -109,6 +109,7 @@ export interface AbilityEffect {
     id: string;
     name: string;
     target: TargetScope;
+    scalingStat: BaseStatNames;
     duration: number;
 }
 
