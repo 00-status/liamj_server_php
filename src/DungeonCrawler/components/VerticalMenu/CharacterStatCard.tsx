@@ -68,6 +68,12 @@ export const CharacterStatCard = ({ character, purchasedEquipment, onEquipmentSe
                         {`${getCharacterStat(character, characterEquipment, BaseStatNames.critChance)}%`}
                     </div>
                 </div>
+                <div className="character-stat-card__grid-item">
+                    <div className="character-stat-card__mind">MIND</div>
+                    <div>
+                        {`${getCharacterStat(character, characterEquipment, BaseStatNames.mind)}`}
+                    </div>
+                </div>
             </div>
             <CharacterEquipment
                 characterID={character.id}
