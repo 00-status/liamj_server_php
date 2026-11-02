@@ -1,5 +1,5 @@
 import { Combatant } from './Combatant';
-import type { Character} from './types';
+import type { Character } from './types';
 import { CharacterTier } from './types';
 
 describe('Combatant', () => {
@@ -17,6 +17,7 @@ describe('Combatant', () => {
             defence: 10,
             magicDefence: 10,
             critChance,
+            mind: 10,
         },
         modifiers: [],
         pointModifiers: [],

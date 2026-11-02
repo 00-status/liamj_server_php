@@ -30,6 +30,7 @@ export enum BaseStatNames {
     defence = 'defence',
     magicDefence = 'magicDefence',
     critChance = 'critChance',
+    mind = 'mind',
 }
 
 export interface BaseStats {
@@ -40,6 +41,7 @@ export interface BaseStats {
     [BaseStatNames.defence]: number;
     [BaseStatNames.magicDefence]: number;
     [BaseStatNames.critChance]: number;
+    [BaseStatNames.mind]: number;
 }
 
 export enum DamageScaleMethod {

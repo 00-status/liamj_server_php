@@ -1,4 +1,4 @@
-import type { Character} from '../types';
+import type { Character } from '../types';
 import { CharacterTier } from '../types';
 
 import { calculateValueOfCharacters } from './calculateValueOfCharacters';
@@ -18,6 +18,7 @@ describe('calculateValueOfCharacters', () => {
             defence: 10,
             magicDefence: 10,
             critChance: 0,
+            mind: 10,
         },
         modifiers: [],
         pointModifiers: [],

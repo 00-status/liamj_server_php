@@ -54,6 +54,7 @@ const examplePlayer: Character = {
         defence: 10,
         magicDefence: 10,
         critChance: 0,
+        mind: 10,
     },
     modifiers: [],
     pointModifiers: [],
@@ -147,6 +148,7 @@ const examplePlayer2: Character = {
         defence: 15,
         magicDefence: 15,
         critChance: 0,
+        mind: 10,
     },
     modifiers: [],
     pointModifiers: [],
@@ -254,14 +256,4 @@ export const examplePlayerFormation: Formation = {
         new Combatant(crypto.randomUUID(), examplePlayer2, { x: 2, y: 1 }),
     ],
     gridDimensions: { x: 2, y: 1 },
-};
-
-export const BaseStatDisplayNames = {
-    healthPoints: 'HP',
-    magicPoints: 'MP',
-    attack: 'ATK',
-    magicAttack: 'MATK',
-    defence: 'DEF',
-    magicDefence: 'MDEF',
-    critChance: 'CRIT',
 };
