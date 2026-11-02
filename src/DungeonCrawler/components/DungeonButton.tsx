@@ -7,6 +7,7 @@ export enum DungeonButtonTheme {
     ACTIVE = 'ACTIVE',
     MAGIC = 'MAGIC',
     PHYSICAL = 'PHYSICAL',
+    MIND = 'MIND',
 }
 
 type Props = {
