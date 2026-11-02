@@ -18,7 +18,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -93,7 +94,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -168,7 +170,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -253,7 +256,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -328,7 +332,8 @@
                         "magicAttack": 20,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -421,7 +426,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -496,7 +502,8 @@
                         "magicAttack": 10,
                         "defence": 5,
                         "magicDefence": 5,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -570,7 +577,8 @@
                         "magicAttack": 10,
                         "defence": 5,
                         "magicDefence": 5,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -654,7 +662,8 @@
                         "magicAttack": 20,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -737,7 +746,8 @@
                         "magicAttack": 20,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -820,7 +830,8 @@
                         "magicAttack": 20,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -903,7 +914,8 @@
                         "magicAttack": 20,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -996,7 +1008,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -1097,7 +1110,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -1172,7 +1186,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -1257,7 +1272,8 @@
                         "magicAttack": 30,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -1331,7 +1347,8 @@
                         "magicAttack": 20,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -1414,7 +1431,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -1489,7 +1507,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -1564,7 +1583,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -1649,7 +1669,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -1750,7 +1771,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -1861,7 +1883,8 @@
                         "magicAttack": 10,
                         "defence": 5,
                         "magicDefence": 5,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -1935,7 +1958,8 @@
                         "magicAttack": 10,
                         "defence": 5,
                         "magicDefence": 5,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
