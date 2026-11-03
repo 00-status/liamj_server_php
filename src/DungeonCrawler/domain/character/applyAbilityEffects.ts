@@ -79,7 +79,7 @@ export const applyAbilityEffects = (
         const statusModifier: DynamicStatModifier = {
             id: crypto.randomUUID(),
             stat: statusEffect.targetStat,
-            value: statusEffect.value,
+            value: statusEffect.value, // TODO in #95: Derive this value from the StatusEffect's scalingStat and a power value.
             type: statusEffect.damageScaleType,
             name: statusEffect.name,
             duration: statusEffect.duration,
