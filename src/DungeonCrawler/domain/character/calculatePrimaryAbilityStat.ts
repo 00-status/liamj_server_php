@@ -1,40 +1,22 @@
-import type { Ability } from '../types';
-import { BaseStatNames } from '../types';
+import { BaseStatNames, type Ability } from '../types';
+
+const PRIMARY_OFFENSIVE_STATS = new Set<BaseStatNames>([
+    BaseStatNames.attack,
+    BaseStatNames.magicAttack,
+    BaseStatNames.mind,
+]);
 
 export const calculatePrimaryAbilityStat = (ability: Ability): BaseStatNames | null => {
-    const pointEffects = ability.pointEffects;
+    const allEffects = [...ability.pointEffects, ...ability.statusEffects];
 
-    if (pointEffects.length <= 0) {
-        return null;
-    }
+    const relevantStats = new Set(
+        allEffects
+            .map((effect) => effect.scalingStat)
+            .filter((stat) => PRIMARY_OFFENSIVE_STATS.has(stat)),
+    );
 
-    let hasMagicPointEffect = false;
-    let hasPhysicalPointEffect = false;
-    let hasMindPointEffect = false;
-    pointEffects.forEach((pointEffect) => {
-        if (pointEffect.scalingStat === BaseStatNames.attack) {
-            hasPhysicalPointEffect = true;
-        }
-
-        if (pointEffect.scalingStat === BaseStatNames.magicAttack) {
-            hasMagicPointEffect = true;
-        }
-
-        if (pointEffect.scalingStat === BaseStatNames.mind) {
-            hasMindPointEffect = true;
-        }
-    });
-
-    if (hasPhysicalPointEffect && !hasMagicPointEffect && !hasMindPointEffect) {
-        return BaseStatNames.attack;
-    }
-
-    if (!hasPhysicalPointEffect && hasMagicPointEffect && !hasMindPointEffect) {
-        return BaseStatNames.magicAttack;
-    }
-
-    if (!hasPhysicalPointEffect && !hasMagicPointEffect && hasMindPointEffect) {
-        return BaseStatNames.mind;
+    if (relevantStats.size === 1) {
+        return relevantStats.values().next().value ?? null;
     }
 
     return null;

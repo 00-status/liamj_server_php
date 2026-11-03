@@ -18,7 +18,7 @@ interface RawCharacter {
         defence?: number;
         magicDefence?: number;
         critChance?: number;
-        mind?: 10;
+        mind?: number;
     };
     modifiers?: Character['modifiers'];
     pointModifiers?: Character['pointModifiers'];

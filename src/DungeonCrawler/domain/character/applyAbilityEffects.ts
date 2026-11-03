@@ -15,7 +15,7 @@ import { calculateMitigatedDamage } from './calculateMitigatedDamage';
 import { getCharacterStat } from './getCharacterStat';
 import { getValidTargets } from './getValidTargets';
 
-const STATUS_EFFECT_HANDLERS: Record<
+const DAMAGE_TYPE_HANDLERS: Record<
     DamageType,
     {
         apply: (target: Character, targetEquippables: Equipment[], value: number) => number;
@@ -129,7 +129,7 @@ export const applyAbilityEffects = (
             combatEvents.push(combatEvent);
         }
 
-        const handler = STATUS_EFFECT_HANDLERS[pointEffect.damageType];
+        const handler = DAMAGE_TYPE_HANDLERS[pointEffect.damageType];
 
         // Only apply immediate damage if the effect is NOT a DoT.
         if (handler && pointEffect.duration <= 0) {
@@ -204,7 +204,7 @@ export const applyPointModifierEffects = (
         );
         const calculatedValue = pointModifier.casterStatValue * pointModifier.power;
 
-        const handler = STATUS_EFFECT_HANDLERS[pointModifier.damageType];
+        const handler = DAMAGE_TYPE_HANDLERS[pointModifier.damageType];
         const statChange = handler.apply(target, targetEquippables, calculatedValue);
 
         const damageEvent: CombatEvent = {

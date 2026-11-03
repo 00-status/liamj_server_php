@@ -114,9 +114,9 @@ export const PlayerActions = ({
 };
 
 const calculateActionTheme = (ability: Ability) => {
-    const damageType = calculatePrimaryAbilityStat(ability);
+    const primaryStat = calculatePrimaryAbilityStat(ability);
 
-    switch (damageType) {
+    switch (primaryStat) {
         case BaseStatNames.attack:
             return DungeonButtonTheme.PHYSICAL;
         case BaseStatNames.magicAttack:
