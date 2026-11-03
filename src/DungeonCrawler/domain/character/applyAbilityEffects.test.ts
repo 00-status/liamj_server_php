@@ -38,6 +38,7 @@ describe('applyAbilityEffects', () => {
                 defence,
                 magicDefence: 0,
                 critChance,
+                mind: 10,
             },
             modifiers: [],
             pointModifiers: [],

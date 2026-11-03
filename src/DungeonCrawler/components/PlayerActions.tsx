@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react';
 
 import './player-actions.css';
-import type { Ability, Character} from '../domain/types';
-import { AbilityType, DamageType } from '../domain/types';
-import { calculatePrimaryAbilityDamageType } from '../domain/character/CalculatePrimaryAbilityDamageType';
+import type { Ability, Character } from '../domain/types';
+import { AbilityType, BaseStatNames } from '../domain/types';
+import { calculatePrimaryAbilityStat } from '../domain/character/calculatePrimaryAbilityStat';
 
 import { DungeonButton, DungeonButtonTheme } from './DungeonButton';
 
@@ -114,13 +114,15 @@ export const PlayerActions = ({
 };
 
 const calculateActionTheme = (ability: Ability) => {
-    const damageType = calculatePrimaryAbilityDamageType(ability);
+    const primaryStat = calculatePrimaryAbilityStat(ability);
 
-    switch (damageType) {
-        case DamageType.PHYSICAL:
+    switch (primaryStat) {
+        case BaseStatNames.attack:
             return DungeonButtonTheme.PHYSICAL;
-        case DamageType.MAGIC:
+        case BaseStatNames.magicAttack:
             return DungeonButtonTheme.MAGIC;
+        case BaseStatNames.mind:
+            return DungeonButtonTheme.MIND;
         default:
             return DungeonButtonTheme.DEFAULT;
     }

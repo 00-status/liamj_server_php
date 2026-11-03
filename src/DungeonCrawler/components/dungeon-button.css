@@ -10,6 +10,9 @@
 .dungeon-button[data-theme='MAGIC'] {
     --button-color: #637be8;
 }
+.dungeon-button[data-theme='MIND'] {
+    --button-color: #b769a1;
+}
 
 .dungeon-button {
     display: flex;

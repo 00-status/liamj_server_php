@@ -1,5 +1,5 @@
 import { Combatant } from '../Combatant';
-import type { ApplyDamageEvent, Character} from '../types';
+import type { ApplyDamageEvent, Character } from '../types';
 import { CharacterTier, CombatEventType, DamageType } from '../types';
 
 import { generateDamageLogs } from './generateDamageLogs';
@@ -19,6 +19,7 @@ describe('generateDamageLogs', () => {
             defence: 10,
             magicDefence: 10,
             critChance: 0,
+            mind: 10,
         },
         modifiers: [],
         pointModifiers: [],

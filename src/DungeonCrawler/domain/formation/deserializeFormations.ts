@@ -1,7 +1,7 @@
 import { MonsterCombatant } from '../Combatant';
 import type { Character, CharacterTier, Position } from '../types';
 
-import type { Formation} from './types';
+import type { Formation } from './types';
 import { FormationTeam } from './types';
 
 interface RawCharacter {
@@ -18,6 +18,7 @@ interface RawCharacter {
         defence?: number;
         magicDefence?: number;
         critChance?: number;
+        mind?: number;
     };
     modifiers?: Character['modifiers'];
     pointModifiers?: Character['pointModifiers'];
@@ -90,7 +91,8 @@ export const deserializeFormations = (raw: unknown): Formation[] => {
                 stats?.magicAttack === undefined ||
                 stats?.defence === undefined ||
                 stats?.magicDefence === undefined ||
-                stats?.critChance === undefined
+                stats?.critChance === undefined ||
+                stats?.mind === undefined
             ) {
                 throw new Error('Invalid Character Stats');
             }
@@ -109,6 +111,7 @@ export const deserializeFormations = (raw: unknown): Formation[] => {
                     defence: stats.defence,
                     magicDefence: stats.magicDefence,
                     critChance: stats.critChance,
+                    mind: stats.mind,
                 },
                 modifiers: rawChar.modifiers,
                 pointModifiers: rawChar.pointModifiers,
