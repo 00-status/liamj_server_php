@@ -19,7 +19,7 @@ import { combatEventHandlers } from './combatEvents/combatEventHandlers';
 import { generateDamageLogs } from './combatEvents/generateDamageLogs';
 import { changePoints } from './character/changePoints';
 import { exampleEquippables } from './equippables';
-import { isDungeonFloorCompleted } from './formation/shouldPlayerVisitShop';
+import { isDungeonFloorCompleted } from './dungeonFloor/isDungeonFloorCompleted';
 import { canCharacterEquipItem } from './character/canCharacterEquipItem';
 import { calculateValueOfCharacters } from './character/calculateValueOfCharacters';
 import { getCharacterStat } from './character/getCharacterStat';
