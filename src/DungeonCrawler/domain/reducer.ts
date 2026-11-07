@@ -283,8 +283,8 @@ export const dungeonCrawlerReducer = (
                         roomsTraversedCount: state.dungeonMetaData.roomsTraversedCount + 1,
                     },
                     currentDungeonFloor: isFloorCompleted
-                        ? incrementDungeonFloorCurrentRoom(state.currentDungeonFloor)
-                        : generateNewDungeonFloor(),
+                        ? generateNewDungeonFloor()
+                        : incrementDungeonFloorCurrentRoom(state.currentDungeonFloor),
                     playerFormation: updatedPlayerFormation,
                     monsterFormation: pickNewMonsterFormation(monsterFormations),
                     combatEvents: [],

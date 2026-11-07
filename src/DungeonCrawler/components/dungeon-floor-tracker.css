@@ -1,0 +1,13 @@
+.dungeon-floor-tracker {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    text-align: center;
+    padding: 20px;
+    margin: 0 20px;
+
+    background-color: #000000;
+    border: 2px solid #f7f7f7;
+    border-radius: 4px;
+}

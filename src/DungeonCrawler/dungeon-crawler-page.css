@@ -59,16 +59,6 @@ selected: #60af45
     padding-top: 20px;
 }
 
-.dungeon-crawler-page__room_count {
-    text-align: center;
-    padding: 20px;
-    margin: 0 20px;
-
-    background-color: #000000;
-    border: 2px solid #f7f7f7;
-    border-radius: 4px;
-}
-
 .dungeon-crawler-page__player-section {
     width: 60%;
     margin: 0 auto;

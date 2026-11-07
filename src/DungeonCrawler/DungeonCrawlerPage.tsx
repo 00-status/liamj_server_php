@@ -15,6 +15,7 @@ import { DungeonShop } from './components/DungeonShop';
 import { VerticalCharacterMenu } from './components/VerticalMenu/VerticalCharacterMenu';
 import { PlayerActions } from './components/PlayerActions';
 import { DungeonButton } from './components/DungeonButton';
+import { DungeonFloorTracker } from './components/DungeonFloorTracker';
 
 /**
 DungeonMetaData: { floorsTraversedCount: number; roomsTraversedCount: number; } ✅
@@ -38,7 +39,7 @@ const DungeonCrawlerPage = () => {
     const [state, dispatch] = useReducer(dungeonCrawlerReducer, dungeonCrawlerInitialState);
     const {
         phase,
-        dungeonMetaData,
+        currentDungeonFloor,
         playerFormation,
         monsterFormation,
         playerInventory,
@@ -160,9 +161,7 @@ const DungeonCrawlerPage = () => {
                         onEquipmentSelect={onEquipmentSelect}
                     />
                     <div className="dungeon-crawler-page__dungeon">
-                        <div className="dungeon-crawler-page__room_count">
-                            {dungeonMetaData.roomsTraversedCount}
-                        </div>
+                        <DungeonFloorTracker gamePhase={phase} dungeonFloor={currentDungeonFloor} />
                         {phase === GamePhase.SHOPPING && (
                             <DungeonShop
                                 purchasedItems={playerInventory}
