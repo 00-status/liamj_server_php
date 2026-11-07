@@ -4,7 +4,14 @@ import { applyAbilityEffects, applyPointModifierEffects } from './character/appl
 import { examplePlayerFormation } from './constants';
 import { pickMonsterAbility } from './monster/pickMonsterAbility';
 import { pickNewMonsterFormation } from './monster/pickNewMonsterFormation';
-import type { Ability, CombatEvent, Equipment, LogMessage } from './types';
+import type {
+    Ability,
+    CombatEvent,
+    DungeonFloor,
+    DungeonMetaData,
+    Equipment,
+    LogMessage,
+} from './types';
 import { BaseStatNames, CombatEventType, DamageType } from './types';
 import { selectTargetForMonster } from './monster/selectTargetForMonster';
 import { isFormationDefeated } from './formation/isFormationDefeated';
@@ -12,7 +19,7 @@ import { combatEventHandlers } from './combatEvents/combatEventHandlers';
 import { generateDamageLogs } from './combatEvents/generateDamageLogs';
 import { changePoints } from './character/changePoints';
 import { exampleEquippables } from './equippables';
-import { shouldPlayerVisitShop } from './formation/shouldPlayerVisitShop';
+import { isDungeonFloorCompleted } from './formation/shouldPlayerVisitShop';
 import { canCharacterEquipItem } from './character/canCharacterEquipItem';
 import { calculateValueOfCharacters } from './character/calculateValueOfCharacters';
 import { getCharacterStat } from './character/getCharacterStat';
@@ -20,6 +27,8 @@ import type { Formation } from './formation/types';
 import type { Combatant } from './Combatant';
 import { MonsterCombatant } from './Combatant';
 import { deserializeFormations } from './formation/deserializeFormations';
+import { generateNewDungeonFloor } from './dungeonFloor/generateNewDungeonFloor';
+import { incrementDungeonFloorCurrentRoom } from './dungeonFloor/incrementDungeonFloorCurrentRoom';
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability; caster: Combatant; target: Combatant }
@@ -46,7 +55,8 @@ export enum GamePhase {
 
 type DungeonCrawlerState = {
     phase: GamePhase;
-    roomsClearedCount: number;
+    dungeonMetaData: DungeonMetaData;
+    currentDungeonFloor: DungeonFloor;
     monsterFormation: Formation;
     playerFormation: Formation;
     playerInventory: Equipment[];
@@ -59,7 +69,8 @@ const monsterFormations: Formation[] = deserializeFormations(rawMonsterFormation
 
 export const dungeonCrawlerInitialState: DungeonCrawlerState = {
     phase: GamePhase.SHOPPING,
-    roomsClearedCount: 0,
+    dungeonMetaData: { floorsTraversedCount: 0, roomsTraversedCount: 0 },
+    currentDungeonFloor: generateNewDungeonFloor(),
     monsterFormation: pickNewMonsterFormation(monsterFormations),
     playerFormation: examplePlayerFormation,
     playerInventory: [],
@@ -258,23 +269,27 @@ export const dungeonCrawlerReducer = (
             }
 
             if (isMonsterFormationDefeated) {
-                const newRoomsClearedCount = state.roomsClearedCount + 1;
-                const shouldVisitShop = shouldPlayerVisitShop(newRoomsClearedCount);
+                const isFloorCompleted = isDungeonFloorCompleted(state.currentDungeonFloor);
 
                 const monsterFormationValue = calculateValueOfCharacters(
                     updatedMonsterFormation.combatants.map((combatant) => combatant.character),
                 );
-                const newPlayerWealth = state.playerWealth + monsterFormationValue;
 
                 return {
                     ...state,
-                    phase: shouldVisitShop ? GamePhase.SHOPPING : GamePhase.PLAYER_TURN,
-                    roomsClearedCount: newRoomsClearedCount,
+                    phase: isFloorCompleted ? GamePhase.SHOPPING : GamePhase.PLAYER_TURN,
+                    dungeonMetaData: {
+                        ...state.dungeonMetaData,
+                        roomsTraversedCount: state.dungeonMetaData.roomsTraversedCount + 1,
+                    },
+                    currentDungeonFloor: isFloorCompleted
+                        ? incrementDungeonFloorCurrentRoom(state.currentDungeonFloor)
+                        : generateNewDungeonFloor(),
                     playerFormation: updatedPlayerFormation,
                     monsterFormation: pickNewMonsterFormation(monsterFormations),
                     combatEvents: [],
                     combatLog: [],
-                    playerWealth: newPlayerWealth,
+                    playerWealth: state.playerWealth + monsterFormationValue,
                 };
             }
 

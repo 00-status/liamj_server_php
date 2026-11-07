@@ -39,7 +39,7 @@ const DungeonCrawlerPage = () => {
     const [state, dispatch] = useReducer(dungeonCrawlerReducer, dungeonCrawlerInitialState);
     const {
         phase,
-        roomsClearedCount,
+        dungeonMetaData,
         playerFormation,
         monsterFormation,
         playerInventory,
@@ -161,7 +161,9 @@ const DungeonCrawlerPage = () => {
                         onEquipmentSelect={onEquipmentSelect}
                     />
                     <div className="dungeon-crawler-page__dungeon">
-                        <div className="dungeon-crawler-page__room_count">{roomsClearedCount}</div>
+                        <div className="dungeon-crawler-page__room_count">
+                            {dungeonMetaData.roomsTraversedCount}
+                        </div>
                         {phase === GamePhase.SHOPPING && (
                             <DungeonShop
                                 purchasedItems={playerInventory}

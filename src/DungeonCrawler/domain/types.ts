@@ -1,3 +1,14 @@
+export interface DungeonMetaData {
+    floorsTraversedCount: number;
+    roomsTraversedCount: number;
+}
+
+export interface DungeonFloor {
+    id: string;
+    roomCount: number;
+    currentRoom: number;
+}
+
 export interface Position {
     x: number;
     y: number;
