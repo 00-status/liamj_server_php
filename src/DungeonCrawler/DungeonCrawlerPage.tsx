@@ -16,6 +16,22 @@ import { VerticalCharacterMenu } from './components/VerticalMenu/VerticalCharact
 import { PlayerActions } from './components/PlayerActions';
 import { DungeonButton } from './components/DungeonButton';
 
+/**
+DungeonMetaData: { floorsTraversedCount: number; roomsTraversedCount: number; }
+DungeonFloor: { id: string; roomCount: number; currentRoom: number; }
+
+In the reducer:
+- If the currentRoom is equal to the roomCount, then move to the shop.
+- When leaving the shop, generate a new DungeonFloor and set the roomCount to 0
+
+DungeonFloor Component:
+- Displays a box for each room in the floor.
+- The current room glows yellow.
+- If DungeonFloor is null, then display a single box.
+
+
+ */
+
 const DungeonCrawlerPage = () => {
     const windowWidth = useWindowWidth();
 
