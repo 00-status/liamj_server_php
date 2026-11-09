@@ -270,6 +270,9 @@ export const dungeonCrawlerReducer = (
 
             if (isMonsterFormationDefeated) {
                 const isFloorCompleted = isDungeonFloorCompleted(state.currentDungeonFloor);
+                const newFloorsTraversedCount = isFloorCompleted
+                    ? state.dungeonMetaData.floorsTraversedCount + 1
+                    : state.dungeonMetaData.floorsTraversedCount;
 
                 const monsterFormationValue = calculateValueOfCharacters(
                     updatedMonsterFormation.combatants.map((combatant) => combatant.character),
@@ -280,6 +283,7 @@ export const dungeonCrawlerReducer = (
                     phase: isFloorCompleted ? GamePhase.SHOPPING : GamePhase.PLAYER_TURN,
                     dungeonMetaData: {
                         ...state.dungeonMetaData,
+                        floorsTraversedCount: newFloorsTraversedCount,
                         roomsTraversedCount: state.dungeonMetaData.roomsTraversedCount + 1,
                     },
                     currentDungeonFloor: isFloorCompleted
