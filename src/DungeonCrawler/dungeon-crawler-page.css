@@ -21,7 +21,7 @@ selected: #60af45
     min-height: 100vh;
 
     background-color: #242424;
-    background: linear-gradient(to bottom, #4a4a4a 0%, #242424 5%, black 10%);
+    background: linear-gradient(to bottom, #4a4a4a 0%, #242424 2%, black 5%);
 
     font-family: 'Bitcount Prop Single', system-ui;
     font-weight: 400;
@@ -57,16 +57,6 @@ selected: #60af45
     width: 100%;
     gap: 12px;
     padding-top: 20px;
-}
-
-.dungeon-crawler-page__room_count {
-    text-align: center;
-    padding: 20px;
-    margin: 0 20px;
-
-    background-color: #000000;
-    border: 2px solid #f7f7f7;
-    border-radius: 4px;
 }
 
 .dungeon-crawler-page__player-section {
