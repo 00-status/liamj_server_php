@@ -17,21 +17,6 @@ import { PlayerActions } from './components/PlayerActions';
 import { DungeonButton } from './components/DungeonButton';
 import { DungeonFloorTracker } from './components/DungeonFloorTracker';
 
-/**
-DungeonMetaData: { floorsTraversedCount: number; roomsTraversedCount: number; } ✅
-DungeonFloor: { id: string; roomCount: number; currentRoom: number; } ✅
-
-In the reducer: ✅
-- If the currentRoom is equal to the roomCount, then generate a new dungeon and move to the shop.
-
-DungeonFloor Component:
-- Displays a box for each room in the floor.
-- The current room glows yellow.
-- If the GameState is Shopping, then display a single box.
-
-
- */
-
 const DungeonCrawlerPage = () => {
     const windowWidth = useWindowWidth();
 
