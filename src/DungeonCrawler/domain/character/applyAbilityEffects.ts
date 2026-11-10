@@ -9,7 +9,7 @@ import type {
     DynamicStatModifier,
     Equipment,
 } from '../types';
-import { BaseStatNames, DamageType, CombatEventType } from '../types';
+import { BaseStatNames, DamageType, CombatEventType, DamageScaleMethod } from '../types';
 
 import { calculateMitigatedDamage } from './calculateMitigatedDamage';
 import { getCharacterStat } from './getCharacterStat';
@@ -76,11 +76,22 @@ export const applyAbilityEffects = (
             statusEffect.target,
         );
 
+        const casterScalingStat = getCharacterStat(
+            caster.character,
+            casterEquippables,
+            statusEffect.scalingStat,
+        );
+        const scalingStatProduct = casterScalingStat * statusEffect.power;
+        let statModiferValue = 0.8 * (scalingStatProduct / (scalingStatProduct + 100));
+        if (statusEffect.isBuff) {
+            statModiferValue += 1;
+        }
+
         const statusModifier: DynamicStatModifier = {
             id: crypto.randomUUID(),
             stat: statusEffect.targetStat,
-            value: statusEffect.value, // TODO in #95: Derive this value from the StatusEffect's scalingStat and a power value.
-            type: statusEffect.damageScaleType,
+            value: statModiferValue,
+            type: DamageScaleMethod.PERCENT,
             name: statusEffect.name,
             duration: statusEffect.duration,
         };

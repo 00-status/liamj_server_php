@@ -133,12 +133,15 @@ export interface PointEffect extends AbilityEffect {
 
 export interface StatusEffect extends AbilityEffect {
     targetStat: keyof BaseStats;
-    damageScaleType: DamageScaleMethod;
+    isBuff: boolean;
 }
 
 // Remove Flat and percentage, and go with an asymptotic model.
 // Max Reduction of 80%, scaling factor of 100.
-// statReduction = maxReeduction * (scalingStat / (scalingStat + scalingFactor))
+// scaledStat = power * scalingStat;
+// statReduction = maxReduction * (scaledStat / (scaledStat + scalingFactor))
+// 0.8 * (150 / (150 + 100)) = 0.48
+// If (statusEffect.isBuff === true) character.stat = character.stat * (1 + 0.48);
 
 export enum DamageType {
     PHYSICAL = 'PHYSICAL',

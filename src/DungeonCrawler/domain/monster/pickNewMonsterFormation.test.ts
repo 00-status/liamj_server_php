@@ -8,7 +8,6 @@ import {
     AbilityType,
     BaseStatNames,
     CharacterTier,
-    DamageScaleMethod,
     DamageType,
     TargetScope,
 } from '../types';
@@ -145,11 +144,11 @@ const exampleMonsters: Character[] = [
                     {
                         id: '1',
                         name: 'Defence Drain',
+                        isBuff: false,
+                        power: 1.0,
                         target: TargetScope.target,
                         scalingStat: BaseStatNames.magicAttack,
                         targetStat: BaseStatNames.defence,
-                        value: -10,
-                        damageScaleType: DamageScaleMethod.FLAT,
                         duration: 2,
                     },
                 ],
