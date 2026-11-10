@@ -7,7 +7,6 @@ import {
     AbilityType,
     BaseStatNames,
     CharacterTier,
-    DamageScaleMethod,
     DamageType,
     TargetScope,
 } from './types';
@@ -236,12 +235,12 @@ const examplePlayer2: Character = {
                 {
                     id: crypto.randomUUID(),
                     name: 'Hyped! (Barry)',
+                    isBuff: true,
+                    power: 1.1,
                     target: TargetScope.target,
                     scalingStat: BaseStatNames.mind,
                     duration: 3,
                     targetStat: BaseStatNames.attack,
-                    value: 15,
-                    damageScaleType: DamageScaleMethod.FLAT,
                 },
             ],
         },

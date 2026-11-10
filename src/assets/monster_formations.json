@@ -65,8 +65,8 @@
                                     "scalingStat": "magicAttack",
                                     "duration": 2,
                                     "targetStat": "defence",
-                                    "value": 10,
-                                    "damageScaleType": "FLAT"
+                                    "power": 1.0,
+                                    "isBuff": true
                                 }
                             ]
                         }
@@ -141,8 +141,8 @@
                                     "scalingStat": "magicAttack",
                                     "duration": 2,
                                     "targetStat": "defence",
-                                    "value": 10,
-                                    "damageScaleType": "FLAT"
+                                    "power": 1.0,
+                                    "isBuff": true
                                 }
                             ]
                         }
@@ -217,8 +217,8 @@
                                     "scalingStat": "magicAttack",
                                     "duration": 2,
                                     "targetStat": "defence",
-                                    "value": 10,
-                                    "damageScaleType": "FLAT"
+                                    "power": 1.0,
+                                    "isBuff": true
                                 }
                             ]
                         }
@@ -303,8 +303,8 @@
                                     "scalingStat": "magicAttack",
                                     "duration": 2,
                                     "targetStat": "defence",
-                                    "value": 10,
-                                    "damageScaleType": "FLAT"
+                                    "power": 1.0,
+                                    "isBuff": true
                                 }
                             ]
                         }
@@ -473,8 +473,8 @@
                                     "scalingStat": "magicAttack",
                                     "duration": 2,
                                     "targetStat": "defence",
-                                    "value": 10,
-                                    "damageScaleType": "FLAT"
+                                    "power": 1.0,
+                                    "isBuff": true
                                 }
                             ]
                         }
@@ -1157,8 +1157,8 @@
                                     "scalingStat": "magicAttack",
                                     "duration": 2,
                                     "targetStat": "defence",
-                                    "value": 10,
-                                    "damageScaleType": "FLAT"
+                                    "power": 1.0,
+                                    "isBuff": true
                                 }
                             ]
                         }
@@ -1233,8 +1233,8 @@
                                     "scalingStat": "magicAttack",
                                     "duration": 2,
                                     "targetStat": "defence",
-                                    "value": 10,
-                                    "damageScaleType": "FLAT"
+                                    "power": 1.0,
+                                    "isBuff": true
                                 }
                             ]
                         }
@@ -1478,8 +1478,8 @@
                                     "scalingStat": "magicAttack",
                                     "duration": 2,
                                     "targetStat": "defence",
-                                    "value": 10,
-                                    "damageScaleType": "FLAT"
+                                    "power": 1.0,
+                                    "isBuff": true
                                 }
                             ]
                         }
@@ -1554,8 +1554,8 @@
                                     "scalingStat": "magicAttack",
                                     "duration": 2,
                                     "targetStat": "defence",
-                                    "value": 10,
-                                    "damageScaleType": "FLAT"
+                                    "power": 1.0,
+                                    "isBuff": true
                                 }
                             ]
                         }
@@ -1630,8 +1630,8 @@
                                     "scalingStat": "magicAttack",
                                     "duration": 2,
                                     "targetStat": "defence",
-                                    "value": 10,
-                                    "damageScaleType": "FLAT"
+                                    "power": 1.0,
+                                    "isBuff": true
                                 }
                             ]
                         }
