@@ -12,6 +12,7 @@ import type {
 import { BaseStatNames, DamageType, CombatEventType, DamageScaleMethod } from '../types';
 
 import { calculateMitigatedDamage } from './calculateMitigatedDamage';
+import { calculateStatEffectDamage } from './calculateStatusEffectDamage';
 import { getCharacterStat } from './getCharacterStat';
 import { getValidTargets } from './getValidTargets';
 
@@ -76,21 +77,16 @@ export const applyAbilityEffects = (
             statusEffect.target,
         );
 
-        const casterScalingStat = getCharacterStat(
+        const modifiedScalingStat = getCharacterStat(
             caster.character,
             casterEquippables,
             statusEffect.scalingStat,
         );
-        const scalingStatProduct = casterScalingStat * statusEffect.power;
-        let statModiferValue = 0.8 * (scalingStatProduct / (scalingStatProduct + 100));
-        if (statusEffect.isBuff) {
-            statModiferValue += 1;
-        }
 
         const statusModifier: DynamicStatModifier = {
             id: crypto.randomUUID(),
             stat: statusEffect.targetStat,
-            value: statModiferValue,
+            value: calculateStatEffectDamage(statusEffect, modifiedScalingStat),
             type: DamageScaleMethod.PERCENT,
             name: statusEffect.name,
             duration: statusEffect.duration,
@@ -114,17 +110,17 @@ export const applyAbilityEffects = (
             pointEffect.target,
         );
 
-        if (pointEffect.duration > 0) {
-            const casterScalingStat = getCharacterStat(
-                caster.character,
-                casterEquippables,
-                pointEffect.scalingStat,
-            );
+        const modifiedScalingStat = getCharacterStat(
+            caster.character,
+            casterEquippables,
+            pointEffect.scalingStat,
+        );
 
+        if (pointEffect.duration > 0) {
             const pointModifier: PointModifier = {
                 id: crypto.randomUUID(),
                 name: pointEffect.name,
-                casterStatValue: casterScalingStat,
+                casterStatValue: modifiedScalingStat,
                 damageType: pointEffect.damageType,
                 power: pointEffect.power,
                 duration: pointEffect.duration,
@@ -144,11 +140,6 @@ export const applyAbilityEffects = (
 
         // Only apply immediate damage if the effect is NOT a DoT.
         if (handler && pointEffect.duration <= 0) {
-            const modifiedScalingStat = getCharacterStat(
-                caster.character,
-                casterEquippables,
-                pointEffect.scalingStat,
-            );
             const scalingStatProduct = modifiedScalingStat * pointEffect.power;
 
             const isPhysical = pointEffect.damageType === DamageType.PHYSICAL;
