@@ -124,18 +124,21 @@ export interface AbilityEffect {
     target: TargetScope;
     scalingStat: BaseStatNames;
     duration: number;
+    power: number;
 }
 
 export interface PointEffect extends AbilityEffect {
     damageType: DamageType;
-    power: number;
 }
 
 export interface StatusEffect extends AbilityEffect {
     targetStat: keyof BaseStats;
-    value: number;
     damageScaleType: DamageScaleMethod;
 }
+
+// Remove Flat and percentage, and go with an asymptotic model.
+// Max Reduction of 80%, scaling factor of 100.
+// statReduction = maxReeduction * (scalingStat / (scalingStat + scalingFactor))
 
 export enum DamageType {
     PHYSICAL = 'PHYSICAL',
