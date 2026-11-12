@@ -52,29 +52,24 @@ export const buildMonsterFormation = (
         let candidatePool = candidateMonsters;
 
         if (candidatePool.length === 0) {
-            let smallestThreatDifference = Infinity;
-            for (const monster of potentialMonsters) {
-                const threatDifference = Math.abs(monster.threatScore - targetThreatScore);
-                if (threatDifference < smallestThreatDifference) {
-                    smallestThreatDifference = threatDifference;
-                }
-            }
-
-            candidatePool = potentialMonsters.filter((monster) => {
-                const threatDifference = Math.abs(monster.threatScore - targetThreatScore);
-                return threatDifference === smallestThreatDifference;
-            });
+            candidatePool = pickNextClosestCandidate(
+                potentialMonsters,
+                targetThreatScore,
+                candidatePool,
+            );
         }
 
         const selectedCandidateIndex = Math.floor(Math.random() * candidatePool.length);
         const selectedMonster = candidatePool[selectedCandidateIndex];
 
-        const characterClone = structuredClone(selectedMonster);
-        characterClone.id = crypto.randomUUID();
-        characterClone.currentHP = characterClone.stats.healthPoints;
-        characterClone.currentMP = characterClone.stats.magicPoints;
-        characterClone.modifiers = [];
-        characterClone.pointModifiers = [];
+        const characterClone: MonsterCharacter = {
+            ...structuredClone(selectedMonster),
+            id: crypto.randomUUID(),
+            currentHP: selectedMonster.stats.healthPoints,
+            currentMP: selectedMonster.stats.magicPoints,
+            modifiers: [],
+            pointModifiers: [],
+        };
 
         return new MonsterCombatant(
             crypto.randomUUID(),
@@ -131,4 +126,24 @@ export const getEncounterBudget = (clearedFloorCount: number): number => {
     }
 
     return eligibleBudgets[0].encounterBudget;
+};
+
+const pickNextClosestCandidate = (
+    potentialMonsters: MonsterCharacter[],
+    targetThreatScore: number,
+    candidatePool: MonsterCharacter[],
+) => {
+    let smallestThreatDifference = Infinity;
+    for (const monster of potentialMonsters) {
+        const threatDifference = Math.abs(monster.threatScore - targetThreatScore);
+        if (threatDifference < smallestThreatDifference) {
+            smallestThreatDifference = threatDifference;
+        }
+    }
+
+    candidatePool = potentialMonsters.filter((monster) => {
+        const threatDifference = Math.abs(monster.threatScore - targetThreatScore);
+        return threatDifference === smallestThreatDifference;
+    });
+    return candidatePool;
 };
