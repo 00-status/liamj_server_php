@@ -1,3 +1,13 @@
+export interface CombatantSlot {
+    position: Position;
+    threatWeight?: number;
+}
+
+export interface RoomTemplate {
+    floorCountRequirement: number;
+    slots: CombatantSlot[];
+}
+
 export interface DungeonMetaData {
     floorsTraversedCount: number;
     roomsTraversedCount: number;

@@ -1,7 +1,7 @@
 import { Combatant } from './Combatant';
 import type { Formation } from './formation/types';
 import { FormationTeam } from './formation/types';
-import type { Ability, Character } from './types';
+import type { Ability, Character, RoomTemplate } from './types';
 import {
     AbilityTarget,
     AbilityType,
@@ -256,3 +256,71 @@ export const examplePlayerFormation: Formation = {
     ],
     gridDimensions: { x: 2, y: 1 },
 };
+
+const plusShape: RoomTemplate = {
+    floorCountRequirement: 1,
+    slots: [
+        { position: { x: 2, y: 1 }, threatWeight: 0.15 },
+        { position: { x: 1, y: 2 }, threatWeight: 0.15 },
+        { position: { x: 2, y: 2 }, threatWeight: 0.4 },
+        { position: { x: 3, y: 2 }, threatWeight: 0.15 },
+        { position: { x: 2, y: 3 }, threatWeight: 0.15 },
+    ],
+};
+const xShape: RoomTemplate = {
+    floorCountRequirement: 1,
+    slots: [
+        { position: { x: 1, y: 1 }, threatWeight: 0.2 },
+        { position: { x: 3, y: 1 }, threatWeight: 0.2 },
+        { position: { x: 2, y: 2 }, threatWeight: 0.2 },
+        { position: { x: 1, y: 3 }, threatWeight: 0.2 },
+        { position: { x: 3, y: 3 }, threatWeight: 0.2 },
+    ],
+};
+const rowShape: RoomTemplate = {
+    floorCountRequirement: 0,
+    slots: [
+        { position: { x: 1, y: 2 }, threatWeight: 1 },
+        { position: { x: 2, y: 2 }, threatWeight: 1 },
+        { position: { x: 3, y: 2 }, threatWeight: 1 },
+    ],
+};
+const frontlineBacklineShape: RoomTemplate = {
+    floorCountRequirement: 2,
+    slots: [
+        { position: { x: 1, y: 2 }, threatWeight: 1 },
+        { position: { x: 2, y: 2 }, threatWeight: 1 },
+        { position: { x: 3, y: 2 }, threatWeight: 1 },
+        { position: { x: 1, y: 3 }, threatWeight: 1 },
+        { position: { x: 2, y: 3 }, threatWeight: 1 },
+        { position: { x: 3, y: 3 }, threatWeight: 1 },
+    ],
+};
+const triforce: RoomTemplate = {
+    floorCountRequirement: 0,
+    slots: [
+        { position: { x: 2, y: 1 }, threatWeight: 0.5 },
+        { position: { x: 1, y: 2 }, threatWeight: 0.25 },
+        { position: { x: 3, y: 2 }, threatWeight: 0.25 },
+    ],
+};
+const splitDuo: RoomTemplate = {
+    floorCountRequirement: 0,
+    slots: [
+        { position: { x: 1, y: 2 }, threatWeight: 0.5 },
+        { position: { x: 3, y: 2 }, threatWeight: 0.5 },
+    ],
+};
+const solo: RoomTemplate = {
+    floorCountRequirement: 0,
+    slots: [{ position: { x: 2, y: 2 }, threatWeight: 1 }],
+};
+export const roomTemplates: RoomTemplate[] = [
+    plusShape,
+    xShape,
+    rowShape,
+    frontlineBacklineShape,
+    triforce,
+    splitDuo,
+    solo,
+];

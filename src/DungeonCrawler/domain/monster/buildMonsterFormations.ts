@@ -1,133 +1,13 @@
 import { MonsterCombatant } from '../Combatant';
+import { roomTemplates } from '../constants';
 import type { Formation } from '../formation/types';
 import { FormationTeam } from '../formation/types';
-import type { MonsterCharacter, Position } from '../types';
+import type { MonsterCharacter } from '../types';
 
 import { resetTurnsUntilAction } from './turnsUntilAction';
 
 const GRID_WIDTH_HEIGHT = 3;
 const BUDGET_TOLERANCE_PERCENTAGE = 0.1;
-
-export interface CombatantSlot {
-    position: Position;
-    threatWeight?: number;
-}
-
-export interface RoomTemplate {
-    floorCountRequirement: number;
-    slots: CombatantSlot[];
-}
-
-export interface EncounterBudgetConfig {
-    floorCountRequirement: number;
-    encounterBudget: number;
-}
-
-export const encounterBudgets: EncounterBudgetConfig[] = [
-    { floorCountRequirement: 0, encounterBudget: 150 },
-    { floorCountRequirement: 1, encounterBudget: 252 },
-    { floorCountRequirement: 2, encounterBudget: 504 },
-    { floorCountRequirement: 3, encounterBudget: 756 },
-    { floorCountRequirement: 4, encounterBudget: 1008 },
-    { floorCountRequirement: 5, encounterBudget: 1260 },
-    { floorCountRequirement: 6, encounterBudget: 1512 },
-    { floorCountRequirement: 7, encounterBudget: 2520 },
-];
-
-export const getEncounterBudget = (clearedFloorCount: number): number => {
-    const clampedFloorCount = Math.max(0, clearedFloorCount);
-    const highestConfiguredBudget = encounterBudgets[encounterBudgets.length - 1];
-
-    if (clampedFloorCount >= highestConfiguredBudget.floorCountRequirement) {
-        const extraFloorCount = clampedFloorCount - highestConfiguredBudget.floorCountRequirement;
-        const budgetScalingStep = 1008;
-        return highestConfiguredBudget.encounterBudget + extraFloorCount * budgetScalingStep;
-    }
-
-    const eligibleBudgets = encounterBudgets
-        .filter((budgetConfig) => budgetConfig.floorCountRequirement <= clampedFloorCount)
-        .sort(
-            (budgetConfigA, budgetConfigB) =>
-                budgetConfigB.floorCountRequirement - budgetConfigA.floorCountRequirement,
-        );
-
-    return eligibleBudgets[0]?.encounterBudget ?? encounterBudgets[0].encounterBudget;
-};
-
-const plusShape: RoomTemplate = {
-    floorCountRequirement: 1,
-    slots: [
-        { position: { x: 2, y: 1 }, threatWeight: 0.15 },
-        { position: { x: 1, y: 2 }, threatWeight: 0.15 },
-        { position: { x: 2, y: 2 }, threatWeight: 0.4 },
-        { position: { x: 3, y: 2 }, threatWeight: 0.15 },
-        { position: { x: 2, y: 3 }, threatWeight: 0.15 },
-    ],
-};
-
-const xShape: RoomTemplate = {
-    floorCountRequirement: 1,
-    slots: [
-        { position: { x: 1, y: 1 }, threatWeight: 0.2 },
-        { position: { x: 3, y: 1 }, threatWeight: 0.2 },
-        { position: { x: 2, y: 2 }, threatWeight: 0.2 },
-        { position: { x: 1, y: 3 }, threatWeight: 0.2 },
-        { position: { x: 3, y: 3 }, threatWeight: 0.2 },
-    ],
-};
-
-const rowShape: RoomTemplate = {
-    floorCountRequirement: 0,
-    slots: [
-        { position: { x: 1, y: 2 }, threatWeight: 1 },
-        { position: { x: 2, y: 2 }, threatWeight: 1 },
-        { position: { x: 3, y: 2 }, threatWeight: 1 },
-    ],
-};
-
-const frontlineBacklineShape: RoomTemplate = {
-    floorCountRequirement: 2,
-    slots: [
-        { position: { x: 1, y: 2 }, threatWeight: 1 },
-        { position: { x: 2, y: 2 }, threatWeight: 1 },
-        { position: { x: 3, y: 2 }, threatWeight: 1 },
-        { position: { x: 1, y: 3 }, threatWeight: 1 },
-        { position: { x: 2, y: 3 }, threatWeight: 1 },
-        { position: { x: 3, y: 3 }, threatWeight: 1 },
-    ],
-};
-
-const triforce: RoomTemplate = {
-    floorCountRequirement: 0,
-    slots: [
-        { position: { x: 2, y: 1 }, threatWeight: 0.5 },
-        { position: { x: 1, y: 2 }, threatWeight: 0.25 },
-        { position: { x: 3, y: 2 }, threatWeight: 0.25 },
-    ],
-};
-
-const splitDuo: RoomTemplate = {
-    floorCountRequirement: 0,
-    slots: [
-        { position: { x: 1, y: 2 }, threatWeight: 0.5 },
-        { position: { x: 3, y: 2 }, threatWeight: 0.5 },
-    ],
-};
-
-const solo: RoomTemplate = {
-    floorCountRequirement: 0,
-    slots: [{ position: { x: 2, y: 2 }, threatWeight: 1 }],
-};
-
-export const roomTemplates: RoomTemplate[] = [
-    plusShape,
-    xShape,
-    rowShape,
-    frontlineBacklineShape,
-    triforce,
-    splitDuo,
-    solo,
-];
 
 export const buildMonsterFormation = (
     clearedFloorCount: number,
@@ -136,8 +16,6 @@ export const buildMonsterFormation = (
     if (potentialMonsters.length === 0) {
         throw new Error('Cannot build monster formation from empty monster list!');
     }
-
-    const encounterBudget = getEncounterBudget(clearedFloorCount);
 
     const eligibleRoomTemplates = roomTemplates.filter((roomTemplate) => {
         return roomTemplate.floorCountRequirement <= Math.max(0, clearedFloorCount);
@@ -153,6 +31,8 @@ export const buildMonsterFormation = (
     const totalWeight = selectedTemplate.slots.reduce((accumulator, slot) => {
         return accumulator + (slot.threatWeight ?? 1);
     }, 0);
+
+    const encounterBudget = getEncounterBudget(clearedFloorCount);
 
     const combatants = selectedTemplate.slots.map((slot) => {
         const slotWeight = slot.threatWeight ?? 1;
@@ -211,4 +91,44 @@ export const buildMonsterFormation = (
         gridDimensions: { x: GRID_WIDTH_HEIGHT, y: GRID_WIDTH_HEIGHT },
         combatants,
     };
+};
+
+export interface EncounterBudgetConfig {
+    floorCountRequirement: number;
+    encounterBudget: number;
+}
+export const encounterBudgets: EncounterBudgetConfig[] = [
+    { floorCountRequirement: 0, encounterBudget: 150 },
+    { floorCountRequirement: 1, encounterBudget: 252 },
+    { floorCountRequirement: 2, encounterBudget: 504 },
+    { floorCountRequirement: 3, encounterBudget: 756 },
+    { floorCountRequirement: 4, encounterBudget: 1008 },
+    { floorCountRequirement: 5, encounterBudget: 1260 },
+    { floorCountRequirement: 6, encounterBudget: 1512 },
+    { floorCountRequirement: 7, encounterBudget: 2520 },
+];
+
+export const getEncounterBudget = (clearedFloorCount: number): number => {
+    const clampedFloorCount = Math.max(0, clearedFloorCount);
+    const highestConfiguredBudget = encounterBudgets[encounterBudgets.length - 1];
+
+    if (clampedFloorCount >= highestConfiguredBudget.floorCountRequirement) {
+        const extraFloorCount = clampedFloorCount - highestConfiguredBudget.floorCountRequirement;
+        const budgetScalingStep = 1008;
+
+        return highestConfiguredBudget.encounterBudget + extraFloorCount * budgetScalingStep;
+    }
+
+    const eligibleBudgets = encounterBudgets
+        .filter((budgetConfig) => budgetConfig.floorCountRequirement <= clampedFloorCount)
+        .sort(
+            (budgetConfigA, budgetConfigB) =>
+                budgetConfigB.floorCountRequirement - budgetConfigA.floorCountRequirement,
+        );
+
+    if (!eligibleBudgets) {
+        return encounterBudgets[0].encounterBudget;
+    }
+
+    return eligibleBudgets[0].encounterBudget;
 };

@@ -1,5 +1,5 @@
 import { MonsterCombatant } from '../Combatant';
-import { attackAbility } from '../constants';
+import { attackAbility, roomTemplates } from '../constants';
 import { FormationTeam } from '../formation/types';
 import type { MonsterCharacter } from '../types';
 import {
@@ -11,17 +11,9 @@ import {
     TargetScope,
 } from '../types';
 
-import {
-    buildMonsterFormation,
-    getEncounterBudget,
-    roomTemplates,
-} from './buildMonsterFormations';
+import { buildMonsterFormation, getEncounterBudget } from './buildMonsterFormations';
 
-const createTestMonster = (
-    id: string,
-    name: string,
-    threatScore: number,
-): MonsterCharacter => {
+const createTestMonster = (id: string, name: string, threatScore: number): MonsterCharacter => {
     return {
         id,
         name,
@@ -114,16 +106,16 @@ describe('buildMonsterFormation', () => {
         // Floor 0: budget = 150.
         // Solo template has 1 slot, weight = 1 => targetThreat = 150.
         // Find solo template index in eligibleTemplates (roomTemplates with floorCountRequirement <= 0).
-        const eligibleTemplates = roomTemplates.filter((template) => template.floorCountRequirement <= 0);
+        const eligibleTemplates = roomTemplates.filter(
+            (template) => template.floorCountRequirement <= 0,
+        );
         const soloIndex = eligibleTemplates.findIndex((template) => template.slots.length === 1);
         expect(soloIndex).toBeGreaterThanOrEqual(0);
 
         const spyRandom = jest.spyOn(Math, 'random');
         // First random call selects template: return soloIndex / eligibleTemplates.length
         // Next random call selects candidate from candidates: return 0
-        spyRandom
-            .mockReturnValueOnce(soloIndex / eligibleTemplates.length)
-            .mockReturnValue(0);
+        spyRandom.mockReturnValueOnce(soloIndex / eligibleTemplates.length).mockReturnValue(0);
 
         const formation = buildMonsterFormation(0, testMonsters);
 
@@ -150,7 +142,9 @@ describe('buildMonsterFormation', () => {
             createTestMonster('m-200', 'Strong', 200),
         ];
 
-        const eligibleTemplates = roomTemplates.filter((template) => template.floorCountRequirement <= 1);
+        const eligibleTemplates = roomTemplates.filter(
+            (template) => template.floorCountRequirement <= 1,
+        );
         const splitDuoIndex = eligibleTemplates.findIndex(
             (template) => template.slots.length === 2,
         );
@@ -159,9 +153,7 @@ describe('buildMonsterFormation', () => {
         // 1. Template selection
         // 2. First slot candidate selection
         // 3. Second slot candidate selection
-        spyRandom
-            .mockReturnValueOnce(splitDuoIndex / eligibleTemplates.length)
-            .mockReturnValue(0);
+        spyRandom.mockReturnValueOnce(splitDuoIndex / eligibleTemplates.length).mockReturnValue(0);
 
         const formation = buildMonsterFormation(1, duoMonsters);
 
@@ -181,13 +173,13 @@ describe('buildMonsterFormation', () => {
             createTestMonster('m-300', 'Far Higher', 300),
         ];
 
-        const eligibleTemplates = roomTemplates.filter((template) => template.floorCountRequirement <= 0);
+        const eligibleTemplates = roomTemplates.filter(
+            (template) => template.floorCountRequirement <= 0,
+        );
         const soloIndex = eligibleTemplates.findIndex((template) => template.slots.length === 1);
 
         const spyRandom = jest.spyOn(Math, 'random');
-        spyRandom
-            .mockReturnValueOnce(soloIndex / eligibleTemplates.length)
-            .mockReturnValue(0);
+        spyRandom.mockReturnValueOnce(soloIndex / eligibleTemplates.length).mockReturnValue(0);
 
         const formation = buildMonsterFormation(0, pool);
 
@@ -198,15 +190,15 @@ describe('buildMonsterFormation', () => {
     it('deep clones characters so combatants do not share mutated state or IDs', () => {
         const pool: MonsterCharacter[] = [createTestMonster('m-75', 'Squire', 75)];
 
-        const eligibleTemplates = roomTemplates.filter((template) => template.floorCountRequirement <= 0);
+        const eligibleTemplates = roomTemplates.filter(
+            (template) => template.floorCountRequirement <= 0,
+        );
         const splitDuoIndex = eligibleTemplates.findIndex(
             (template) => template.slots.length === 2,
         );
 
         const spyRandom = jest.spyOn(Math, 'random');
-        spyRandom
-            .mockReturnValueOnce(splitDuoIndex / eligibleTemplates.length)
-            .mockReturnValue(0);
+        spyRandom.mockReturnValueOnce(splitDuoIndex / eligibleTemplates.length).mockReturnValue(0);
 
         const formation = buildMonsterFormation(0, pool);
 
@@ -236,7 +228,9 @@ describe('buildMonsterFormation', () => {
             createTestMonster('m-minion', 'Minion', 38),
         ];
 
-        const eligibleTemplates = roomTemplates.filter((template) => template.floorCountRequirement <= 0);
+        const eligibleTemplates = roomTemplates.filter(
+            (template) => template.floorCountRequirement <= 0,
+        );
         const triforceIndex = eligibleTemplates.findIndex(
             (template) =>
                 template.slots.length === 3 &&
@@ -244,9 +238,7 @@ describe('buildMonsterFormation', () => {
         );
 
         const spyRandom = jest.spyOn(Math, 'random');
-        spyRandom
-            .mockReturnValueOnce(triforceIndex / eligibleTemplates.length)
-            .mockReturnValue(0);
+        spyRandom.mockReturnValueOnce(triforceIndex / eligibleTemplates.length).mockReturnValue(0);
 
         const formation = buildMonsterFormation(0, pool);
 
