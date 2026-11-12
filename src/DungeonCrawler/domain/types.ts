@@ -26,6 +26,10 @@ export interface Character {
     abilities: Ability[];
 }
 
+export interface MonsterCharacter extends Character {
+    threatScore: number;
+}
+
 export enum CharacterTier {
     ONE = 1,
     TWO = 2,
