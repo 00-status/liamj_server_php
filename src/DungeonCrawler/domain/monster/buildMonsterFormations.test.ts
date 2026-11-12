@@ -60,36 +60,28 @@ const createTestMonster = (id: string, name: string, threatScore: number): Monst
 describe('getEncounterBudget', () => {
     it('returns the budget for floor 0', () => {
         const budget = getEncounterBudget(0);
-        expect(budget).toBe(150);
+        expect(budget).toBe(50);
     });
 
     it('returns the budget for negative floors by clamping to 0', () => {
         const budget = getEncounterBudget(-2);
-        expect(budget).toBe(150);
+        expect(budget).toBe(50);
     });
 
     it('returns the configured budget for intermediate floors', () => {
-        expect(getEncounterBudget(1)).toBe(252);
-        expect(getEncounterBudget(4)).toBe(1008);
-        expect(getEncounterBudget(7)).toBe(2520);
-    });
-
-    it('extrapolates for floors exceeding the configured list', () => {
-        const floor7Budget = 2520;
-        const step = 1008;
-
-        expect(getEncounterBudget(8)).toBe(floor7Budget + step);
-        expect(getEncounterBudget(10)).toBe(floor7Budget + 3 * step);
+        expect(getEncounterBudget(1)).toBe(104);
+        expect(getEncounterBudget(4)).toBe(290);
+        expect(getEncounterBudget(7)).toBe(512);
     });
 });
 
 describe('buildMonsterFormation', () => {
     const testMonsters: MonsterCharacter[] = [
-        createTestMonster('m-50', 'Small Goblin', 50),
-        createTestMonster('m-75', 'Goblin Soldier', 75),
-        createTestMonster('m-150', 'Goblin Chief', 150),
-        createTestMonster('m-250', 'Ogre', 250),
-        createTestMonster('m-500', 'Dragon Hatchling', 500),
+        createTestMonster('m-50', 'Small Goblin', 10),
+        createTestMonster('m-75', 'Goblin Soldier', 25),
+        createTestMonster('m-150', 'Goblin Chief', 50),
+        createTestMonster('m-250', 'Ogre', 75),
+        createTestMonster('m-500', 'Dragon Hatchling', 150),
     ];
 
     afterEach(() => {
@@ -103,7 +95,7 @@ describe('buildMonsterFormation', () => {
     });
 
     it('creates a valid formation on floor 0 with solo template', () => {
-        // Floor 0: budget = 150.
+        // Floor 0: budget = 50.
         // Solo template has 1 slot, weight = 1 => targetThreat = 150.
         // Find solo template index in eligibleTemplates (roomTemplates with floorCountRequirement <= 0).
         const eligibleTemplates = roomTemplates.filter(
@@ -131,15 +123,15 @@ describe('buildMonsterFormation', () => {
     });
 
     it('selects monsters within the 10% tolerance window', () => {
-        // Floor 1: budget = 252.
+        // Floor 1: budget = 104.
         // If splitDuo is selected (weight 0.5 each):
-        // targetThreat = 252 * 0.5 = 126.
-        // Tolerance: [126 * 0.9, 126 * 1.1] = [113.4, 138.6].
-        // If we provide a monster with threat 130 and another with threat 100:
+        // targetThreat = 104 * 0.5 = 52.
+        // Tolerance: [52 * 0.9, 52 * 1.1] = [46.8, 57.2].
+        // If we provide a monster with threat 55 and another with threat 40:
         const duoMonsters: MonsterCharacter[] = [
-            createTestMonster('m-100', 'Weakling', 100),
-            createTestMonster('m-130', 'Match', 130),
-            createTestMonster('m-200', 'Strong', 200),
+            createTestMonster('m-100', 'Weakling', 40),
+            createTestMonster('m-130', 'Match', 55),
+            createTestMonster('m-200', 'Strong', 100),
         ];
 
         const eligibleTemplates = roomTemplates.filter(
@@ -164,13 +156,13 @@ describe('buildMonsterFormation', () => {
     });
 
     it('falls back to the mathematically closest monster if none fall within tolerance', () => {
-        // Budget = 150. Solo template: targetThreat = 150.
-        // Pool has monsters with threats 50 and 300.
-        // |50 - 150| = 100, |300 - 150| = 150.
-        // Closest is 50.
+        // Budget = 50. Solo template: targetThreat = 50.
+        // Pool has monsters with threats 10 and 100.
+        // |10 - 50| = 40, |100 - 50| = 50.
+        // Closest is 10.
         const pool: MonsterCharacter[] = [
-            createTestMonster('m-50', 'Far Lower', 50),
-            createTestMonster('m-300', 'Far Higher', 300),
+            createTestMonster('m-50', 'Far Lower', 10),
+            createTestMonster('m-300', 'Far Higher', 100),
         ];
 
         const eligibleTemplates = roomTemplates.filter(
@@ -219,13 +211,13 @@ describe('buildMonsterFormation', () => {
     it('respects weighted slots in asymmetrical templates (e.g., triforce)', () => {
         // Triforce has slots: { x: 2, y: 1 } with weight 0.5, and two with weight 0.25
         // Total weight = 1.0.
-        // Floor 0 budget = 150.
-        // Slot 1 (apex): targetThreat = 150 * 0.5 = 75.
-        // Slot 2 (base left): targetThreat = 150 * 0.25 = 37.5.
-        // Slot 3 (base right): targetThreat = 150 * 0.25 = 37.5.
+        // Floor 0 budget = 50.
+        // Slot 1 (apex): targetThreat = 50 * 0.5 = 25.
+        // Slot 2 (base left): targetThreat = 50 * 0.25 = 12.5.
+        // Slot 3 (base right): targetThreat = 50 * 0.25 = 12.5.
         const pool: MonsterCharacter[] = [
-            createTestMonster('m-leader', 'Boss Mini', 75),
-            createTestMonster('m-minion', 'Minion', 38),
+            createTestMonster('m-leader', 'Boss Mini', 27),
+            createTestMonster('m-minion', 'Minion', 12),
         ];
 
         const eligibleTemplates = roomTemplates.filter(

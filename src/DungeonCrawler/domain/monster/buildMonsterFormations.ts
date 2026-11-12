@@ -50,7 +50,6 @@ export const buildMonsterFormation = (
         });
 
         let candidatePool = candidateMonsters;
-
         if (candidatePool.length === 0) {
             candidatePool = pickNextClosestCandidate(
                 potentialMonsters,
@@ -88,44 +87,13 @@ export const buildMonsterFormation = (
     };
 };
 
-export interface EncounterBudgetConfig {
-    floorCountRequirement: number;
-    encounterBudget: number;
-}
-export const encounterBudgets: EncounterBudgetConfig[] = [
-    { floorCountRequirement: 0, encounterBudget: 150 },
-    { floorCountRequirement: 1, encounterBudget: 252 },
-    { floorCountRequirement: 2, encounterBudget: 504 },
-    { floorCountRequirement: 3, encounterBudget: 756 },
-    { floorCountRequirement: 4, encounterBudget: 1008 },
-    { floorCountRequirement: 5, encounterBudget: 1260 },
-    { floorCountRequirement: 6, encounterBudget: 1512 },
-    { floorCountRequirement: 7, encounterBudget: 2520 },
-];
+const BUDGET_SCALE = 50;
 
 export const getEncounterBudget = (clearedFloorCount: number): number => {
     const clampedFloorCount = Math.max(0, clearedFloorCount);
-    const highestConfiguredBudget = encounterBudgets[encounterBudgets.length - 1];
 
-    if (clampedFloorCount >= highestConfiguredBudget.floorCountRequirement) {
-        const extraFloorCount = clampedFloorCount - highestConfiguredBudget.floorCountRequirement;
-        const budgetScalingStep = 1008;
-
-        return highestConfiguredBudget.encounterBudget + extraFloorCount * budgetScalingStep;
-    }
-
-    const eligibleBudgets = encounterBudgets
-        .filter((budgetConfig) => budgetConfig.floorCountRequirement <= clampedFloorCount)
-        .sort(
-            (budgetConfigA, budgetConfigB) =>
-                budgetConfigB.floorCountRequirement - budgetConfigA.floorCountRequirement,
-        );
-
-    if (!eligibleBudgets) {
-        return encounterBudgets[0].encounterBudget;
-    }
-
-    return eligibleBudgets[0].encounterBudget;
+    const budget = (1 + clampedFloorCount) * (BUDGET_SCALE + 2 * clampedFloorCount);
+    return budget;
 };
 
 const pickNextClosestCandidate = (
