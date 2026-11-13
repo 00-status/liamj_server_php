@@ -17,8 +17,6 @@ import { PlayerActions } from './components/PlayerActions';
 import { DungeonButton } from './components/DungeonButton';
 import { DungeonFloorTracker } from './components/DungeonFloorTracker';
 
-// TODO: Remove old formation deserializers.
-
 const DungeonCrawlerPage = () => {
     const windowWidth = useWindowWidth();
 
