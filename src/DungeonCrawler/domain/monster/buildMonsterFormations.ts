@@ -87,12 +87,12 @@ export const buildMonsterFormation = (
     };
 };
 
-const BUDGET_SCALE = 50;
+const BUDGET_SCALE = 10;
 
 export const getEncounterBudget = (clearedFloorCount: number): number => {
     const clampedFloorCount = Math.max(0, clearedFloorCount);
 
-    const budget = (1 + clampedFloorCount) * (BUDGET_SCALE + 2 * clampedFloorCount);
+    const budget = 5 * (1 + clampedFloorCount) * (BUDGET_SCALE + clampedFloorCount);
     return budget;
 };
 

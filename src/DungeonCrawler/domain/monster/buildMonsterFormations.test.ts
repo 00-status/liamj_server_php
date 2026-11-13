@@ -69,9 +69,9 @@ describe('getEncounterBudget', () => {
     });
 
     it('returns the configured budget for intermediate floors', () => {
-        expect(getEncounterBudget(1)).toBe(104);
-        expect(getEncounterBudget(4)).toBe(290);
-        expect(getEncounterBudget(7)).toBe(512);
+        expect(getEncounterBudget(1)).toBe(110);
+        expect(getEncounterBudget(4)).toBe(350);
+        expect(getEncounterBudget(7)).toBe(680);
     });
 });
 
@@ -123,14 +123,14 @@ describe('buildMonsterFormation', () => {
     });
 
     it('selects monsters within the 10% tolerance window', () => {
-        // Floor 1: budget = 104.
+        // Floor 1: budget = 110.
         // If splitDuo is selected (weight 0.5 each):
-        // targetThreat = 104 * 0.5 = 52.
-        // Tolerance: [52 * 0.9, 52 * 1.1] = [46.8, 57.2].
+        // targetThreat = 110 * 0.5 = 55.
+        // Tolerance: [55 * 0.9, 55 * 1.1] = [49.5, 60.5].
         // If we provide a monster with threat 55 and another with threat 40:
         const duoMonsters: MonsterCharacter[] = [
-            createTestMonster('m-100', 'Weakling', 40),
-            createTestMonster('m-130', 'Match', 55),
+            createTestMonster('m-100', 'Weakling', 48),
+            createTestMonster('m-130', 'Match', 60),
             createTestMonster('m-200', 'Strong', 100),
         ];
 
