@@ -1,9 +1,8 @@
-import rawMonsterFormations from '../../assets/monster_formations.json';
+import rawMonsters from '../../assets/monsters.json';
 
 import { applyAbilityEffects, applyPointModifierEffects } from './character/applyAbilityEffects';
 import { examplePlayerFormation } from './constants';
 import { pickMonsterAbility } from './monster/pickMonsterAbility';
-import { pickNewMonsterFormation } from './monster/pickNewMonsterFormation';
 import type {
     Ability,
     CombatEvent,
@@ -27,10 +26,10 @@ import { getCharacterStat } from './character/getCharacterStat';
 import type { Formation } from './formation/types';
 import type { Combatant } from './Combatant';
 import { MonsterCombatant } from './Combatant';
-import { deserializeFormations } from './formation/deserializeFormations';
 import { generateNewDungeonFloor } from './dungeonFloor/generateNewDungeonFloor';
 import { incrementDungeonFloorCurrentRoom } from './dungeonFloor/incrementDungeonFloorCurrentRoom';
 import { isMonsterCharacter } from './utils';
+import { buildMonsterFormation } from './monster/buildMonsterFormations';
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability; caster: Combatant; target: Combatant }
@@ -67,13 +66,13 @@ type DungeonCrawlerState = {
     combatEvents: CombatEvent[];
 };
 
-const monsterFormations: Formation[] = deserializeFormations(rawMonsterFormations);
+const monsters = rawMonsters as MonsterCharacter[];
 
 export const dungeonCrawlerInitialState: DungeonCrawlerState = {
     phase: GamePhase.SHOPPING,
     dungeonMetaData: { floorsTraversedCount: 0, roomsTraversedCount: 0 },
     currentDungeonFloor: generateNewDungeonFloor(),
-    monsterFormation: pickNewMonsterFormation(monsterFormations),
+    monsterFormation: buildMonsterFormation(0, monsters),
     playerFormation: examplePlayerFormation,
     playerInventory: [],
     playerWealth: 650,
@@ -293,7 +292,7 @@ export const dungeonCrawlerReducer = (
                         ? generateNewDungeonFloor()
                         : incrementDungeonFloorCurrentRoom(state.currentDungeonFloor),
                     playerFormation: updatedPlayerFormation,
-                    monsterFormation: pickNewMonsterFormation(monsterFormations),
+                    monsterFormation: buildMonsterFormation(newFloorsTraversedCount, monsters),
                     combatEvents: [],
                     combatLog: [],
                     playerWealth: state.playerWealth + monsterFormationValue,
