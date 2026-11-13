@@ -29,7 +29,7 @@ import { MonsterCombatant } from './Combatant';
 import { generateNewDungeonFloor } from './dungeonFloor/generateNewDungeonFloor';
 import { incrementDungeonFloorCurrentRoom } from './dungeonFloor/incrementDungeonFloorCurrentRoom';
 import { isMonsterCharacter } from './utils';
-import { buildMonsterFormation } from './monster/buildMonsterFormations';
+import { buildMonsterFormation } from './monster/buildMonsterFormation';
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability; caster: Combatant; target: Combatant }

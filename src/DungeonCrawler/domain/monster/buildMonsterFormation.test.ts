@@ -4,7 +4,7 @@ import { FormationTeam } from '../formation/types';
 import type { MonsterCharacter } from '../types';
 import { AbilityTarget, AbilityType, BaseStatNames, DamageType, TargetScope } from '../types';
 
-import { buildMonsterFormation, getEncounterBudget } from './buildMonsterFormations';
+import { buildMonsterFormation, getEncounterBudget } from './buildMonsterFormation';
 
 const createTestMonster = (id: string, name: string, threatScore: number): MonsterCharacter => {
     return {

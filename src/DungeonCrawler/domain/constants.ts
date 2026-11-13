@@ -197,7 +197,7 @@ const examplePlayer2: Character = {
                 {
                     id: crypto.randomUUID(),
                     name: 'Body Slam (Barry)',
-                    target: TargetScope.target_and_surrounding,
+                    target: TargetScope.target_and_adjacent,
                     scalingStat: BaseStatNames.magicAttack,
                     damageType: DamageType.MAGIC,
                     power: 0.8,
