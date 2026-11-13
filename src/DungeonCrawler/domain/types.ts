@@ -1,3 +1,13 @@
+export interface CombatantSlot {
+    position: Position;
+    threatWeight?: number;
+}
+
+export interface RoomTemplate {
+    floorCountRequirement: number;
+    slots: CombatantSlot[];
+}
+
 export interface DungeonMetaData {
     floorsTraversedCount: number;
     roomsTraversedCount: number;
@@ -17,7 +27,6 @@ export interface Position {
 export interface Character {
     id: string;
     name: string;
-    tier: CharacterTier;
     stats: BaseStats;
     currentHP: number;
     currentMP: number;
@@ -26,11 +35,8 @@ export interface Character {
     abilities: Ability[];
 }
 
-export enum CharacterTier {
-    ONE = 1,
-    TWO = 2,
-    THREE = 3,
-    FOUR = 4,
+export interface MonsterCharacter extends Character {
+    threatScore: number;
 }
 
 export enum BaseStatNames {

@@ -1,13 +1,12 @@
-import type { Character } from '../types';
-import { CharacterTier } from '../types';
+import type { MonsterCharacter } from '../types';
 
 import { calculateValueOfCharacters } from './calculateValueOfCharacters';
 
 describe('calculateValueOfCharacters', () => {
-    const buildMockCharacter = (tier: CharacterTier): Character => ({
+    const buildMockCharacter = (threatScore: number): MonsterCharacter => ({
         id: 'test-char',
         name: 'Test Character',
-        tier,
+        threatScore,
         currentHP: 100,
         currentMP: 10,
         stats: {
@@ -29,25 +28,16 @@ describe('calculateValueOfCharacters', () => {
         expect(calculateValueOfCharacters([])).toBe(0);
     });
 
-    it('returns wealth within tier 1 range', () => {
-        const char = buildMockCharacter(CharacterTier.ONE);
+    it('returns wealth equal to character threatScore', () => {
+        const char = buildMockCharacter(100);
         const wealth = calculateValueOfCharacters([char]);
-        expect(wealth).toBeGreaterThanOrEqual(10);
-        expect(wealth).toBeLessThanOrEqual(40);
-    });
-
-    it('returns wealth within tier 2 range', () => {
-        const char = buildMockCharacter(CharacterTier.TWO);
-        const wealth = calculateValueOfCharacters([char]);
-        expect(wealth).toBeGreaterThanOrEqual(50);
-        expect(wealth).toBeLessThanOrEqual(100);
+        expect(wealth).toEqual(100);
     });
 
     it('sums wealth across multiple characters', () => {
-        const char1 = buildMockCharacter(CharacterTier.ONE);
-        const char2 = buildMockCharacter(CharacterTier.TWO);
+        const char1 = buildMockCharacter(50);
+        const char2 = buildMockCharacter(50);
         const totalWealth = calculateValueOfCharacters([char1, char2]);
-        expect(totalWealth).toBeGreaterThanOrEqual(60);
-        expect(totalWealth).toBeLessThanOrEqual(140);
+        expect(totalWealth).toEqual(100);
     });
 });

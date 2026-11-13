@@ -6,7 +6,6 @@ import {
     AbilityTarget,
     AbilityType,
     BaseStatNames,
-    CharacterTier,
     CombatEventType,
     DamageScaleMethod,
     DamageType,
@@ -27,7 +26,6 @@ describe('applyAbilityEffects', () => {
         const character: Character = {
             id: characterID,
             name: 'Defender',
-            tier: CharacterTier.ONE,
             currentHP: 100,
             currentMP: 10,
             stats: {
