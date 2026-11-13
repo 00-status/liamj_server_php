@@ -11,6 +11,7 @@ import type {
     DungeonMetaData,
     Equipment,
     LogMessage,
+    MonsterCharacter,
 } from './types';
 import { BaseStatNames, CombatEventType, DamageType } from './types';
 import { selectTargetForMonster } from './monster/selectTargetForMonster';
@@ -29,6 +30,7 @@ import { MonsterCombatant } from './Combatant';
 import { deserializeFormations } from './formation/deserializeFormations';
 import { generateNewDungeonFloor } from './dungeonFloor/generateNewDungeonFloor';
 import { incrementDungeonFloorCurrentRoom } from './dungeonFloor/incrementDungeonFloorCurrentRoom';
+import { isMonsterCharacter } from './utils';
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability; caster: Combatant; target: Combatant }
@@ -274,9 +276,10 @@ export const dungeonCrawlerReducer = (
                     ? state.dungeonMetaData.floorsTraversedCount + 1
                     : state.dungeonMetaData.floorsTraversedCount;
 
-                const monsterFormationValue = calculateValueOfCharacters(
-                    updatedMonsterFormation.combatants.map((combatant) => combatant.character),
-                );
+                const monsterCharacters: MonsterCharacter[] = updatedMonsterFormation.combatants
+                    .map((combatant) => combatant.character)
+                    .filter(isMonsterCharacter);
+                const monsterFormationValue = calculateValueOfCharacters(monsterCharacters);
 
                 return {
                     ...state,

@@ -39,13 +39,6 @@ export interface MonsterCharacter extends Character {
     threatScore: number;
 }
 
-export enum CharacterTier {
-    ONE = 1,
-    TWO = 2,
-    THREE = 3,
-    FOUR = 4,
-}
-
 export enum BaseStatNames {
     healthPoints = 'healthPoints',
     magicPoints = 'magicPoints',
