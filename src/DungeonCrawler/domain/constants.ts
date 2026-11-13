@@ -2,14 +2,7 @@ import { Combatant } from './Combatant';
 import type { Formation } from './formation/types';
 import { FormationTeam } from './formation/types';
 import type { Ability, Character, RoomTemplate } from './types';
-import {
-    AbilityTarget,
-    AbilityType,
-    BaseStatNames,
-    CharacterTier,
-    DamageType,
-    TargetScope,
-} from './types';
+import { AbilityTarget, AbilityType, BaseStatNames, DamageType, TargetScope } from './types';
 
 export const attackAbility: Ability = {
     name: 'Attack',
@@ -42,7 +35,6 @@ export const attackAbility: Ability = {
 const examplePlayer: Character = {
     id: crypto.randomUUID(),
     name: 'Jimothy the Jacked',
-    tier: CharacterTier.ONE,
     currentHP: 100,
     currentMP: 6,
     stats: {
@@ -136,7 +128,6 @@ const examplePlayer: Character = {
 const examplePlayer2: Character = {
     id: crypto.randomUUID(),
     name: 'Barry the Built',
-    tier: CharacterTier.ONE,
     currentHP: 120,
     currentMP: 10,
     stats: {

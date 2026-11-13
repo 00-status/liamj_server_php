@@ -1,7 +1,7 @@
 import { fireEvent, render } from '@testing-library/react';
 
 import type { Character, Equipment } from '../../domain/types';
-import { CharacterTier, EquipmentSlot } from '../../domain/types';
+import { EquipmentSlot } from '../../domain/types';
 
 import { CharacterStatCard } from './CharacterStatCard';
 
@@ -9,7 +9,6 @@ describe('CharacterStatCard', () => {
     const mockCharacter: Character = {
         id: 'char-1',
         name: 'Hero',
-        tier: CharacterTier.ONE,
         currentHP: 50,
         currentMP: 20,
         stats: {

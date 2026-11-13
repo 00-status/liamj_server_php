@@ -27,7 +27,6 @@ export interface Position {
 export interface Character {
     id: string;
     name: string;
-    tier: CharacterTier;
     stats: BaseStats;
     currentHP: number;
     currentMP: number;

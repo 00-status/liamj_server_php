@@ -2,14 +2,7 @@ import { MonsterCombatant } from '../Combatant';
 import { attackAbility, roomTemplates } from '../constants';
 import { FormationTeam } from '../formation/types';
 import type { MonsterCharacter } from '../types';
-import {
-    AbilityTarget,
-    AbilityType,
-    BaseStatNames,
-    CharacterTier,
-    DamageType,
-    TargetScope,
-} from '../types';
+import { AbilityTarget, AbilityType, BaseStatNames, DamageType, TargetScope } from '../types';
 
 import { buildMonsterFormation, getEncounterBudget } from './buildMonsterFormations';
 
@@ -18,7 +11,6 @@ const createTestMonster = (id: string, name: string, threatScore: number): Monst
         id,
         name,
         threatScore,
-        tier: CharacterTier.ONE,
         currentHP: 50,
         currentMP: 10,
         stats: {

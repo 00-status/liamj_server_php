@@ -1,6 +1,6 @@
 import { Combatant } from '../Combatant';
 import type { ApplyDamageEvent, Character } from '../types';
-import { CharacterTier, CombatEventType, DamageType } from '../types';
+import { CombatEventType, DamageType } from '../types';
 
 import { generateDamageLogs } from './generateDamageLogs';
 
@@ -8,7 +8,6 @@ describe('generateDamageLogs', () => {
     const buildTestCharacter = (id: string, name: string): Character => ({
         id,
         name,
-        tier: CharacterTier.ONE,
         currentHP: 100,
         currentMP: 20,
         stats: {

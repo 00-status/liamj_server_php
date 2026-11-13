@@ -1,5 +1,5 @@
 import { MonsterCombatant } from '../Combatant';
-import type { Character, CharacterTier, Position } from '../types';
+import type { Character, Position } from '../types';
 
 import type { Formation } from './types';
 import { FormationTeam } from './types';
@@ -7,7 +7,6 @@ import { FormationTeam } from './types';
 interface RawCharacter {
     id?: string;
     name?: string;
-    tier?: CharacterTier;
     currentHP?: number;
     currentMP?: number;
     stats?: {
@@ -68,7 +67,6 @@ export const deserializeFormations = (raw: unknown): Formation[] => {
             if (
                 rawChar?.id === undefined ||
                 rawChar?.name === undefined ||
-                rawChar?.tier === undefined ||
                 rawChar?.currentHP === undefined ||
                 rawChar?.currentMP === undefined ||
                 rawChar?.modifiers === undefined ||
@@ -100,7 +98,6 @@ export const deserializeFormations = (raw: unknown): Formation[] => {
             const character: Character = {
                 id: rawChar.id,
                 name: rawChar.name,
-                tier: rawChar.tier,
                 currentHP: rawChar.currentHP,
                 currentMP: rawChar.currentMP,
                 stats: {

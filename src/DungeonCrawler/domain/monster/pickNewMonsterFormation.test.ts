@@ -3,14 +3,7 @@ import { attackAbility } from '../constants';
 import type { Formation } from '../formation/types';
 import { FormationTeam } from '../formation/types';
 import type { Character } from '../types';
-import {
-    AbilityTarget,
-    AbilityType,
-    BaseStatNames,
-    CharacterTier,
-    DamageType,
-    TargetScope,
-} from '../types';
+import { AbilityTarget, AbilityType, BaseStatNames, DamageType, TargetScope } from '../types';
 
 import { pickNewMonsterFormation } from './pickNewMonsterFormation';
 
@@ -18,7 +11,6 @@ const exampleMonsters: Character[] = [
     {
         id: crypto.randomUUID(),
         name: 'Skeleton',
-        tier: CharacterTier.ONE,
         currentHP: 50,
         currentMP: 0,
         stats: {
@@ -58,7 +50,6 @@ const exampleMonsters: Character[] = [
     {
         id: crypto.randomUUID(),
         name: 'Armoured Skeleton',
-        tier: CharacterTier.ONE,
         currentHP: 50,
         currentMP: 0,
         stats: {
@@ -98,7 +89,6 @@ const exampleMonsters: Character[] = [
     {
         id: crypto.randomUUID(),
         name: 'Zombie',
-        tier: CharacterTier.ONE,
         currentHP: 120,
         currentMP: 0,
         stats: {
