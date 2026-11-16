@@ -1,12 +1,10 @@
 import { Combatant } from './Combatant';
-import type { Character} from './types';
-import { CharacterTier } from './types';
+import type { Character } from './types';
 
 describe('Combatant', () => {
     const buildTestCharacter = (critChance = 0): Character => ({
         id: 'char-1',
         name: 'Hero',
-        tier: CharacterTier.ONE,
         currentHP: 100,
         currentMP: 20,
         stats: {
@@ -17,6 +15,7 @@ describe('Combatant', () => {
             defence: 10,
             magicDefence: 10,
             critChance,
+            mind: 10,
         },
         modifiers: [],
         pointModifiers: [],

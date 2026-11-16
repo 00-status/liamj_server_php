@@ -1,0 +1,35 @@
+.dungeon-floor-tracker {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: center;
+}
+
+.dungeon-floor-tracker__room {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    padding: 8px;
+
+    background-color: #000000;
+    border: 2px solid #f7f7f7;
+    border-radius: 4px;
+}
+
+.dungeon-floor-tracker__room--active {
+    color: #60af45;
+    border: 2px solid #60af45;
+}
+
+.dungeon-floor-tracker__room--completed {
+    border: 2px solid #4a4a4a;
+}
+
+@media only screen and (max-width: 600px) {
+    .dungeon-floor-tracker__room {
+        width: 45px;
+        height: 45px;
+    }
+}

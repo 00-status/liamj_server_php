@@ -1,3 +1,24 @@
+export interface CombatantSlot {
+    position: Position;
+    threatWeight?: number;
+}
+
+export interface RoomTemplate {
+    floorCountRequirement: number;
+    slots: CombatantSlot[];
+}
+
+export interface DungeonMetaData {
+    floorsTraversedCount: number;
+    roomsTraversedCount: number;
+}
+
+export interface DungeonFloor {
+    id: string;
+    roomCount: number;
+    currentRoom: number;
+}
+
 export interface Position {
     x: number;
     y: number;
@@ -6,7 +27,6 @@ export interface Position {
 export interface Character {
     id: string;
     name: string;
-    tier: CharacterTier;
     stats: BaseStats;
     currentHP: number;
     currentMP: number;
@@ -15,11 +35,8 @@ export interface Character {
     abilities: Ability[];
 }
 
-export enum CharacterTier {
-    ONE = 1,
-    TWO = 2,
-    THREE = 3,
-    FOUR = 4,
+export interface MonsterCharacter extends Character {
+    threatScore: number;
 }
 
 export enum BaseStatNames {
@@ -30,6 +47,7 @@ export enum BaseStatNames {
     defence = 'defence',
     magicDefence = 'magicDefence',
     critChance = 'critChance',
+    mind = 'mind',
 }
 
 export interface BaseStats {
@@ -40,6 +58,7 @@ export interface BaseStats {
     [BaseStatNames.defence]: number;
     [BaseStatNames.magicDefence]: number;
     [BaseStatNames.critChance]: number;
+    [BaseStatNames.mind]: number;
 }
 
 export enum DamageScaleMethod {
@@ -109,18 +128,18 @@ export interface AbilityEffect {
     id: string;
     name: string;
     target: TargetScope;
+    scalingStat: BaseStatNames;
     duration: number;
+    power: number;
 }
 
 export interface PointEffect extends AbilityEffect {
     damageType: DamageType;
-    power: number;
 }
 
 export interface StatusEffect extends AbilityEffect {
-    stat: keyof BaseStats;
-    value: number;
-    damageScaleType: DamageScaleMethod;
+    targetStat: keyof BaseStats;
+    isBuff: boolean;
 }
 
 export enum DamageType {

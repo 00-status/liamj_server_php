@@ -1,7 +1,7 @@
 import { fireEvent, render } from '@testing-library/react';
 
-import type { Character, Equipment} from '../../domain/types';
-import { CharacterTier, EquipmentSlot } from '../../domain/types';
+import type { Character, Equipment } from '../../domain/types';
+import { EquipmentSlot } from '../../domain/types';
 
 import { CharacterStatCard } from './CharacterStatCard';
 
@@ -9,7 +9,6 @@ describe('CharacterStatCard', () => {
     const mockCharacter: Character = {
         id: 'char-1',
         name: 'Hero',
-        tier: CharacterTier.ONE,
         currentHP: 50,
         currentMP: 20,
         stats: {
@@ -20,6 +19,7 @@ describe('CharacterStatCard', () => {
             magicAttack: 8,
             magicDefence: 4,
             critChance: 5,
+            mind: 10,
         },
         abilities: [],
         modifiers: [],

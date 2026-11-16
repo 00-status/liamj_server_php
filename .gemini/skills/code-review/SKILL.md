@@ -17,16 +17,17 @@ To perform the review efficiently, systematically collect the workspace state us
 
 1.  **Map Changed Files:** Get a clean list of modified, added, or deleted files first:
     git diff --no-ext-diff --name-status main...HEAD
-2.  **Execute Static Analysis & Type Checking:** Let the workspace tooling identify baseline syntax/type issues:
-    - For TypeScript/JavaScript: `npx tsc --noEmit` (or linting commands defined in `package.json`).
-    - For PHP: Run syntax checks or any static analysis tooling if configured.
-3.  **Inspect Targeted Changes:** Use selective, file-specific diffs or standard read tools to examine files identified in step 1:
-    git diff --no-ext-diff main...HEAD -- <file-path>
+2.  **Execute Static Analysis, Type Checking & Tests:** Let the workspace tooling identify baseline syntax, type, and test issues:
+    - For TypeScript/JavaScript: `npx tsc --noEmit && npm run lint && npm test`
+    - For PHP: Run syntax checks, test suites, or any static analysis tooling if configured.
+3.  **Inspect Targeted Changes:** Use selective, file-specific diffs with tight context (`-U2`) or standard read tools to examine Added (`A`) and Modified (`M`) source files identified in step 1. Skip deleted files, lockfiles (`package-lock.json`, `composer.lock`), and build artifacts:
+    git diff -U2 --no-ext-diff main...HEAD -- <file-path>
 
 ## 2. Review Criteria
 
 Evaluate the diff against the following standards:
 
+- **Workspace Conventions:** Adherence to repository guidelines defined in `GEMINI.md` (e.g., full variable names, strict typing without `any`, test coverage for pure helper functions, immutability patterns, and component structure).
 - **Architecture & Design:** Adherence to SOLID principles and Onion Architecture (proper layer separation: Domain, Application, Infrastructure, UI).
 - **Code Clarity & Maintainability:** Readability, expressive naming, low complexity, and DRY principles.
 - **Security:** OWASP risks (e.g., SQLi, XSS, insecure dependencies, sensitive data leaks).

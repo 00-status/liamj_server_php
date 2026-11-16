@@ -18,7 +18,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -33,6 +34,7 @@
                                     "id": "d61d6f79-6421-45ec-bbbc-517ecf4db30f",
                                     "name": "Attack (Skeleton)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -41,6 +43,7 @@
                                     "id": "6e4f6e23-1ce7-4d1a-810b-c1bd573a4ba8",
                                     "name": "MP Restore (Skeleton)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -59,10 +62,11 @@
                                     "id": "8ebfdbd1-2772-4a98-98ab-e32428fd7e31",
                                     "name": "Skeletal Phalanx",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "duration": 2,
-                                    "stat": "defence",
-                                    "value": 10,
-                                    "damageScaleType": "FLAT"
+                                    "targetStat": "defence",
+                                    "power": 1.0,
+                                    "isBuff": true
                                 }
                             ]
                         }
@@ -90,7 +94,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -105,6 +110,7 @@
                                     "id": "d61d6f79-6421-45ec-bbbc-517ecf4db30f",
                                     "name": "Attack (Skeleton)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -113,6 +119,7 @@
                                     "id": "6e4f6e23-1ce7-4d1a-810b-c1bd573a4ba8",
                                     "name": "MP Restore (Skeleton)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -131,10 +138,11 @@
                                     "id": "8ebfdbd1-2772-4a98-98ab-e32428fd7e31",
                                     "name": "Skeletal Phalanx",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "duration": 2,
-                                    "stat": "defence",
-                                    "value": 10,
-                                    "damageScaleType": "FLAT"
+                                    "targetStat": "defence",
+                                    "power": 1.0,
+                                    "isBuff": true
                                 }
                             ]
                         }
@@ -162,7 +170,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -177,6 +186,7 @@
                                     "id": "d61d6f79-6421-45ec-bbbc-517ecf4db30f",
                                     "name": "Attack (Skeleton)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -185,6 +195,7 @@
                                     "id": "6e4f6e23-1ce7-4d1a-810b-c1bd573a4ba8",
                                     "name": "MP Restore (Skeleton)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -203,10 +214,11 @@
                                     "id": "8ebfdbd1-2772-4a98-98ab-e32428fd7e31",
                                     "name": "Skeletal Phalanx",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "duration": 2,
-                                    "stat": "defence",
-                                    "value": 10,
-                                    "damageScaleType": "FLAT"
+                                    "targetStat": "defence",
+                                    "power": 1.0,
+                                    "isBuff": true
                                 }
                             ]
                         }
@@ -244,7 +256,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -259,6 +272,7 @@
                                     "id": "d61d6f79-6421-45ec-bbbc-517ecf4db30f",
                                     "name": "Attack (Skeleton)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -267,6 +281,7 @@
                                     "id": "6e4f6e23-1ce7-4d1a-810b-c1bd573a4ba8",
                                     "name": "MP Restore (Skeleton)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -285,10 +300,11 @@
                                     "id": "8ebfdbd1-2772-4a98-98ab-e32428fd7e31",
                                     "name": "Skeletal Phalanx",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "duration": 2,
-                                    "stat": "defence",
-                                    "value": 10,
-                                    "damageScaleType": "FLAT"
+                                    "targetStat": "defence",
+                                    "power": 1.0,
+                                    "isBuff": true
                                 }
                             ]
                         }
@@ -316,7 +332,8 @@
                         "magicAttack": 20,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -331,6 +348,7 @@
                                     "id": "54bde359-c583-465e-8ae1-fd8ab3785f4f",
                                     "name": "Attack (Skulker Demon)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -339,6 +357,7 @@
                                     "id": "0dcdbea9-0e6e-44bc-8c07-d48dd9faa3a5",
                                     "name": "MP Restore (Skulker Demon)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -356,6 +375,7 @@
                                     "id": "1c4bac6c-620f-4578-b20d-ba129cba193f",
                                     "name": "Corrupting Presence (Skulker Demon)",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "damageType": "MAGIC",
                                     "power": 0.5,
                                     "duration": 0
@@ -364,6 +384,7 @@
                                     "id": "237517b5-5eb4-4f1f-9a3f-f4c208f0e6f2",
                                     "name": "Corrupting Presence (Skulker Demon)",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "damageType": "MAGIC",
                                     "power": 0.5,
                                     "duration": 3
@@ -405,7 +426,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -420,6 +442,7 @@
                                     "id": "d61d6f79-6421-45ec-bbbc-517ecf4db30f",
                                     "name": "Attack (Skeleton)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -428,6 +451,7 @@
                                     "id": "6e4f6e23-1ce7-4d1a-810b-c1bd573a4ba8",
                                     "name": "MP Restore (Skeleton)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -446,10 +470,11 @@
                                     "id": "8ebfdbd1-2772-4a98-98ab-e32428fd7e31",
                                     "name": "Skeletal Phalanx",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "duration": 2,
-                                    "stat": "defence",
-                                    "value": 10,
-                                    "damageScaleType": "FLAT"
+                                    "targetStat": "defence",
+                                    "power": 1.0,
+                                    "isBuff": true
                                 }
                             ]
                         }
@@ -477,7 +502,8 @@
                         "magicAttack": 10,
                         "defence": 5,
                         "magicDefence": 5,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -492,6 +518,7 @@
                                     "id": "6a060656-6758-44af-96e5-285f23e95f06",
                                     "name": "Attack (Zombie)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -500,6 +527,7 @@
                                     "id": "7c91c009-db92-4b66-a196-e1c784bf1425",
                                     "name": "MP Restore (Zombie)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -517,6 +545,7 @@
                                     "id": "9db9711d-8326-43a3-9097-4c7251aac2b4",
                                     "name": "Bite (Zombie)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1.5,
                                     "duration": 0
@@ -548,7 +577,8 @@
                         "magicAttack": 10,
                         "defence": 5,
                         "magicDefence": 5,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -563,6 +593,7 @@
                                     "id": "6a060656-6758-44af-96e5-285f23e95f06",
                                     "name": "Attack (Zombie)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -571,6 +602,7 @@
                                     "id": "7c91c009-db92-4b66-a196-e1c784bf1425",
                                     "name": "MP Restore (Zombie)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -588,6 +620,7 @@
                                     "id": "9db9711d-8326-43a3-9097-4c7251aac2b4",
                                     "name": "Bite (Zombie)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1.5,
                                     "duration": 0
@@ -629,7 +662,8 @@
                         "magicAttack": 20,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -644,6 +678,7 @@
                                     "id": "54bde359-c583-465e-8ae1-fd8ab3785f4f",
                                     "name": "Attack (Skulker Demon)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -652,6 +687,7 @@
                                     "id": "0dcdbea9-0e6e-44bc-8c07-d48dd9faa3a5",
                                     "name": "MP Restore (Skulker Demon)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -669,6 +705,7 @@
                                     "id": "1c4bac6c-620f-4578-b20d-ba129cba193f",
                                     "name": "Corrupting Presence (Skulker Demon)",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "damageType": "MAGIC",
                                     "power": 0.5,
                                     "duration": 0
@@ -677,6 +714,7 @@
                                     "id": "237517b5-5eb4-4f1f-9a3f-f4c208f0e6f2",
                                     "name": "Corrupting Presence (Skulker Demon)",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "damageType": "MAGIC",
                                     "power": 0.5,
                                     "duration": 3
@@ -708,7 +746,8 @@
                         "magicAttack": 20,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -723,6 +762,7 @@
                                     "id": "54bde359-c583-465e-8ae1-fd8ab3785f4f",
                                     "name": "Attack (Skulker Demon)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -731,6 +771,7 @@
                                     "id": "0dcdbea9-0e6e-44bc-8c07-d48dd9faa3a5",
                                     "name": "MP Restore (Skulker Demon)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -748,6 +789,7 @@
                                     "id": "1c4bac6c-620f-4578-b20d-ba129cba193f",
                                     "name": "Corrupting Presence (Skulker Demon)",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "damageType": "MAGIC",
                                     "power": 0.5,
                                     "duration": 0
@@ -756,6 +798,7 @@
                                     "id": "237517b5-5eb4-4f1f-9a3f-f4c208f0e6f2",
                                     "name": "Corrupting Presence (Skulker Demon)",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "damageType": "MAGIC",
                                     "power": 0.5,
                                     "duration": 3
@@ -787,7 +830,8 @@
                         "magicAttack": 20,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -802,6 +846,7 @@
                                     "id": "54bde359-c583-465e-8ae1-fd8ab3785f4f",
                                     "name": "Attack (Skulker Demon)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -810,6 +855,7 @@
                                     "id": "0dcdbea9-0e6e-44bc-8c07-d48dd9faa3a5",
                                     "name": "MP Restore (Skulker Demon)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -827,6 +873,7 @@
                                     "id": "1c4bac6c-620f-4578-b20d-ba129cba193f",
                                     "name": "Corrupting Presence (Skulker Demon)",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "damageType": "MAGIC",
                                     "power": 0.5,
                                     "duration": 0
@@ -835,6 +882,7 @@
                                     "id": "237517b5-5eb4-4f1f-9a3f-f4c208f0e6f2",
                                     "name": "Corrupting Presence (Skulker Demon)",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "damageType": "MAGIC",
                                     "power": 0.5,
                                     "duration": 3
@@ -866,7 +914,8 @@
                         "magicAttack": 20,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -881,6 +930,7 @@
                                     "id": "54bde359-c583-465e-8ae1-fd8ab3785f4f",
                                     "name": "Attack (Skulker Demon)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -889,6 +939,7 @@
                                     "id": "0dcdbea9-0e6e-44bc-8c07-d48dd9faa3a5",
                                     "name": "MP Restore (Skulker Demon)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -906,6 +957,7 @@
                                     "id": "1c4bac6c-620f-4578-b20d-ba129cba193f",
                                     "name": "Corrupting Presence (Skulker Demon)",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "damageType": "MAGIC",
                                     "power": 0.5,
                                     "duration": 0
@@ -914,6 +966,7 @@
                                     "id": "237517b5-5eb4-4f1f-9a3f-f4c208f0e6f2",
                                     "name": "Corrupting Presence (Skulker Demon)",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "damageType": "MAGIC",
                                     "power": 0.5,
                                     "duration": 3
@@ -955,7 +1008,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -970,6 +1024,7 @@
                                     "id": "91b00c21-db31-44a9-afcb-e6bf1595a980",
                                     "name": "Claws (Vampire)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -978,6 +1033,7 @@
                                     "id": "a3224d97-9125-4844-87ee-a79801ee2b94",
                                     "name": "Claws (Vampire)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -986,6 +1042,7 @@
                                     "id": "ff91e320-9c7f-4700-b75d-6658fb3117c0",
                                     "name": "MP Restore (Vampire)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -1003,6 +1060,7 @@
                                     "id": "56e2485a-3991-4984-9280-a37a6fc23b2e",
                                     "name": "Umbral Strikes (Vampire)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -1011,6 +1069,7 @@
                                     "id": "9e0eb135-9761-49e9-9942-deecc0aff751",
                                     "name": "Umbral Strikes (Vampire)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -1019,6 +1078,7 @@
                                     "id": "fc146662-de1a-40c3-9837-24981a3a7ef5",
                                     "name": "Umbral Strikes (Vampire)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -1050,7 +1110,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -1065,6 +1126,7 @@
                                     "id": "d61d6f79-6421-45ec-bbbc-517ecf4db30f",
                                     "name": "Attack (Skeleton)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -1073,6 +1135,7 @@
                                     "id": "6e4f6e23-1ce7-4d1a-810b-c1bd573a4ba8",
                                     "name": "MP Restore (Skeleton)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -1091,10 +1154,11 @@
                                     "id": "8ebfdbd1-2772-4a98-98ab-e32428fd7e31",
                                     "name": "Skeletal Phalanx",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "duration": 2,
-                                    "stat": "defence",
-                                    "value": 10,
-                                    "damageScaleType": "FLAT"
+                                    "targetStat": "defence",
+                                    "power": 1.0,
+                                    "isBuff": true
                                 }
                             ]
                         }
@@ -1122,7 +1186,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -1137,6 +1202,7 @@
                                     "id": "d61d6f79-6421-45ec-bbbc-517ecf4db30f",
                                     "name": "Attack (Skeleton)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -1145,6 +1211,7 @@
                                     "id": "6e4f6e23-1ce7-4d1a-810b-c1bd573a4ba8",
                                     "name": "MP Restore (Skeleton)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -1163,10 +1230,11 @@
                                     "id": "8ebfdbd1-2772-4a98-98ab-e32428fd7e31",
                                     "name": "Skeletal Phalanx",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "duration": 2,
-                                    "stat": "defence",
-                                    "value": 10,
-                                    "damageScaleType": "FLAT"
+                                    "targetStat": "defence",
+                                    "power": 1.0,
+                                    "isBuff": true
                                 }
                             ]
                         }
@@ -1204,7 +1272,8 @@
                         "magicAttack": 30,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -1219,6 +1288,7 @@
                                     "id": "62ec087c-adb5-41c0-a788-2419518ca8d2",
                                     "name": "Shadowbolt (Warlock)",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "damageType": "MAGIC",
                                     "power": 1,
                                     "duration": 0
@@ -1227,6 +1297,7 @@
                                     "id": "899cc4b7-445b-4a04-922b-73b510eaa18d",
                                     "name": "MP Restore (Warlock)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -1244,6 +1315,7 @@
                                     "id": "fff04af6-8448-429f-9e40-da759287e605",
                                     "name": "Wither in the Dark (Warlock)",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "damageType": "MAGIC",
                                     "power": 2,
                                     "duration": 0
@@ -1275,7 +1347,8 @@
                         "magicAttack": 20,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -1290,6 +1363,7 @@
                                     "id": "54bde359-c583-465e-8ae1-fd8ab3785f4f",
                                     "name": "Attack (Skulker Demon)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -1298,6 +1372,7 @@
                                     "id": "0dcdbea9-0e6e-44bc-8c07-d48dd9faa3a5",
                                     "name": "MP Restore (Skulker Demon)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -1315,6 +1390,7 @@
                                     "id": "1c4bac6c-620f-4578-b20d-ba129cba193f",
                                     "name": "Corrupting Presence (Skulker Demon)",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "damageType": "MAGIC",
                                     "power": 0.5,
                                     "duration": 0
@@ -1323,6 +1399,7 @@
                                     "id": "237517b5-5eb4-4f1f-9a3f-f4c208f0e6f2",
                                     "name": "Corrupting Presence (Skulker Demon)",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "damageType": "MAGIC",
                                     "power": 0.5,
                                     "duration": 3
@@ -1354,7 +1431,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -1369,6 +1447,7 @@
                                     "id": "d61d6f79-6421-45ec-bbbc-517ecf4db30f",
                                     "name": "Attack (Skeleton)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -1377,6 +1456,7 @@
                                     "id": "6e4f6e23-1ce7-4d1a-810b-c1bd573a4ba8",
                                     "name": "MP Restore (Skeleton)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -1395,10 +1475,11 @@
                                     "id": "8ebfdbd1-2772-4a98-98ab-e32428fd7e31",
                                     "name": "Skeletal Phalanx",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "duration": 2,
-                                    "stat": "defence",
-                                    "value": 10,
-                                    "damageScaleType": "FLAT"
+                                    "targetStat": "defence",
+                                    "power": 1.0,
+                                    "isBuff": true
                                 }
                             ]
                         }
@@ -1426,7 +1507,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -1441,6 +1523,7 @@
                                     "id": "d61d6f79-6421-45ec-bbbc-517ecf4db30f",
                                     "name": "Attack (Skeleton)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -1449,6 +1532,7 @@
                                     "id": "6e4f6e23-1ce7-4d1a-810b-c1bd573a4ba8",
                                     "name": "MP Restore (Skeleton)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -1467,10 +1551,11 @@
                                     "id": "8ebfdbd1-2772-4a98-98ab-e32428fd7e31",
                                     "name": "Skeletal Phalanx",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "duration": 2,
-                                    "stat": "defence",
-                                    "value": 10,
-                                    "damageScaleType": "FLAT"
+                                    "targetStat": "defence",
+                                    "power": 1.0,
+                                    "isBuff": true
                                 }
                             ]
                         }
@@ -1498,7 +1583,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -1513,6 +1599,7 @@
                                     "id": "d61d6f79-6421-45ec-bbbc-517ecf4db30f",
                                     "name": "Attack (Skeleton)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -1521,6 +1608,7 @@
                                     "id": "6e4f6e23-1ce7-4d1a-810b-c1bd573a4ba8",
                                     "name": "MP Restore (Skeleton)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -1539,10 +1627,11 @@
                                     "id": "8ebfdbd1-2772-4a98-98ab-e32428fd7e31",
                                     "name": "Skeletal Phalanx",
                                     "target": "target",
+                                    "scalingStat": "magicAttack",
                                     "duration": 2,
-                                    "stat": "defence",
-                                    "value": 10,
-                                    "damageScaleType": "FLAT"
+                                    "targetStat": "defence",
+                                    "power": 1.0,
+                                    "isBuff": true
                                 }
                             ]
                         }
@@ -1580,7 +1669,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -1595,6 +1685,7 @@
                                     "id": "91b00c21-db31-44a9-afcb-e6bf1595a980",
                                     "name": "Claws (Vampire)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -1603,6 +1694,7 @@
                                     "id": "a3224d97-9125-4844-87ee-a79801ee2b94",
                                     "name": "Claws (Vampire)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -1611,6 +1703,7 @@
                                     "id": "ff91e320-9c7f-4700-b75d-6658fb3117c0",
                                     "name": "MP Restore (Vampire)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -1628,6 +1721,7 @@
                                     "id": "56e2485a-3991-4984-9280-a37a6fc23b2e",
                                     "name": "Umbral Strikes (Vampire)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -1636,6 +1730,7 @@
                                     "id": "9e0eb135-9761-49e9-9942-deecc0aff751",
                                     "name": "Umbral Strikes (Vampire)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -1644,6 +1739,7 @@
                                     "id": "fc146662-de1a-40c3-9837-24981a3a7ef5",
                                     "name": "Umbral Strikes (Vampire)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -1675,7 +1771,8 @@
                         "magicAttack": 10,
                         "defence": 10,
                         "magicDefence": 10,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -1690,6 +1787,7 @@
                                     "id": "91b00c21-db31-44a9-afcb-e6bf1595a980",
                                     "name": "Claws (Vampire)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -1698,6 +1796,7 @@
                                     "id": "a3224d97-9125-4844-87ee-a79801ee2b94",
                                     "name": "Claws (Vampire)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -1706,6 +1805,7 @@
                                     "id": "ff91e320-9c7f-4700-b75d-6658fb3117c0",
                                     "name": "MP Restore (Vampire)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -1723,6 +1823,7 @@
                                     "id": "56e2485a-3991-4984-9280-a37a6fc23b2e",
                                     "name": "Umbral Strikes (Vampire)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -1731,6 +1832,7 @@
                                     "id": "9e0eb135-9761-49e9-9942-deecc0aff751",
                                     "name": "Umbral Strikes (Vampire)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -1739,6 +1841,7 @@
                                     "id": "fc146662-de1a-40c3-9837-24981a3a7ef5",
                                     "name": "Umbral Strikes (Vampire)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -1780,7 +1883,8 @@
                         "magicAttack": 10,
                         "defence": 5,
                         "magicDefence": 5,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -1795,6 +1899,7 @@
                                     "id": "6a060656-6758-44af-96e5-285f23e95f06",
                                     "name": "Attack (Zombie)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -1803,6 +1908,7 @@
                                     "id": "7c91c009-db92-4b66-a196-e1c784bf1425",
                                     "name": "MP Restore (Zombie)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -1820,6 +1926,7 @@
                                     "id": "9db9711d-8326-43a3-9097-4c7251aac2b4",
                                     "name": "Bite (Zombie)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1.5,
                                     "duration": 0
@@ -1851,7 +1958,8 @@
                         "magicAttack": 10,
                         "defence": 5,
                         "magicDefence": 5,
-                        "critChance": 0
+                        "critChance": 0,
+                        "mind": 0
                     },
                     "modifiers": [],
                     "pointModifiers": [],
@@ -1866,6 +1974,7 @@
                                     "id": "6a060656-6758-44af-96e5-285f23e95f06",
                                     "name": "Attack (Zombie)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1,
                                     "duration": 0
@@ -1874,6 +1983,7 @@
                                     "id": "7c91c009-db92-4b66-a196-e1c784bf1425",
                                     "name": "MP Restore (Zombie)",
                                     "target": "self",
+                                    "scalingStat": "magicPoints",
                                     "damageType": "MAGIC_RESTORE",
                                     "power": 0.1,
                                     "duration": 0
@@ -1891,6 +2001,7 @@
                                     "id": "9db9711d-8326-43a3-9097-4c7251aac2b4",
                                     "name": "Bite (Zombie)",
                                     "target": "target",
+                                    "scalingStat": "attack",
                                     "damageType": "PHYSICAL",
                                     "power": 1.5,
                                     "duration": 0

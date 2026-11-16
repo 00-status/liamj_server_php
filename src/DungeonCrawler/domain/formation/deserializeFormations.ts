@@ -1,13 +1,12 @@
 import { MonsterCombatant } from '../Combatant';
-import type { Character, CharacterTier, Position } from '../types';
+import type { Character, Position } from '../types';
 
-import type { Formation} from './types';
+import type { Formation } from './types';
 import { FormationTeam } from './types';
 
 interface RawCharacter {
     id?: string;
     name?: string;
-    tier?: CharacterTier;
     currentHP?: number;
     currentMP?: number;
     stats?: {
@@ -18,6 +17,7 @@ interface RawCharacter {
         defence?: number;
         magicDefence?: number;
         critChance?: number;
+        mind?: number;
     };
     modifiers?: Character['modifiers'];
     pointModifiers?: Character['pointModifiers'];
@@ -67,7 +67,6 @@ export const deserializeFormations = (raw: unknown): Formation[] => {
             if (
                 rawChar?.id === undefined ||
                 rawChar?.name === undefined ||
-                rawChar?.tier === undefined ||
                 rawChar?.currentHP === undefined ||
                 rawChar?.currentMP === undefined ||
                 rawChar?.modifiers === undefined ||
@@ -90,7 +89,8 @@ export const deserializeFormations = (raw: unknown): Formation[] => {
                 stats?.magicAttack === undefined ||
                 stats?.defence === undefined ||
                 stats?.magicDefence === undefined ||
-                stats?.critChance === undefined
+                stats?.critChance === undefined ||
+                stats?.mind === undefined
             ) {
                 throw new Error('Invalid Character Stats');
             }
@@ -98,7 +98,6 @@ export const deserializeFormations = (raw: unknown): Formation[] => {
             const character: Character = {
                 id: rawChar.id,
                 name: rawChar.name,
-                tier: rawChar.tier,
                 currentHP: rawChar.currentHP,
                 currentMP: rawChar.currentMP,
                 stats: {
@@ -109,6 +108,7 @@ export const deserializeFormations = (raw: unknown): Formation[] => {
                     defence: stats.defence,
                     magicDefence: stats.magicDefence,
                     critChance: stats.critChance,
+                    mind: stats.mind,
                 },
                 modifiers: rawChar.modifiers,
                 pointModifiers: rawChar.pointModifiers,

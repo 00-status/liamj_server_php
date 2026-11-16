@@ -1,16 +1,11 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import './player-actions.css';
-import type { Ability, Character} from '../domain/types';
-import { AbilityType, DamageType } from '../domain/types';
-import { calculatePrimaryAbilityDamageType } from '../domain/character/CalculatePrimaryAbilityDamageType';
+import type { Ability, Character } from '../domain/types';
+import { AbilityType, BaseStatNames } from '../domain/types';
+import { calculatePrimaryAbilityStat } from '../domain/character/calculatePrimaryAbilityStat';
 
 import { DungeonButton, DungeonButtonTheme } from './DungeonButton';
-
-enum MenuState {
-    base = 'Base',
-    magic = 'Magic',
-}
 
 type MenuOption = {
     action: () => void;
@@ -34,8 +29,6 @@ export const PlayerActions = ({
     currentAbility,
     onPlayerAbility,
 }: Props) => {
-    const [menuState, setMenuState] = useState<MenuState>(MenuState.base);
-
     const actions = useMemo((): Array<MenuOption> => {
         const mapAbilityToOption = (ability: Ability): MenuOption => ({
             action: () => onPlayerAbility(ability),
@@ -46,41 +39,16 @@ export const PlayerActions = ({
             isSelected: currentAbility?.name === ability.name && canPlayerTakeActions,
         });
 
-        switch (menuState) {
-            case MenuState.base: {
-                const defaultAbilities = player.abilities
-                    .filter((ability) => ability.type === AbilityType.default)
-                    .map((ability) => mapAbilityToOption(ability));
+        const defaultAbilities = player.abilities
+            .filter((ability) => ability.type === AbilityType.default)
+            .map((ability) => mapAbilityToOption(ability));
 
-                return [
-                    ...defaultAbilities,
-                    {
-                        action: () => setMenuState(MenuState.magic),
-                        label: 'Magic',
-                        cost: 0,
-                        buttonTheme: DungeonButtonTheme.DEFAULT,
-                    },
-                ];
-            }
-            case MenuState.magic: {
-                const magicAbilities = player.abilities
-                    .filter((ability) => ability.type === AbilityType.magic)
-                    .map((ability) => mapAbilityToOption(ability));
+        const magicAbilities = player.abilities
+            .filter((ability) => ability.type === AbilityType.magic)
+            .map((ability) => mapAbilityToOption(ability));
 
-                return [
-                    {
-                        action: () => setMenuState(MenuState.base),
-                        label: 'Back',
-                        cost: 0,
-                        buttonTheme: DungeonButtonTheme.DEFAULT,
-                    },
-                    ...magicAbilities,
-                ];
-            }
-            default:
-                return [];
-        }
-    }, [player, canPlayerTakeActions, currentAbility, onPlayerAbility, menuState]);
+        return [...defaultAbilities, ...magicAbilities];
+    }, [player, canPlayerTakeActions, currentAbility, onPlayerAbility]);
 
     return (
         <div className="player-actions">
@@ -114,13 +82,15 @@ export const PlayerActions = ({
 };
 
 const calculateActionTheme = (ability: Ability) => {
-    const damageType = calculatePrimaryAbilityDamageType(ability);
+    const primaryStat = calculatePrimaryAbilityStat(ability);
 
-    switch (damageType) {
-        case DamageType.PHYSICAL:
+    switch (primaryStat) {
+        case BaseStatNames.attack:
             return DungeonButtonTheme.PHYSICAL;
-        case DamageType.MAGIC:
+        case BaseStatNames.magicAttack:
             return DungeonButtonTheme.MAGIC;
+        case BaseStatNames.mind:
+            return DungeonButtonTheme.MIND;
         default:
             return DungeonButtonTheme.DEFAULT;
     }

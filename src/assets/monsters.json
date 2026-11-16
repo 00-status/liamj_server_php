@@ -1,0 +1,1469 @@
+[
+    {
+        "id": "d715e70b-156e-4a33-939f-dadbb43af027",
+        "name": "Shade",
+        "threatScore": 15,
+        "stats": {
+            "healthPoints": 50,
+            "magicPoints": 3,
+            "attack": 0,
+            "magicAttack": 15,
+            "defence": 40,
+            "magicDefence": 10,
+            "critChance": 0,
+            "mind": 0
+        },
+        "currentHP": 50,
+        "currentMP": 3,
+        "modifiers": [],
+        "pointModifiers": [],
+        "abilities": [
+            {
+                "name": "Arcane Bolt",
+                "cost": 0,
+                "type": "default",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "d70930da-e7c6-44f0-b9ad-c798e430e9ee",
+                        "name": "basic_magic_attack",
+                        "target": "target",
+                        "scalingStat": "magicAttack",
+                        "duration": 0,
+                        "damageType": "MAGIC",
+                        "power": 1
+                    },
+                    {
+                        "id": "10dab2b9-b7b8-4e8c-ad5e-24820c6797e9",
+                        "name": "basic_magiic_restore",
+                        "target": "self",
+                        "scalingStat": "magicPoints",
+                        "duration": 0,
+                        "damageType": "MAGIC_RESTORE",
+                        "power": 0.1
+                    }
+                ],
+                "statusEffects": []
+            },
+            {
+                "name": "Corrupting Strike",
+                "cost": 2,
+                "type": "magic",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "05ae3dd9-172e-4a23-a9be-3250b8b404fa",
+                        "name": "default_damage_over_time",
+                        "target": "target",
+                        "scalingStat": "magicAttack",
+                        "duration": 3,
+                        "damageType": "MAGIC",
+                        "power": 0.5
+                    }
+                ],
+                "statusEffects": []
+            }
+        ]
+    },
+    {
+        "id": "9b68cffe-bc56-4002-b7a3-fa145bfaa3eb",
+        "name": "Skeleton",
+        "threatScore": 15,
+        "stats": {
+            "healthPoints": 50,
+            "magicPoints": 2,
+            "attack": 10,
+            "magicAttack": 10,
+            "defence": 10,
+            "magicDefence": 10,
+            "critChance": 0,
+            "mind": 0
+        },
+        "currentHP": 50,
+        "currentMP": 2,
+        "modifiers": [],
+        "pointModifiers": [],
+        "abilities": [
+            {
+                "name": "Strike",
+                "cost": 0,
+                "type": "default",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "ab44f309-db27-4162-a7a9-af4cbcdd30bf",
+                        "name": "basic_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 1
+                    },
+                    {
+                        "id": "cec4e954-4c19-4671-ac30-4b0d03bf5818",
+                        "name": "basic_magiic_restore",
+                        "target": "self",
+                        "scalingStat": "magicPoints",
+                        "duration": 0,
+                        "damageType": "MAGIC_RESTORE",
+                        "power": 0.1
+                    }
+                ],
+                "statusEffects": []
+            },
+            {
+                "name": "Cleave",
+                "cost": 2,
+                "type": "magic",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "0df0a517-5de8-45e0-89bc-54546bddb36c",
+                        "name": "strong_cleave",
+                        "target": "target_and_adjacent",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 1.5
+                    }
+                ],
+                "statusEffects": []
+            }
+        ]
+    },
+    {
+        "id": "83d5b7de-f633-48dc-934f-dbfefac9df5d",
+        "name": "Witherling",
+        "threatScore": 15,
+        "stats": {
+            "healthPoints": 50,
+            "magicPoints": 3,
+            "attack": 0,
+            "magicAttack": 15,
+            "defence": 10,
+            "magicDefence": 10,
+            "critChance": 0,
+            "mind": 10
+        },
+        "currentHP": 50,
+        "currentMP": 3,
+        "modifiers": [],
+        "pointModifiers": [],
+        "abilities": [
+            {
+                "name": "Arcane Bolt",
+                "cost": 0,
+                "type": "default",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "09a155a8-4ddf-495d-b28a-e22b57e43a62",
+                        "name": "basic_magic_attack",
+                        "target": "target",
+                        "scalingStat": "magicAttack",
+                        "duration": 0,
+                        "damageType": "MAGIC",
+                        "power": 1
+                    },
+                    {
+                        "id": "b50d3aa5-c8b0-44ae-8060-56e1ac5c1393",
+                        "name": "basic_magiic_restore",
+                        "target": "self",
+                        "scalingStat": "magicPoints",
+                        "duration": 0,
+                        "damageType": "MAGIC_RESTORE",
+                        "power": 0.1
+                    }
+                ],
+                "statusEffects": []
+            },
+            {
+                "name": "Wither",
+                "cost": 2,
+                "type": "magic",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "91f72025-5bdc-4553-b994-017858468e28",
+                        "name": "weak_magic_attack",
+                        "target": "target",
+                        "scalingStat": "magicAttack",
+                        "duration": 0,
+                        "damageType": "MAGIC",
+                        "power": 0.5
+                    }
+                ],
+                "statusEffects": [
+                    {
+                        "id": "96a22778-7a04-4286-9af4-7c2d5f42c260",
+                        "name": "weak_health_debuff",
+                        "target": "target",
+                        "scalingStat": "mind",
+                        "duration": 3,
+                        "power": 0.5,
+                        "targetStat": "healthPoints",
+                        "isBuff": false
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "4bcd7460-69c1-44fb-9471-d9f01c2b215f",
+        "name": "Shambler Zombie",
+        "threatScore": 15,
+        "stats": {
+            "healthPoints": 80,
+            "magicPoints": 2,
+            "attack": 20,
+            "magicAttack": 0,
+            "defence": 0,
+            "magicDefence": 0,
+            "critChance": 0,
+            "mind": 0
+        },
+        "currentHP": 80,
+        "currentMP": 2,
+        "modifiers": [],
+        "pointModifiers": [],
+        "abilities": [
+            {
+                "name": "Strike",
+                "cost": 0,
+                "type": "default",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "5c522be1-4c4f-460b-9b5f-1e482b1ca036",
+                        "name": "basic_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 1
+                    },
+                    {
+                        "id": "8c70b5b4-fd88-4102-8714-704975278386",
+                        "name": "basic_magiic_restore",
+                        "target": "self",
+                        "scalingStat": "magicPoints",
+                        "duration": 0,
+                        "damageType": "MAGIC_RESTORE",
+                        "power": 0.1
+                    }
+                ],
+                "statusEffects": []
+            },
+            {
+                "name": "Slam",
+                "cost": 2,
+                "type": "magic",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "76b41d5f-a9ef-4c60-8d10-288a970549ab",
+                        "name": "strong_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 2
+                    }
+                ],
+                "statusEffects": []
+            }
+        ]
+    },
+    {
+        "id": "041d7cc6-731d-49b7-9b9b-131f59314685",
+        "name": "Skulker",
+        "threatScore": 15,
+        "stats": {
+            "healthPoints": 50,
+            "magicPoints": 0,
+            "attack": 10,
+            "magicAttack": 0,
+            "defence": 0,
+            "magicDefence": 50,
+            "critChance": 0,
+            "mind": 0
+        },
+        "currentHP": 50,
+        "currentMP": 0,
+        "modifiers": [],
+        "pointModifiers": [],
+        "abilities": [
+            {
+                "name": "Double-Strike",
+                "cost": 0,
+                "type": "default",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "deac9efa-4b3f-4e1d-b560-58edcf95717e",
+                        "name": "basic_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 1
+                    },
+                    {
+                        "id": "ed8aa356-fda6-45ac-b0aa-5026219a454c",
+                        "name": "basic_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 1
+                    },
+                    {
+                        "id": "774310e0-1508-4170-8272-2a5034db3249",
+                        "name": "basic_magiic_restore",
+                        "target": "self",
+                        "scalingStat": "magicPoints",
+                        "duration": 0,
+                        "damageType": "MAGIC_RESTORE",
+                        "power": 0.1
+                    }
+                ],
+                "statusEffects": []
+            }
+        ]
+    },
+    {
+        "id": "7a63f02c-1260-4c79-b8da-00209d7c09bf",
+        "name": "Skeleton Knight",
+        "threatScore": 40,
+        "stats": {
+            "healthPoints": 100,
+            "magicPoints": 2,
+            "attack": 30,
+            "magicAttack": 10,
+            "defence": 40,
+            "magicDefence": 20,
+            "critChance": 0,
+            "mind": 0
+        },
+        "currentHP": 100,
+        "currentMP": 2,
+        "modifiers": [],
+        "pointModifiers": [],
+        "abilities": [
+            {
+                "name": "Strike",
+                "cost": 0,
+                "type": "default",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "c06044b0-97ad-41d8-9f06-441f9b05ae7c",
+                        "name": "basic_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 1
+                    },
+                    {
+                        "id": "f1136bc6-5a14-413b-abb6-23b25fd6797d",
+                        "name": "basic_magiic_restore",
+                        "target": "self",
+                        "scalingStat": "magicPoints",
+                        "duration": 0,
+                        "damageType": "MAGIC_RESTORE",
+                        "power": 0.1
+                    }
+                ],
+                "statusEffects": []
+            },
+            {
+                "name": "Cleave",
+                "cost": 2,
+                "type": "magic",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "9bf4aa08-be20-44c3-bdaa-2e6d81b4a70b",
+                        "name": "strong_cleave",
+                        "target": "target_and_adjacent",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 1.5
+                    }
+                ],
+                "statusEffects": []
+            }
+        ]
+    },
+    {
+        "id": "eada0f56-6c2e-4628-9b27-45222d733a50",
+        "name": "Vampire",
+        "threatScore": 40,
+        "stats": {
+            "healthPoints": 80,
+            "magicPoints": 2,
+            "attack": 20,
+            "magicAttack": 10,
+            "defence": 20,
+            "magicDefence": 20,
+            "critChance": 0,
+            "mind": 0
+        },
+        "currentHP": 80,
+        "currentMP": 2,
+        "modifiers": [],
+        "pointModifiers": [],
+        "abilities": [
+            {
+                "name": "Double-Strike",
+                "cost": 0,
+                "type": "default",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "c1ea787f-d005-4647-b9ac-f10aea1e88a2",
+                        "name": "basic_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 1
+                    },
+                    {
+                        "id": "1c32c53b-a476-4fa4-baf1-f414b13156d9",
+                        "name": "basic_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 1
+                    },
+                    {
+                        "id": "e2b9a5cb-ac13-40a6-8ef2-5edce7a8df7b",
+                        "name": "basic_magiic_restore",
+                        "target": "self",
+                        "scalingStat": "magicPoints",
+                        "duration": 0,
+                        "damageType": "MAGIC_RESTORE",
+                        "power": 0.1
+                    }
+                ],
+                "statusEffects": []
+            },
+            {
+                "name": "Siphon Life",
+                "cost": 2,
+                "type": "magic",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "5855a5b7-e25b-4821-b634-47cd99915418",
+                        "name": "basic_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 1
+                    },
+                    {
+                        "id": "fa532f07-20a6-4b30-8937-5e2f1add71f4",
+                        "name": "heal_self",
+                        "target": "self",
+                        "scalingStat": "mind",
+                        "duration": 0,
+                        "damageType": "HEALING",
+                        "power": 1
+                    }
+                ],
+                "statusEffects": []
+            }
+        ]
+    },
+    {
+        "id": "3f5ed4be-6ebb-490d-8056-ac5ec0084e28",
+        "name": "Warlock Novitiate",
+        "threatScore": 40,
+        "stats": {
+            "healthPoints": 70,
+            "magicPoints": 5,
+            "attack": 0,
+            "magicAttack": 30,
+            "defence": 10,
+            "magicDefence": 30,
+            "critChance": 0,
+            "mind": 10
+        },
+        "currentHP": 70,
+        "currentMP": 5,
+        "modifiers": [],
+        "pointModifiers": [],
+        "abilities": [
+            {
+                "name": "Arcane Bolt",
+                "cost": 0,
+                "type": "default",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "ad00a6a0-a1dc-4c6e-bb6f-76424f6d7da6",
+                        "name": "basic_magic_attack",
+                        "target": "target",
+                        "scalingStat": "magicAttack",
+                        "duration": 0,
+                        "damageType": "MAGIC",
+                        "power": 1
+                    },
+                    {
+                        "id": "27c12a62-5d1f-4660-ad90-4ff5c0dec136",
+                        "name": "basic_magiic_restore",
+                        "target": "self",
+                        "scalingStat": "magicPoints",
+                        "duration": 0,
+                        "damageType": "MAGIC_RESTORE",
+                        "power": 0.1
+                    }
+                ],
+                "statusEffects": []
+            },
+            {
+                "name": "Fireball",
+                "cost": 3,
+                "type": "magic",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "d8d7febb-e38c-4c6b-8b94-6c44db6f4c90",
+                        "name": "weak_magic_area_attack",
+                        "target": "target_and_surrounding",
+                        "scalingStat": "magicAttack",
+                        "duration": 0,
+                        "damageType": "MAGIC",
+                        "power": 0.5
+                    }
+                ],
+                "statusEffects": []
+            }
+        ]
+    },
+    {
+        "id": "7b4c4cd1-5862-4073-a477-2711b4e5981b",
+        "name": "Zombie",
+        "threatScore": 40,
+        "stats": {
+            "healthPoints": 120,
+            "magicPoints": 2,
+            "attack": 25,
+            "magicAttack": 10,
+            "defence": 0,
+            "magicDefence": 0,
+            "critChance": 0,
+            "mind": 0
+        },
+        "currentHP": 120,
+        "currentMP": 2,
+        "modifiers": [],
+        "pointModifiers": [],
+        "abilities": [
+            {
+                "name": "Strike",
+                "cost": 0,
+                "type": "default",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "4498e099-74c6-4cf2-8634-8d1dd7a76698",
+                        "name": "basic_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 1
+                    },
+                    {
+                        "id": "d5b78c4a-ba52-45f9-a3c7-35d3ecd6f546",
+                        "name": "basic_magiic_restore",
+                        "target": "self",
+                        "scalingStat": "magicPoints",
+                        "duration": 0,
+                        "damageType": "MAGIC_RESTORE",
+                        "power": 0.1
+                    }
+                ],
+                "statusEffects": []
+            },
+            {
+                "name": "Slam",
+                "cost": 2,
+                "type": "magic",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "574b5864-9e6b-4563-b333-0d96ab64c490",
+                        "name": "strong_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 2
+                    }
+                ],
+                "statusEffects": []
+            }
+        ]
+    },
+    {
+        "id": "3aa72d89-6a9d-4e1f-9b12-14c1b08b724e",
+        "name": "Unstable Curse-Spitter",
+        "threatScore": 40,
+        "stats": {
+            "healthPoints": 50,
+            "magicPoints": 2,
+            "attack": 10,
+            "magicAttack": 40,
+            "defence": 0,
+            "magicDefence": 0,
+            "critChance": 0,
+            "mind": 0
+        },
+        "currentHP": 50,
+        "currentMP": 2,
+        "modifiers": [],
+        "pointModifiers": [],
+        "abilities": [
+            {
+                "name": "Arcane Bolt",
+                "cost": 0,
+                "type": "default",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "7bafab63-bee1-4488-9fea-fa62c44acb4e",
+                        "name": "basic_magic_attack",
+                        "target": "target",
+                        "scalingStat": "magicAttack",
+                        "duration": 0,
+                        "damageType": "MAGIC",
+                        "power": 1
+                    },
+                    {
+                        "id": "4e36ae11-f564-4063-9379-eda9edc6958b",
+                        "name": "basic_magiic_restore",
+                        "target": "self",
+                        "scalingStat": "magicPoints",
+                        "duration": 0,
+                        "damageType": "MAGIC_RESTORE",
+                        "power": 0.1
+                    }
+                ],
+                "statusEffects": []
+            },
+            {
+                "name": "Unstable Shadowbolt",
+                "cost": 2,
+                "type": "magic",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "e0274102-f696-45d9-83ce-cdfbee26df8f",
+                        "name": "strong_magic_attack",
+                        "target": "target",
+                        "scalingStat": "magicAttack",
+                        "duration": 0,
+                        "damageType": "MAGIC",
+                        "power": 2
+                    },
+                    {
+                        "id": "e9365790-fa59-48b2-9235-30b2829e29dd",
+                        "name": "basic_attack_self",
+                        "target": "self",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 1
+                    }
+                ],
+                "statusEffects": []
+            }
+        ]
+    },
+    {
+        "id": "03717850-178b-4744-87ef-6c70641d4ea5",
+        "name": "Banshee",
+        "threatScore": 70,
+        "stats": {
+            "healthPoints": 70,
+            "magicPoints": 5,
+            "attack": 0,
+            "magicAttack": 50,
+            "defence": 60,
+            "magicDefence": 10,
+            "critChance": 0,
+            "mind": 40
+        },
+        "currentHP": 70,
+        "currentMP": 5,
+        "modifiers": [],
+        "pointModifiers": [],
+        "abilities": [
+            {
+                "name": "Arcane Bolt",
+                "cost": 0,
+                "type": "default",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "a5363f00-1bc1-4aa5-baa1-d4cbb2d192b3",
+                        "name": "basic_magic_attack",
+                        "target": "target",
+                        "scalingStat": "magicAttack",
+                        "duration": 0,
+                        "damageType": "MAGIC",
+                        "power": 1
+                    },
+                    {
+                        "id": "cd494554-fc66-4429-8d2e-f610cb19d4d5",
+                        "name": "basic_magiic_restore",
+                        "target": "self",
+                        "scalingStat": "magicPoints",
+                        "duration": 0,
+                        "damageType": "MAGIC_RESTORE",
+                        "power": 0.1
+                    }
+                ],
+                "statusEffects": []
+            },
+            {
+                "name": "Banshee's Wail",
+                "cost": 3,
+                "type": "magic",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "cd048a73-74a3-41a2-9ca2-4d702e875791",
+                        "name": "strong_magic_attack",
+                        "target": "target",
+                        "scalingStat": "magicAttack",
+                        "duration": 0,
+                        "damageType": "MAGIC",
+                        "power": 2
+                    }
+                ],
+                "statusEffects": [
+                    {
+                        "id": "e3bc1e2b-882b-47e9-92be-7d14684e8410",
+                        "name": "basic_defence_debuff",
+                        "target": "target",
+                        "scalingStat": "mind",
+                        "duration": 3,
+                        "power": 1,
+                        "targetStat": "defence",
+                        "isBuff": false
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "3d6619e1-947c-4c7b-9457-24239fac2ab6",
+        "name": "Bone Collector",
+        "threatScore": 70,
+        "stats": {
+            "healthPoints": 200,
+            "magicPoints": 5,
+            "attack": 40,
+            "magicAttack": 0,
+            "defence": 10,
+            "magicDefence": 0,
+            "critChance": 0,
+            "mind": 10
+        },
+        "currentHP": 200,
+        "currentMP": 5,
+        "modifiers": [],
+        "pointModifiers": [],
+        "abilities": [
+            {
+                "name": "Strike",
+                "cost": 0,
+                "type": "default",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "c0e93877-2d3c-4a49-9b2f-3964568a86dd",
+                        "name": "basic_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 1
+                    },
+                    {
+                        "id": "4cb7178a-9db1-4165-bd8f-0002e9176e34",
+                        "name": "basic_magiic_restore",
+                        "target": "self",
+                        "scalingStat": "magicPoints",
+                        "duration": 0,
+                        "damageType": "MAGIC_RESTORE",
+                        "power": 0.1
+                    }
+                ],
+                "statusEffects": []
+            },
+            {
+                "name": "Collect",
+                "cost": 3,
+                "type": "magic",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "ee60c906-d410-4600-82f6-20221ebf7662",
+                        "name": "weak_physical_area_attack",
+                        "target": "target_and_adjacent",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 0.5
+                    },
+                    {
+                        "id": "7a223280-78e6-4fbb-82f0-f87cae231e3b",
+                        "name": "weak_magic_drain_area_attack",
+                        "target": "target_and_adjacent",
+                        "scalingStat": "mind",
+                        "duration": 0,
+                        "damageType": "MAGIC_DRAIN",
+                        "power": 0.2
+                    }
+                ],
+                "statusEffects": []
+            }
+        ]
+    },
+    {
+        "id": "f729c4e8-1f0a-485f-a16c-db8650c3a10e",
+        "name": "Cloud of Bones",
+        "threatScore": 70,
+        "stats": {
+            "healthPoints": 70,
+            "magicPoints": 5,
+            "attack": 30,
+            "magicAttack": 10,
+            "defence": 20,
+            "magicDefence": 20,
+            "critChance": 0,
+            "mind": 0
+        },
+        "currentHP": 70,
+        "currentMP": 5,
+        "modifiers": [],
+        "pointModifiers": [],
+        "abilities": [
+            {
+                "name": "Double-Strike",
+                "cost": 0,
+                "type": "default",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "30023cb6-0952-4deb-b636-bc582c376603",
+                        "name": "basic_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 1
+                    },
+                    {
+                        "id": "5af621e4-129f-4bf8-9223-88b15404d731",
+                        "name": "basic_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 1
+                    },
+                    {
+                        "id": "142821d4-ef7e-4298-a070-8504fa15589d",
+                        "name": "basic_magiic_restore",
+                        "target": "self",
+                        "scalingStat": "magicPoints",
+                        "duration": 0,
+                        "damageType": "MAGIC_RESTORE",
+                        "power": 0.1
+                    }
+                ],
+                "statusEffects": []
+            },
+            {
+                "name": "Whirlwind Strike",
+                "cost": 3,
+                "type": "magic",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "86040e3d-c2d4-4b77-bcfc-1ad42155dbdb",
+                        "name": "basic_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 1
+                    },
+                    {
+                        "id": "d5c0c056-a9ff-42b6-bc24-baf67c682263",
+                        "name": "basic_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 1
+                    },
+                    {
+                        "id": "58307fb2-3a74-46bd-9468-1edab4d0c666",
+                        "name": "basic_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 1
+                    }
+                ],
+                "statusEffects": []
+            }
+        ]
+    },
+    {
+        "id": "900047d2-c496-4d3d-8798-6a7085ccf815",
+        "name": "Revenant",
+        "threatScore": 70,
+        "stats": {
+            "healthPoints": 150,
+            "magicPoints": 2,
+            "attack": 40,
+            "magicAttack": 10,
+            "defence": 20,
+            "magicDefence": 60,
+            "critChance": 0,
+            "mind": 40
+        },
+        "currentHP": 150,
+        "currentMP": 2,
+        "modifiers": [],
+        "pointModifiers": [],
+        "abilities": [
+            {
+                "name": "Strike",
+                "cost": 0,
+                "type": "default",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "9169fd22-304f-4c53-88e3-7ebdf24cdaf2",
+                        "name": "basic_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 1
+                    },
+                    {
+                        "id": "102f5e0e-3023-4b95-826c-683c9fd9cfe7",
+                        "name": "basic_magiic_restore",
+                        "target": "self",
+                        "scalingStat": "magicPoints",
+                        "duration": 0,
+                        "damageType": "MAGIC_RESTORE",
+                        "power": 0.1
+                    }
+                ],
+                "statusEffects": []
+            },
+            {
+                "name": "Slam",
+                "cost": 2,
+                "type": "magic",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "528a9711-35af-474a-a33e-1337d65d3d24",
+                        "name": "strong_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 2
+                    }
+                ],
+                "statusEffects": []
+            }
+        ]
+    },
+    {
+        "id": "55643c44-af70-4e5c-8455-a1f0c2489fe8",
+        "name": "Death Knight",
+        "threatScore": 110,
+        "stats": {
+            "healthPoints": 200,
+            "magicPoints": 3,
+            "attack": 50,
+            "magicAttack": 10,
+            "defence": 80,
+            "magicDefence": 40,
+            "critChance": 0,
+            "mind": 10
+        },
+        "currentHP": 200,
+        "currentMP": 3,
+        "modifiers": [],
+        "pointModifiers": [],
+        "abilities": [
+            {
+                "name": "Strike",
+                "cost": 0,
+                "type": "default",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "2371f581-857b-4614-a2f1-0744e4532a8c",
+                        "name": "basic_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 1
+                    },
+                    {
+                        "id": "4e4f7f7d-c1fc-4097-9d03-8d70cad8ae01",
+                        "name": "basic_magiic_restore",
+                        "target": "self",
+                        "scalingStat": "magicPoints",
+                        "duration": 0,
+                        "damageType": "MAGIC_RESTORE",
+                        "power": 0.1
+                    }
+                ],
+                "statusEffects": []
+            },
+            {
+                "name": "Cleave",
+                "cost": 2,
+                "type": "magic",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "6d40d18a-0ed7-4ad1-8d83-ff7b02023a7d",
+                        "name": "strong_cleave",
+                        "target": "target_and_adjacent",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 1.5
+                    }
+                ],
+                "statusEffects": []
+            }
+        ]
+    },
+    {
+        "id": "18405ca5-6cd0-4607-b575-ebd57103eb52",
+        "name": "Trapped Spirit",
+        "threatScore": 110,
+        "stats": {
+            "healthPoints": 100,
+            "magicPoints": 5,
+            "attack": 0,
+            "magicAttack": 50,
+            "defence": 80,
+            "magicDefence": 20,
+            "critChance": 0,
+            "mind": 40
+        },
+        "currentHP": 100,
+        "currentMP": 5,
+        "modifiers": [],
+        "pointModifiers": [],
+        "abilities": [
+            {
+                "name": "Arcane Bolt",
+                "cost": 0,
+                "type": "default",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "e009c75c-6536-4f1b-a880-a491923441a1",
+                        "name": "basic_magic_attack",
+                        "target": "target",
+                        "scalingStat": "magicAttack",
+                        "duration": 0,
+                        "damageType": "MAGIC",
+                        "power": 1
+                    },
+                    {
+                        "id": "9534b4d5-9f96-4f98-bd22-cbe6f5dd5c71",
+                        "name": "basic_magiic_restore",
+                        "target": "self",
+                        "scalingStat": "magicPoints",
+                        "duration": 0,
+                        "damageType": "MAGIC_RESTORE",
+                        "power": 0.1
+                    }
+                ],
+                "statusEffects": []
+            },
+            {
+                "name": "Drain Spirit",
+                "cost": 3,
+                "type": "magic",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "977b1c15-1304-44d0-979c-6a41ab1a8918",
+                        "name": "weak_magic_attack",
+                        "target": "target",
+                        "scalingStat": "magicAttack",
+                        "duration": 0,
+                        "damageType": "MAGIC",
+                        "power": 0.5
+                    }
+                ],
+                "statusEffects": [
+                    {
+                        "id": "62866e40-52b6-4ce2-8d11-9afcd60aa0a2",
+                        "name": "strong_defence_debuff",
+                        "target": "target",
+                        "scalingStat": "mind",
+                        "duration": 3,
+                        "power": 1.5,
+                        "targetStat": "defence",
+                        "isBuff": false
+                    },
+                    {
+                        "id": "948b4c8f-e79b-43b0-afaf-d505e79e4062",
+                        "name": "strong_magic_defence_debuff",
+                        "target": "target",
+                        "scalingStat": "mind",
+                        "duration": 3,
+                        "power": 1.5,
+                        "targetStat": "magicDefence",
+                        "isBuff": false
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "10cc9ee5-6fe1-4e91-959c-da5b2ee96cc6",
+        "name": "Zombie Brute",
+        "threatScore": 110,
+        "stats": {
+            "healthPoints": 400,
+            "magicPoints": 2,
+            "attack": 50,
+            "magicAttack": 0,
+            "defence": 10,
+            "magicDefence": 10,
+            "critChance": 0,
+            "mind": 0
+        },
+        "currentHP": 400,
+        "currentMP": 2,
+        "modifiers": [],
+        "pointModifiers": [],
+        "abilities": [
+            {
+                "name": "Strike",
+                "cost": 0,
+                "type": "default",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "2b7de41a-576d-41af-aa2a-df2231e8bb9c",
+                        "name": "basic_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 1
+                    },
+                    {
+                        "id": "96fd955e-61f2-4d8f-95b6-a2fa58600f76",
+                        "name": "basic_magiic_restore",
+                        "target": "self",
+                        "scalingStat": "magicPoints",
+                        "duration": 0,
+                        "damageType": "MAGIC_RESTORE",
+                        "power": 0.1
+                    }
+                ],
+                "statusEffects": []
+            },
+            {
+                "name": "Slam",
+                "cost": 2,
+                "type": "magic",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "9e104280-587c-4780-b052-72562b96aeb6",
+                        "name": "strong_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 2
+                    }
+                ],
+                "statusEffects": []
+            }
+        ]
+    },
+    {
+        "id": "ddc40dc4-ebff-4e42-81d7-983673f480f7",
+        "name": "Warlock",
+        "threatScore": 110,
+        "stats": {
+            "healthPoints": 120,
+            "magicPoints": 5,
+            "attack": 0,
+            "magicAttack": 60,
+            "defence": 20,
+            "magicDefence": 20,
+            "critChance": 0,
+            "mind": 20
+        },
+        "currentHP": 120,
+        "currentMP": 5,
+        "modifiers": [],
+        "pointModifiers": [],
+        "abilities": [
+            {
+                "name": "Arcane Bolt",
+                "cost": 0,
+                "type": "default",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "0d0e9204-d232-42ec-b65f-ff1bd9c732df",
+                        "name": "basic_magic_attack",
+                        "target": "target",
+                        "scalingStat": "magicAttack",
+                        "duration": 0,
+                        "damageType": "MAGIC",
+                        "power": 1
+                    },
+                    {
+                        "id": "9ccd2fe9-1f37-4ef1-9a95-a0ab16db43b5",
+                        "name": "basic_magiic_restore",
+                        "target": "self",
+                        "scalingStat": "magicPoints",
+                        "duration": 0,
+                        "damageType": "MAGIC_RESTORE",
+                        "power": 0.1
+                    }
+                ],
+                "statusEffects": []
+            },
+            {
+                "name": "Fireball",
+                "cost": 3,
+                "type": "magic",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "528a73d2-8605-45c8-92cf-3153907d7f24",
+                        "name": "weak_magic_area_attack",
+                        "target": "target_and_surrounding",
+                        "scalingStat": "magicAttack",
+                        "duration": 0,
+                        "damageType": "MAGIC",
+                        "power": 0.5
+                    }
+                ],
+                "statusEffects": []
+            }
+        ]
+    },
+    {
+        "id": "9d0b4a04-67eb-48a1-b6a3-7fec30b9fe7d",
+        "name": "Dame Delilah",
+        "threatScore": 150,
+        "stats": {
+            "healthPoints": 300,
+            "magicPoints": 5,
+            "attack": 50,
+            "magicAttack": 30,
+            "defence": 80,
+            "magicDefence": 40,
+            "critChance": 0,
+            "mind": 20
+        },
+        "currentHP": 300,
+        "currentMP": 5,
+        "modifiers": [],
+        "pointModifiers": [],
+        "abilities": [
+            {
+                "name": "Strike",
+                "cost": 0,
+                "type": "default",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "a2a2266f-69e9-4f86-835e-89de91b2f107",
+                        "name": "basic_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 1
+                    },
+                    {
+                        "id": "82cdb309-d76a-4300-aae4-b60ff2e5c079",
+                        "name": "basic_magiic_restore",
+                        "target": "self",
+                        "scalingStat": "magicPoints",
+                        "duration": 0,
+                        "damageType": "MAGIC_RESTORE",
+                        "power": 0.1
+                    }
+                ],
+                "statusEffects": []
+            },
+            {
+                "name": "Pommel Strike",
+                "cost": 2,
+                "type": "magic",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "901063a9-4271-438e-b647-e900a3013bc8",
+                        "name": "weak_attack",
+                        "target": "target",
+                        "scalingStat": "attack",
+                        "duration": 0,
+                        "damageType": "PHYSICAL",
+                        "power": 0.5
+                    }
+                ],
+                "statusEffects": [
+                    {
+                        "id": "2f384a2d-a033-483a-97de-0e74308e567a",
+                        "name": "basic_attack_debuff",
+                        "target": "target",
+                        "scalingStat": "mind",
+                        "duration": 3,
+                        "power": 1,
+                        "targetStat": "attack",
+                        "isBuff": false
+                    },
+                    {
+                        "id": "0becd0b2-c121-4317-a19f-bcf97ea21267",
+                        "name": "basic_attack_buff_self",
+                        "target": "self",
+                        "scalingStat": "mind",
+                        "duration": 3,
+                        "power": 1,
+                        "targetStat": "attack",
+                        "isBuff": true
+                    }
+                ]
+            },
+            {
+                "name": "Darkness's Arbiter",
+                "cost": 3,
+                "type": "magic",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "c289fcb0-c1af-4fa8-8478-32a219b1ba38",
+                        "name": "strong_magic_attack",
+                        "target": "target",
+                        "scalingStat": "magicAttack",
+                        "duration": 0,
+                        "damageType": "MAGIC",
+                        "power": 2
+                    }
+                ],
+                "statusEffects": []
+            }
+        ]
+    },
+    {
+        "id": "4f6f8c93-1dec-4169-94d4-46ab6d72afe6",
+        "name": "Warlock Deathcaster",
+        "threatScore": 150,
+        "stats": {
+            "healthPoints": 150,
+            "magicPoints": 5,
+            "attack": 0,
+            "magicAttack": 80,
+            "defence": 40,
+            "magicDefence": 40,
+            "critChance": 0,
+            "mind": 40
+        },
+        "currentHP": 150,
+        "currentMP": 5,
+        "modifiers": [],
+        "pointModifiers": [],
+        "abilities": [
+            {
+                "name": "Arcane Bolt",
+                "cost": 0,
+                "type": "default",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "28fe4e95-0965-4256-a9b7-b03213e6d9e6",
+                        "name": "basic_magic_attack",
+                        "target": "target",
+                        "scalingStat": "magicAttack",
+                        "duration": 0,
+                        "damageType": "MAGIC",
+                        "power": 1
+                    },
+                    {
+                        "id": "7cf65b85-c744-484f-8e3c-aeea42583ca3",
+                        "name": "basic_magiic_restore",
+                        "target": "self",
+                        "scalingStat": "magicPoints",
+                        "duration": 0,
+                        "damageType": "MAGIC_RESTORE",
+                        "power": 0.1
+                    }
+                ],
+                "statusEffects": []
+            },
+            {
+                "name": "Death Curse",
+                "cost": 3,
+                "type": "magic",
+                "abilityTarget": "OPPONENT_FORMATION",
+                "pointEffects": [
+                    {
+                        "id": "79c6f848-5fbd-4cfb-912d-0cc411850812",
+                        "name": "strong_magic_attack",
+                        "target": "target",
+                        "scalingStat": "magicAttack",
+                        "duration": 0,
+                        "damageType": "MAGIC",
+                        "power": 2
+                    }
+                ],
+                "statusEffects": [
+                    {
+                        "id": "20f8b85d-4c3d-461c-a173-a51ec3e17bb9",
+                        "name": "strong_health_debuff",
+                        "target": "target",
+                        "scalingStat": "mind",
+                        "duration": 3,
+                        "power": 1.5,
+                        "targetStat": "healthPoints",
+                        "isBuff": false
+                    }
+                ]
+            }
+        ]
+    }
+]

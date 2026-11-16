@@ -7,6 +7,15 @@
     padding: 20px;
 
     background-color: black;
+}
+
+.dungeon-shop__list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    gap: 8px;
+
     overflow-y: scroll;
     &::-webkit-scrollbar {
         display: none;
@@ -16,7 +25,7 @@
 }
 
 .dungeon-shop__item {
-    width: 50%;
+    width: 300px;
     display: flex;
     flex-direction: column;
 

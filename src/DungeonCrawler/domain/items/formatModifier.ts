@@ -1,6 +1,16 @@
-import { BaseStatDisplayNames } from '../constants';
-import type { BaseStatModifier} from '../types';
+import type { BaseStatModifier } from '../types';
 import { DamageScaleMethod } from '../types';
+
+const BaseStatDisplayNames = {
+    healthPoints: 'HP',
+    magicPoints: 'MP',
+    attack: 'ATK',
+    magicAttack: 'MATK',
+    defence: 'DEF',
+    magicDefence: 'MDEF',
+    critChance: 'CRIT',
+    mind: 'MIND',
+};
 
 export const formatModifier = (modifier: BaseStatModifier): string => {
     const formattedValue = formatModifierValue(modifier);

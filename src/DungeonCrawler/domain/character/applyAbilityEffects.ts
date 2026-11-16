@@ -7,49 +7,36 @@ import type {
     CombatEvent,
     CombatEventDamageTarget,
     DynamicStatModifier,
-    Equipment} from '../types';
-import {
-    BaseStatNames,
-    DamageType,
-    CombatEventType
+    Equipment,
 } from '../types';
+import { BaseStatNames, DamageType, CombatEventType, DamageScaleMethod } from '../types';
 
 import { calculateMitigatedDamage } from './calculateMitigatedDamage';
+import { calculateStatEffectDamage } from './calculateStatusEffectDamage';
 import { getCharacterStat } from './getCharacterStat';
 import { getValidTargets } from './getValidTargets';
 
-const STATUS_EFFECT_HANDLERS: Record<
+const DAMAGE_TYPE_HANDLERS: Record<
     DamageType,
     {
-        getStat: (caster: Character, casterEquippables: Equipment[]) => number;
         apply: (target: Character, targetEquippables: Equipment[], value: number) => number;
     }
 > = {
     [DamageType.PHYSICAL]: {
-        getStat: (caster, casterEquippables) =>
-            getCharacterStat(caster, casterEquippables, BaseStatNames.attack),
         apply: (target, targetEquippables, value) =>
             calculateMitigatedDamage(target, targetEquippables, value, DamageType.PHYSICAL),
     },
     [DamageType.MAGIC]: {
-        getStat: (caster, casterEquippables) =>
-            getCharacterStat(caster, casterEquippables, BaseStatNames.magicAttack),
         apply: (target, targetEquippables, value) =>
             calculateMitigatedDamage(target, targetEquippables, value, DamageType.MAGIC),
     },
     [DamageType.HEALING]: {
-        getStat: (caster, casterEquippables) =>
-            getCharacterStat(caster, casterEquippables, BaseStatNames.healthPoints),
         apply: (target, targetEquippables, value) => Math.max(1, Math.round(value)),
     },
     [DamageType.MAGIC_RESTORE]: {
-        getStat: (caster, casterEquippables) =>
-            getCharacterStat(caster, casterEquippables, BaseStatNames.magicPoints),
         apply: (target, targetEquippables, value) => Math.max(1, Math.round(value)),
     },
     [DamageType.MAGIC_DRAIN]: {
-        getStat: (caster, casterEquippables) =>
-            getCharacterStat(caster, casterEquippables, BaseStatNames.magicPoints),
         apply: (target, targetEquippables, value) => Math.max(1, Math.round(value)),
     },
 };
@@ -90,11 +77,17 @@ export const applyAbilityEffects = (
             statusEffect.target,
         );
 
+        const modifiedScalingStat = getCharacterStat(
+            caster.character,
+            casterEquippables,
+            statusEffect.scalingStat,
+        );
+
         const statusModifier: DynamicStatModifier = {
             id: crypto.randomUUID(),
-            stat: statusEffect.stat,
-            value: statusEffect.value,
-            type: statusEffect.damageScaleType,
+            stat: statusEffect.targetStat,
+            value: calculateStatEffectDamage(statusEffect, modifiedScalingStat),
+            type: DamageScaleMethod.PERCENT,
             name: statusEffect.name,
             duration: statusEffect.duration,
         };
@@ -117,16 +110,17 @@ export const applyAbilityEffects = (
             pointEffect.target,
         );
 
-        if (pointEffect.duration > 0) {
-            const handler = STATUS_EFFECT_HANDLERS[pointEffect.damageType];
-            const casterStatValue = handler
-                ? handler.getStat(caster.character, casterEquippables)
-                : 0;
+        const modifiedScalingStat = getCharacterStat(
+            caster.character,
+            casterEquippables,
+            pointEffect.scalingStat,
+        );
 
+        if (pointEffect.duration > 0) {
             const pointModifier: PointModifier = {
                 id: crypto.randomUUID(),
                 name: pointEffect.name,
-                casterStatValue: casterStatValue,
+                casterStatValue: modifiedScalingStat,
                 damageType: pointEffect.damageType,
                 power: pointEffect.power,
                 duration: pointEffect.duration,
@@ -142,12 +136,12 @@ export const applyAbilityEffects = (
             combatEvents.push(combatEvent);
         }
 
-        const handler = STATUS_EFFECT_HANDLERS[pointEffect.damageType];
+        const handler = DAMAGE_TYPE_HANDLERS[pointEffect.damageType];
 
         // Only apply immediate damage if the effect is NOT a DoT.
         if (handler && pointEffect.duration <= 0) {
-            const baseStat = handler.getStat(caster.character, casterEquippables);
-            const calculatedValue = baseStat * pointEffect.power;
+            const scalingStatProduct = modifiedScalingStat * pointEffect.power;
+
             const isPhysical = pointEffect.damageType === DamageType.PHYSICAL;
             const critChance = isPhysical
                 ? getCharacterStat(caster.character, casterEquippables, BaseStatNames.critChance)
@@ -158,7 +152,8 @@ export const applyAbilityEffects = (
                     (equippable) => equippable.characterID === target.character.id,
                 );
                 const isCritical = isPhysical && caster.rollCrit(critChance);
-                const effectiveValue = isCritical ? calculatedValue * 2 : calculatedValue;
+                const effectiveValue = isCritical ? scalingStatProduct * 2 : scalingStatProduct;
+
                 const statChange = handler.apply(
                     target.character,
                     targetEquippables,
@@ -211,7 +206,7 @@ export const applyPointModifierEffects = (
         );
         const calculatedValue = pointModifier.casterStatValue * pointModifier.power;
 
-        const handler = STATUS_EFFECT_HANDLERS[pointModifier.damageType];
+        const handler = DAMAGE_TYPE_HANDLERS[pointModifier.damageType];
         const statChange = handler.apply(target, targetEquippables, calculatedValue);
 
         const damageEvent: CombatEvent = {
