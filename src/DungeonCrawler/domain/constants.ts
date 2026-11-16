@@ -45,7 +45,133 @@ const examplePlayer: Character = {
         defence: 10,
         magicDefence: 10,
         critChance: 0,
-        mind: 30,
+        mind: 10,
+    },
+    modifiers: [],
+    pointModifiers: [],
+    abilities: [
+        {
+            name: 'Hype Man',
+            cost: 0,
+            type: AbilityType.default,
+            abilityTarget: AbilityTarget.ALLY_FORMATION,
+            pointEffects: [
+                {
+                    id: crypto.randomUUID(),
+                    name: 'Hype Man (Jimothy)',
+                    target: TargetScope.target,
+                    scalingStat: BaseStatNames.mind,
+                    damageType: DamageType.HEALING,
+                    power: 0.5,
+                    duration: 0,
+                },
+                {
+                    id: crypto.randomUUID(),
+                    name: 'MP Restore (Jimothy)',
+                    target: TargetScope.self,
+                    scalingStat: BaseStatNames.magicPoints,
+                    damageType: DamageType.MAGIC_RESTORE,
+                    power: 0.2,
+                    duration: 0,
+                },
+            ],
+            statusEffects: [
+                {
+                    id: crypto.randomUUID(),
+                    name: 'Hype Man (Jimmy)',
+                    isBuff: true,
+                    power: 0.5,
+                    target: TargetScope.target,
+                    scalingStat: BaseStatNames.mind,
+                    duration: 3,
+                    targetStat: BaseStatNames.attack,
+                },
+                {
+                    id: crypto.randomUUID(),
+                    name: 'Hype Man (Jimmy)',
+                    isBuff: true,
+                    power: 0.5,
+                    target: TargetScope.target,
+                    scalingStat: BaseStatNames.mind,
+                    duration: 3,
+                    targetStat: BaseStatNames.magicAttack,
+                },
+            ],
+        },
+        {
+            name: 'The Five-Point-Palm',
+            cost: 2,
+            type: AbilityType.magic,
+            abilityTarget: AbilityTarget.OPPONENT_FORMATION,
+            pointEffects: [
+                {
+                    id: crypto.randomUUID(),
+                    name: 'The Five-Point-Palm (Jimothy)',
+                    target: TargetScope.target,
+                    scalingStat: BaseStatNames.attack,
+                    damageType: DamageType.PHYSICAL,
+                    power: 2,
+                    duration: 0,
+                },
+            ],
+            statusEffects: [],
+        },
+        {
+            name: 'Buckle Up',
+            cost: 3,
+            type: AbilityType.magic,
+            abilityTarget: AbilityTarget.ALLY_FORMATION,
+            pointEffects: [
+                {
+                    id: crypto.randomUUID(),
+                    name: 'Buckle Up (Jimmy)',
+                    target: TargetScope.target,
+                    scalingStat: BaseStatNames.mind,
+                    damageType: DamageType.HEALING,
+                    power: 0.2,
+                    duration: 0,
+                },
+            ],
+            statusEffects: [
+                {
+                    id: crypto.randomUUID(),
+                    name: 'Buckle Up (Jimmy)',
+                    isBuff: true,
+                    power: 1.0,
+                    target: TargetScope.target,
+                    scalingStat: BaseStatNames.mind,
+                    duration: 3,
+                    targetStat: BaseStatNames.defence,
+                },
+                {
+                    id: crypto.randomUUID(),
+                    name: 'Buckle Up (Jimmy)',
+                    isBuff: true,
+                    power: 1.0,
+                    target: TargetScope.target,
+                    scalingStat: BaseStatNames.mind,
+                    duration: 3,
+                    targetStat: BaseStatNames.magicDefence,
+                },
+            ],
+        },
+    ],
+};
+
+const examplePlayer2: Character = {
+    id: crypto.randomUUID(),
+    name: 'Tina the Tank',
+    currentHP: 120,
+    currentMP: 6,
+    stats: {
+        healthPoints: 120,
+        magicPoints: 6,
+        attack: 20,
+        magicAttack: 10,
+        defence: 10,
+        magicDefence: 10,
+        critChance: 0,
+        mind: 10,
     },
     modifiers: [],
     pointModifiers: [],
@@ -58,7 +184,7 @@ const examplePlayer: Character = {
             pointEffects: [
                 {
                     id: crypto.randomUUID(),
-                    name: 'Throw a Punch (Jimothy)',
+                    name: 'Throw a Punch (Tina)',
                     target: TargetScope.target,
                     scalingStat: BaseStatNames.attack,
                     damageType: DamageType.PHYSICAL,
@@ -67,7 +193,7 @@ const examplePlayer: Character = {
                 },
                 {
                     id: crypto.randomUUID(),
-                    name: 'MP Restore (Jimothy)',
+                    name: 'MP Restore (Tina)',
                     target: TargetScope.self,
                     scalingStat: BaseStatNames.magicPoints,
                     damageType: DamageType.MAGIC_RESTORE,
@@ -85,7 +211,7 @@ const examplePlayer: Character = {
             pointEffects: [
                 {
                     id: crypto.randomUUID(),
-                    name: "The Ol' One-Two (Jimothy)",
+                    name: "The Ol' One-Two (Tina)",
                     target: TargetScope.target,
                     scalingStat: BaseStatNames.attack,
                     damageType: DamageType.PHYSICAL,
@@ -94,7 +220,7 @@ const examplePlayer: Character = {
                 },
                 {
                     id: crypto.randomUUID(),
-                    name: "The Ol' One-Two (Jimothy)",
+                    name: "The Ol' One-Two (Tina)",
                     target: TargetScope.target,
                     scalingStat: BaseStatNames.attack,
                     damageType: DamageType.PHYSICAL,
@@ -105,18 +231,18 @@ const examplePlayer: Character = {
             statusEffects: [],
         },
         {
-            name: 'Get me a beer!',
+            name: 'Sweep the Leg',
             cost: 2,
             type: AbilityType.magic,
-            abilityTarget: AbilityTarget.SELF,
+            abilityTarget: AbilityTarget.OPPONENT_FORMATION,
             pointEffects: [
                 {
                     id: crypto.randomUUID(),
-                    name: 'HP Restore (Jimothy)',
-                    target: TargetScope.self,
-                    scalingStat: BaseStatNames.mind,
-                    damageType: DamageType.HEALING,
-                    power: 1,
+                    name: 'Sweep the Leg (Tina)',
+                    target: TargetScope.target_and_adjacent,
+                    scalingStat: BaseStatNames.attack,
+                    damageType: DamageType.PHYSICAL,
+                    power: 0.5,
                     duration: 0,
                 },
             ],
@@ -125,18 +251,18 @@ const examplePlayer: Character = {
     ],
 };
 
-const examplePlayer2: Character = {
+const examplePlayer3: Character = {
     id: crypto.randomUUID(),
     name: 'Barry the Built',
-    currentHP: 120,
+    currentHP: 80,
     currentMP: 10,
     stats: {
-        healthPoints: 120,
+        healthPoints: 80,
         magicPoints: 10,
         attack: 15,
         magicAttack: 25,
-        defence: 15,
-        magicDefence: 15,
+        defence: 10,
+        magicDefence: 10,
         critChance: 0,
         mind: 10,
     },
@@ -172,7 +298,7 @@ const examplePlayer2: Character = {
         },
         {
             name: 'YEET!',
-            cost: 4,
+            cost: 3,
             type: AbilityType.magic,
             abilityTarget: AbilityTarget.OPPONENT_FORMATION,
             pointEffects: [
@@ -190,7 +316,7 @@ const examplePlayer2: Character = {
         },
         {
             name: 'Body Slam',
-            cost: 3,
+            cost: 4,
             type: AbilityType.magic,
             abilityTarget: AbilityTarget.OPPONENT_FORMATION,
             pointEffects: [
@@ -200,40 +326,11 @@ const examplePlayer2: Character = {
                     target: TargetScope.target_and_adjacent,
                     scalingStat: BaseStatNames.magicAttack,
                     damageType: DamageType.MAGIC,
-                    power: 0.8,
+                    power: 0.75,
                     duration: 0,
                 },
             ],
             statusEffects: [],
-        },
-        {
-            name: 'Hype Man',
-            cost: 2,
-            type: AbilityType.magic,
-            abilityTarget: AbilityTarget.ALLY_FORMATION,
-            pointEffects: [
-                {
-                    id: crypto.randomUUID(),
-                    name: 'Heal (Barry)',
-                    target: TargetScope.target,
-                    scalingStat: BaseStatNames.mind,
-                    damageType: DamageType.HEALING,
-                    power: 0.5,
-                    duration: 0,
-                },
-            ],
-            statusEffects: [
-                {
-                    id: crypto.randomUUID(),
-                    name: 'Hyped! (Barry)',
-                    isBuff: true,
-                    power: 1.1,
-                    target: TargetScope.target,
-                    scalingStat: BaseStatNames.mind,
-                    duration: 3,
-                    targetStat: BaseStatNames.attack,
-                },
-            ],
         },
     ],
 };
@@ -244,8 +341,9 @@ export const examplePlayerFormation: Formation = {
     combatants: [
         new Combatant(crypto.randomUUID(), examplePlayer, { x: 1, y: 1 }),
         new Combatant(crypto.randomUUID(), examplePlayer2, { x: 2, y: 1 }),
+        new Combatant(crypto.randomUUID(), examplePlayer3, { x: 3, y: 1 }),
     ],
-    gridDimensions: { x: 2, y: 1 },
+    gridDimensions: { x: 3, y: 1 },
 };
 
 const plusShape: RoomTemplate = {
