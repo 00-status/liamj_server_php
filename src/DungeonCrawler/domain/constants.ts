@@ -51,18 +51,18 @@ const examplePlayer: Character = {
     pointModifiers: [],
     abilities: [
         {
-            name: 'Roundhouse Kick',
+            name: 'Hype Man',
             cost: 0,
             type: AbilityType.default,
-            abilityTarget: AbilityTarget.OPPONENT_FORMATION,
+            abilityTarget: AbilityTarget.ALLY_FORMATION,
             pointEffects: [
                 {
                     id: crypto.randomUUID(),
-                    name: 'Roundhouse Kick (Jimothy)',
+                    name: 'Hype Man (Jimothy)',
                     target: TargetScope.target,
-                    scalingStat: BaseStatNames.attack,
-                    damageType: DamageType.PHYSICAL,
-                    power: 1.0,
+                    scalingStat: BaseStatNames.mind,
+                    damageType: DamageType.HEALING,
+                    power: 0.5,
                     duration: 0,
                 },
                 {
@@ -75,7 +75,28 @@ const examplePlayer: Character = {
                     duration: 0,
                 },
             ],
-            statusEffects: [],
+            statusEffects: [
+                {
+                    id: crypto.randomUUID(),
+                    name: 'Hype Man (Jimmy)',
+                    isBuff: true,
+                    power: 0.5,
+                    target: TargetScope.target,
+                    scalingStat: BaseStatNames.mind,
+                    duration: 3,
+                    targetStat: BaseStatNames.attack,
+                },
+                {
+                    id: crypto.randomUUID(),
+                    name: 'Hype Man (Jimmy)',
+                    isBuff: true,
+                    power: 0.5,
+                    target: TargetScope.target,
+                    scalingStat: BaseStatNames.mind,
+                    duration: 3,
+                    targetStat: BaseStatNames.magicAttack,
+                },
+            ],
         },
         {
             name: 'The Five-Point-Palm',
