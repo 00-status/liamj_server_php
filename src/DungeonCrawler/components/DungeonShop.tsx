@@ -41,29 +41,32 @@ export const DungeonShop = ({
 
     return (
         <div className="dungeon-shop">
-            {items.map((item) => {
-                const isPurchaseable = playerWealth >= item.cost;
-                const action = isPurchaseable ? () => onPlayerPurchase(item.id) : undefined;
+            <h2>Shop | {playerWealth} Gold</h2>
+            <div className="dungeon-shop__list">
+                {items.map((item) => {
+                    const isPurchaseable = playerWealth >= item.cost;
+                    const action = isPurchaseable ? () => onPlayerPurchase(item.id) : undefined;
 
-                return (
-                    <div
-                        key={item.id}
-                        role="button"
-                        tabIndex={isPurchaseable ? 0 : -1}
-                        className={`dungeon-shop__item ${!isPurchaseable ? 'dungeon-shop__item--disabled' : ''}`}
-                        onClick={isPurchaseable ? action : undefined}
-                    >
-                        <h3>
-                            {item.name} | {`${item.cost} coins`}
-                        </h3>
-                        <div className="dungeon-shop__item-modifier-grid">
-                            {item.modifiers.map((modifier) => (
-                                <div key={modifier.id}>{formatModifier(modifier)}</div>
-                            ))}
+                    return (
+                        <div
+                            key={item.id}
+                            role="button"
+                            tabIndex={isPurchaseable ? 0 : -1}
+                            className={`dungeon-shop__item ${!isPurchaseable ? 'dungeon-shop__item--disabled' : ''}`}
+                            onClick={isPurchaseable ? action : undefined}
+                        >
+                            <h3>
+                                {item.name} | {`${item.cost} coins`}
+                            </h3>
+                            <div className="dungeon-shop__item-modifier-grid">
+                                {item.modifiers.map((modifier) => (
+                                    <div key={modifier.id}>{formatModifier(modifier)}</div>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                );
-            })}
+                    );
+                })}
+            </div>
             <div>
                 <DungeonButton onClick={onPlayerContinue}>Rest and Continue</DungeonButton>
             </div>
