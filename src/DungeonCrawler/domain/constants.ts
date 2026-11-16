@@ -332,35 +332,6 @@ const examplePlayer3: Character = {
             ],
             statusEffects: [],
         },
-        {
-            name: 'Hype Man',
-            cost: 2,
-            type: AbilityType.magic,
-            abilityTarget: AbilityTarget.ALLY_FORMATION,
-            pointEffects: [
-                {
-                    id: crypto.randomUUID(),
-                    name: 'Heal (Barry)',
-                    target: TargetScope.target,
-                    scalingStat: BaseStatNames.mind,
-                    damageType: DamageType.HEALING,
-                    power: 0.5,
-                    duration: 0,
-                },
-            ],
-            statusEffects: [
-                {
-                    id: crypto.randomUUID(),
-                    name: 'Hyped! (Barry)',
-                    isBuff: true,
-                    power: 1.1,
-                    target: TargetScope.target,
-                    scalingStat: BaseStatNames.mind,
-                    duration: 3,
-                    targetStat: BaseStatNames.attack,
-                },
-            ],
-        },
     ],
 };
 
