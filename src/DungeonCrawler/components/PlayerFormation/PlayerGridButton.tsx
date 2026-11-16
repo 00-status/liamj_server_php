@@ -76,11 +76,11 @@ export const PlayerGridButton = ({
         if (isValidAbilityTarget) {
             modifier = '--targetable';
             handleClick = () => onTarget(combatant);
+        } else if (isSelected) {
+            modifier = '--active';
         } else if (isSelectable) {
             modifier = '--selectable';
             handleClick = () => onSelect(combatant.id);
-        } else if (isSelected) {
-            modifier = '--active';
         }
 
         let animationClassName = '';
