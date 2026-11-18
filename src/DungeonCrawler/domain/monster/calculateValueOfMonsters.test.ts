@@ -1,6 +1,6 @@
 import type { MonsterCharacter } from '../types';
 
-import { calculateValueOfCharacters } from './calculateValueOfCharacters';
+import { calculateValueOfMonsters } from './calculateValueOfMonsters';
 
 describe('calculateValueOfCharacters', () => {
     const buildMockCharacter = (threatScore: number): MonsterCharacter => ({
@@ -26,19 +26,19 @@ describe('calculateValueOfCharacters', () => {
     });
 
     it('returns 0 for empty array', () => {
-        expect(calculateValueOfCharacters([])).toBe(0);
+        expect(calculateValueOfMonsters([])).toBe(0);
     });
 
     it('returns wealth equal to character threatScore', () => {
         const char = buildMockCharacter(100);
-        const wealth = calculateValueOfCharacters([char]);
+        const wealth = calculateValueOfMonsters([char]);
         expect(wealth).toEqual(100);
     });
 
     it('sums wealth across multiple characters', () => {
         const char1 = buildMockCharacter(50);
         const char2 = buildMockCharacter(50);
-        const totalWealth = calculateValueOfCharacters([char1, char2]);
+        const totalWealth = calculateValueOfMonsters([char1, char2]);
         expect(totalWealth).toEqual(100);
     });
 });

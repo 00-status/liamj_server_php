@@ -21,7 +21,6 @@ import { changePoints } from './character/changePoints';
 import { exampleEquippables } from './equippables';
 import { isDungeonFloorCompleted } from './dungeonFloor/isDungeonFloorCompleted';
 import { canCharacterEquipItem } from './character/canCharacterEquipItem';
-import { calculateValueOfCharacters } from './character/calculateValueOfCharacters';
 import { getCharacterStat } from './character/getCharacterStat';
 import type { Formation } from './formation/types';
 import type { Combatant } from './Combatant';
@@ -30,6 +29,7 @@ import { generateNewDungeonFloor } from './dungeonFloor/generateNewDungeonFloor'
 import { incrementDungeonFloorCurrentRoom } from './dungeonFloor/incrementDungeonFloorCurrentRoom';
 import { isMonsterCharacter } from './utils';
 import { buildMonsterFormation } from './monster/buildMonsterFormation';
+import { calculateValueOfMonsters } from './monster/calculateValueOfMonsters';
 
 type Actions =
     | { type: 'PLAYER_USES_ABILITY'; ability: Ability; caster: Combatant; target: Combatant }
@@ -278,7 +278,7 @@ export const dungeonCrawlerReducer = (
                 const monsterCharacters: MonsterCharacter[] = updatedMonsterFormation.combatants
                     .map((combatant) => combatant.character)
                     .filter(isMonsterCharacter);
-                const monsterFormationValue = calculateValueOfCharacters(monsterCharacters);
+                const monsterFormationValue = calculateValueOfMonsters(monsterCharacters);
 
                 return {
                     ...state,
