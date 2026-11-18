@@ -349,60 +349,60 @@ export const examplePlayerFormation: Formation = {
 const plusShape: RoomTemplate = {
     floorCountRequirement: 1,
     slots: [
-        { position: { x: 2, y: 1 }, threatWeight: 0.15 },
-        { position: { x: 1, y: 2 }, threatWeight: 0.15 },
-        { position: { x: 2, y: 2 }, threatWeight: 0.4 },
-        { position: { x: 3, y: 2 }, threatWeight: 0.15 },
-        { position: { x: 2, y: 3 }, threatWeight: 0.15 },
+        { position: { x: 2, y: 1 }, threatWeight: 0.15, requiredTags: [] },
+        { position: { x: 1, y: 2 }, threatWeight: 0.15, requiredTags: [] },
+        { position: { x: 2, y: 2 }, threatWeight: 0.4, requiredTags: [] },
+        { position: { x: 3, y: 2 }, threatWeight: 0.15, requiredTags: [] },
+        { position: { x: 2, y: 3 }, threatWeight: 0.15, requiredTags: [] },
     ],
 };
 const xShape: RoomTemplate = {
     floorCountRequirement: 1,
     slots: [
-        { position: { x: 1, y: 1 }, threatWeight: 0.2 },
-        { position: { x: 3, y: 1 }, threatWeight: 0.2 },
-        { position: { x: 2, y: 2 }, threatWeight: 0.2 },
-        { position: { x: 1, y: 3 }, threatWeight: 0.2 },
-        { position: { x: 3, y: 3 }, threatWeight: 0.2 },
+        { position: { x: 1, y: 1 }, threatWeight: 0.2, requiredTags: [] },
+        { position: { x: 3, y: 1 }, threatWeight: 0.2, requiredTags: [] },
+        { position: { x: 2, y: 2 }, threatWeight: 0.2, requiredTags: [] },
+        { position: { x: 1, y: 3 }, threatWeight: 0.2, requiredTags: [] },
+        { position: { x: 3, y: 3 }, threatWeight: 0.2, requiredTags: [] },
     ],
 };
 const rowShape: RoomTemplate = {
     floorCountRequirement: 0,
     slots: [
-        { position: { x: 1, y: 2 }, threatWeight: 1 },
-        { position: { x: 2, y: 2 }, threatWeight: 1 },
-        { position: { x: 3, y: 2 }, threatWeight: 1 },
+        { position: { x: 1, y: 2 }, threatWeight: 1, requiredTags: [] },
+        { position: { x: 2, y: 2 }, threatWeight: 1, requiredTags: [] },
+        { position: { x: 3, y: 2 }, threatWeight: 1, requiredTags: [] },
     ],
 };
 const frontlineBacklineShape: RoomTemplate = {
     floorCountRequirement: 2,
     slots: [
-        { position: { x: 1, y: 2 }, threatWeight: 1 },
-        { position: { x: 2, y: 2 }, threatWeight: 1 },
-        { position: { x: 3, y: 2 }, threatWeight: 1 },
-        { position: { x: 1, y: 3 }, threatWeight: 1 },
-        { position: { x: 2, y: 3 }, threatWeight: 1 },
-        { position: { x: 3, y: 3 }, threatWeight: 1 },
+        { position: { x: 1, y: 2 }, threatWeight: 1, requiredTags: [] },
+        { position: { x: 2, y: 2 }, threatWeight: 1, requiredTags: [] },
+        { position: { x: 3, y: 2 }, threatWeight: 1, requiredTags: [] },
+        { position: { x: 1, y: 3 }, threatWeight: 1, requiredTags: [] },
+        { position: { x: 2, y: 3 }, threatWeight: 1, requiredTags: [] },
+        { position: { x: 3, y: 3 }, threatWeight: 1, requiredTags: [] },
     ],
 };
 const triforce: RoomTemplate = {
     floorCountRequirement: 0,
     slots: [
-        { position: { x: 2, y: 1 }, threatWeight: 0.5 },
-        { position: { x: 1, y: 2 }, threatWeight: 0.25 },
-        { position: { x: 3, y: 2 }, threatWeight: 0.25 },
+        { position: { x: 2, y: 1 }, threatWeight: 0.5, requiredTags: [] },
+        { position: { x: 1, y: 2 }, threatWeight: 0.25, requiredTags: [] },
+        { position: { x: 3, y: 2 }, threatWeight: 0.25, requiredTags: [] },
     ],
 };
 const splitDuo: RoomTemplate = {
     floorCountRequirement: 0,
     slots: [
-        { position: { x: 1, y: 2 }, threatWeight: 0.5 },
-        { position: { x: 3, y: 2 }, threatWeight: 0.5 },
+        { position: { x: 1, y: 2 }, threatWeight: 0.5, requiredTags: [] },
+        { position: { x: 3, y: 2 }, threatWeight: 0.5, requiredTags: [] },
     ],
 };
 const solo: RoomTemplate = {
     floorCountRequirement: 0,
-    slots: [{ position: { x: 2, y: 2 }, threatWeight: 1 }],
+    slots: [{ position: { x: 2, y: 2 }, threatWeight: 1, requiredTags: [] }],
 };
 export const roomTemplates: RoomTemplate[] = [
     plusShape,

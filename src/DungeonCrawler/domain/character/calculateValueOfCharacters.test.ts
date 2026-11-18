@@ -7,6 +7,7 @@ describe('calculateValueOfCharacters', () => {
         id: 'test-char',
         name: 'Test Character',
         threatScore,
+        tags: [],
         currentHP: 100,
         currentMP: 10,
         stats: {

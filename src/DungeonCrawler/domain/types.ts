@@ -1,6 +1,7 @@
 export interface CombatantSlot {
     position: Position;
-    threatWeight?: number;
+    threatWeight: number;
+    requiredTags: string[];
 }
 
 export interface RoomTemplate {
@@ -37,6 +38,7 @@ export interface Character {
 
 export interface MonsterCharacter extends Character {
     threatScore: number;
+    tags: string[];
 }
 
 export enum BaseStatNames {
