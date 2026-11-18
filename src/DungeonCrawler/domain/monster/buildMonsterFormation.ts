@@ -51,8 +51,8 @@ export const buildMonsterFormation = (
                 return isMonsterInThreshold;
             }
 
-            const doesMeetRequirements = !!monster.tags.find(
-                (monsterTag) => monsterTag in slot.requiredTags,
+            const doesMeetRequirements = !!monster.tags.find((monsterTag) =>
+                slot.requiredTags.find((slotTag) => slotTag === monsterTag),
             );
 
             return isMonsterInThreshold && doesMeetRequirements;

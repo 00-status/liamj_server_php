@@ -1,7 +1,10 @@
 [
     {
-        "id": "d715e70b-156e-4a33-939f-dadbb43af027",
+        "id": "6bfb690f-5122-4a6b-9467-86a9c0f4feeb",
         "name": "Shade",
+        "tags": [
+            "dot"
+        ],
         "threatScore": 15,
         "stats": {
             "healthPoints": 50,
@@ -25,7 +28,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "d70930da-e7c6-44f0-b9ad-c798e430e9ee",
+                        "id": "08e5adf6-4ccf-4520-96ed-eb757b75fad0",
                         "name": "basic_magic_attack",
                         "target": "target",
                         "scalingStat": "magicAttack",
@@ -34,8 +37,8 @@
                         "power": 1
                     },
                     {
-                        "id": "10dab2b9-b7b8-4e8c-ad5e-24820c6797e9",
-                        "name": "basic_magiic_restore",
+                        "id": "96fe07a0-7358-44a2-ae0f-e90998087449",
+                        "name": "basic_magic_restore",
                         "target": "self",
                         "scalingStat": "magicPoints",
                         "duration": 0,
@@ -52,7 +55,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "05ae3dd9-172e-4a23-a9be-3250b8b404fa",
+                        "id": "9cfe6fdd-adc8-43f1-8009-9c06195a830e",
                         "name": "default_damage_over_time",
                         "target": "target",
                         "scalingStat": "magicAttack",
@@ -66,8 +69,11 @@
         ]
     },
     {
-        "id": "9b68cffe-bc56-4002-b7a3-fa145bfaa3eb",
+        "id": "db7071d9-2482-45c0-b30d-93eade4c3fd0",
         "name": "Skeleton",
+        "tags": [
+            "tank"
+        ],
         "threatScore": 15,
         "stats": {
             "healthPoints": 50,
@@ -91,7 +97,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "ab44f309-db27-4162-a7a9-af4cbcdd30bf",
+                        "id": "c828b203-ba84-4745-9f6a-bf366cfc5293",
                         "name": "basic_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -100,8 +106,8 @@
                         "power": 1
                     },
                     {
-                        "id": "cec4e954-4c19-4671-ac30-4b0d03bf5818",
-                        "name": "basic_magiic_restore",
+                        "id": "ff788d86-ff9a-42cf-a44d-2a70b78a0260",
+                        "name": "basic_magic_restore",
                         "target": "self",
                         "scalingStat": "magicPoints",
                         "duration": 0,
@@ -118,7 +124,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "0df0a517-5de8-45e0-89bc-54546bddb36c",
+                        "id": "ca6d177f-1406-4d5a-8f11-5b2570499d4d",
                         "name": "strong_cleave",
                         "target": "target_and_adjacent",
                         "scalingStat": "attack",
@@ -132,8 +138,11 @@
         ]
     },
     {
-        "id": "83d5b7de-f633-48dc-934f-dbfefac9df5d",
+        "id": "15f4c5e7-3c75-4785-8415-9008ea49b33a",
         "name": "Witherling",
+        "tags": [
+            "hexer"
+        ],
         "threatScore": 15,
         "stats": {
             "healthPoints": 50,
@@ -157,7 +166,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "09a155a8-4ddf-495d-b28a-e22b57e43a62",
+                        "id": "bd145c8e-76b0-40c3-a839-aaab56ba9c3d",
                         "name": "basic_magic_attack",
                         "target": "target",
                         "scalingStat": "magicAttack",
@@ -166,8 +175,8 @@
                         "power": 1
                     },
                     {
-                        "id": "b50d3aa5-c8b0-44ae-8060-56e1ac5c1393",
-                        "name": "basic_magiic_restore",
+                        "id": "b66a2b08-85ff-443e-9de1-10869bee01ff",
+                        "name": "basic_magic_restore",
                         "target": "self",
                         "scalingStat": "magicPoints",
                         "duration": 0,
@@ -184,7 +193,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "91f72025-5bdc-4553-b994-017858468e28",
+                        "id": "edb45c9f-6f1d-4bb5-9737-31ce7ad5bb56",
                         "name": "weak_magic_attack",
                         "target": "target",
                         "scalingStat": "magicAttack",
@@ -195,7 +204,7 @@
                 ],
                 "statusEffects": [
                     {
-                        "id": "96a22778-7a04-4286-9af4-7c2d5f42c260",
+                        "id": "2cef1f6a-ce87-4fdf-a715-60b02bd5aeda",
                         "name": "weak_health_debuff",
                         "target": "target",
                         "scalingStat": "mind",
@@ -209,8 +218,11 @@
         ]
     },
     {
-        "id": "4bcd7460-69c1-44fb-9471-d9f01c2b215f",
+        "id": "1750b919-bb01-4039-ad26-440c43307857",
         "name": "Shambler Zombie",
+        "tags": [
+            "bruiser"
+        ],
         "threatScore": 15,
         "stats": {
             "healthPoints": 80,
@@ -234,7 +246,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "5c522be1-4c4f-460b-9b5f-1e482b1ca036",
+                        "id": "752fa1d0-c856-4afc-821a-b4e3817b0432",
                         "name": "basic_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -243,8 +255,8 @@
                         "power": 1
                     },
                     {
-                        "id": "8c70b5b4-fd88-4102-8714-704975278386",
-                        "name": "basic_magiic_restore",
+                        "id": "9dab6cfd-2868-4f60-b641-a724a9cec0dc",
+                        "name": "basic_magic_restore",
                         "target": "self",
                         "scalingStat": "magicPoints",
                         "duration": 0,
@@ -261,7 +273,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "76b41d5f-a9ef-4c60-8d10-288a970549ab",
+                        "id": "2b915575-ac25-4d40-86c2-19449529a3cb",
                         "name": "strong_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -275,8 +287,11 @@
         ]
     },
     {
-        "id": "041d7cc6-731d-49b7-9b9b-131f59314685",
+        "id": "05472847-6c7c-4583-86f5-08b9d00fa5cd",
         "name": "Skulker",
+        "tags": [
+            "adc"
+        ],
         "threatScore": 15,
         "stats": {
             "healthPoints": 50,
@@ -300,7 +315,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "deac9efa-4b3f-4e1d-b560-58edcf95717e",
+                        "id": "80bf2742-ba15-45f8-9cfc-ae9e2e86022a",
                         "name": "basic_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -309,7 +324,7 @@
                         "power": 1
                     },
                     {
-                        "id": "ed8aa356-fda6-45ac-b0aa-5026219a454c",
+                        "id": "851b5203-3f01-4310-87ef-a6a7c1fce3b7",
                         "name": "basic_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -318,8 +333,8 @@
                         "power": 1
                     },
                     {
-                        "id": "774310e0-1508-4170-8272-2a5034db3249",
-                        "name": "basic_magiic_restore",
+                        "id": "57e0f774-cb2d-48a8-beed-88e5094f1a43",
+                        "name": "basic_magic_restore",
                         "target": "self",
                         "scalingStat": "magicPoints",
                         "duration": 0,
@@ -332,8 +347,11 @@
         ]
     },
     {
-        "id": "7a63f02c-1260-4c79-b8da-00209d7c09bf",
+        "id": "008677ca-7242-48e7-89d3-12e00c2beaa5",
         "name": "Skeleton Knight",
+        "tags": [
+            "tank"
+        ],
         "threatScore": 40,
         "stats": {
             "healthPoints": 100,
@@ -357,7 +375,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "c06044b0-97ad-41d8-9f06-441f9b05ae7c",
+                        "id": "b3c46a38-4c38-4c15-9651-046aebb34321",
                         "name": "basic_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -366,8 +384,8 @@
                         "power": 1
                     },
                     {
-                        "id": "f1136bc6-5a14-413b-abb6-23b25fd6797d",
-                        "name": "basic_magiic_restore",
+                        "id": "995aef00-66f2-40af-9d2c-37c2f70631f7",
+                        "name": "basic_magic_restore",
                         "target": "self",
                         "scalingStat": "magicPoints",
                         "duration": 0,
@@ -384,7 +402,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "9bf4aa08-be20-44c3-bdaa-2e6d81b4a70b",
+                        "id": "204a32cc-fbff-4678-9fc9-85ec50010c36",
                         "name": "strong_cleave",
                         "target": "target_and_adjacent",
                         "scalingStat": "attack",
@@ -398,8 +416,11 @@
         ]
     },
     {
-        "id": "eada0f56-6c2e-4628-9b27-45222d733a50",
+        "id": "3ee3f054-e63a-43b3-bbda-445180c2c721",
         "name": "Vampire",
+        "tags": [
+            "adc"
+        ],
         "threatScore": 40,
         "stats": {
             "healthPoints": 80,
@@ -423,7 +444,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "c1ea787f-d005-4647-b9ac-f10aea1e88a2",
+                        "id": "914aded6-ebb3-4f7c-8390-fa0ab299d71a",
                         "name": "basic_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -432,7 +453,7 @@
                         "power": 1
                     },
                     {
-                        "id": "1c32c53b-a476-4fa4-baf1-f414b13156d9",
+                        "id": "30c50f0e-7a43-4dec-8770-5cc5be334527",
                         "name": "basic_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -441,8 +462,8 @@
                         "power": 1
                     },
                     {
-                        "id": "e2b9a5cb-ac13-40a6-8ef2-5edce7a8df7b",
-                        "name": "basic_magiic_restore",
+                        "id": "ca81b528-f0de-44ef-95bd-8f03e36579d0",
+                        "name": "basic_magic_restore",
                         "target": "self",
                         "scalingStat": "magicPoints",
                         "duration": 0,
@@ -459,7 +480,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "5855a5b7-e25b-4821-b634-47cd99915418",
+                        "id": "95a29326-9cab-4b73-ad80-bf73ab789062",
                         "name": "basic_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -468,7 +489,7 @@
                         "power": 1
                     },
                     {
-                        "id": "fa532f07-20a6-4b30-8937-5e2f1add71f4",
+                        "id": "1f869888-3aca-4762-ba4b-d656c782e3dc",
                         "name": "heal_self",
                         "target": "self",
                         "scalingStat": "mind",
@@ -482,8 +503,11 @@
         ]
     },
     {
-        "id": "3f5ed4be-6ebb-490d-8056-ac5ec0084e28",
+        "id": "dd9f3c9f-be27-425d-9697-29e2ab011474",
         "name": "Warlock Novitiate",
+        "tags": [
+            "mage"
+        ],
         "threatScore": 40,
         "stats": {
             "healthPoints": 70,
@@ -507,7 +531,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "ad00a6a0-a1dc-4c6e-bb6f-76424f6d7da6",
+                        "id": "7fcf13de-c10c-4265-a8ea-bf45194da874",
                         "name": "basic_magic_attack",
                         "target": "target",
                         "scalingStat": "magicAttack",
@@ -516,8 +540,8 @@
                         "power": 1
                     },
                     {
-                        "id": "27c12a62-5d1f-4660-ad90-4ff5c0dec136",
-                        "name": "basic_magiic_restore",
+                        "id": "f4514e37-f47a-4938-85c5-069f4044b551",
+                        "name": "basic_magic_restore",
                         "target": "self",
                         "scalingStat": "magicPoints",
                         "duration": 0,
@@ -534,7 +558,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "d8d7febb-e38c-4c6b-8b94-6c44db6f4c90",
+                        "id": "a03c85cc-e646-4c83-ade8-e6e49ba7b16b",
                         "name": "weak_magic_area_attack",
                         "target": "target_and_surrounding",
                         "scalingStat": "magicAttack",
@@ -548,8 +572,11 @@
         ]
     },
     {
-        "id": "7b4c4cd1-5862-4073-a477-2711b4e5981b",
+        "id": "021dc469-2f83-4fa6-a5ee-9fa5a7bdd815",
         "name": "Zombie",
+        "tags": [
+            "bruiser"
+        ],
         "threatScore": 40,
         "stats": {
             "healthPoints": 120,
@@ -573,7 +600,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "4498e099-74c6-4cf2-8634-8d1dd7a76698",
+                        "id": "47be1e2f-7b59-4436-9bef-783898184b2d",
                         "name": "basic_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -582,8 +609,8 @@
                         "power": 1
                     },
                     {
-                        "id": "d5b78c4a-ba52-45f9-a3c7-35d3ecd6f546",
-                        "name": "basic_magiic_restore",
+                        "id": "22148d5a-827c-4d90-b56d-49faf8c83e06",
+                        "name": "basic_magic_restore",
                         "target": "self",
                         "scalingStat": "magicPoints",
                         "duration": 0,
@@ -600,7 +627,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "574b5864-9e6b-4563-b333-0d96ab64c490",
+                        "id": "bf1ae6eb-b15a-40d1-aaab-cc76d8e765d8",
                         "name": "strong_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -614,8 +641,11 @@
         ]
     },
     {
-        "id": "3aa72d89-6a9d-4e1f-9b12-14c1b08b724e",
+        "id": "f87ef848-1b48-454e-8dbf-f7e29bf72af6",
         "name": "Unstable Curse-Spitter",
+        "tags": [
+            "dot"
+        ],
         "threatScore": 40,
         "stats": {
             "healthPoints": 50,
@@ -639,7 +669,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "7bafab63-bee1-4488-9fea-fa62c44acb4e",
+                        "id": "6fa940eb-85f8-4a75-bde3-0303a22b20b9",
                         "name": "basic_magic_attack",
                         "target": "target",
                         "scalingStat": "magicAttack",
@@ -648,8 +678,8 @@
                         "power": 1
                     },
                     {
-                        "id": "4e36ae11-f564-4063-9379-eda9edc6958b",
-                        "name": "basic_magiic_restore",
+                        "id": "7af825f5-336e-4b3e-a5f7-1d9ba918443a",
+                        "name": "basic_magic_restore",
                         "target": "self",
                         "scalingStat": "magicPoints",
                         "duration": 0,
@@ -660,22 +690,22 @@
                 "statusEffects": []
             },
             {
-                "name": "Unstable Shadowbolt",
+                "name": "Unstable Corruption",
                 "cost": 2,
                 "type": "magic",
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "e0274102-f696-45d9-83ce-cdfbee26df8f",
-                        "name": "strong_magic_attack",
+                        "id": "1ca00920-3012-49d6-a914-55c0c8c7bf68",
+                        "name": "default_damage_over_time",
                         "target": "target",
                         "scalingStat": "magicAttack",
-                        "duration": 0,
+                        "duration": 3,
                         "damageType": "MAGIC",
-                        "power": 2
+                        "power": 0.5
                     },
                     {
-                        "id": "e9365790-fa59-48b2-9235-30b2829e29dd",
+                        "id": "6142be0b-5bc2-42c2-bd04-4fab7fa506f7",
                         "name": "basic_attack_self",
                         "target": "self",
                         "scalingStat": "attack",
@@ -689,8 +719,12 @@
         ]
     },
     {
-        "id": "03717850-178b-4744-87ef-6c70641d4ea5",
+        "id": "cfb04992-4327-4335-9030-4fc500ac2848",
         "name": "Banshee",
+        "tags": [
+            "hexer",
+            "mage"
+        ],
         "threatScore": 70,
         "stats": {
             "healthPoints": 70,
@@ -714,7 +748,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "a5363f00-1bc1-4aa5-baa1-d4cbb2d192b3",
+                        "id": "91204424-9601-4aaa-bbc4-65bebbd45b07",
                         "name": "basic_magic_attack",
                         "target": "target",
                         "scalingStat": "magicAttack",
@@ -723,8 +757,8 @@
                         "power": 1
                     },
                     {
-                        "id": "cd494554-fc66-4429-8d2e-f610cb19d4d5",
-                        "name": "basic_magiic_restore",
+                        "id": "ff33f907-5adc-443f-82e1-8b363e53d4bb",
+                        "name": "basic_magic_restore",
                         "target": "self",
                         "scalingStat": "magicPoints",
                         "duration": 0,
@@ -741,7 +775,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "cd048a73-74a3-41a2-9ca2-4d702e875791",
+                        "id": "50d60e98-c5a2-400e-ad44-55ca2ff5f944",
                         "name": "strong_magic_attack",
                         "target": "target",
                         "scalingStat": "magicAttack",
@@ -752,7 +786,7 @@
                 ],
                 "statusEffects": [
                     {
-                        "id": "e3bc1e2b-882b-47e9-92be-7d14684e8410",
+                        "id": "59f230bb-6b73-4d87-976c-ccd6ba5f2995",
                         "name": "basic_defence_debuff",
                         "target": "target",
                         "scalingStat": "mind",
@@ -766,8 +800,12 @@
         ]
     },
     {
-        "id": "3d6619e1-947c-4c7b-9457-24239fac2ab6",
+        "id": "a47f467b-cc26-4633-bfd7-1773961c5de4",
         "name": "Bone Collector",
+        "tags": [
+            "tank",
+            "hexer"
+        ],
         "threatScore": 70,
         "stats": {
             "healthPoints": 200,
@@ -791,7 +829,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "c0e93877-2d3c-4a49-9b2f-3964568a86dd",
+                        "id": "a7384bd3-e271-4490-a6a5-1775fc2d7aa0",
                         "name": "basic_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -800,8 +838,8 @@
                         "power": 1
                     },
                     {
-                        "id": "4cb7178a-9db1-4165-bd8f-0002e9176e34",
-                        "name": "basic_magiic_restore",
+                        "id": "d1c29d8f-1bb4-4a87-bdb2-36a58e98a4de",
+                        "name": "basic_magic_restore",
                         "target": "self",
                         "scalingStat": "magicPoints",
                         "duration": 0,
@@ -818,7 +856,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "ee60c906-d410-4600-82f6-20221ebf7662",
+                        "id": "a7480241-4ad9-4f06-8e3c-3ff590c4ee49",
                         "name": "weak_physical_area_attack",
                         "target": "target_and_adjacent",
                         "scalingStat": "attack",
@@ -827,7 +865,7 @@
                         "power": 0.5
                     },
                     {
-                        "id": "7a223280-78e6-4fbb-82f0-f87cae231e3b",
+                        "id": "37234f33-a417-4a19-8d3e-02f9f3c53ef7",
                         "name": "weak_magic_drain_area_attack",
                         "target": "target_and_adjacent",
                         "scalingStat": "mind",
@@ -841,8 +879,11 @@
         ]
     },
     {
-        "id": "f729c4e8-1f0a-485f-a16c-db8650c3a10e",
+        "id": "359b6167-c988-4f13-b004-d492b0a3c800",
         "name": "Cloud of Bones",
+        "tags": [
+            "adc"
+        ],
         "threatScore": 70,
         "stats": {
             "healthPoints": 70,
@@ -866,7 +907,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "30023cb6-0952-4deb-b636-bc582c376603",
+                        "id": "e78a41f6-e71b-473e-bb3c-14fb326bc240",
                         "name": "basic_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -875,7 +916,7 @@
                         "power": 1
                     },
                     {
-                        "id": "5af621e4-129f-4bf8-9223-88b15404d731",
+                        "id": "6591bbb0-8dd5-4f27-b58b-b990f7331748",
                         "name": "basic_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -884,8 +925,8 @@
                         "power": 1
                     },
                     {
-                        "id": "142821d4-ef7e-4298-a070-8504fa15589d",
-                        "name": "basic_magiic_restore",
+                        "id": "13bcae06-d2b0-4910-9233-f02a1262dfd4",
+                        "name": "basic_magic_restore",
                         "target": "self",
                         "scalingStat": "magicPoints",
                         "duration": 0,
@@ -902,7 +943,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "86040e3d-c2d4-4b77-bcfc-1ad42155dbdb",
+                        "id": "abb6caa4-a489-4c42-98bc-8e3a4509b904",
                         "name": "basic_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -911,7 +952,7 @@
                         "power": 1
                     },
                     {
-                        "id": "d5c0c056-a9ff-42b6-bc24-baf67c682263",
+                        "id": "e73367ab-20ce-4334-bda4-8c107e496df0",
                         "name": "basic_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -920,7 +961,7 @@
                         "power": 1
                     },
                     {
-                        "id": "58307fb2-3a74-46bd-9468-1edab4d0c666",
+                        "id": "c3ebf7e9-a2d7-4bff-a7d1-8407fdf9469c",
                         "name": "basic_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -934,8 +975,11 @@
         ]
     },
     {
-        "id": "900047d2-c496-4d3d-8798-6a7085ccf815",
+        "id": "410d0b17-8b0c-4957-9042-357fbb7ced84",
         "name": "Revenant",
+        "tags": [
+            "bruiser"
+        ],
         "threatScore": 70,
         "stats": {
             "healthPoints": 150,
@@ -959,7 +1003,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "9169fd22-304f-4c53-88e3-7ebdf24cdaf2",
+                        "id": "27f89d2b-6d51-4baa-a370-db68621fd417",
                         "name": "basic_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -968,8 +1012,8 @@
                         "power": 1
                     },
                     {
-                        "id": "102f5e0e-3023-4b95-826c-683c9fd9cfe7",
-                        "name": "basic_magiic_restore",
+                        "id": "b108cc53-8bef-4646-906c-a9805daaed67",
+                        "name": "basic_magic_restore",
                         "target": "self",
                         "scalingStat": "magicPoints",
                         "duration": 0,
@@ -986,7 +1030,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "528a9711-35af-474a-a33e-1337d65d3d24",
+                        "id": "fa36f2cb-fe32-4a3f-a676-d0e1091a9c12",
                         "name": "strong_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -1000,8 +1044,11 @@
         ]
     },
     {
-        "id": "55643c44-af70-4e5c-8455-a1f0c2489fe8",
+        "id": "22dbae7d-6fc2-422e-a691-d669753c6d6a",
         "name": "Death Knight",
+        "tags": [
+            "tank"
+        ],
         "threatScore": 110,
         "stats": {
             "healthPoints": 200,
@@ -1025,7 +1072,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "2371f581-857b-4614-a2f1-0744e4532a8c",
+                        "id": "9c72bd96-b001-4614-994a-3a9fba3e0020",
                         "name": "basic_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -1034,8 +1081,8 @@
                         "power": 1
                     },
                     {
-                        "id": "4e4f7f7d-c1fc-4097-9d03-8d70cad8ae01",
-                        "name": "basic_magiic_restore",
+                        "id": "ca603a20-e253-421b-9526-5a94dad6cc2d",
+                        "name": "basic_magic_restore",
                         "target": "self",
                         "scalingStat": "magicPoints",
                         "duration": 0,
@@ -1052,7 +1099,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "6d40d18a-0ed7-4ad1-8d83-ff7b02023a7d",
+                        "id": "4a5943b6-7351-412f-8ed0-0500c5f6c052",
                         "name": "strong_cleave",
                         "target": "target_and_adjacent",
                         "scalingStat": "attack",
@@ -1066,8 +1113,11 @@
         ]
     },
     {
-        "id": "18405ca5-6cd0-4607-b575-ebd57103eb52",
+        "id": "6eb88a5a-91c3-4b1d-8286-d2a1bfe44233",
         "name": "Trapped Spirit",
+        "tags": [
+            "hexer"
+        ],
         "threatScore": 110,
         "stats": {
             "healthPoints": 100,
@@ -1091,7 +1141,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "e009c75c-6536-4f1b-a880-a491923441a1",
+                        "id": "19f7ea45-25bc-4e43-a8db-cd6efe2dd1ee",
                         "name": "basic_magic_attack",
                         "target": "target",
                         "scalingStat": "magicAttack",
@@ -1100,8 +1150,8 @@
                         "power": 1
                     },
                     {
-                        "id": "9534b4d5-9f96-4f98-bd22-cbe6f5dd5c71",
-                        "name": "basic_magiic_restore",
+                        "id": "900a12f2-6ad5-4d3c-854e-29907d5e0623",
+                        "name": "basic_magic_restore",
                         "target": "self",
                         "scalingStat": "magicPoints",
                         "duration": 0,
@@ -1118,7 +1168,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "977b1c15-1304-44d0-979c-6a41ab1a8918",
+                        "id": "aaae25ca-7c58-4bf4-a104-0b0677da7936",
                         "name": "weak_magic_attack",
                         "target": "target",
                         "scalingStat": "magicAttack",
@@ -1129,7 +1179,7 @@
                 ],
                 "statusEffects": [
                     {
-                        "id": "62866e40-52b6-4ce2-8d11-9afcd60aa0a2",
+                        "id": "f5ce08f9-0006-4240-af4d-941616f3665e",
                         "name": "strong_defence_debuff",
                         "target": "target",
                         "scalingStat": "mind",
@@ -1139,7 +1189,7 @@
                         "isBuff": false
                     },
                     {
-                        "id": "948b4c8f-e79b-43b0-afaf-d505e79e4062",
+                        "id": "a5e4e081-f225-4e22-9e05-1be6ea10a0e6",
                         "name": "strong_magic_defence_debuff",
                         "target": "target",
                         "scalingStat": "mind",
@@ -1153,8 +1203,11 @@
         ]
     },
     {
-        "id": "10cc9ee5-6fe1-4e91-959c-da5b2ee96cc6",
+        "id": "c3e8a2be-456b-4985-9b8c-f0f81b039518",
         "name": "Zombie Brute",
+        "tags": [
+            "bruiser"
+        ],
         "threatScore": 110,
         "stats": {
             "healthPoints": 400,
@@ -1178,7 +1231,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "2b7de41a-576d-41af-aa2a-df2231e8bb9c",
+                        "id": "8214ff14-e642-408d-a68d-a7c91c06a058",
                         "name": "basic_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -1187,8 +1240,8 @@
                         "power": 1
                     },
                     {
-                        "id": "96fd955e-61f2-4d8f-95b6-a2fa58600f76",
-                        "name": "basic_magiic_restore",
+                        "id": "6a1ce4cc-8887-4f50-992c-7e897ad98963",
+                        "name": "basic_magic_restore",
                         "target": "self",
                         "scalingStat": "magicPoints",
                         "duration": 0,
@@ -1205,7 +1258,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "9e104280-587c-4780-b052-72562b96aeb6",
+                        "id": "309ce4c3-77c0-4b87-b31d-97c5b60affee",
                         "name": "strong_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -1219,8 +1272,11 @@
         ]
     },
     {
-        "id": "ddc40dc4-ebff-4e42-81d7-983673f480f7",
+        "id": "5fff658a-5334-4c21-86b2-da7ac0986a7a",
         "name": "Warlock",
+        "tags": [
+            "mage"
+        ],
         "threatScore": 110,
         "stats": {
             "healthPoints": 120,
@@ -1244,7 +1300,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "0d0e9204-d232-42ec-b65f-ff1bd9c732df",
+                        "id": "6955638e-e00f-4fa0-a367-337df211c6bd",
                         "name": "basic_magic_attack",
                         "target": "target",
                         "scalingStat": "magicAttack",
@@ -1253,8 +1309,8 @@
                         "power": 1
                     },
                     {
-                        "id": "9ccd2fe9-1f37-4ef1-9a95-a0ab16db43b5",
-                        "name": "basic_magiic_restore",
+                        "id": "faa6fd03-4ab6-43d3-a42a-fe8751deca30",
+                        "name": "basic_magic_restore",
                         "target": "self",
                         "scalingStat": "magicPoints",
                         "duration": 0,
@@ -1271,7 +1327,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "528a73d2-8605-45c8-92cf-3153907d7f24",
+                        "id": "42dfa2cb-96c7-46bb-93d0-64181cdd7d04",
                         "name": "weak_magic_area_attack",
                         "target": "target_and_surrounding",
                         "scalingStat": "magicAttack",
@@ -1285,8 +1341,11 @@
         ]
     },
     {
-        "id": "9d0b4a04-67eb-48a1-b6a3-7fec30b9fe7d",
+        "id": "24feaaa3-1776-4764-9d65-d4fcd9eff174",
         "name": "Dame Delilah",
+        "tags": [
+            "dame_delilah"
+        ],
         "threatScore": 150,
         "stats": {
             "healthPoints": 300,
@@ -1310,7 +1369,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "a2a2266f-69e9-4f86-835e-89de91b2f107",
+                        "id": "4efa30aa-d798-4d2e-91db-de023c30696d",
                         "name": "basic_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -1319,8 +1378,8 @@
                         "power": 1
                     },
                     {
-                        "id": "82cdb309-d76a-4300-aae4-b60ff2e5c079",
-                        "name": "basic_magiic_restore",
+                        "id": "f607c5ea-a25f-4bc4-82a2-50c86becc22a",
+                        "name": "basic_magic_restore",
                         "target": "self",
                         "scalingStat": "magicPoints",
                         "duration": 0,
@@ -1337,7 +1396,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "901063a9-4271-438e-b647-e900a3013bc8",
+                        "id": "64d97462-7781-495c-b736-2c7efcc830a8",
                         "name": "weak_attack",
                         "target": "target",
                         "scalingStat": "attack",
@@ -1348,7 +1407,7 @@
                 ],
                 "statusEffects": [
                     {
-                        "id": "2f384a2d-a033-483a-97de-0e74308e567a",
+                        "id": "af07cbec-cd73-45ad-a090-44178575cba0",
                         "name": "basic_attack_debuff",
                         "target": "target",
                         "scalingStat": "mind",
@@ -1358,7 +1417,7 @@
                         "isBuff": false
                     },
                     {
-                        "id": "0becd0b2-c121-4317-a19f-bcf97ea21267",
+                        "id": "f80fbd63-90d1-42c9-ab76-30c92110c6a8",
                         "name": "basic_attack_buff_self",
                         "target": "self",
                         "scalingStat": "mind",
@@ -1376,7 +1435,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "c289fcb0-c1af-4fa8-8478-32a219b1ba38",
+                        "id": "37e6c678-51ac-4ae3-8151-e04eb283c377",
                         "name": "strong_magic_attack",
                         "target": "target",
                         "scalingStat": "magicAttack",
@@ -1390,8 +1449,12 @@
         ]
     },
     {
-        "id": "4f6f8c93-1dec-4169-94d4-46ab6d72afe6",
-        "name": "Warlock Deathcaster",
+        "id": "cf74b279-62aa-4ca0-9c76-5324815506f9",
+        "name": "Warlock Death-Caster",
+        "tags": [
+            "mage",
+            "hexer"
+        ],
         "threatScore": 150,
         "stats": {
             "healthPoints": 150,
@@ -1415,7 +1478,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "28fe4e95-0965-4256-a9b7-b03213e6d9e6",
+                        "id": "0dd61ce0-ffed-4a6f-9b23-b3db9d78f17d",
                         "name": "basic_magic_attack",
                         "target": "target",
                         "scalingStat": "magicAttack",
@@ -1424,8 +1487,8 @@
                         "power": 1
                     },
                     {
-                        "id": "7cf65b85-c744-484f-8e3c-aeea42583ca3",
-                        "name": "basic_magiic_restore",
+                        "id": "a5d3c518-a229-444d-b5c4-e1425c462b43",
+                        "name": "basic_magic_restore",
                         "target": "self",
                         "scalingStat": "magicPoints",
                         "duration": 0,
@@ -1442,7 +1505,7 @@
                 "abilityTarget": "OPPONENT_FORMATION",
                 "pointEffects": [
                     {
-                        "id": "79c6f848-5fbd-4cfb-912d-0cc411850812",
+                        "id": "7b9258b7-6799-46a9-b918-a7e4989287ef",
                         "name": "strong_magic_attack",
                         "target": "target",
                         "scalingStat": "magicAttack",
@@ -1453,7 +1516,7 @@
                 ],
                 "statusEffects": [
                     {
-                        "id": "20f8b85d-4c3d-461c-a173-a51ec3e17bb9",
+                        "id": "f41ff1b4-c496-4917-8eee-c1d4ba2fd485",
                         "name": "strong_health_debuff",
                         "target": "target",
                         "scalingStat": "mind",
