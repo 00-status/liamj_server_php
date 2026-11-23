@@ -38,6 +38,7 @@ export interface Character {
 
 export interface MonsterCharacter extends Character {
     threatScore: number;
+    role: CharacterRole;
     tags: string[];
 }
 
@@ -61,6 +62,21 @@ export interface BaseStats {
     [BaseStatNames.magicDefence]: number;
     [BaseStatNames.critChance]: number;
     [BaseStatNames.mind]: number;
+}
+
+export enum CharacterRole {
+    ADC = 'adc',
+    AREA_MAGE = 'area_mage',
+    BOSS = 'boss',
+    BRUISER = 'bruiser',
+    DOT = 'dot',
+    HEALER = 'healer',
+    HEXXER = 'hexer',
+    MINION = 'minion',
+    SUMMONER = 'summoner',
+    SUPPORT = 'support',
+    TANK = 'tank',
+    TARGET_MAGE = 'target_mage',
 }
 
 export enum DamageScaleMethod {
