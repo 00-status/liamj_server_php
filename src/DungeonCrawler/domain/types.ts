@@ -1,7 +1,7 @@
 export interface CombatantSlot {
     position: Position;
     threatWeight: number;
-    requiredRoles: CharacterRole[];
+    acceptableRoles: CharacterRole[];
     acceptableTags: string[];
 }
 

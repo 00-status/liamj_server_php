@@ -52,7 +52,7 @@ export const buildMonsterFormation = (
             }
 
             const hasCorrectRole = !!monster.tags.find((monsterRole) =>
-                slot.requiredRoles.find((slotTag) => slotTag === monsterRole),
+                slot.acceptableRoles.find((slotTag) => slotTag === monsterRole),
             );
 
             const doesMeetRequirements =
