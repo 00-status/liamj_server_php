@@ -11,6 +11,7 @@ const createTestMonster = (id: string, name: string, threatScore: number): Monst
         id,
         name,
         threatScore,
+        tags: [],
         currentHP: 50,
         currentMP: 10,
         stats: {

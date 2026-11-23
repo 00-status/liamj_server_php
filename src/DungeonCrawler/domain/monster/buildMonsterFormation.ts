@@ -43,10 +43,25 @@ export const buildMonsterFormation = (
         const maximumThreatScore = targetThreatScore * (1 + BUDGET_TOLERANCE_PERCENTAGE);
 
         const candidateMonsters = potentialMonsters.filter((monster) => {
-            return (
+            const isMonsterInThreshold =
                 monster.threatScore >= minimumThreatScore &&
-                monster.threatScore <= maximumThreatScore
+                monster.threatScore <= maximumThreatScore;
+
+            if (slot.acceptableTags.length === 0) {
+                return isMonsterInThreshold;
+            }
+
+            const hasCorrectRole = !!monster.tags.find((monsterRole) =>
+                slot.acceptableRoles.find((slotTag) => slotTag === monsterRole),
             );
+
+            const doesMeetRequirements =
+                monster.tags.length === 0 ||
+                !!monster.tags.find((monsterTag) =>
+                    slot.acceptableTags.find((slotTag) => slotTag === monsterTag),
+                );
+
+            return isMonsterInThreshold && hasCorrectRole && doesMeetRequirements;
         });
 
         let candidatePool = candidateMonsters;
