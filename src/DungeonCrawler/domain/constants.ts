@@ -2,7 +2,14 @@ import { Combatant } from './Combatant';
 import type { Formation } from './formation/types';
 import { FormationTeam } from './formation/types';
 import type { Ability, Character, RoomTemplate } from './types';
-import { AbilityTarget, AbilityType, BaseStatNames, DamageType, TargetScope } from './types';
+import {
+    AbilityTarget,
+    AbilityType,
+    BaseStatNames,
+    CharacterRole,
+    DamageType,
+    TargetScope,
+} from './types';
 
 export const attackAbility: Ability = {
     name: 'Attack',
@@ -349,11 +356,36 @@ export const examplePlayerFormation: Formation = {
 const plusShapeEscort: RoomTemplate = {
     floorCountRequirement: 1,
     slots: [
-        { position: { x: 2, y: 1 }, threatWeight: 0.15, requiredTags: ['tank'] },
-        { position: { x: 1, y: 2 }, threatWeight: 0.15, requiredTags: ['tank'] },
-        { position: { x: 2, y: 2 }, threatWeight: 0.4, requiredTags: ['mage'] },
-        { position: { x: 3, y: 2 }, threatWeight: 0.15, requiredTags: ['tank'] },
-        { position: { x: 2, y: 3 }, threatWeight: 0.15, requiredTags: ['tank'] },
+        {
+            position: { x: 2, y: 1 },
+            threatWeight: 0.15,
+            requiredRoles: [CharacterRole.TANK],
+            acceptableTags: [],
+        },
+        {
+            position: { x: 1, y: 2 },
+            threatWeight: 0.15,
+            requiredRoles: [CharacterRole.TANK],
+            acceptableTags: [],
+        },
+        {
+            position: { x: 2, y: 2 },
+            threatWeight: 0.4,
+            requiredRoles: [CharacterRole.ADC, CharacterRole.BRUISER],
+            acceptableTags: [],
+        },
+        {
+            position: { x: 3, y: 2 },
+            threatWeight: 0.15,
+            requiredRoles: [CharacterRole.TANK],
+            acceptableTags: [],
+        },
+        {
+            position: { x: 2, y: 3 },
+            threatWeight: 0.15,
+            requiredRoles: [CharacterRole.TANK],
+            acceptableTags: [],
+        },
     ],
 };
 const xShapeBalanced: RoomTemplate = {
@@ -362,85 +394,234 @@ const xShapeBalanced: RoomTemplate = {
         {
             position: { x: 1, y: 1 },
             threatWeight: 0.2,
-            requiredTags: ['hexer', 'support', 'healer'],
+            requiredRoles: [CharacterRole.HEXER, CharacterRole.SUPPORT, CharacterRole.HEALER],
+            acceptableTags: [],
         },
         {
             position: { x: 3, y: 1 },
             threatWeight: 0.2,
-            requiredTags: ['hexer', 'support', 'healer'],
+            requiredRoles: [CharacterRole.HEXER, CharacterRole.SUPPORT, CharacterRole.HEALER],
+            acceptableTags: [],
         },
-        { position: { x: 2, y: 2 }, threatWeight: 0.2, requiredTags: ['bruiser'] },
-        { position: { x: 1, y: 3 }, threatWeight: 0.2, requiredTags: ['tank'] },
-        { position: { x: 3, y: 3 }, threatWeight: 0.2, requiredTags: ['tank'] },
+        {
+            position: { x: 2, y: 2 },
+            threatWeight: 0.2,
+            requiredRoles: [CharacterRole.BRUISER],
+            acceptableTags: [],
+        },
+        {
+            position: { x: 1, y: 3 },
+            threatWeight: 0.2,
+            requiredRoles: [CharacterRole.TANK],
+            acceptableTags: [],
+        },
+        {
+            position: { x: 3, y: 3 },
+            threatWeight: 0.2,
+            requiredRoles: [CharacterRole.TANK],
+            acceptableTags: [],
+        },
     ],
 };
 const rowShape: RoomTemplate = {
     floorCountRequirement: 0,
     slots: [
-        { position: { x: 1, y: 2 }, threatWeight: 1, requiredTags: ['mage', 'dot'] },
-        { position: { x: 2, y: 2 }, threatWeight: 1, requiredTags: ['bruiser'] },
-        { position: { x: 3, y: 2 }, threatWeight: 1, requiredTags: ['mage', 'dot'] },
+        {
+            position: { x: 1, y: 2 },
+            threatWeight: 1,
+            requiredRoles: [CharacterRole.DOT, CharacterRole.AREA_MAGE],
+            acceptableTags: [],
+        },
+        {
+            position: { x: 2, y: 2 },
+            threatWeight: 1,
+            requiredRoles: [CharacterRole.BRUISER],
+            acceptableTags: [],
+        },
+        {
+            position: { x: 3, y: 2 },
+            threatWeight: 1,
+            requiredRoles: [CharacterRole.DOT, CharacterRole.AREA_MAGE],
+            acceptableTags: [],
+        },
     ],
 };
 const rowShapePhalanx: RoomTemplate = {
     floorCountRequirement: 0,
     slots: [
-        { position: { x: 1, y: 2 }, threatWeight: 1, requiredTags: ['tank'] },
-        { position: { x: 2, y: 2 }, threatWeight: 1, requiredTags: ['tank'] },
-        { position: { x: 3, y: 2 }, threatWeight: 1, requiredTags: ['tank'] },
+        {
+            position: { x: 1, y: 2 },
+            threatWeight: 1,
+            requiredRoles: [CharacterRole.TANK],
+            acceptableTags: [],
+        },
+        {
+            position: { x: 2, y: 2 },
+            threatWeight: 1,
+            requiredRoles: [CharacterRole.TANK],
+            acceptableTags: [],
+        },
+        {
+            position: { x: 3, y: 2 },
+            threatWeight: 1,
+            requiredRoles: [CharacterRole.TANK],
+            acceptableTags: [],
+        },
     ],
 };
 const frontlineBacklineShape: RoomTemplate = {
     floorCountRequirement: 2,
     slots: [
-        { position: { x: 1, y: 2 }, threatWeight: 1, requiredTags: ['mage'] },
-        { position: { x: 2, y: 2 }, threatWeight: 1, requiredTags: ['mage'] },
-        { position: { x: 3, y: 2 }, threatWeight: 1, requiredTags: ['mage'] },
-        { position: { x: 1, y: 3 }, threatWeight: 1, requiredTags: ['tank'] },
-        { position: { x: 2, y: 3 }, threatWeight: 1, requiredTags: ['tank'] },
-        { position: { x: 3, y: 3 }, threatWeight: 1, requiredTags: ['tank'] },
+        {
+            position: { x: 1, y: 2 },
+            threatWeight: 1,
+            requiredRoles: [CharacterRole.TARGET_MAGE],
+            acceptableTags: [],
+        },
+        {
+            position: { x: 2, y: 2 },
+            threatWeight: 1,
+            requiredRoles: [CharacterRole.TARGET_MAGE],
+            acceptableTags: [],
+        },
+        {
+            position: { x: 3, y: 2 },
+            threatWeight: 1,
+            requiredRoles: [CharacterRole.TARGET_MAGE],
+            acceptableTags: [],
+        },
+        {
+            position: { x: 1, y: 3 },
+            threatWeight: 1,
+            requiredRoles: [CharacterRole.TANK],
+            acceptableTags: [],
+        },
+        {
+            position: { x: 2, y: 3 },
+            threatWeight: 1,
+            requiredRoles: [CharacterRole.TANK],
+            acceptableTags: [],
+        },
+        {
+            position: { x: 3, y: 3 },
+            threatWeight: 1,
+            requiredRoles: [CharacterRole.TANK],
+            acceptableTags: [],
+        },
     ],
 };
 const triforceMage: RoomTemplate = {
     floorCountRequirement: 0,
     slots: [
-        { position: { x: 2, y: 1 }, threatWeight: 0.5, requiredTags: ['mage', 'dot'] },
-        { position: { x: 1, y: 2 }, threatWeight: 0.25, requiredTags: ['tank'] },
-        { position: { x: 3, y: 2 }, threatWeight: 0.25, requiredTags: ['tank'] },
+        {
+            position: { x: 2, y: 1 },
+            threatWeight: 0.5,
+            requiredRoles: [CharacterRole.TARGET_MAGE, CharacterRole.DOT],
+            acceptableTags: [],
+        },
+        {
+            position: { x: 1, y: 2 },
+            threatWeight: 0.25,
+            requiredRoles: [CharacterRole.TANK],
+            acceptableTags: [],
+        },
+        {
+            position: { x: 3, y: 2 },
+            threatWeight: 0.25,
+            requiredRoles: [CharacterRole.TANK],
+            acceptableTags: [],
+        },
     ],
 };
 const triforceADC: RoomTemplate = {
     floorCountRequirement: 0,
     slots: [
-        { position: { x: 2, y: 1 }, threatWeight: 0.5, requiredTags: ['adc'] },
-        { position: { x: 1, y: 2 }, threatWeight: 0.25, requiredTags: ['tank'] },
-        { position: { x: 3, y: 2 }, threatWeight: 0.25, requiredTags: ['tank'] },
+        {
+            position: { x: 2, y: 1 },
+            threatWeight: 0.5,
+            requiredRoles: [CharacterRole.ADC],
+            acceptableTags: [],
+        },
+        {
+            position: { x: 1, y: 2 },
+            threatWeight: 0.25,
+            requiredRoles: [CharacterRole.TANK],
+            acceptableTags: [],
+        },
+        {
+            position: { x: 3, y: 2 },
+            threatWeight: 0.25,
+            requiredRoles: [CharacterRole.TANK],
+            acceptableTags: [],
+        },
     ],
 };
 const splitDuo: RoomTemplate = {
     floorCountRequirement: 0,
     slots: [
-        { position: { x: 1, y: 2 }, threatWeight: 0.5, requiredTags: ['bruiser'] },
-        { position: { x: 3, y: 2 }, threatWeight: 0.5, requiredTags: ['bruiser'] },
+        {
+            position: { x: 1, y: 2 },
+            threatWeight: 0.5,
+            requiredRoles: [CharacterRole.BRUISER],
+            acceptableTags: [],
+        },
+        {
+            position: { x: 3, y: 2 },
+            threatWeight: 0.5,
+            requiredRoles: [CharacterRole.BRUISER],
+            acceptableTags: [],
+        },
     ],
 };
 const splitDuoHexer: RoomTemplate = {
     floorCountRequirement: 0,
     slots: [
-        { position: { x: 1, y: 2 }, threatWeight: 0.5, requiredTags: ['hexer'] },
-        { position: { x: 3, y: 2 }, threatWeight: 0.5, requiredTags: ['bruiser'] },
+        {
+            position: { x: 1, y: 2 },
+            threatWeight: 0.5,
+            requiredRoles: [CharacterRole.HEXER],
+            acceptableTags: [],
+        },
+        {
+            position: { x: 3, y: 2 },
+            threatWeight: 0.5,
+            requiredRoles: [CharacterRole.BRUISER],
+            acceptableTags: [],
+        },
     ],
 };
 const solo: RoomTemplate = {
     floorCountRequirement: 0,
-    slots: [{ position: { x: 2, y: 2 }, threatWeight: 1, requiredTags: ['bruiser', 'tank'] }],
+    slots: [
+        {
+            position: { x: 2, y: 2 },
+            threatWeight: 1,
+            requiredRoles: [CharacterRole.BRUISER, CharacterRole.TANK],
+            acceptableTags: [],
+        },
+    ],
 };
 const dameDelilah: RoomTemplate = {
     floorCountRequirement: 4,
     slots: [
-        { position: { x: 2, y: 2 }, threatWeight: 1, requiredTags: ['dame_delilah'] },
-        { position: { x: 3, y: 3 }, threatWeight: 1, requiredTags: ['tank'] },
-        { position: { x: 1, y: 3 }, threatWeight: 1, requiredTags: ['tank'] },
+        {
+            position: { x: 2, y: 2 },
+            threatWeight: 1,
+            requiredRoles: [CharacterRole.BOSS],
+            acceptableTags: ['dame_delilah'],
+        },
+        {
+            position: { x: 3, y: 3 },
+            threatWeight: 1,
+            requiredRoles: [CharacterRole.TANK],
+            acceptableTags: [],
+        },
+        {
+            position: { x: 1, y: 3 },
+            threatWeight: 1,
+            requiredRoles: [CharacterRole.TANK],
+            acceptableTags: [],
+        },
     ],
 };
 export const roomTemplates: RoomTemplate[] = [

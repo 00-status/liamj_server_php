@@ -47,15 +47,21 @@ export const buildMonsterFormation = (
                 monster.threatScore >= minimumThreatScore &&
                 monster.threatScore <= maximumThreatScore;
 
-            if (slot.requiredTags.length === 0) {
+            if (slot.acceptableTags.length === 0) {
                 return isMonsterInThreshold;
             }
 
-            const doesMeetRequirements = !!monster.tags.find((monsterTag) =>
-                slot.requiredTags.find((slotTag) => slotTag === monsterTag),
+            const hasCorrectRole = !!monster.tags.find((monsterRole) =>
+                slot.requiredRoles.find((slotTag) => slotTag === monsterRole),
             );
 
-            return isMonsterInThreshold && doesMeetRequirements;
+            const doesMeetRequirements =
+                monster.tags.length === 0 ||
+                !!monster.tags.find((monsterTag) =>
+                    slot.acceptableTags.find((slotTag) => slotTag === monsterTag),
+                );
+
+            return isMonsterInThreshold && hasCorrectRole && doesMeetRequirements;
         });
 
         let candidatePool = candidateMonsters;

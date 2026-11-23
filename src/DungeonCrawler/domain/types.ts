@@ -1,7 +1,8 @@
 export interface CombatantSlot {
     position: Position;
     threatWeight: number;
-    requiredTags: string[];
+    requiredRoles: CharacterRole[];
+    acceptableTags: string[];
 }
 
 export interface RoomTemplate {
@@ -71,7 +72,7 @@ export enum CharacterRole {
     BRUISER = 'bruiser',
     DOT = 'dot',
     HEALER = 'healer',
-    HEXXER = 'hexer',
+    HEXER = 'hexer',
     MINION = 'minion',
     SUMMONER = 'summoner',
     SUPPORT = 'support',
