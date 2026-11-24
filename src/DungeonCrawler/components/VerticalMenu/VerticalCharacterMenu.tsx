@@ -44,6 +44,23 @@ export const VerticalCharacterMenu = ({
     const navigate = useNavigate();
     const [currentMenuState, setCurrentMenuState] = useState<MenuState>(MenuState.STATS);
 
+    const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);
+    const currentCharacter = playerCharacters[currentCharacterIndex];
+
+    const onNextCharacter = (isMovingForward: boolean) => {
+        const lastIndex = playerCharacters.length - 1;
+
+        if (isMovingForward && currentCharacterIndex < lastIndex) {
+            setCurrentCharacterIndex(currentCharacterIndex + 1);
+        } else if (isMovingForward) {
+            setCurrentCharacterIndex(0);
+        } else if (!isMovingForward && currentCharacterIndex > 0) {
+            setCurrentCharacterIndex(currentCharacterIndex - 1);
+        } else {
+            setCurrentCharacterIndex(lastIndex);
+        }
+    };
+
     return (
         <>
             <div
@@ -119,14 +136,15 @@ export const VerticalCharacterMenu = ({
                     )}
                     {currentMenuState === MenuState.STATS && (
                         <div>
-                            {playerCharacters.map((playerCharacter) => (
+                            {currentCharacter && (
                                 <CharacterStatCard
-                                    key={`stat-card-${playerCharacter.id}`}
-                                    character={playerCharacter}
+                                    key={`stat-card-${currentCharacter.id}`}
+                                    character={currentCharacter}
                                     purchasedEquipment={purchasedEquipment}
                                     onEquipmentSelect={onEquipmentSelect}
+                                    onNextCharacter={onNextCharacter}
                                 />
-                            ))}
+                            )}
                         </div>
                     )}
                 </div>
