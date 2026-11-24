@@ -1,9 +1,37 @@
 .character-stat-card {
     padding: 4px 12px;
     margin-bottom: 20px;
+}
 
-    border: 2px solid #f7f7f7;
-    border-radius: 4px;
+.character-stat-card__title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+}
+
+.character-stat-card__title-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.character-stat-card__title-button img {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.15s ease-in-out;
+}
+
+.character-stat-card__title-button:hover img {
+    transform: scale(1.2);
 }
 
 .character-stat-card__grid {

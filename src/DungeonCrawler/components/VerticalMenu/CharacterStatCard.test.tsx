@@ -69,6 +69,7 @@ describe('CharacterStatCard', () => {
                 character={mockCharacter}
                 purchasedEquipment={mockPurchasedEquipment}
                 onEquipmentSelect={onEquipmentSelect}
+                onNextCharacter={jest.fn()}
             />,
         );
 
@@ -98,6 +99,7 @@ describe('CharacterStatCard', () => {
                 character={mockCharacter}
                 purchasedEquipment={mockPurchasedEquipment}
                 onEquipmentSelect={onEquipmentSelect}
+                onNextCharacter={jest.fn()}
             />,
         );
 
@@ -105,6 +107,29 @@ describe('CharacterStatCard', () => {
         fireEvent.change(weaponSelect, { target: { value: 'weapon-1' } });
 
         expect(onEquipmentSelect).toHaveBeenCalledWith(null, 'weapon-1', 'char-1');
+    });
+
+    it('triggers onNextCharacter when clicking the left and right arrows', () => {
+        const onEquipmentSelect = jest.fn();
+        const onNextCharacter = jest.fn();
+
+        const { getByRole } = render(
+            <CharacterStatCard
+                character={mockCharacter}
+                purchasedEquipment={mockPurchasedEquipment}
+                onEquipmentSelect={onEquipmentSelect}
+                onNextCharacter={onNextCharacter}
+            />,
+        );
+
+        const previousButton = getByRole('button', { name: /previous character/i });
+        const nextButton = getByRole('button', { name: /next character/i });
+
+        fireEvent.click(previousButton);
+        expect(onNextCharacter).toHaveBeenCalledWith(false);
+
+        fireEvent.click(nextButton);
+        expect(onNextCharacter).toHaveBeenCalledWith(true);
     });
 
     it('allows equipping two different trinkets', () => {
@@ -121,6 +146,7 @@ describe('CharacterStatCard', () => {
                 character={mockCharacter}
                 purchasedEquipment={equipmentWithOneTrinket}
                 onEquipmentSelect={onEquipmentSelect}
+                onNextCharacter={jest.fn()}
             />,
         );
 

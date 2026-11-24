@@ -15,7 +15,7 @@
 }
 
 .vertical-character-menu {
-    width: 400px;
+    width: 500px;
     flex-shrink: 0;
     background-color: black;
 }

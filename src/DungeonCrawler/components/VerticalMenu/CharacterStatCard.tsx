@@ -15,16 +15,48 @@ type Props = {
         newEquippableID: string | null,
         characterID: string,
     ) => void;
+    onNextCharacter: (isMovingForward: boolean) => void;
 };
 
-export const CharacterStatCard = ({ character, purchasedEquipment, onEquipmentSelect }: Props) => {
+export const CharacterStatCard = ({
+    character,
+    purchasedEquipment,
+    onEquipmentSelect,
+    onNextCharacter,
+}: Props) => {
     const characterEquipment = useMemo(() => {
         return purchasedEquipment.filter((equipment) => equipment.characterID === character.id);
     }, [character, purchasedEquipment]);
 
     return (
         <div className="character-stat-card">
-            {character.name}
+            <div className="character-stat-card__title">
+                <button
+                    type="button"
+                    className="character-stat-card__title-button"
+                    aria-label="Previous character"
+                    onClick={() => onNextCharacter(false)}
+                >
+                    <img
+                        src="https://liamj.b-cdn.net/assets/images/dungeon_crawler/arrow_left.png"
+                        alt=""
+                        aria-hidden="true"
+                    />
+                </button>
+                <h2>{character.name}</h2>
+                <button
+                    type="button"
+                    className="character-stat-card__title-button"
+                    aria-label="Next character"
+                    onClick={() => onNextCharacter(true)}
+                >
+                    <img
+                        src="https://liamj.b-cdn.net/assets/images/dungeon_crawler/arrow_right.png"
+                        alt=""
+                        aria-hidden="true"
+                    />
+                </button>
+            </div>
             <div>
                 <span className="character-stat-card__hit-points">HP</span>
                 <span>{` ${character.currentHP}/${getCharacterStat(character, characterEquipment, BaseStatNames.healthPoints)}`}</span>
