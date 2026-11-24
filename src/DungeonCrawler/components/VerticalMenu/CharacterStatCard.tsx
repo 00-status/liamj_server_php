@@ -15,16 +15,36 @@ type Props = {
         newEquippableID: string | null,
         characterID: string,
     ) => void;
+    onNextCharacter: (isMovingForward: boolean) => void;
 };
 
-export const CharacterStatCard = ({ character, purchasedEquipment, onEquipmentSelect }: Props) => {
+export const CharacterStatCard = ({
+    character,
+    purchasedEquipment,
+    onEquipmentSelect,
+    onNextCharacter,
+}: Props) => {
     const characterEquipment = useMemo(() => {
         return purchasedEquipment.filter((equipment) => equipment.characterID === character.id);
     }, [character, purchasedEquipment]);
 
     return (
         <div className="character-stat-card">
-            {character.name}
+            <div className="character-stat-card__title">
+                <img
+                    className="character-stat-card__title-button"
+                    src="https://liamj.b-cdn.net/assets/images/dungeon_crawler/arrow_left.png"
+                    role="button"
+                    onClick={() => onNextCharacter(false)}
+                />
+                <h2>{character.name}</h2>
+                <img
+                    className="character-stat-card__title-button"
+                    src="https://liamj.b-cdn.net/assets/images/dungeon_crawler/arrow_right.png"
+                    role="button"
+                    onClick={() => onNextCharacter(true)}
+                />
+            </div>
             <div>
                 <span className="character-stat-card__hit-points">HP</span>
                 <span>{` ${character.currentHP}/${getCharacterStat(character, characterEquipment, BaseStatNames.healthPoints)}`}</span>
