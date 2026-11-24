@@ -7,17 +7,19 @@
 
 .character-equipment__select {
     width: 100%;
+    padding: 4px 8px;
+
     background-color: #000000;
     color: #f7f7f7;
     border: 1px solid #f7f7f7;
-    border-radius: 4px;
-    padding: 4px 8px;
-    font-size: 0.85rem;
+    border-radius: 2px;
+
+    font-size: 14px;
     font-weight: 500;
     font-family: inherit;
+
     cursor: pointer;
     outline: none;
-    transition: border-color 0.2s ease-in-out;
 }
 
 .character-equipment__select:hover,
