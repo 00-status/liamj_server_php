@@ -13,10 +13,24 @@
 }
 
 .character-stat-card__title-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.character-stat-card__title-button img {
     width: 16px;
     height: 16px;
+    transition: transform 0.15s ease-in-out;
 }
-.character-stat-card__title-button:hover {
+
+.character-stat-card__title-button:hover img {
     transform: scale(1.2);
 }
 

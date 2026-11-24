@@ -48,17 +48,19 @@ export const VerticalCharacterMenu = ({
     const currentCharacter = playerCharacters[currentCharacterIndex];
 
     const onNextCharacter = (isMovingForward: boolean) => {
-        const lastIndex = playerCharacters.length - 1;
-
-        if (isMovingForward && currentCharacterIndex < lastIndex) {
-            setCurrentCharacterIndex(currentCharacterIndex + 1);
-        } else if (isMovingForward) {
-            setCurrentCharacterIndex(0);
-        } else if (!isMovingForward && currentCharacterIndex > 0) {
-            setCurrentCharacterIndex(currentCharacterIndex - 1);
-        } else {
-            setCurrentCharacterIndex(lastIndex);
+        if (playerCharacters.length <= 1) {
+            return;
         }
+
+        setCurrentCharacterIndex((previousIndex) => {
+            const characterCount = playerCharacters.length;
+
+            if (isMovingForward) {
+                return (previousIndex + 1) % characterCount;
+            }
+
+            return (previousIndex - 1 + characterCount) % characterCount;
+        });
     };
 
     return (

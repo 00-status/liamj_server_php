@@ -31,19 +31,31 @@ export const CharacterStatCard = ({
     return (
         <div className="character-stat-card">
             <div className="character-stat-card__title">
-                <img
+                <button
+                    type="button"
                     className="character-stat-card__title-button"
-                    src="https://liamj.b-cdn.net/assets/images/dungeon_crawler/arrow_left.png"
-                    role="button"
+                    aria-label="Previous character"
                     onClick={() => onNextCharacter(false)}
-                />
+                >
+                    <img
+                        src="https://liamj.b-cdn.net/assets/images/dungeon_crawler/arrow_left.png"
+                        alt=""
+                        aria-hidden="true"
+                    />
+                </button>
                 <h2>{character.name}</h2>
-                <img
+                <button
+                    type="button"
                     className="character-stat-card__title-button"
-                    src="https://liamj.b-cdn.net/assets/images/dungeon_crawler/arrow_right.png"
-                    role="button"
+                    aria-label="Next character"
                     onClick={() => onNextCharacter(true)}
-                />
+                >
+                    <img
+                        src="https://liamj.b-cdn.net/assets/images/dungeon_crawler/arrow_right.png"
+                        alt=""
+                        aria-hidden="true"
+                    />
+                </button>
             </div>
             <div>
                 <span className="character-stat-card__hit-points">HP</span>

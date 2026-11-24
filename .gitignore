@@ -5,3 +5,5 @@
 /scripts/
 /secrets/
 /plans/
+
+.DS_Store
