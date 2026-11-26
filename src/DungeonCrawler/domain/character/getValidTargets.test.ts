@@ -63,6 +63,51 @@ describe('getValidTargets', () => {
     const caster = combatants[0]; // c11
     const target = combatants[4]; // c22 (center)
 
+    it('returns caster for TargetScope.self', () => {
+        const targets = getValidTargets(caster, target, formation, TargetScope.self);
+        expect(targets).toHaveLength(1);
+        expect(targets[0].id).toBe(caster.id);
+    });
+
+    it('returns only target for TargetScope.target', () => {
+        const targets = getValidTargets(caster, target, formation, TargetScope.target);
+        expect(targets).toHaveLength(1);
+        expect(targets[0].id).toBe(target.id);
+    });
+
+    it('returns all combatants for TargetScope.entire_formation', () => {
+        const targets = getValidTargets(caster, target, formation, TargetScope.entire_formation);
+        expect(targets).toHaveLength(9);
+    });
+
+    it('returns adjacent combatants excluding target for TargetScope.adjacent', () => {
+        const targets = getValidTargets(caster, target, formation, TargetScope.adjacent);
+        const targetIds = targets.map((combatant) => combatant.id);
+        expect(targetIds).toEqual(expect.arrayContaining(['c21', 'c12', 'c32', 'c23']));
+        expect(targetIds).toHaveLength(4);
+    });
+
+    it('returns target and adjacent combatants for TargetScope.target_and_adjacent', () => {
+        const targets = getValidTargets(caster, target, formation, TargetScope.target_and_adjacent);
+        const targetIds = targets.map((combatant) => combatant.id);
+        expect(targetIds).toEqual(expect.arrayContaining(['c21', 'c12', 'c22', 'c32', 'c23']));
+        expect(targetIds).toHaveLength(5);
+    });
+
+    it('returns surrounding combatants excluding target for TargetScope.surrounding', () => {
+        const targets = getValidTargets(caster, target, formation, TargetScope.surrounding);
+        const targetIds = targets.map((combatant) => combatant.id);
+        expect(targetIds).toEqual(
+            expect.arrayContaining(['c11', 'c21', 'c31', 'c12', 'c32', 'c13', 'c23', 'c33']),
+        );
+        expect(targetIds).toHaveLength(8);
+    });
+
+    it('returns target and surrounding combatants for TargetScope.target_and_surrounding', () => {
+        const targets = getValidTargets(caster, target, formation, TargetScope.target_and_surrounding);
+        expect(targets).toHaveLength(9);
+    });
+
     it('returns target and column combatants for TargetScope.target_and_column', () => {
         const targets = getValidTargets(caster, target, formation, TargetScope.target_and_column);
         const targetIds = targets.map((combatant) => combatant.id);
@@ -133,14 +178,14 @@ describe('getValidTargets', () => {
         expect(targetIds).toHaveLength(2);
     });
 
-    it('returns all combatants above the target for TargetScope.above_target', () => {
+    it('returns combatants in the same column above the target for TargetScope.above_target', () => {
         const targets = getValidTargets(caster, target, formation, TargetScope.above_target);
         const targetIds = targets.map((combatant) => combatant.id);
-        expect(targetIds).toEqual(expect.arrayContaining(['c11', 'c21', 'c31']));
-        expect(targetIds).toHaveLength(3);
+        expect(targetIds).toEqual(['c21']);
+        expect(targetIds).toHaveLength(1);
     });
 
-    it('returns all combatants above the row for TargetScope.above_row', () => {
+    it('returns all combatants in any column above the target row for TargetScope.above_row', () => {
         const targets = getValidTargets(caster, target, formation, TargetScope.above_row);
         const targetIds = targets.map((combatant) => combatant.id);
         expect(targetIds).toEqual(expect.arrayContaining(['c11', 'c21', 'c31']));
