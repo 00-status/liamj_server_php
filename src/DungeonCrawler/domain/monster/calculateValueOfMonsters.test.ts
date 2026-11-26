@@ -1,4 +1,4 @@
-import type { MonsterCharacter } from '../types';
+import { CharacterRole, type MonsterCharacter } from '../types';
 
 import { calculateValueOfMonsters } from './calculateValueOfMonsters';
 
@@ -7,6 +7,7 @@ describe('calculateValueOfCharacters', () => {
         id: 'test-char',
         name: 'Test Character',
         threatScore,
+        role: CharacterRole.TANK,
         tags: [],
         currentHP: 100,
         currentMP: 10,
