@@ -177,6 +177,18 @@ export enum TargetScope {
     target_and_surrounding = 'target_and_surrounding',
     surrounding = 'surrounding',
     entire_formation = 'entire_formation',
+    target_and_column = 'target_and_column',
+    column = 'column',
+    target_and_row = 'target_and_row',
+    row = 'row',
+    target_and_diagonal = 'target_and_diagonal',
+    diagonal = 'diagonal',
+    target_and_backslash = 'target_and_backslash',
+    backslash = 'backslash',
+    target_and_forwardslash = 'target_and_forwardslash',
+    forwardslash = 'forwardslash',
+    above_target = 'above_target',
+    above_row = 'above_row',
 }
 
 export interface DamageLogMessage {
