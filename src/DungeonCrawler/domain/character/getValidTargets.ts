@@ -16,45 +16,64 @@ export const getValidTargets = (
     formationOfTarget: Formation,
     targetScope: TargetScope,
 ): Combatant[] => {
-    switch (targetScope) {
-        case TargetScope.self:
-            return [structuredClone(caster)];
-        case TargetScope.target:
-            return [structuredClone(target)];
-        case TargetScope.entire_formation:
-            return formationOfTarget.combatants.map((combatant) => structuredClone(combatant));
-        case TargetScope.adjacent:
-            return getAdjacentCombatants(target, formationOfTarget.combatants);
-        case TargetScope.surrounding:
-            return getAdjacentCombatants(target, formationOfTarget.combatants, true, false);
-        case TargetScope.target_and_adjacent:
-            return getAdjacentCombatants(target, formationOfTarget.combatants, false, true);
-        case TargetScope.target_and_surrounding:
-            return getAdjacentCombatants(target, formationOfTarget.combatants, true, true);
-        default:
-            return [];
+    if (targetScope === TargetScope.self) {
+        return [structuredClone(caster)];
     }
+
+    return formationOfTarget.combatants
+        .filter((combatant) => matchesScope(combatant, target, targetScope))
+        .map((combatant) => structuredClone(combatant));
 };
 
-const getAdjacentCombatants = (
+const matchesScope = (
+    combatant: Combatant,
     target: Combatant,
-    allCombatants: Combatant[],
-    includeDiagonals = false,
-    includeTarget = true,
-): Combatant[] => {
-    return allCombatants
-        .filter((combatant) => {
-            if (combatant.id === target.id && !includeTarget) {
-                return false;
-            }
+    targetScope: TargetScope,
+): boolean => {
+    const isTarget = combatant.id === target.id;
+    const xDifference = combatant.position.x - target.position.x;
+    const yDifference = combatant.position.y - target.position.y;
+    const horizontalDistance = Math.abs(xDifference);
+    const verticalDistance = Math.abs(yDifference);
 
-            const rowDiff = Math.abs(combatant.position.x - target.position.x);
-            const colDiff = Math.abs(combatant.position.y - target.position.y);
-
-            if (includeDiagonals) {
-                return rowDiff <= 1 && colDiff <= 1; // Chebyshev distance
-            }
-            return rowDiff + colDiff <= 1; // Manhattan distance (Up/Down/Left/Right)
-        })
-        .map((combatant) => structuredClone(combatant));
+    switch (targetScope) {
+        case TargetScope.target:
+            return isTarget;
+        case TargetScope.entire_formation:
+            return true;
+        case TargetScope.adjacent:
+            return !isTarget && horizontalDistance + verticalDistance <= 1;
+        case TargetScope.target_and_adjacent:
+            return horizontalDistance + verticalDistance <= 1;
+        case TargetScope.surrounding:
+            return !isTarget && horizontalDistance <= 1 && verticalDistance <= 1;
+        case TargetScope.target_and_surrounding:
+            return horizontalDistance <= 1 && verticalDistance <= 1;
+        case TargetScope.column:
+            return !isTarget && xDifference === 0;
+        case TargetScope.target_and_column:
+            return xDifference === 0;
+        case TargetScope.row:
+            return !isTarget && yDifference === 0;
+        case TargetScope.target_and_row:
+            return yDifference === 0;
+        case TargetScope.diagonal:
+            return !isTarget && horizontalDistance === verticalDistance;
+        case TargetScope.target_and_diagonal:
+            return horizontalDistance === verticalDistance;
+        case TargetScope.backslash:
+            return !isTarget && xDifference === yDifference;
+        case TargetScope.target_and_backslash:
+            return xDifference === yDifference;
+        case TargetScope.forwardslash:
+            return !isTarget && xDifference === -yDifference;
+        case TargetScope.target_and_forwardslash:
+            return xDifference === -yDifference;
+        case TargetScope.above_target:
+            return xDifference === 0 && yDifference < 0;
+        case TargetScope.above_row:
+            return yDifference < 0;
+        default:
+            return false;
+    }
 };

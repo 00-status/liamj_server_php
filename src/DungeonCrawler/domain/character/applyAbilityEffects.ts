@@ -110,6 +110,10 @@ export const applyAbilityEffects = (
             pointEffect.target,
         );
 
+        if (targets.length <= 0) {
+            continue;
+        }
+
         const modifiedScalingStat = getCharacterStat(
             caster.character,
             casterEquippables,

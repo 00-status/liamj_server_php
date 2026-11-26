@@ -1,3 +1,10 @@
 {
-  "checkpointing": { "enabled": true }
+    "checkpointing": { "enabled": true },
+    "tools": {
+        "allowed": [
+            "run_shell_command(npm test)",
+            "run_shell_command(npx tsc --noEmit)",
+            "run_shell_command(npx eslint)"
+        ]
+    }
 }
